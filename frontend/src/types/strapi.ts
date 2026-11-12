@@ -17,6 +17,7 @@ export interface StrapiMedia {
   documentId?: string;
   url: string;
   alternativeText?: string | null;
+  mime?: string | null;
   width?: number | null;
   height?: number | null;
 }
@@ -158,6 +159,8 @@ export interface HeroSection {
   secondaryCtaLabel?: string | null;
   secondaryCtaHref?: string | null;
   backgroundImage?: StrapiMedia | null;
+  backgroundVideo?: StrapiMedia | null;
+  backgroundVideoUrl?: string | null;
 }
 
 export interface PartnerStripSection {

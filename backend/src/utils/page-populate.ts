@@ -28,7 +28,7 @@ export const PAGE_POPULATE = {
   sections: {
     on: {
       'sections.hero': {
-        populate: ['backgroundImage'],
+        populate: ['backgroundImage', 'backgroundVideo'],
       },
       'sections.partner-strip': {
         populate: {

@@ -63,6 +63,59 @@
   background: var(--ink);
 }
 
+.walstar-btn,
+.btn,
+.rm,
+.vb,
+.go i {
+  position: relative;
+  overflow: hidden;
+}
+
+.walstar-btn::before,
+.btn::before,
+.rm::before,
+.vb::before,
+.go i::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    112deg,
+    rgba(255, 255, 255, 0) 15%,
+    rgba(255, 255, 255, 0.14) 38%,
+    rgba(255, 255, 255, 0.48) 50%,
+    rgba(255, 255, 255, 0.14) 62%,
+    rgba(255, 255, 255, 0) 85%
+  );
+  transform: translateX(-130%) skewX(-20deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.walstar-btn:hover::before,
+.walstar-btn:focus-visible::before,
+.btn:hover::before,
+.btn:focus-visible::before,
+.rm:hover::before,
+.rm:focus-visible::before,
+.vb:hover::before,
+.vb:focus-visible::before,
+.go:hover i::before,
+.go:focus-visible i::before {
+  opacity: 1;
+  animation: walstar-btn-shimmer 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes walstar-btn-shimmer {
+  0% {
+    transform: translateX(-130%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-20deg);
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -114,8 +167,8 @@
 .btn-or:focus-visible {
   background: #eb6118;
   box-shadow:
-    0 10px 26px rgba(244, 105, 31, 0.55),
-    0 0 18px rgba(244, 105, 31, 0.44);
+    0 5px 14px rgba(244, 105, 31, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .btn-bl {
@@ -127,14 +180,15 @@
 .btn-bl:focus-visible {
   background: #2073f5;
   box-shadow:
-    0 10px 26px rgba(47, 128, 255, 0.52),
-    0 0 18px rgba(47, 128, 255, 0.4);
+    0 5px 14px rgba(47, 128, 255, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
 }
 
 .btn-gh {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
 }
 
 .btn-gh:hover,
@@ -142,8 +196,8 @@
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.55);
   box-shadow:
-    0 8px 24px rgba(159, 196, 255, 0.34),
-    0 0 16px rgba(255, 255, 255, 0.24);
+    0 4px 12px rgba(159, 196, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
 .center {
@@ -206,6 +260,36 @@
     linear-gradient(180deg, rgba(14, 15, 58, 0.55), rgba(14, 15, 58, 0.85)),
     radial-gradient(circle at 70% 30%, #3a5bd9 0, transparent 45%),
     linear-gradient(135deg, #1c2a6b, #0b0d33 70%);
+}
+
+.hero-bg-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hero-bg-video {
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-bg-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 13, 51, 0.56) 0%,
+    rgba(11, 13, 51, 0.42) 48%,
+    rgba(11, 13, 51, 0.78) 100%
+  );
 }
 
 .hero-nav {
@@ -1186,8 +1270,8 @@
   transform: translateY(-2px);
   background: #2073f5;
   box-shadow:
-    0 8px 22px rgba(47, 128, 255, 0.5),
-    0 0 14px rgba(47, 128, 255, 0.38);
+    0 4px 12px rgba(47, 128, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
 /* trusted */
@@ -2187,8 +2271,8 @@
 .go:focus-visible i {
   background: #eb6118;
   box-shadow:
-    0 10px 26px rgba(244, 105, 31, 0.55),
-    0 0 18px rgba(244, 105, 31, 0.44);
+    0 5px 14px rgba(244, 105, 31, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .go:hover .walstar-btn-arrow,
@@ -2854,8 +2938,8 @@
   transform: translateY(-2px);
   opacity: 1;
   box-shadow:
-    0 8px 22px rgba(59, 158, 255, 0.44),
-    0 0 14px rgba(59, 158, 255, 0.32);
+    0 4px 12px rgba(59, 158, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .of.hq .vb {
@@ -2867,8 +2951,8 @@
 .of.hq .vb:focus-visible {
   background: #52afff;
   box-shadow:
-    0 8px 24px rgba(59, 158, 255, 0.58),
-    0 0 16px rgba(59, 158, 255, 0.42);
+    0 4px 12px rgba(59, 158, 255, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 900px) {
@@ -2941,7 +3025,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tick div {
+  .tick div,
+  .walstar-btn:hover::before,
+  .walstar-btn:focus-visible::before,
+  .btn:hover::before,
+  .btn:focus-visible::before,
+  .rm:hover::before,
+  .rm:focus-visible::before,
+  .vb:hover::before,
+  .vb:focus-visible::before,
+  .go:hover i::before,
+  .go:focus-visible i::before {
     animation: none;
   }
 }

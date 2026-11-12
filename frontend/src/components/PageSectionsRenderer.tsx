@@ -12,6 +12,7 @@ import {
   WhyChooseBlock,
 } from '@/components/AboutSections';
 import { ConsultationForm } from '@/components/ConsultationForm';
+import { HeroBackgroundVideo } from '@/components/HeroBackgroundVideo';
 import { renderHeadingParts } from '@/components/SectionPrimitives';
 import { TestimonialsCarousel } from '@/components/TestimonialsCarousel';
 import {
@@ -83,6 +84,20 @@ function renderMultilineTitle(text: string) {
   );
 }
 
+function isVideoAsset(url?: string | null, mime?: string | null) {
+  if (mime?.toLowerCase().startsWith('video/')) return true;
+  return Boolean(url && /\.(mp4|webm|ogg|m4v|mov)(?:[?#].*)?$/i.test(url));
+}
+
+function resolveHeroVideoUrl(rawUrl?: string | null): string | null {
+  const trimmed = rawUrl?.trim();
+  if (!trimmed) return null;
+  if (trimmed.startsWith('/') && !trimmed.startsWith('/uploads/')) {
+    return trimmed;
+  }
+  return getStrapiMediaUrl(trimmed);
+}
+
 function HeroBlock({
   section,
   navbar,
@@ -96,7 +111,12 @@ function HeroBlock({
   includeNavbar: boolean;
   currentPath?: string;
 }) {
-  const bgUrl = getStrapiMediaUrl(section.backgroundImage?.url);
+  const bgImageIsVideo = isVideoAsset(section.backgroundImage?.url, section.backgroundImage?.mime);
+  const bgImageUrl = bgImageIsVideo ? null : getStrapiMediaUrl(section.backgroundImage?.url);
+  const videoUrl =
+    resolveHeroVideoUrl(section.backgroundVideo?.url) ||
+    resolveHeroVideoUrl(section.backgroundVideoUrl) ||
+    (bgImageIsVideo ? resolveHeroVideoUrl(section.backgroundImage?.url) : null);
   const isCompact = section.variant === 'compact';
   const HeroWrapper = includeNavbar ? 'header' : 'section';
   const wrapperClass = includeNavbar
@@ -107,10 +127,15 @@ function HeroBlock({
 
   return (
     <HeroWrapper className={wrapperClass}>
-      {bgUrl ? (
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[26px]">
+      {videoUrl ? (
+        <div className="hero-bg-media">
+          <HeroBackgroundVideo src={videoUrl} poster={bgImageUrl} />
+          <div className="hero-bg-scrim" aria-hidden="true" />
+        </div>
+      ) : bgImageUrl ? (
+        <div className="hero-bg-media">
           <Image
-            src={bgUrl}
+            src={bgImageUrl}
             alt={section.backgroundImage?.alternativeText || section.headlinePrefix}
             fill
             sizes="100vw"

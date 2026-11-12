@@ -47,6 +47,14 @@
       "multiple": false,
       "allowedTypes": ["images"]
     },
+    "backgroundVideo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["videos"]
+    },
+    "backgroundVideoUrl": {
+      "type": "string"
+    },
     "variant": {
       "type": "enumeration",
       "enum": ["default", "compact"],

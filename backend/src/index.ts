@@ -60,12 +60,6 @@ async function seedSingleTypes(strapi: Core.Strapi): Promise<void> {
       data: INITIAL_SITE_SETTING,
       status: 'published',
     });
-  } else if (!existingSiteSetting.topbarEmail) {
-    await siteSettingService.update({
-      documentId: existingSiteSetting.documentId,
-      data: INITIAL_SITE_SETTING,
-      status: 'published',
-    });
   }
 }
 
@@ -75,39 +69,12 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
   for (const item of INITIAL_PAGES) {
     const existing = await pageDoc.findFirst({
       filters: { slug: item.slug },
-      populate: ['sections'],
     });
 
+    // Never modify or overwrite pages that already exist in Strapi.
     if (!existing) {
       await pageDoc.create({
         data: item as never,
-        status: 'published',
-      });
-      continue;
-    }
-
-    const existingSections = Array.isArray(existing.sections)
-      ? (existing.sections as Array<Record<string, unknown>>)
-      : [];
-
-    const isUntouchedLegacyAboutSeed =
-      item.slug === 'about-us' &&
-      existingSections.length === 5 &&
-      existingSections[0]?.__component === 'sections.hero' &&
-      existingSections[0]?.headlinePrefix === 'Engineering an' &&
-      existingSections[2]?.__component === 'sections.rich-content' &&
-      existingSections[2]?.tag === 'Why Walstar';
-
-    if (existingSections.length === 0 || isUntouchedLegacyAboutSeed) {
-      await pageDoc.update({
-        documentId: existing.documentId,
-        data: {
-          isHomepage: item.isHomepage,
-          pageType: item.pageType,
-          order: item.order,
-          seo: item.seo,
-          sections: item.sections,
-        } as never,
         status: 'published',
       });
     }
