@@ -48,6 +48,7 @@ export default factories.createCoreController(
           page,
           ...siteContext,
           navbar: (page as { navbar?: unknown } | null)?.navbar ?? siteContext.navbar,
+          footer: (page as { footer?: unknown } | null)?.footer ?? siteContext.footer,
         },
       };
     },

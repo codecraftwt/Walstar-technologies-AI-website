@@ -1,6 +1,7 @@
 import type { Core } from '@strapi/strapi';
 import {
   INITIAL_CASE_STUDIES,
+  INITIAL_FOOTER,
   INITIAL_NAVBAR,
   INITIAL_PAGES,
   INITIAL_PRODUCTS,
@@ -14,6 +15,9 @@ const PUBLIC_PERMISSIONS = [
   'api::navbar.navbar.find',
   'api::navbar.navbar.findOne',
   'api::navbar.navbar.active',
+  'api::footer.footer.find',
+  'api::footer.footer.findOne',
+  'api::footer.footer.active',
   'api::service.service.find',
   'api::service.service.findOne',
   'api::product.product.find',
@@ -119,6 +123,17 @@ async function seedCollections(strapi: Core.Strapi): Promise<void> {
   if (!existingNavbar && (await navbarDoc.count({})) === 0) {
     await navbarDoc.create({
       data: INITIAL_NAVBAR as never,
+      status: 'published',
+    });
+  }
+
+  const footerDoc = strapi.documents('api::footer.footer');
+  const existingFooter = await footerDoc.findFirst({
+    filters: { slug: INITIAL_FOOTER.slug },
+  });
+  if (!existingFooter && (await footerDoc.count({})) === 0) {
+    await footerDoc.create({
+      data: INITIAL_FOOTER as never,
       status: 'published',
     });
   }

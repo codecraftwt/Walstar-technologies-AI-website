@@ -17,6 +17,11 @@
       "required": true,
       "default": "Walstar Technologies"
     },
+    "siteLogo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
     "logoAccentText": {
       "type": "string",
       "default": "TECHNOLOGIES"
@@ -29,9 +34,19 @@
       "type": "email",
       "default": "sales@walstartechnologies.com"
     },
+    "topbarEmailIcon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
     "topbarPhone": {
       "type": "string",
       "default": "+919657764560"
+    },
+    "topbarPhoneIcon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
     },
     "socialLinks": {
       "type": "component",

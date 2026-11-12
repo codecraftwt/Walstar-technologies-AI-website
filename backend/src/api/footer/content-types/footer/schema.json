@@ -1,0 +1,106 @@
+{
+  "kind": "collectionType",
+  "collectionName": "footers",
+  "info": {
+    "singularName": "footer",
+    "pluralName": "footers",
+    "displayName": "Footer",
+    "description": "Manage footer logo, description, consultation box, headline, CTA button, link columns, contact details, social links, and copyright text"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "default": "Primary Footer"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "isDefault": {
+      "type": "boolean",
+      "default": true
+    },
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "logoAccentText": {
+      "type": "string",
+      "default": "TECHNOLOGIES PVT. LTD."
+    },
+    "aboutText": {
+      "type": "text"
+    },
+    "consultationShow": {
+      "type": "boolean",
+      "default": true
+    },
+    "consultationTitle": {
+      "type": "string",
+      "default": "Have Project in mind?"
+    },
+    "consultationSubtitle": {
+      "type": "string",
+      "default": "Let's create something great"
+    },
+    "consultationButtonLabel": {
+      "type": "string",
+      "default": "Free Consultation ↗"
+    },
+    "headlinePrefix": {
+      "type": "string",
+      "default": "Build"
+    },
+    "headlineSerif": {
+      "type": "string",
+      "default": "AI Products"
+    },
+    "headlineSuffix": {
+      "type": "string",
+      "default": "that actually Ships."
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "Contact Now ↗"
+    },
+    "ctaRoute": {
+      "type": "string",
+      "default": "/contact"
+    },
+    "ctaOpenInNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "linkColumns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "footer.footer-column"
+    },
+    "officeAddress": {
+      "type": "text"
+    },
+    "officePhones": {
+      "type": "text"
+    },
+    "contactEmail": {
+      "type": "email",
+      "default": "info@walstartechnologies.com"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.social-link"
+    },
+    "copyrightText": {
+      "type": "string",
+      "default": "Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy"
+    }
+  }
+}

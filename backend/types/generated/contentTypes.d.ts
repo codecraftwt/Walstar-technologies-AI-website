@@ -523,6 +523,68 @@ export interface ApiConsultationLeadConsultationLead
   };
 }
 
+export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
+  collectionName: 'footers';
+  info: {
+    description: 'Manage footer logo, description, consultation box, headline, CTA button, link columns, contact details, social links, and copyright text';
+    displayName: 'Footer';
+    pluralName: 'footers';
+    singularName: 'footer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutText: Schema.Attribute.Text;
+    consultationButtonLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Free Consultation \u2197'>;
+    consultationShow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    consultationSubtitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"Let's create something great">;
+    consultationTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Have Project in mind?'>;
+    contactEmail: Schema.Attribute.Email &
+      Schema.Attribute.DefaultTo<'info@walstartechnologies.com'>;
+    copyrightText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Contact Now \u2197'>;
+    ctaOpenInNewTab: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    ctaRoute: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/contact'>;
+    headlinePrefix: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Build'>;
+    headlineSerif: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'AI Products'>;
+    headlineSuffix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'that actually Ships.'>;
+    isDefault: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    linkColumns: Schema.Attribute.Component<'footer.footer-column', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::footer.footer'
+    > &
+      Schema.Attribute.Private;
+    logoAccentText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'TECHNOLOGIES PVT. LTD.'>;
+    logoImage: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Primary Footer'>;
+    officeAddress: Schema.Attribute.Text;
+    officePhones: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    socialLinks: Schema.Attribute.Component<'shared.social-link', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNavbarNavbar extends Struct.CollectionTypeSchema {
   collectionName: 'navbars';
   info: {
@@ -582,6 +644,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     isHomepage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    footer: Schema.Attribute.Relation<'manyToOne', 'api::footer.footer'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
       Schema.Attribute.Private;
@@ -757,6 +820,7 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
     officeAddress: Schema.Attribute.Text;
     officePhones: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
+    siteLogo: Schema.Attribute.Media<'images'>;
     siteName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Walstar Technologies'>;
@@ -764,8 +828,10 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
     tagline: Schema.Attribute.String;
     topbarEmail: Schema.Attribute.Email &
       Schema.Attribute.DefaultTo<'sales@walstartechnologies.com'>;
+    topbarEmailIcon: Schema.Attribute.Media<'images'>;
     topbarPhone: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'+919657764560'>;
+    topbarPhoneIcon: Schema.Attribute.Media<'images'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1329,6 +1395,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::consultation-lead.consultation-lead': ApiConsultationLeadConsultationLead;
+      'api::footer.footer': ApiFooterFooter;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;

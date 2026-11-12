@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { WalstarButton } from './WalstarButton';
+import { WalstarButton, WalstarButtonArrow } from './WalstarButton';
 import {
   GlobalOfficesBlock,
   JourneyStatsBlock,
@@ -11,6 +11,7 @@ import {
   WhoWeAreBlock,
   WhyChooseBlock,
 } from '@/components/AboutSections';
+import { BeforeAfterSlider } from '@/components/BeforeAfterSlider';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { HeroBackgroundVideo } from '@/components/HeroBackgroundVideo';
 import { renderHeadingParts } from '@/components/SectionPrimitives';
@@ -552,14 +553,14 @@ function CapabilitiesBlock({
           </div>
 
           {stepThree ? (
-            <div className={stepThree.isHighlighted ? 'pc up3' : 'pc'}>
+            <div className="pc pc-top pc-step-3">
               <h4>{renderMultilineTitle(stepThree.title)}</h4>
               <p>{stepThree.description}</p>
             </div>
           ) : null}
 
           {stepFour ? (
-            <div className="pc">
+            <div className="pc pc-top pc-step-4">
               <h4>{renderMultilineTitle(stepFour.title)}</h4>
               <p>{stepFour.description}</p>
             </div>
@@ -573,14 +574,14 @@ function CapabilitiesBlock({
           </div>
 
           {stepOne ? (
-            <div className="pc">
+            <div className="pc pc-bottom pc-step-1">
               <h4>{renderMultilineTitle(stepOne.title)}</h4>
               <p>{stepOne.description}</p>
             </div>
           ) : null}
 
           {stepTwo ? (
-            <div className="pc">
+            <div className="pc pc-bottom pc-step-2">
               <h4>{renderMultilineTitle(stepTwo.title)}</h4>
               <p>{stepTwo.description}</p>
             </div>
@@ -590,7 +591,9 @@ function CapabilitiesBlock({
             {section.processNote ? <p>{section.processNote}</p> : null}
             {section.processVideoLabel ? (
               <Link className="vid" href={section.processVideoUrl || '#cta'}>
-                <i>↗</i>
+                <i>
+                  <WalstarButtonArrow className="vid-arrow" />
+                </i>
                 {section.processVideoLabel}
               </Link>
             ) : null}
@@ -830,22 +833,14 @@ function CaseStudiesBlock({
             <span className="serif">{section.headingSerif}</span>
           ) : null}
         </h2>
-        {section.subtitle ? (
-          <p
-            style={{
-              color: 'var(--mute)',
-              fontSize: '13px',
-              marginTop: 8,
-            }}
-          >
-            {section.subtitle}
-          </p>
-        ) : null}
+        {section.subtitle ? <p className="case-sub">{section.subtitle}</p> : null}
       </div>
 
-      <div className="cgrid">
+      <div className="wrap cgrid">
         {caseStudies.map((cs) => {
           const coverUrl = getStrapiMediaUrl(cs.coverImage?.url);
+          const hasMetaOne = Boolean(cs.metaOneLabel || cs.metaOneValue);
+          const hasMetaTwo = Boolean(cs.metaTwoLabel || cs.metaTwoValue);
           return (
             <Link
               key={cs.documentId || cs.slug}
@@ -857,22 +852,57 @@ function CaseStudiesBlock({
                   src={coverUrl}
                   alt={cs.coverImage?.alternativeText || cs.title}
                   fill
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                  className="z-0 object-cover brightness-55 pointer-events-none"
+                  sizes="(max-width: 900px) 100vw, 60vw"
+                  className="z-0 object-cover pointer-events-none"
                 />
               ) : null}
-              <span className="t relative z-10">{cs.category}</span>
-              <h3 className="relative z-10">{cs.title}</h3>
-              <div className="meta relative z-10">
-                <span>
-                  {cs.metaOneLabel}
-                  <b>{cs.metaOneValue}</b>
-                </span>
-                <span>
-                  {cs.metaTwoLabel}
-                  <b>{cs.metaTwoValue}</b>
-                </span>
-              </div>
+              {cs.category ? <span className="cs-pill">{cs.category}</span> : null}
+              <h3>{cs.title}</h3>
+              {hasMetaOne || hasMetaTwo ? (
+                <div className="meta">
+                  {hasMetaOne ? (
+                    <div className="meta-item">
+                      <svg
+                        className="meta-ic"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        aria-hidden="true"
+                      >
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" strokeLinecap="round" />
+                      </svg>
+                      <span>
+                        {cs.metaOneLabel}
+                        <b>{cs.metaOneValue}</b>
+                      </span>
+                    </div>
+                  ) : null}
+                  {hasMetaTwo ? (
+                    <div className="meta-item">
+                      <svg
+                        className="meta-ic"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M12 21s6-5.4 6-10.2A6 6 0 1 0 6 10.8C6 15.6 12 21 12 21Z"
+                          strokeLinejoin="round"
+                        />
+                        <circle cx="12" cy="10.5" r="2.2" />
+                      </svg>
+                      <span>
+                        {cs.metaTwoLabel}
+                        <b>{cs.metaTwoValue}</b>
+                      </span>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
             </Link>
           );
         })}
@@ -914,45 +944,7 @@ function TestimonialsBlock({
 }
 
 function BeforeAfterBlock({ section }: { section: BeforeAfterSection }) {
-  const beforeUrl = getStrapiMediaUrl(section.beforeImage?.url);
-  const afterUrl = getStrapiMediaUrl(section.afterImage?.url);
-
-  return (
-    <section className="ba" aria-label="Before and after">
-      <div className="bf relative overflow-hidden">
-        {beforeUrl ? (
-          <Image
-            src={beforeUrl}
-            alt={section.beforeImage?.alternativeText || section.beforeTitle || 'Before'}
-            fill
-            sizes="(max-width: 900px) 100vw, 50vw"
-            className="z-0 object-cover brightness-55 pointer-events-none"
-          />
-        ) : null}
-        <span className="relative z-10">
-          <small>{section.beforeEyebrow}</small>
-          <b>{section.beforeTitle}</b>
-          <small>{section.beforeCaption}</small>
-        </span>
-      </div>
-      <div className="af relative overflow-hidden">
-        {afterUrl ? (
-          <Image
-            src={afterUrl}
-            alt={section.afterImage?.alternativeText || section.afterTitle || 'After'}
-            fill
-            sizes="(max-width: 900px) 100vw, 50vw"
-            className="z-0 object-cover brightness-55 pointer-events-none"
-          />
-        ) : null}
-        <span className="relative z-10">
-          <small>{section.afterEyebrow}</small>
-          <b>{section.afterTitle}</b>
-          <small>{section.afterCaption}</small>
-        </span>
-      </div>
-    </section>
-  );
+  return <BeforeAfterSlider section={section} />;
 }
 
 function RichContentBlock({ section }: { section: RichContentSection }) {
@@ -1204,6 +1196,7 @@ export function PageSectionsRenderer({
       ) : null}
 
       <WalstarFooter
+        footer={data.footer ?? data.page.footer}
         siteSetting={data.siteSetting}
         source={source}
         trailingCta={trailingCta}

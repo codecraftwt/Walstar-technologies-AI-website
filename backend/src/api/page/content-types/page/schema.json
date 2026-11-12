@@ -45,6 +45,11 @@
       "relation": "manyToOne",
       "target": "api::navbar.navbar"
     },
+    "footer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::footer.footer"
+    },
     "seo": {
       "type": "component",
       "repeatable": false,

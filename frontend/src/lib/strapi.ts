@@ -1,10 +1,12 @@
 import {
+  DEFAULT_FOOTER,
   DEFAULT_LANDING_DATA,
   DEFAULT_NAVBAR,
   getDefaultPageBySlug,
 } from '@/lib/default-landing';
 import type {
   CaseStudyItem,
+  FooterData,
   LandingPayload,
   NavbarData,
   PageItem,
@@ -132,6 +134,7 @@ function normalizeLandingPayload(
 
   return {
     navbar: payload.navbar ?? payload.page?.navbar ?? DEFAULT_NAVBAR,
+    footer: payload.footer ?? payload.page?.footer ?? DEFAULT_FOOTER,
     siteSetting: mergeSiteSetting(payload.siteSetting),
     page,
     services: payload.services?.length
@@ -193,6 +196,33 @@ export async function getActiveNavbar(slug?: string): Promise<NavbarData> {
     // Fall back to default seeded navbar when Strapi is offline
   }
   return DEFAULT_NAVBAR;
+}
+
+export async function getActiveFooterResult(slug?: string): Promise<{
+  data: FooterData;
+  source: 'strapi' | 'fallback';
+}> {
+  try {
+    const query = slug ? `?slug=${encodeURIComponent(slug)}` : '';
+    const res = await fetchStrapi<StrapiResponse<FooterData | null>>(
+      `/api/footers/active${query}`,
+      {
+        cache: 'no-store',
+        signal: AbortSignal.timeout(getStrapiTimeoutMs()),
+      }
+    );
+    if (res.data) {
+      return { data: res.data, source: 'strapi' };
+    }
+  } catch {
+    // Fall back to default seeded footer when Strapi is offline
+  }
+  return { data: DEFAULT_FOOTER, source: 'fallback' };
+}
+
+export async function getActiveFooter(slug?: string): Promise<FooterData> {
+  const result = await getActiveFooterResult(slug);
+  return result.data;
 }
 
 export async function getResolvedPageBySlug(slug: string): Promise<{

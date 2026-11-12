@@ -13,6 +13,15 @@
     "href": {
       "type": "string",
       "required": true
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

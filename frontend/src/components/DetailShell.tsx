@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { Suspense, type ReactNode } from 'react';
 import { Navbar } from '@/components/Navbar';
-import { DEFAULT_NAVBAR } from '@/lib/default-landing';
-import { getActiveNavbar } from '@/lib/strapi';
+import { WalstarFooter } from '@/components/WalstarFooter';
+import { DEFAULT_FOOTER, DEFAULT_NAVBAR } from '@/lib/default-landing';
+import { getActiveFooterResult, getActiveNavbar } from '@/lib/strapi';
 
 interface DetailShellProps {
   children: ReactNode;
@@ -13,6 +14,11 @@ interface DetailShellProps {
 async function DynamicDetailNavbar() {
   const navbar = await getActiveNavbar();
   return <Navbar data={navbar} />;
+}
+
+async function DynamicDetailFooter() {
+  const { data, source } = await getActiveFooterResult();
+  return <WalstarFooter footer={data} source={source} />;
 }
 
 export function DetailShell({
@@ -39,6 +45,12 @@ export function DetailShell({
         </Link>
         {children}
       </main>
+
+      <Suspense
+        fallback={<WalstarFooter footer={DEFAULT_FOOTER} source="fallback" />}
+      >
+        <DynamicDetailFooter />
+      </Suspense>
     </div>
   );
 }

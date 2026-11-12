@@ -18,9 +18,30 @@ export const NAVBAR_POPULATE = {
   },
 } as const;
 
+export const FOOTER_POPULATE = {
+  logoImage: true,
+  socialLinks: {
+    populate: ['icon'],
+  },
+  linkColumns: {
+    populate: {
+      links: {
+        populate: {
+          page: {
+            fields: ['title', 'slug', 'isHomepage'],
+          },
+        },
+      },
+    },
+  },
+} as const;
+
 export const PAGE_POPULATE = {
   navbar: {
     populate: NAVBAR_POPULATE,
+  },
+  footer: {
+    populate: FOOTER_POPULATE,
   },
   seo: {
     populate: ['ogImage'],
@@ -113,17 +134,17 @@ export const PAGE_POPULATE = {
   },
 } as const;
 
-export const SITE_SETTING_POPULATE: (
-  | 'socialLinks'
-  | 'navLinks'
-  | 'footerPrimaryLinks'
-  | 'footerSecondaryLinks'
-)[] = [
-  'socialLinks',
-  'navLinks',
-  'footerPrimaryLinks',
-  'footerSecondaryLinks',
-];
+export const SITE_SETTING_POPULATE = {
+  siteLogo: true,
+  topbarEmailIcon: true,
+  topbarPhoneIcon: true,
+  socialLinks: {
+    populate: ['icon'],
+  },
+  navLinks: true,
+  footerPrimaryLinks: true,
+  footerSecondaryLinks: true,
+} as const;
 
 export async function fetchDefaultNavbar(strapi: Core.Strapi) {
   const navbarDoc = strapi.documents('api::navbar.navbar');
@@ -140,13 +161,29 @@ export async function fetchDefaultNavbar(strapi: Core.Strapi) {
   });
 }
 
+export async function fetchDefaultFooter(strapi: Core.Strapi) {
+  const footerDoc = strapi.documents('api::footer.footer');
+  const primary = await footerDoc.findFirst({
+    filters: { isDefault: true },
+    status: 'published',
+    populate: FOOTER_POPULATE as never,
+  });
+  if (primary) return primary;
+
+  return footerDoc.findFirst({
+    status: 'published',
+    populate: FOOTER_POPULATE as never,
+  });
+}
+
 export async function fetchSiteContext(strapi: Core.Strapi) {
-  const [navbar, siteSetting, services, products, caseStudies, testimonials, pages] =
+  const [navbar, footer, siteSetting, services, products, caseStudies, testimonials, pages] =
     await Promise.all([
       fetchDefaultNavbar(strapi),
+      fetchDefaultFooter(strapi),
       strapi.documents('api::site-setting.site-setting').findFirst({
         status: 'published',
-        populate: SITE_SETTING_POPULATE,
+        populate: SITE_SETTING_POPULATE as never,
       }),
       strapi.documents('api::service.service').findMany({
         status: 'published',
@@ -177,6 +214,7 @@ export async function fetchSiteContext(strapi: Core.Strapi) {
 
   return {
     navbar,
+    footer,
     siteSetting,
     services,
     products,

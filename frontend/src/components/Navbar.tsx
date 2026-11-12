@@ -5,16 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { WalstarButton } from '@/components/WalstarButton';
+import { resolveCmsRoute } from '@/lib/cms-routes';
 import { getStrapiMediaUrl } from '@/lib/strapi';
-import type { NavItem, NavPageRef, NavbarData } from '@/types/strapi';
+import type { NavItem, NavbarData } from '@/types/strapi';
 
-function resolveRoute(route?: string | null, page?: NavPageRef | null): string {
-  const cleanRoute = route?.trim();
-  if (cleanRoute) return cleanRoute;
-  if (page?.isHomepage || page?.slug === 'home') return '/';
-  if (page?.slug) return `/${encodeURIComponent(page.slug)}`;
-  return '#';
-}
+const resolveRoute = resolveCmsRoute;
 
 function isRouteActive(pathname: string, href: string): boolean {
   if (!href || href === '#') return false;
@@ -164,8 +159,8 @@ export function Navbar({
           <Image
             src={logoImgUrl}
             alt={data.logoImage?.alternativeText || 'Walstar Technologies'}
-            width={data.logoImage?.width || 164}
-            height={data.logoImage?.height || 36}
+            width={data.logoImage?.width || 210}
+            height={data.logoImage?.height || 71}
             loading="eager"
             className="walstar-logo-img"
           />

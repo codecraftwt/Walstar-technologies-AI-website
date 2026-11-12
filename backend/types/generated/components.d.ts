@@ -110,6 +110,32 @@ export interface AboutWhyReason extends Struct.ComponentSchema {
   };
 }
 
+export interface FooterColumn extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_columns';
+  info: {
+    displayName: 'Footer Column';
+    icon: 'bulletList';
+  };
+  attributes: {
+    links: Schema.Attribute.Component<'footer.footer-link', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface FooterLink extends Struct.ComponentSchema {
+  collectionName: 'components_footer_footer_links';
+  info: {
+    displayName: 'Footer Link';
+    icon: 'link';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    route: Schema.Attribute.String;
+  };
+}
+
 export interface HomeProcessStep extends Struct.ComponentSchema {
   collectionName: 'components_home_process_steps';
   info: {
@@ -346,6 +372,8 @@ export interface SectionsHero extends Struct.ComponentSchema {
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images'>;
+    backgroundVideo: Schema.Attribute.Media<'videos'>;
+    backgroundVideoUrl: Schema.Attribute.String;
     chip: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'AI-Powered Innovation \u2022 Digital Solutions \u2022 Business Growth'>;
     description: Schema.Attribute.Text;
@@ -648,6 +676,8 @@ export interface SharedSocialLink extends Struct.ComponentSchema {
   };
   attributes: {
     href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.Media<'images'>;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     platform: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -663,6 +693,8 @@ declare module '@strapi/strapi' {
       'about.team-member': AboutTeamMember;
       'about.ticker-item': AboutTickerItem;
       'about.why-reason': AboutWhyReason;
+      'footer.footer-column': FooterColumn;
+      'footer.footer-link': FooterLink;
       'home.process-step': HomeProcessStep;
       'navigation.nav-item': NavigationNavItem;
       'navigation.sub-nav-item': NavigationSubNavItem;

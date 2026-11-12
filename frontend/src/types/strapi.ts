@@ -33,6 +33,8 @@ export interface SocialLink {
   id?: number;
   platform: string;
   href: string;
+  icon?: StrapiMedia | null;
+  openInNewTab?: boolean;
 }
 
 export interface PartnerLogo {
@@ -60,10 +62,13 @@ export interface SiteSetting {
   id?: number;
   documentId?: string;
   siteName: string;
+  siteLogo?: StrapiMedia | null;
   logoAccentText: string;
   footerLogoAccentText: string;
   topbarEmail: string;
+  topbarEmailIcon?: StrapiMedia | null;
   topbarPhone: string;
+  topbarPhoneIcon?: StrapiMedia | null;
   socialLinks: SocialLink[];
   navLinks: SharedLink[];
   headerCtaLabel: string;
@@ -523,6 +528,47 @@ export interface NavbarData {
   ctaOpenInNewTab?: boolean;
 }
 
+export interface FooterLink {
+  id?: number;
+  label: string;
+  route?: string | null;
+  page?: NavPageRef | null;
+  openInNewTab?: boolean;
+}
+
+export interface FooterColumn {
+  id?: number;
+  title?: string | null;
+  links?: FooterLink[];
+}
+
+export interface FooterData {
+  id?: number;
+  documentId?: string;
+  name: string;
+  slug: string;
+  isDefault?: boolean;
+  logoImage?: StrapiMedia | null;
+  logoAccentText?: string | null;
+  aboutText?: string | null;
+  consultationShow?: boolean;
+  consultationTitle?: string | null;
+  consultationSubtitle?: string | null;
+  consultationButtonLabel?: string | null;
+  headlinePrefix?: string | null;
+  headlineSerif?: string | null;
+  headlineSuffix?: string | null;
+  ctaLabel?: string | null;
+  ctaRoute?: string | null;
+  ctaOpenInNewTab?: boolean;
+  linkColumns?: FooterColumn[];
+  officeAddress?: string | null;
+  officePhones?: string | null;
+  contactEmail?: string | null;
+  socialLinks?: SocialLink[];
+  copyrightText?: string | null;
+}
+
 export interface PageItem {
   id?: number;
   documentId: string;
@@ -534,6 +580,7 @@ export interface PageItem {
   content?: string | null;
   order?: number;
   navbar?: NavbarData | null;
+  footer?: FooterData | null;
   seo?: SeoMetadata | null;
   sections?: PageSection[];
 }
@@ -550,6 +597,7 @@ export interface PageSummary {
 
 export interface LandingPayload {
   navbar?: NavbarData | null;
+  footer?: FooterData | null;
   siteSetting: SiteSetting;
   page: PageItem;
   services: ServiceItem[];

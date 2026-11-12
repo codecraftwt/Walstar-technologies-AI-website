@@ -1,5 +1,6 @@
 import type {
   CaseStudyItem,
+  FooterData,
   LandingPayload,
   NavbarData,
   PageItem,
@@ -996,6 +997,58 @@ export const DEFAULT_NAVBAR: NavbarData = {
   ctaOpenInNewTab: false,
 };
 
+export const DEFAULT_FOOTER: FooterData = {
+  documentId: 'seed-footer',
+  name: 'Primary Footer',
+  slug: 'primary-footer',
+  isDefault: true,
+  logoAccentText: 'TECHNOLOGIES PVT. LTD.',
+  aboutText:
+    'Results-driven digital agency building secure, scalable solutions for global businesses.',
+  consultationShow: true,
+  consultationTitle: 'Have Project in mind?',
+  consultationSubtitle: "Let's create something great",
+  consultationButtonLabel: 'Free Consultation ↗',
+  headlinePrefix: 'Build',
+  headlineSerif: 'AI Products',
+  headlineSuffix: 'that actually Ships.',
+  ctaLabel: 'Contact Now ↗',
+  ctaRoute: '/contact',
+  ctaOpenInNewTab: false,
+  linkColumns: [
+    {
+      title: 'Company',
+      links: [
+        { label: 'Home', route: '/', openInNewTab: false },
+        { label: 'About', route: '/about-us', openInNewTab: false },
+        { label: 'Blog', route: '/welcome', openInNewTab: false },
+        { label: 'Portfolio', route: '/#case', openInNewTab: false },
+      ],
+    },
+    {
+      title: 'Explore',
+      links: [
+        { label: 'Services', route: '/service-1', openInNewTab: false },
+        { label: 'Career', route: '/about-us', openInNewTab: false },
+        { label: 'Contact', route: '/contact', openInNewTab: false },
+        { label: 'Events & Programs', route: '/#prod', openInNewTab: false },
+      ],
+    },
+  ],
+  officeAddress:
+    '203/171, Bonsim Nagar, Front of Datta Mandir, Kothrud, Maharashtra 411038',
+  officePhones: '+91 9657764560\n+44 757 798 8543\n+91 9657764560',
+  contactEmail: 'info@walstartechnologies.com',
+  socialLinks: [
+    { platform: 'LinkedIn', href: '#cta' },
+    { platform: 'X', href: '#cta' },
+    { platform: 'Facebook', href: '#cta' },
+    { platform: 'Instagram', href: '#cta' },
+  ],
+  copyrightText:
+    'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy',
+};
+
 export function getDefaultPageBySlug(slug: string): PageItem | null {
   if (slug === 'home') return DEFAULT_HOMEPAGE_PAGE;
   return DEFAULT_PAGES.find((page) => page.slug === slug) ?? null;
@@ -1003,6 +1056,7 @@ export function getDefaultPageBySlug(slug: string): PageItem | null {
 
 export const DEFAULT_LANDING_DATA: LandingPayload = {
   navbar: DEFAULT_NAVBAR,
+  footer: DEFAULT_FOOTER,
   siteSetting: DEFAULT_SITE_SETTING,
   page: DEFAULT_HOMEPAGE_PAGE,
   services: DEFAULT_SERVICES,
