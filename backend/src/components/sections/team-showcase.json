@@ -1,0 +1,59 @@
+{
+  "collectionName": "components_sections_team_showcases",
+  "info": {
+    "displayName": "Team Showcase",
+    "icon": "manyWays"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Our Team"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "We do things that\n"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "matters"
+    },
+    "headingSuffix": {
+      "type": "string"
+    },
+    "executiveLabel": {
+      "type": "string",
+      "default": "Executive Team"
+    },
+    "executiveQuote": {
+      "type": "text"
+    },
+    "executiveQuoteAuthor": {
+      "type": "string",
+      "default": "-Walstar Technologies"
+    },
+    "executives": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.team-member"
+    },
+    "advisoryTitle": {
+      "type": "string",
+      "default": "Global Advisory Panel"
+    },
+    "advisoryMembers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.team-member"
+    },
+    "salesTitle": {
+      "type": "string",
+      "default": "Global Sales Leadership"
+    },
+    "salesMembers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.team-member"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_sections_case_studies",
+  "info": {
+    "displayName": "Case Studies Section",
+    "icon": "briefcase"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Case Study"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Results That"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "Speak for Themselves"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "Discover all Projects ↗"
+    },
+    "ctaHref": {
+      "type": "string",
+      "default": "#cta"
+    },
+    "showAllCaseStudies": {
+      "type": "boolean",
+      "default": true
+    },
+    "caseStudies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::case-study.case-study"
+    }
+  }
+}

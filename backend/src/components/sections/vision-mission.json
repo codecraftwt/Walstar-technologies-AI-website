@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_sections_vision_missions",
+  "info": {
+    "displayName": "Vision & Mission",
+    "icon": "eye"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Walstar Group"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Shaping the"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "future"
+    },
+    "headingSuffix": {
+      "type": "string",
+      "default": "\ntogether"
+    },
+    "visionIcon": {
+      "type": "string",
+      "default": "◎"
+    },
+    "visionTitle": {
+      "type": "string",
+      "default": "Our Vision"
+    },
+    "visionDescription": {
+      "type": "text"
+    },
+    "visionCtaLabel": {
+      "type": "string",
+      "default": "Work With Us ↗"
+    },
+    "visionCtaHref": {
+      "type": "string",
+      "default": "/contact"
+    },
+    "missionIcon": {
+      "type": "string",
+      "default": "◎"
+    },
+    "missionTitle": {
+      "type": "string",
+      "default": "Our Mission"
+    },
+    "missionDescription": {
+      "type": "text"
+    }
+  }
+}

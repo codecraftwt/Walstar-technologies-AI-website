@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_about_milestones",
+  "info": {
+    "displayName": "Journey Milestone",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "era": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "isCurrent": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

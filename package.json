@@ -1,0 +1,19 @@
+{
+  "name": "walstar-technologies",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Walstar Technologies web platform with Next.js frontend, Strapi v5 CMS backend, and PostgreSQL database",
+  "scripts": {
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "backend:dev": "npm --prefix backend run develop",
+    "backend:build": "npm --prefix backend run build",
+    "backend:start": "npm --prefix backend run start",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "frontend:start": "npm --prefix frontend run start",
+    "frontend:lint": "npm --prefix frontend run lint",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install"
+  }
+}

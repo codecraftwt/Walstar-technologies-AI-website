@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_about_solution_items",
+  "info": {
+    "displayName": "Solution Card",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string",
+      "default": "/service-1"
+    }
+  }
+}

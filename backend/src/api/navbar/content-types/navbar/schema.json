@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "navbars",
+  "info": {
+    "singularName": "navbar",
+    "pluralName": "navbars",
+    "displayName": "Navbar",
+    "description": "Manage header logo image, navigation links, dropdown subitems, routes, and CTA button"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "default": "Primary Navbar"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "isDefault": {
+      "type": "boolean",
+      "default": true
+    },
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "logoHref": {
+      "type": "string",
+      "default": "/"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "navigation.nav-item"
+    },
+    "ctaShow": {
+      "type": "boolean",
+      "default": true
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "Book a strategy call"
+    },
+    "ctaRoute": {
+      "type": "string",
+      "default": "/contact"
+    },
+    "ctaOpenInNewTab": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

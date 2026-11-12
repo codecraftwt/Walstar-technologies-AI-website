@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_testimonials",
+  "info": {
+    "displayName": "Testimonials Section",
+    "icon": "message"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Testimonials"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "What Clients Say"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "About Us"
+    },
+    "showAllTestimonials": {
+      "type": "boolean",
+      "default": true
+    },
+    "testimonials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial.testimonial"
+    }
+  }
+}

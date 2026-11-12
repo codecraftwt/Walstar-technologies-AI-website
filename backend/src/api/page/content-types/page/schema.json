@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page",
+    "description": "CMS-managed website pages controlled via Dynamic Zone sections"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "isHomepage": {
+      "type": "boolean",
+      "default": false
+    },
+    "pageType": {
+      "type": "enumeration",
+      "enum": ["homepage", "about", "contact", "service", "standard"],
+      "default": "standard"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "order": {
+      "type": "integer",
+      "default": 1
+    },
+    "navbar": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::navbar.navbar"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.hero",
+        "sections.partner-strip",
+        "sections.about",
+        "sections.capabilities",
+        "sections.products-showcase",
+        "sections.trust-banner",
+        "sections.case-studies",
+        "sections.testimonials",
+        "sections.before-after",
+        "sections.cta-band",
+        "sections.rich-content",
+        "sections.contact-section",
+        "sections.who-we-are",
+        "sections.journey-stats",
+        "sections.solutions-grid",
+        "sections.why-choose",
+        "sections.vision-mission",
+        "sections.team-showcase",
+        "sections.global-offices"
+      ]
+    }
+  }
+}

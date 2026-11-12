@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_sections_who_we_ares",
+  "info": {
+    "displayName": "Who We Are",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Who we are"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "A trusted partner for\n"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "what’s next"
+    },
+    "headingSuffix": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "See what we do"
+    },
+    "ctaHref": {
+      "type": "string",
+      "default": "/service-1"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_sections_global_offices",
+  "info": {
+    "displayName": "Global Offices",
+    "icon": "globe"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Areas we serve"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Our global"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "offices"
+    },
+    "headingSuffix": {
+      "type": "string"
+    },
+    "showWorldMap": {
+      "type": "boolean",
+      "default": true
+    },
+    "mapPins": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.map-pin"
+    },
+    "offices": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.office-location"
+    }
+  }
+}

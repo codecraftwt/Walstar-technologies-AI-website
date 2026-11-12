@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@500;600&family=Poppins:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+@import "tailwindcss";
+@import "./walstar.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #12123a;
+  font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}

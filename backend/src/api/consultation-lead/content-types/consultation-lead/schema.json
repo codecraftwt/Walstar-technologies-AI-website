@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consultation_leads",
+  "info": {
+    "singularName": "consultation-lead",
+    "pluralName": "consultation-leads",
+    "displayName": "Consultation Lead",
+    "description": "Free consultation and strategy call requests submitted from the frontend"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "source": {
+      "type": "string",
+      "default": "footer-consultation"
+    },
+    "leadStatus": {
+      "type": "enumeration",
+      "enum": ["new", "contacted", "archived"],
+      "default": "new"
+    }
+  }
+}

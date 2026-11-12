@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_sections_solutions_grids",
+  "info": {
+    "displayName": "Solutions Grid",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "What we do"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Digital solutions\nbuilt to"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "Scale"
+    },
+    "headingSuffix": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "hasTopOverlap": {
+      "type": "boolean",
+      "default": true
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.solution-item"
+    }
+  }
+}

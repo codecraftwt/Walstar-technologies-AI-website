@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_sections_journey_stats",
+  "info": {
+    "displayName": "Journey & Stats",
+    "icon": "chartCircle"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "The Walstar Way"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "From first idea to"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "lasting impact"
+    },
+    "headingSuffix": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "milestones": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.milestone"
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.stat-item"
+    }
+  }
+}

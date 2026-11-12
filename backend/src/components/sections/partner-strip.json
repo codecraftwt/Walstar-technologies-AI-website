@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_partner_strips",
+  "info": {
+    "displayName": "Partner Logo's",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "ariaLabel": {
+      "type": "string",
+      "default": "Partners"
+    },
+    "animationDurationSeconds": {
+      "type": "customField",
+      "customField": "global::speed-slider",
+      "default": 24,
+      "min": 4,
+      "max": 120
+    },
+    "scrollDirection": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "left"
+    },
+    "logos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.partner-logo"
+    }
+  }
+}

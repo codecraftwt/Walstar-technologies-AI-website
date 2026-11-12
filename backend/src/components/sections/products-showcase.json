@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_sections_products_showcases",
+  "info": {
+    "displayName": "Products Showcase",
+    "icon": "shoppingCart"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Our products"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Everything you need to create"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "smarter, faster"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "showAllProducts": {
+      "type": "boolean",
+      "default": true
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}

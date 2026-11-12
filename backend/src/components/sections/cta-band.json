@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_sections_cta_bands",
+  "info": {
+    "displayName": "CTA Band",
+    "icon": "rocket"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Get in touch"
+    },
+    "heading": {
+      "type": "string",
+      "required": true,
+      "default": "Ready to Make Something Awesome?"
+    },
+    "subheading": {
+      "type": "text"
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": "Schedule a Demo Call ↗"
+    },
+    "buttonHref": {
+      "type": "string",
+      "default": "#footer-contact"
+    }
+  }
+}

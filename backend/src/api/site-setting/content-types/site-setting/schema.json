@@ -1,0 +1,123 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Setting",
+    "description": "Global header, topbar, navigation, contact, and footer settings for Walstar Technologies"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "required": true,
+      "default": "Walstar Technologies"
+    },
+    "logoAccentText": {
+      "type": "string",
+      "default": "TECHNOLOGIES"
+    },
+    "footerLogoAccentText": {
+      "type": "string",
+      "default": "TECHNOLOGIES PVT. LTD."
+    },
+    "topbarEmail": {
+      "type": "email",
+      "default": "sales@walstartechnologies.com"
+    },
+    "topbarPhone": {
+      "type": "string",
+      "default": "+919657764560"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.social-link"
+    },
+    "navLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "headerCtaLabel": {
+      "type": "string",
+      "default": "Book a strategy call ↗"
+    },
+    "headerCtaHref": {
+      "type": "string",
+      "default": "#cta"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "heroTitle": {
+      "type": "string"
+    },
+    "heroSubtitle": {
+      "type": "text"
+    },
+    "contactEmail": {
+      "type": "email",
+      "default": "info@walstartechnologies.com"
+    },
+    "footerAbout": {
+      "type": "text"
+    },
+    "footerNewsletterTitle": {
+      "type": "string",
+      "default": "Have Project in mind?"
+    },
+    "footerNewsletterSubtitle": {
+      "type": "string",
+      "default": "Let's create something great"
+    },
+    "footerNewsletterButtonLabel": {
+      "type": "string",
+      "default": "Free Consultation ↗"
+    },
+    "footerBigPrefix": {
+      "type": "string",
+      "default": "Build"
+    },
+    "footerBigSerif": {
+      "type": "string",
+      "default": "AI Products"
+    },
+    "footerBigSuffix": {
+      "type": "string",
+      "default": "that actually Ships."
+    },
+    "footerCtaLabel": {
+      "type": "string",
+      "default": "Contact Now ↗"
+    },
+    "footerCtaHref": {
+      "type": "string",
+      "default": "#cta"
+    },
+    "footerPrimaryLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "footerSecondaryLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "officeAddress": {
+      "type": "text"
+    },
+    "officePhones": {
+      "type": "text"
+    },
+    "copyrightText": {
+      "type": "string",
+      "default": "Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy"
+    }
+  }
+}

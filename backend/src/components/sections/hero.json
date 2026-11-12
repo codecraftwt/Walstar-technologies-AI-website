@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_sections_heroes",
+  "info": {
+    "displayName": "Hero Section",
+    "icon": "crown"
+  },
+  "options": {},
+  "attributes": {
+    "chip": {
+      "type": "string",
+      "default": "AI-Powered Innovation • Digital Solutions • Business Growth"
+    },
+    "headlinePrefix": {
+      "type": "string",
+      "required": true,
+      "default": "Transform Your Business With"
+    },
+    "headlineSerif": {
+      "type": "string",
+      "default": "The Power"
+    },
+    "headlineSuffix": {
+      "type": "string",
+      "default": "of AI."
+    },
+    "description": {
+      "type": "text"
+    },
+    "primaryCtaLabel": {
+      "type": "string",
+      "default": "Explore AI Solutions ↗"
+    },
+    "primaryCtaHref": {
+      "type": "string",
+      "default": "#cap"
+    },
+    "secondaryCtaLabel": {
+      "type": "string",
+      "default": "Discover your Project ↗"
+    },
+    "secondaryCtaHref": {
+      "type": "string",
+      "default": "#case"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": ["default", "compact"],
+      "default": "default"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_sections_contact_sections",
+  "info": {
+    "displayName": "Contact Section",
+    "icon": "envelop"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Contact Us"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Let's Build"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "Something Great"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "showOfficeDetails": {
+      "type": "boolean",
+      "default": true
+    },
+    "formSource": {
+      "type": "string",
+      "default": "contact-page"
+    }
+  }
+}

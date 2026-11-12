@@ -1,0 +1,569 @@
+export interface StrapiPagination {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
+export interface StrapiResponse<T> {
+  data: T;
+  meta?: {
+    pagination?: StrapiPagination;
+  };
+}
+
+export interface StrapiMedia {
+  id: number;
+  documentId?: string;
+  url: string;
+  alternativeText?: string | null;
+  width?: number | null;
+  height?: number | null;
+}
+
+export interface SharedLink {
+  id?: number;
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+}
+
+export interface SocialLink {
+  id?: number;
+  platform: string;
+  href: string;
+}
+
+export interface PartnerLogo {
+  id?: number;
+  name: string;
+  image?: StrapiMedia | null;
+}
+
+export interface ProcessStep {
+  id?: number;
+  stepNumber: number;
+  title: string;
+  description: string;
+  isHighlighted?: boolean;
+}
+
+export interface SeoMetadata {
+  id?: number;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  ogImage?: StrapiMedia | null;
+}
+
+export interface SiteSetting {
+  id?: number;
+  documentId?: string;
+  siteName: string;
+  logoAccentText: string;
+  footerLogoAccentText: string;
+  topbarEmail: string;
+  topbarPhone: string;
+  socialLinks: SocialLink[];
+  navLinks: SharedLink[];
+  headerCtaLabel: string;
+  headerCtaHref: string;
+  tagline?: string | null;
+  heroTitle?: string | null;
+  heroSubtitle?: string | null;
+  contactEmail: string;
+  footerAbout: string;
+  footerNewsletterTitle: string;
+  footerNewsletterSubtitle: string;
+  footerNewsletterButtonLabel: string;
+  footerBigPrefix: string;
+  footerBigSerif: string;
+  footerBigSuffix: string;
+  footerCtaLabel: string;
+  footerCtaHref: string;
+  footerPrimaryLinks: SharedLink[];
+  footerSecondaryLinks: SharedLink[];
+  officeAddress: string;
+  officePhones: string;
+  copyrightText: string;
+}
+
+export interface ServiceItem {
+  id?: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  description: string;
+  icon: string;
+  iconImage?: StrapiMedia | null;
+  themeVariant: 'a' | 'b' | 'c' | 'd';
+  image?: StrapiMedia | null;
+  order: number;
+}
+
+export interface ProductItem {
+  id?: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  tagline?: string | null;
+  description: string;
+  isFeatured: boolean;
+  accentGradient?: string | null;
+  image?: StrapiMedia | null;
+  ctaLabel?: string | null;
+  ctaUrl?: string | null;
+  order: number;
+}
+
+export interface CaseStudyItem {
+  id?: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  category: string;
+  metaOneLabel: string;
+  metaOneValue: string;
+  metaTwoLabel: string;
+  metaTwoValue: string;
+  summary?: string | null;
+  content?: string | null;
+  themeVariant: 'a' | 'b';
+  coverImage?: StrapiMedia | null;
+  order: number;
+}
+
+export interface TestimonialItem {
+  id?: number;
+  documentId: string;
+  authorName: string;
+  quote: string;
+  companyName: string;
+  rating: number;
+  isHighlighted: boolean;
+  avatar?: StrapiMedia | null;
+  order: number;
+}
+
+export interface HeroSection {
+  __component: 'sections.hero';
+  id?: number;
+  variant?: 'default' | 'compact';
+  chip?: string | null;
+  headlinePrefix: string;
+  headlineSerif?: string | null;
+  headlineSuffix?: string | null;
+  description?: string | null;
+  primaryCtaLabel?: string | null;
+  primaryCtaHref?: string | null;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaHref?: string | null;
+  backgroundImage?: StrapiMedia | null;
+}
+
+export interface PartnerStripSection {
+  __component: 'sections.partner-strip';
+  id?: number;
+  ariaLabel?: string | null;
+  animationDurationSeconds?: number | null;
+  scrollDirection?: 'left' | 'right' | null;
+  logos?: PartnerLogo[];
+}
+
+export interface AboutSection {
+  __component: 'sections.about';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  description?: string | null;
+  highlightTitle?: string | null;
+  highlightDescription?: string | null;
+  highlightIcon?: StrapiMedia | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  primaryImage?: StrapiMedia | null;
+  secondaryImage?: StrapiMedia | null;
+}
+
+export interface CapabilitiesSection {
+  __component: 'sections.capabilities';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  subtitle?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  showAllServices?: boolean | null;
+  services?: ServiceItem[];
+  animationDurationSeconds?: number | null;
+  scrollDirection?: 'left' | 'right' | null;
+  showProcess?: boolean | null;
+  processPill?: string | null;
+  processHeadingPrefix?: string | null;
+  processHeadingSerif?: string | null;
+  processHeadingSuffix?: string | null;
+  processNote?: string | null;
+  processVideoLabel?: string | null;
+  processVideoUrl?: string | null;
+  processSteps?: ProcessStep[];
+}
+
+export interface ProductsShowcaseSection {
+  __component: 'sections.products-showcase';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  subtitle?: string | null;
+  showAllProducts?: boolean | null;
+  products?: ProductItem[];
+}
+
+export interface TrustBannerSection {
+  __component: 'sections.trust-banner';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  logos?: PartnerLogo[];
+}
+
+export interface CaseStudiesSection {
+  __component: 'sections.case-studies';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  subtitle?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  showAllCaseStudies?: boolean | null;
+  caseStudies?: CaseStudyItem[];
+}
+
+export interface TestimonialsSection {
+  __component: 'sections.testimonials';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  showAllTestimonials?: boolean | null;
+  testimonials?: TestimonialItem[];
+}
+
+export interface BeforeAfterSection {
+  __component: 'sections.before-after';
+  id?: number;
+  beforeEyebrow?: string | null;
+  beforeTitle?: string | null;
+  beforeCaption?: string | null;
+  beforeImage?: StrapiMedia | null;
+  afterEyebrow?: string | null;
+  afterTitle?: string | null;
+  afterCaption?: string | null;
+  afterImage?: StrapiMedia | null;
+}
+
+export interface CtaBandSection {
+  __component: 'sections.cta-band';
+  id?: number;
+  pill?: string | null;
+  heading: string;
+  subheading?: string | null;
+  buttonLabel?: string | null;
+  buttonHref?: string | null;
+}
+
+export interface RichContentSection {
+  __component: 'sections.rich-content';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  body?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+}
+
+export interface ContactSectionBlock {
+  __component: 'sections.contact-section';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  subtitle?: string | null;
+  showOfficeDetails?: boolean | null;
+  formSource?: string | null;
+}
+
+export interface JourneyMilestone {
+  id?: number;
+  era: string;
+  title: string;
+  description: string;
+  isCurrent?: boolean;
+}
+
+export interface StatCounterItem {
+  id?: number;
+  value: string;
+  label: string;
+}
+
+export interface SolutionCardItem {
+  id?: number;
+  number: string;
+  title: string;
+  category?: string | null;
+  href?: string | null;
+}
+
+export interface WhyChooseReason {
+  id?: number;
+  icon?: string | null;
+  title: string;
+  description: string;
+}
+
+export interface TickerLabelItem {
+  id?: number;
+  label: string;
+}
+
+export interface TeamMemberItem {
+  id?: number;
+  name?: string | null;
+  role?: string | null;
+  linkedinUrl?: string | null;
+  photo?: StrapiMedia | null;
+}
+
+export interface OfficeLocationItem {
+  id?: number;
+  regionLabel: string;
+  title: string;
+  cityRegion?: string | null;
+  address: string;
+  mapUrl?: string | null;
+  isHeadquarters?: boolean;
+}
+
+export interface WorldMapPinItem {
+  id?: number;
+  label: string;
+  leftPercent?: number;
+  topPx?: number;
+  flagVariant?: 'us' | 'in' | 'au' | 'uk';
+}
+
+export interface WhoWeAreSection {
+  __component: 'sections.who-we-are';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  description?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  image?: StrapiMedia | null;
+}
+
+export interface JourneyStatsSection {
+  __component: 'sections.journey-stats';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  description?: string | null;
+  milestones?: JourneyMilestone[];
+  stats?: StatCounterItem[];
+}
+
+export interface SolutionsGridSection {
+  __component: 'sections.solutions-grid';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  subtitle?: string | null;
+  hasTopOverlap?: boolean | null;
+  items?: SolutionCardItem[];
+}
+
+export interface WhyChooseSection {
+  __component: 'sections.why-choose';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  reasons?: WhyChooseReason[];
+  tickerItems?: TickerLabelItem[];
+}
+
+export interface VisionMissionSection {
+  __component: 'sections.vision-mission';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  visionIcon?: string | null;
+  visionTitle?: string | null;
+  visionDescription?: string | null;
+  visionCtaLabel?: string | null;
+  visionCtaHref?: string | null;
+  missionIcon?: string | null;
+  missionTitle?: string | null;
+  missionDescription?: string | null;
+}
+
+export interface TeamShowcaseSection {
+  __component: 'sections.team-showcase';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  executiveLabel?: string | null;
+  executiveQuote?: string | null;
+  executiveQuoteAuthor?: string | null;
+  executives?: TeamMemberItem[];
+  advisoryTitle?: string | null;
+  advisoryMembers?: TeamMemberItem[];
+  salesTitle?: string | null;
+  salesMembers?: TeamMemberItem[];
+}
+
+export interface GlobalOfficesSection {
+  __component: 'sections.global-offices';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  showWorldMap?: boolean | null;
+  mapPins?: WorldMapPinItem[];
+  offices?: OfficeLocationItem[];
+}
+
+export type PageSection =
+  | HeroSection
+  | PartnerStripSection
+  | AboutSection
+  | CapabilitiesSection
+  | ProductsShowcaseSection
+  | TrustBannerSection
+  | CaseStudiesSection
+  | TestimonialsSection
+  | BeforeAfterSection
+  | CtaBandSection
+  | RichContentSection
+  | ContactSectionBlock
+  | WhoWeAreSection
+  | JourneyStatsSection
+  | SolutionsGridSection
+  | WhyChooseSection
+  | VisionMissionSection
+  | TeamShowcaseSection
+  | GlobalOfficesSection;
+
+export type PageType = 'homepage' | 'about' | 'contact' | 'service' | 'standard';
+
+export interface NavPageRef {
+  id?: number;
+  documentId?: string;
+  title?: string;
+  slug?: string;
+  isHomepage?: boolean;
+}
+
+export interface SubNavItem {
+  id?: number;
+  label: string;
+  description?: string | null;
+  route?: string | null;
+  page?: NavPageRef | null;
+  badge?: string | null;
+  openInNewTab?: boolean;
+}
+
+export interface NavItem {
+  id?: number;
+  label: string;
+  route?: string | null;
+  page?: NavPageRef | null;
+  hasDropdown?: boolean;
+  isHighlighted?: boolean;
+  openInNewTab?: boolean;
+  subItems?: SubNavItem[];
+}
+
+export interface NavbarData {
+  id?: number;
+  documentId?: string;
+  name: string;
+  slug: string;
+  isDefault?: boolean;
+  logoImage?: StrapiMedia | null;
+  logoHref?: string | null;
+  items: NavItem[];
+  ctaShow?: boolean;
+  ctaLabel?: string | null;
+  ctaRoute?: string | null;
+  ctaOpenInNewTab?: boolean;
+}
+
+export interface PageItem {
+  id?: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  isHomepage?: boolean;
+  pageType?: PageType;
+  summary?: string | null;
+  content?: string | null;
+  order?: number;
+  navbar?: NavbarData | null;
+  seo?: SeoMetadata | null;
+  sections?: PageSection[];
+}
+
+export interface PageSummary {
+  id?: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  pageType?: PageType;
+  isHomepage?: boolean;
+  order?: number;
+}
+
+export interface LandingPayload {
+  navbar?: NavbarData | null;
+  siteSetting: SiteSetting;
+  page: PageItem;
+  services: ServiceItem[];
+  products: ProductItem[];
+  caseStudies: CaseStudyItem[];
+  testimonials: TestimonialItem[];
+  pages?: PageSummary[];
+}
+
+export interface StrapiHealthStatus {
+  ok: boolean;
+  status: 'healthy' | 'unhealthy' | 'unreachable';
+  service: string;
+  database: {
+    client: string;
+    connected: boolean;
+    error?: string;
+  };
+  timestamp: string;
+}

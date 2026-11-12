@@ -1,0 +1,59 @@
+{
+  "collectionName": "components_sections_abouts",
+  "info": {
+    "displayName": "About Section",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "About us"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "The team behind"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "smarter"
+    },
+    "headingSuffix": {
+      "type": "string",
+      "default": "automation"
+    },
+    "description": {
+      "type": "text"
+    },
+    "highlightTitle": {
+      "type": "string",
+      "default": "Engineering an Intelligent Future"
+    },
+    "highlightDescription": {
+      "type": "text"
+    },
+    "highlightIcon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "More About Us ↗"
+    },
+    "ctaHref": {
+      "type": "string",
+      "default": "/about-us"
+    },
+    "primaryImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "secondaryImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

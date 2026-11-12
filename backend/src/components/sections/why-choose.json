@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_why_chooses",
+  "info": {
+    "displayName": "Why Choose Walstar",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Why choose Walstar"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Built different."
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "Built\nfor impact."
+    },
+    "headingSuffix": {
+      "type": "string"
+    },
+    "reasons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.why-reason"
+    },
+    "tickerItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about.ticker-item"
+    }
+  }
+}

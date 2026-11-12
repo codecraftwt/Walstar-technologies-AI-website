@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_about_map_pins",
+  "info": {
+    "displayName": "World Map Pin",
+    "icon": "earth"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "leftPercent": {
+      "type": "integer",
+      "default": 50
+    },
+    "topPx": {
+      "type": "integer",
+      "default": 14
+    },
+    "flagVariant": {
+      "type": "enumeration",
+      "enum": ["us", "in", "au", "uk"],
+      "default": "in"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_about_ticker_items",
+  "info": {
+    "displayName": "Ticker Item",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

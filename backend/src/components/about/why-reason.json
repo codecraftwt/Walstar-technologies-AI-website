@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_about_why_reasons",
+  "info": {
+    "displayName": "Why Choose Reason",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "default": "▭"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

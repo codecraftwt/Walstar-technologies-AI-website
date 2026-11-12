@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_about_office_locations",
+  "info": {
+    "displayName": "Office Location",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "regionLabel": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "cityRegion": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "mapUrl": {
+      "type": "string"
+    },
+    "isHeadquarters": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

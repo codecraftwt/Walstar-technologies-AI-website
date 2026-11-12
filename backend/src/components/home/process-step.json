@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_home_process_steps",
+  "info": {
+    "displayName": "Process Step",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "stepNumber": {
+      "type": "integer",
+      "required": true
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "collectionName": "components_sections_capabilities",
+  "info": {
+    "displayName": "Capabilities & Process",
+    "icon": "cog"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Capabilities"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "What we"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "do"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "View Services ↗"
+    },
+    "ctaHref": {
+      "type": "string",
+      "default": "/service-1"
+    },
+    "showAllServices": {
+      "type": "boolean",
+      "default": true
+    },
+    "services": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service"
+    },
+    "animationDurationSeconds": {
+      "type": "customField",
+      "customField": "global::speed-slider",
+      "default": 36,
+      "min": 6,
+      "max": 120
+    },
+    "scrollDirection": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "left"
+    },
+    "showProcess": {
+      "type": "boolean",
+      "default": true
+    },
+    "processPill": {
+      "type": "string",
+      "default": "What we do"
+    },
+    "processHeadingPrefix": {
+      "type": "string",
+      "default": "From"
+    },
+    "processHeadingSerif": {
+      "type": "string",
+      "default": "idea"
+    },
+    "processHeadingSuffix": {
+      "type": "string",
+      "default": "to production"
+    },
+    "processNote": {
+      "type": "text"
+    },
+    "processVideoLabel": {
+      "type": "string",
+      "default": "Video Presentation"
+    },
+    "processVideoUrl": {
+      "type": "string",
+      "default": "#cta"
+    },
+    "processSteps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.process-step"
+    }
+  }
+}

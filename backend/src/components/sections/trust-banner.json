@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_trust_banners",
+  "info": {
+    "displayName": "Trust Banner",
+    "icon": "shield"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Trusted by Brands"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Trusted by"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "70+"
+    },
+    "headingSuffix": {
+      "type": "string",
+      "default": "High-Growth Companies Globally"
+    },
+    "logos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.partner-logo"
+    }
+  }
+}

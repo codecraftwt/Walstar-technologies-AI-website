@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_sections_before_afters",
+  "info": {
+    "displayName": "Before & After Comparison",
+    "icon": "contrast"
+  },
+  "options": {},
+  "attributes": {
+    "beforeEyebrow": {
+      "type": "string",
+      "default": "The Problem"
+    },
+    "beforeTitle": {
+      "type": "string",
+      "default": "Before Walstar"
+    },
+    "beforeCaption": {
+      "type": "text"
+    },
+    "beforeImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "afterEyebrow": {
+      "type": "string",
+      "default": "The Solution"
+    },
+    "afterTitle": {
+      "type": "string",
+      "default": "With Walstar"
+    },
+    "afterCaption": {
+      "type": "text"
+    },
+    "afterImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_rich_contents",
+  "info": {
+    "displayName": "Rich Content Block",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string"
+    },
+    "headingPrefix": {
+      "type": "string"
+    },
+    "headingSerif": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "ctaHref": {
+      "type": "string"
+    }
+  }
+}
