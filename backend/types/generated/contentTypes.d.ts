@@ -517,7 +517,10 @@ export interface ApiConsultationLeadConsultationLead
       Schema.Attribute.Private;
     message: Schema.Attribute.Text;
     name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    projectBudget: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    serviceInterest: Schema.Attribute.String;
     source: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'footer-consultation'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -675,6 +678,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.cta-band',
         'sections.rich-content',
         'sections.contact-section',
+        'sections.contact-interest',
         'sections.who-we-are',
         'sections.journey-stats',
         'sections.solutions-grid',
