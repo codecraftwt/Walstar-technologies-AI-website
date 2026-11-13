@@ -3379,12 +3379,13 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-inline: var(--page-px);
   box-sizing: border-box;
 }
 
 .contact-interest-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
   gap: 64px;
   align-items: center;
 }
@@ -3440,7 +3441,7 @@
   font-family: Georgia, "Instrument Serif", serif;
   font-weight: 400;
   font-style: italic;
-  font-size: 54px;
+  font-size: clamp(36px, 4.6vw, 54px);
   line-height: 100%;
   letter-spacing: 0;
   color: #5ba8e8;
@@ -4038,70 +4039,303 @@
 }
 
 @media (max-width: 900px) {
+  .walstar-page--contact .wrap {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .walstar-page--contact .hero--compact {
+    padding: 28px 16px 48px;
+  }
+
+  .walstar-page--contact .hero--compact h1 {
+    font-size: clamp(26px, 7vw, 34px);
+    margin-top: 18px;
+  }
+
   .contact-interest-grid,
   .contact-panel,
   .contact-form-row {
     grid-template-columns: 1fr;
   }
+
   .contact-interest {
-    padding: 48px 0 28px;
+    padding: 40px 0 24px;
   }
+
   .contact-interest-grid {
-    gap: 28px;
+    gap: 24px;
   }
+
   .contact-interest-media {
-    max-width: 400px;
+    max-width: min(100%, 360px);
     margin: 0 auto;
+    border-radius: 22px;
   }
+
+  .contact-interest-copy {
+    text-align: left;
+  }
+
+  .contact-interest-copy .pill,
+  .contact-info-col .pill,
+  .sec.offices .pill {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+    font-size: 11px;
+    padding: 10px 14px;
+  }
+
   .contact-interest-copy h2 {
-    font-size: clamp(30px, 8vw, 40px);
+    font-size: clamp(28px, 8vw, 36px);
   }
+
   .contact-interest-copy h2 .serif {
-    font-size: 1.05em;
+    font-size: clamp(28px, 8vw, 38px);
   }
+
   .contact-interest-copy p {
-    font-size: 16px;
-  }
-  .contact-chip-grid {
+    font-size: 15px;
+    line-height: 1.5;
     max-width: 100%;
   }
-  .contact-chip {
-    font-size: 16px;
-    padding: 10px 16px;
-    white-space: normal;
-  }
-  .contact-panel {
-    gap: 28px;
-    padding: 36px 28px;
-    border-radius: 28px;
-  }
-  .contact-info-col h2 {
-    font-size: clamp(28px, 7vw, 36px);
-    white-space: normal;
-  }
-  .contact-info-col h2 .serif {
-    font-size: clamp(28px, 7vw, 36px);
-  }
-  .contact-info-col p.lead {
-    white-space: normal;
-  }
-  .contact-detail-cards {
+
+  .contact-chip-grid {
+    max-width: 100%;
+    gap: 10px;
     margin-top: 24px;
   }
-  .cta-band--inline {
-    margin: 30px auto;
+
+  .contact-chip {
+    font-size: 14px;
+    padding: 10px 14px;
+    white-space: normal;
   }
+
+  .contact-sec {
+    padding: 24px 0 40px;
+  }
+
+  .contact-panel {
+    gap: 24px;
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .contact-info-col {
+    padding: 0;
+  }
+
+  .contact-info-col h2 {
+    font-size: clamp(26px, 7vw, 32px);
+    white-space: normal;
+    line-height: 1.15;
+  }
+
+  .contact-info-col h2 .serif {
+    font-size: clamp(26px, 7vw, 32px);
+  }
+
+  .contact-info-col p.lead {
+    white-space: normal;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .contact-detail-cards,
+  .contact-detail-card {
+    max-width: 100%;
+  }
+
+  .contact-detail-cards {
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .contact-detail-card {
+    padding: 16px 18px;
+    border-radius: 16px;
+  }
+
+  .contact-detail-card a {
+    word-break: break-word;
+  }
+
+  .cta-band--inline {
+    margin: 24px auto;
+  }
+
   .rich-box,
   .contact-card-form {
-    padding: 32px 24px;
-    border-radius: 28px;
+    padding: 24px 18px;
+    border-radius: 24px;
   }
+
   .contact-card-form--figma {
     min-height: 0;
-    gap: 18px;
-  }
-  .contact-form-grid--figma {
+    max-width: 100%;
     gap: 16px;
+  }
+
+  .contact-form-grid--figma {
+    gap: 14px;
+  }
+
+  .contact-form-row {
+    gap: 12px;
+  }
+
+  .contact-form-grid--figma .contact-field--pill input,
+  .contact-select-trigger {
+    max-width: 100%;
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .contact-form-grid--figma .contact-field--pill input::placeholder,
+  .contact-select-placeholder,
+  .contact-select-value {
+    font-size: 14px;
+  }
+
+  .contact-form-grid--figma .contact-field--area textarea {
+    min-height: 110px;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .contact-select-label,
+  .contact-form-grid--figma .contact-field--area > span {
+    font-size: 14px;
+  }
+
+  .contact-submit-btn.btn-bl {
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .walstar-page--contact .sec.offices {
+    padding-top: 28px;
+    padding-bottom: 8px;
+  }
+
+  .walstar-page--contact .sec.offices h2,
+  .walstar-page--contact .sec.offices h2 .serif {
+    font-size: clamp(26px, 7vw, 34px);
+  }
+
+  .walstar-page--contact .oc,
+  .sec.offices .oc {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .walstar-page--contact .of,
+  .walstar-page--contact .of.hq,
+  .sec.offices .of,
+  .sec.offices .of.hq {
+    padding: 22px 18px;
+    border-radius: 22px;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .sec.offices .of em {
+    font-size: 14px;
+  }
+
+  .sec.offices .of h4 {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .sec.offices .of small,
+  .sec.offices .of p {
+    font-size: 14px;
+  }
+
+  .sec.offices .of small {
+    padding-bottom: 10px;
+  }
+
+  .sec.offices .of .vb {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .walstar-page--contact .map,
+  .sec.offices .map {
+    margin: 20px auto 28px;
+    max-width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .walstar-page--contact .map-img,
+  .sec.offices .map-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .walstar-page--contact .lb,
+  .sec.offices .lb {
+    font-size: 10px;
+    padding: 2px 8px 2px 2px;
+    max-width: min(100%, 160px);
+    white-space: normal;
+  }
+}
+
+@media (max-width: 560px) {
+  .walstar-page--contact .wrap {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .contact-panel {
+    padding: 20px 14px;
+    border-radius: 20px;
+  }
+
+  .contact-card-form {
+    padding: 20px 14px;
+    border-radius: 20px;
+  }
+
+  .contact-interest-media {
+    max-width: 100%;
+  }
+
+  .contact-chip {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .sec.offices .of,
+  .sec.offices .of.hq {
+    padding: 18px 16px;
+    border-radius: 18px;
+  }
+
+  .sec.offices .of h4 {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .sec.offices .of em {
+    font-size: 13px;
+  }
+
+  .sec.offices .of small,
+  .sec.offices .of p {
+    font-size: 13px;
+    line-height: 1.45;
   }
 }
 
@@ -5080,10 +5314,13 @@
     grid-template-columns: 1fr;
   }
   .g4,
-  .oc,
   .team .ex,
   .team .g4b {
     grid-template-columns: 1fr 1fr;
+  }
+  .oc {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
   .sc {
     padding: 32px 28px;
