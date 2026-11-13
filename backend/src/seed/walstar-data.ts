@@ -872,7 +872,7 @@ export const INITIAL_PAGES = [
         chip: 'Contact Walstar',
         headlinePrefix: 'Your Next',
         headlineSerif: 'Digital Journey',
-        headlineSuffix: 'Starts Here',
+        headlineSuffix: '\nStarts Here',
         variant: 'compact' as const,
       },
       {
