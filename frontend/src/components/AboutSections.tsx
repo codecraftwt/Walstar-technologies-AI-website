@@ -520,9 +520,9 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
   const rawPins = section.mapPins ?? [];
   const mapPins = rawPins.length > 0 ? rawPins : DEFAULT_MAP_PINS;
   const offices = section.offices ?? [];
-  const mapImageUrl = section.image?.url
-    ? getStrapiMediaUrl(section.image.url)
-    : null;
+  const mapImageUrl = getStrapiMediaUrl(section.image?.url);
+  const mapAlt =
+    section.image?.alternativeText || 'Walstar Technologies global offices map';
 
   return (
     <section className="sec offices">
@@ -538,16 +538,24 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
         {section.showWorldMap !== false ? (
           <div className="map">
             {mapImageUrl ? (
-              <Image
+              // Use a plain img so Cloudinary CMS uploads render without Next optimizer issues.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 src={mapImageUrl}
-                alt={section.image?.alternativeText || 'Areas we serve'}
-                fill
-                sizes="(max-width: 900px) 100vw, 900px"
-                className="object-contain"
-                priority={false}
+                alt={mapAlt}
+                className="map-img"
+                width={1205}
+                height={549}
+                loading="lazy"
+                decoding="async"
               />
             ) : (
-              <svg viewBox="0 0 900 340" aria-hidden="true">
+              <svg
+                  className="map-img"
+                  viewBox="0 0 900 340"
+                  role="img"
+                  aria-label={mapAlt}
+                >
                 <g fill="#d4d4d4">
                   <path d="M120 60l90-20 90 20 20 50-30 60-50 30-40 40-30-50-40-40z" />
                   <path d="M250 210l60 10 20 50-30 60-30-40z" />

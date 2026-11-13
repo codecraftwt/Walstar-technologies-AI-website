@@ -161,6 +161,17 @@ function HeroBlock({
           <HeroBackgroundVideo src={videoUrl} poster={bgImageUrl} />
           <div className="hero-bg-scrim" aria-hidden="true" />
         </div>
+      ) : bgImageUrl && isContactPage && isCompact ? (
+        <div className="hero-bg-media" aria-hidden="true">
+          {/* Plain img so Figma multiply/offset styles are not overridden by next/image fill */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={bgImageUrl}
+            alt=""
+            className="hero-bg-photo"
+          />
+          <div className="hero-bg-scrim hero-bg-scrim--contact" />
+        </div>
       ) : bgImageUrl ? (
         <div className="hero-bg-media">
           <Image
@@ -172,6 +183,16 @@ function HeroBlock({
             className="object-cover opacity-30"
           />
         </div>
+      ) : isContactPage && isCompact ? (
+        <div className="hero-bg-media" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/contact-hero-building.jpg"
+            alt=""
+            className="hero-bg-photo"
+          />
+          <div className="hero-bg-scrim hero-bg-scrim--contact" />
+        </div>
       ) : null}
       {includeNavbar ? (
         <WalstarHeaderNav
@@ -180,19 +201,32 @@ function HeroBlock({
           currentPath={currentPath}
         />
       ) : null}
-      <div className={isCompact ? 'hero hero--compact' : 'hero'}>
+      <div
+        className={
+          isCompact
+            ? isContactPage
+              ? 'hero hero--compact hero--contact'
+              : 'hero hero--compact'
+            : 'hero'
+        }
+      >
         {section.chip ? <span className="chip">{section.chip}</span> : null}
         <h1>
           {renderHeadingParts(
             formatHeroHeadingPrefix(section.headlinePrefix),
             section.headlineSerif,
-            section.headlineSuffix
+            isContactPage && isCompact && section.headlineSuffix
+              ? section.headlineSuffix.startsWith('\n')
+                ? section.headlineSuffix
+                : `\n${section.headlineSuffix}`
+              : section.headlineSuffix
           )}
         </h1>
         {section.description ? (
           <p>{renderMultilineText(formatHeroDescription(section.description))}</p>
         ) : null}
-        {section.primaryCtaLabel || section.secondaryCtaLabel ? (
+        {!(isContactPage && isCompact) &&
+        (section.primaryCtaLabel || section.secondaryCtaLabel) ? (
           <div className="cta">
             {section.primaryCtaLabel ? (
               <WalstarButton

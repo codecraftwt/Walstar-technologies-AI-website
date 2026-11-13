@@ -190,12 +190,23 @@ export default {
   },
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    const contactInterest = strapi.components['sections.contact-interest'];
+    if (!contactInterest) {
+      strapi.log.error(
+        'Missing component sections.contact-interest — Contact page media uploads will fail until this component is deployed.'
+      );
+    } else {
+      strapi.log.info(
+        'Component sections.contact-interest loaded (image field available for Contact Interest section).'
+      );
+    }
+
     try {
       await ensurePublicPermissions(strapi);
       await seedSingleTypes(strapi);
       await seedCollections(strapi);
     } catch (error) {
-      strapi.log.warn(
+      strapi.log.error(
         'Initial starter bootstrap skipped or encountered an error:',
         error
       );

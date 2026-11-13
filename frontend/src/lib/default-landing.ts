@@ -906,7 +906,7 @@ export const DEFAULT_PAGES: PageItem[] = [
         chip: 'Contact Walstar',
         headlinePrefix: 'Your Next',
         headlineSerif: 'Digital Journey',
-        headlineSuffix: 'Starts Here',
+        headlineSuffix: '\nStarts Here',
         variant: 'compact',
       },
       {

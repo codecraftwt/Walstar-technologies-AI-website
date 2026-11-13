@@ -538,11 +538,11 @@
 
 .nav-item-wrap {
   position: relative;
-  font-family: var(--font-poppins, 'Poppins', sans-serif);
+  font-family: Poppins, var(--font-poppins, sans-serif);
   font-weight: 400;
   font-style: normal;
-  font-size: clamp(13px, 1.042vw, 20px);
-  line-height: 1;
+  font-size: 16px;
+  line-height: 100%;
   letter-spacing: 0;
   text-align: center;
 }
@@ -555,11 +555,11 @@
 
 .hero-nav ul a,
 .nav-item-wrap a {
-  font-family: var(--font-poppins, 'Poppins', sans-serif);
+  font-family: Poppins, var(--font-poppins, sans-serif);
   font-weight: 400;
   font-style: normal;
-  font-size: inherit;
-  line-height: 1;
+  font-size: 16px;
+  line-height: 100%;
   letter-spacing: 0;
   text-align: center;
   color: rgba(255, 255, 255, 0.92);
@@ -670,22 +670,33 @@
 }
 
 .nav-cta-btn {
+  box-sizing: border-box;
   min-width: unset;
   width: auto;
-  min-height: clamp(38px, 2.7vw, 50px);
-  height: auto;
-  border-radius: 30px;
-  padding: clamp(9px, 0.7vw, 13px) clamp(16px, 1.3vw, 24px);
-  gap: 6px;
+  min-height: 46px;
+  height: 46px;
+  border-radius: 23px;
+  padding: 12px 24px;
+  gap: 5px;
   opacity: 1;
+  background: #e96d01;
+  color: #fff;
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
-  font-size: clamp(12px, 0.8vw, 15px);
-  line-height: 1;
+  font-size: 16px;
+  line-height: 100%;
   letter-spacing: 0;
   vertical-align: middle;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-cta-btn:hover,
+.nav-cta-btn:focus-visible {
+  background: #d46201;
 }
 
 /* Body and HTML scroll lock for mobile menu */
@@ -3364,7 +3375,19 @@ html.walstar-scroll-locked {
     padding: 20px clamp(24px, 3.8vw, 54px);
   }
   .hero-nav ul {
-    gap: 16px;
+    gap: 18px;
+  }
+  .nav-item-wrap,
+  .hero-nav ul a,
+  .nav-item-wrap a {
+    font-size: 14px;
+  }
+  .nav-cta-btn {
+    height: 40px;
+    min-height: 40px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
   }
 }
 
@@ -3758,6 +3781,17 @@ html.walstar-scroll-locked {
     justify-content: center;
     padding: 12px 20px;
     font-size: 13px;
+  }
+  .hero-nav .btn-or,
+  .hero-nav .nav-cta-btn {
+    width: auto;
+    height: 44px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: 22px;
+    font-size: 14px;
+    gap: 5px;
+    white-space: nowrap;
   }
   .card {
     flex: 0 0 min(300px, 82vw);
@@ -4258,6 +4292,7 @@ html.walstar-scroll-locked {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-inline: var(--page-px);
   box-sizing: border-box;
 }
 
@@ -4274,7 +4309,7 @@ html.walstar-scroll-locked {
 
 .contact-interest-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
   gap: 64px;
   align-items: center;
 }
@@ -4330,7 +4365,7 @@ html.walstar-scroll-locked {
   font-family: Georgia, "Instrument Serif", serif;
   font-weight: 400;
   font-style: italic;
-  font-size: 54px;
+  font-size: clamp(36px, 4.6vw, 54px);
   line-height: 100%;
   letter-spacing: 0;
   color: #5ba8e8;
@@ -4931,71 +4966,400 @@ html.walstar-scroll-locked {
   margin-top: 4px;
 }
 
+.walstar-footer--standalone {
+  margin-top: 24px;
+  padding-top: clamp(44px, 4vw, 64px);
+}
+
 @media (max-width: 900px) {
+  .walstar-page--contact .wrap {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .walstar-page--contact .hero-box--contact {
+    min-height: clamp(360px, 52vh, 440px);
+    border-radius: 16px;
+    margin: 0 12px 10px;
+  }
+
+  .walstar-page--contact .hero-box--contact .hero-nav {
+    padding: 18px 16px 10px;
+    gap: 10px;
+  }
+
+  .walstar-page--contact .hero-box--contact .nav-cta-btn {
+    height: 40px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .walstar-page--contact .hero--compact,
+  .walstar-page--contact .hero--contact {
+    padding: 20px 16px 36px;
+    min-height: 0;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+
+  .walstar-page--contact .hero--compact h1,
+  .walstar-page--contact .hero--contact h1 {
+    font-size: clamp(24px, 6.2vw, 32px);
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+    margin-top: 0;
+  }
+
+  .walstar-page--contact .hero--contact h1 .serif {
+    color: #41a3ff;
+    font-family: Georgia, "Instrument Serif", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .walstar-page--contact .hero--contact .chip {
+    padding: 5.5px 14px;
+    font-size: 10px;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .walstar-page--contact .hero--contact .chip::before {
+    width: 7px;
+    height: 7px;
+  }
+
   .contact-interest-grid,
   .contact-panel,
   .contact-form-row {
     grid-template-columns: 1fr;
   }
+
   .contact-interest {
-    padding: 48px 0 28px;
+    padding: 40px 0 24px;
   }
+
   .contact-interest-grid {
-    gap: 28px;
+    gap: 24px;
   }
+
   .contact-interest-media {
-    max-width: 400px;
+    max-width: min(100%, 360px);
     margin: 0 auto;
+    border-radius: 22px;
   }
+
+  .contact-interest-copy {
+    text-align: left;
+  }
+
+  .contact-interest-copy .pill,
+  .contact-info-col .pill,
+  .sec.offices .pill {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+    font-size: 11px;
+    padding: 10px 14px;
+  }
+
   .contact-interest-copy h2 {
-    font-size: clamp(30px, 8vw, 40px);
+    font-size: clamp(28px, 8vw, 36px);
   }
+
   .contact-interest-copy h2 .serif {
-    font-size: 1.05em;
+    font-size: clamp(28px, 8vw, 38px);
   }
+
   .contact-interest-copy p {
-    font-size: 16px;
-  }
-  .contact-chip-grid {
+    font-size: 15px;
+    line-height: 1.5;
     max-width: 100%;
   }
-  .contact-chip {
-    font-size: 16px;
-    padding: 10px 16px;
-    white-space: normal;
-  }
-  .contact-panel {
-    gap: 28px;
-    padding: 36px 28px;
-    border-radius: 28px;
-  }
-  .contact-info-col h2 {
-    font-size: clamp(28px, 7vw, 36px);
-    white-space: normal;
-  }
-  .contact-info-col h2 .serif {
-    font-size: clamp(28px, 7vw, 36px);
-  }
-  .contact-info-col p.lead {
-    white-space: normal;
-  }
-  .contact-detail-cards {
+
+  .contact-chip-grid {
+    max-width: 100%;
+    gap: 10px;
     margin-top: 24px;
   }
-  .cta-band--inline {
-    margin: 30px auto;
+
+  .contact-chip {
+    font-size: 14px;
+    padding: 10px 14px;
+    white-space: normal;
   }
+
+  .contact-sec {
+    padding: 24px 0 40px;
+  }
+
+  .contact-panel {
+    gap: 24px;
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .contact-info-col {
+    padding: 0;
+  }
+
+  .contact-info-col h2 {
+    font-size: clamp(26px, 7vw, 32px);
+    white-space: normal;
+    line-height: 1.15;
+  }
+
+  .contact-info-col h2 .serif {
+    font-size: clamp(26px, 7vw, 32px);
+  }
+
+  .contact-info-col p.lead {
+    white-space: normal;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .contact-detail-cards,
+  .contact-detail-card {
+    max-width: 100%;
+  }
+
+  .contact-detail-cards {
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .contact-detail-card {
+    padding: 16px 18px;
+    border-radius: 16px;
+  }
+
+  .contact-detail-card a {
+    word-break: break-word;
+  }
+
+  .cta-band--inline {
+    margin: 24px auto;
+  }
+
   .rich-box,
   .contact-card-form {
-    padding: 32px 24px;
-    border-radius: 28px;
+    padding: 24px 18px;
+    border-radius: 24px;
   }
+
   .contact-card-form--figma {
     min-height: 0;
-    gap: 18px;
-  }
-  .contact-form-grid--figma {
+    max-width: 100%;
     gap: 16px;
+  }
+
+  .contact-form-grid--figma {
+    gap: 14px;
+  }
+
+  .contact-form-row {
+    gap: 12px;
+  }
+
+  .contact-form-grid--figma .contact-field--pill input,
+  .contact-select-trigger {
+    max-width: 100%;
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .contact-form-grid--figma .contact-field--pill input::placeholder,
+  .contact-select-placeholder,
+  .contact-select-value {
+    font-size: 14px;
+  }
+
+  .contact-form-grid--figma .contact-field--area textarea {
+    min-height: 110px;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .contact-select-label,
+  .contact-form-grid--figma .contact-field--area > span {
+    font-size: 14px;
+  }
+
+  .contact-submit-btn.btn-bl {
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .walstar-page--contact .sec.offices {
+    padding-top: 28px;
+    padding-bottom: 8px;
+  }
+
+  .walstar-page--contact .sec.offices h2,
+  .walstar-page--contact .sec.offices h2 .serif {
+    font-size: clamp(26px, 7vw, 34px);
+  }
+
+  .walstar-page--contact .oc,
+  .sec.offices .oc {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .walstar-page--contact .of,
+  .walstar-page--contact .of.hq,
+  .sec.offices .of,
+  .sec.offices .of.hq {
+    padding: 22px 18px;
+    border-radius: 22px;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .sec.offices .of em {
+    font-size: 14px;
+  }
+
+  .sec.offices .of h4 {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  .sec.offices .of small,
+  .sec.offices .of p {
+    font-size: 14px;
+  }
+
+  .sec.offices .of small {
+    padding-bottom: 10px;
+  }
+
+  .sec.offices .of .vb {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .walstar-page--contact .map,
+  .sec.offices .map {
+    margin: 20px auto 28px;
+    max-width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .walstar-page--contact .map-img,
+  .sec.offices .map-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .walstar-page--contact .lb,
+  .sec.offices .lb {
+    font-size: 10px;
+    padding: 2px 8px 2px 2px;
+    max-width: min(100%, 160px);
+    white-space: normal;
+  }
+}
+
+@media (max-width: 560px) {
+  .walstar-page--contact .wrap {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .walstar-page--contact .hero-box--contact {
+    min-height: clamp(320px, 48vh, 400px);
+    border-radius: 14px;
+    margin: 0 10px 8px;
+  }
+
+  .walstar-page--contact .hero-box--contact .hero-nav {
+    padding: 14px 12px 8px;
+    gap: 8px;
+  }
+
+  .walstar-page--contact .hero-box--contact .walstar-logo-img {
+    width: 108px;
+    max-height: 36px;
+  }
+
+  .walstar-page--contact .hero-box--contact .nav-actions {
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .walstar-page--contact .hero--contact {
+    padding: 16px 12px 28px;
+  }
+
+  .walstar-page--contact .hero--contact h1 {
+    font-size: clamp(22px, 7vw, 28px);
+  }
+
+  .walstar-page--contact .hero--contact .chip {
+    padding: 5px 12px;
+    margin-bottom: 12px;
+  }
+
+  .walstar-page--contact .hero-box--contact .nav-cta-btn {
+    height: 34px;
+    min-height: 34px;
+    padding: 6px 10px;
+    font-size: 10px;
+    border-radius: 17px;
+    max-width: min(148px, 42vw);
+  }
+
+  .contact-panel {
+    padding: 20px 14px;
+    border-radius: 20px;
+  }
+
+  .contact-card-form {
+    padding: 20px 14px;
+    border-radius: 20px;
+  }
+
+  .contact-interest-media {
+    max-width: 100%;
+  }
+
+  .contact-chip {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .sec.offices .of,
+  .sec.offices .of.hq {
+    padding: 18px 16px;
+    border-radius: 18px;
+  }
+
+  .sec.offices .of h4 {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .sec.offices .of em {
+    font-size: 13px;
+  }
+
+  .sec.offices .of small,
+  .sec.offices .of p {
+    font-size: 13px;
+    line-height: 1.45;
   }
 }
 
@@ -5009,14 +5373,68 @@ html.walstar-scroll-locked {
 }
 
 .hero-box--compact.hero-box--contact {
-  background:
-    linear-gradient(180deg, rgba(10, 16, 40, 0.52), rgba(10, 16, 40, 0.7)),
-    url('/images/contact-hero-building.jpg') center / cover no-repeat,
-    linear-gradient(120deg, #1b3a2a, #101c2e 55%, #14301f);
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(475px, 53vh, 620px);
+  border-radius: clamp(16px, 1.6vw, 28px);
+  margin: 0 var(--page-px) 12px;
+  /* Base fill for Figma Multiply blend on the photo layer */
+  background: #06213a;
+}
+
+.hero-box--contact .hero-nav {
+  padding: clamp(32px, 3vw, 48px) clamp(56px, 6.5vw, 120px) clamp(14px, 1.5vw, 22px);
+}
+
+.hero-box--contact .hero-bg-media {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.hero-box--contact .hero-bg-photo {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: -2.2%;
+  width: 104.4%;
+  max-width: none;
+  height: 100%;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+  object-fit: cover;
+  object-position: center 48%;
+  transform: none;
+  display: block;
+}
+
+.hero-bg-scrim--contact {
+  background: #06213a;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .hero-box--contact .hero-bg-photo {
+    left: 0;
+    width: 100%;
+    object-position: center 48%;
+  }
 }
 
 .hero--compact {
   padding: 34px 24px 70px;
+}
+
+.hero--contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  min-height: 0;
+  padding: clamp(28px, 3.2vw, 48px) clamp(20px, 3vw, 40px) clamp(44px, 5vw, 72px);
+  max-width: min(980px, 94vw);
 }
 
 .hero--compact h1 {
@@ -5027,8 +5445,34 @@ html.walstar-scroll-locked {
   margin-top: 28px;
 }
 
+.hero--contact h1 {
+  font-family: Urbanist, Poppins, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  /* Figma 54px → ~15% down */
+  font-size: clamp(30px, 3.8vw, 46px);
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-transform: capitalize;
+  margin-top: 0;
+  color: #fff;
+}
+
 .hero--compact h1 .serif {
   font-size: 1.05em;
+}
+
+.hero--contact h1 .serif {
+  font-family: Georgia, "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: inherit;
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+  text-transform: capitalize;
+  color: #41a3ff;
 }
 
 .hero--compact .chip {
@@ -5037,6 +5481,30 @@ html.walstar-scroll-locked {
   padding: 6px 20px;
   min-height: auto;
   background: rgba(60, 100, 200, 0.18);
+}
+
+.hero--contact .chip {
+  gap: 10px;
+  margin-bottom: clamp(18px, 2vw, 28px);
+  padding: 8px 22px;
+  min-height: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(85, 173, 255, 0.45);
+  background: rgba(20, 59, 95, 0.55);
+  color: #fff;
+  font-size: clamp(10px, 0.7vw, 12px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero--contact .chip::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #41a3ff;
+  flex-shrink: 0;
 }
 
 .sec {
@@ -6031,11 +6499,14 @@ html.walstar-scroll-locked {
     grid-template-columns: 1fr;
   }
   .g4,
-  .oc,
   .team .ex,
   .team .g3,
   .team .g4b {
     grid-template-columns: 1fr 1fr;
+  }
+  .oc {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
   .sc {
     padding: 28px 22px;
