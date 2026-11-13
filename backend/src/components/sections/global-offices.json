@@ -25,6 +25,11 @@
       "type": "boolean",
       "default": true
     },
+    "image": {
+      "type": "media",
+      "allowedTypes": ["images"],
+      "multiple": false
+    },
     "mapPins": {
       "type": "component",
       "repeatable": true,

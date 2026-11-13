@@ -37,8 +37,9 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
   contactEmail: 'info@walstartechnologies.com',
   footerAbout:
     'Results-driven digital agency building secure, scalable solutions for global businesses.',
-  footerNewsletterTitle: 'Have Project in mind?',
-  footerNewsletterSubtitle: "Let's create something great",
+  footerAboutLogo: null,
+  footerNewsletterTitle: 'Have Project in mind ?',
+  footerNewsletterSubtitle: 'Let’s create something great.',
   footerNewsletterButtonLabel: 'Free Consultation ↗',
   footerBigPrefix: 'Build',
   footerBigSerif: 'AI Products',
@@ -58,10 +59,10 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
     { label: 'Events & Programs', href: '/#prod', hasDropdown: false },
   ],
   officeAddress:
-    '203/171, Bonsim Nagar, Front of Datta Mandir, Kothrud, Maharashtra 411038',
-  officePhones: '+91 9657764560\n+44 757 798 8543\n+91 9657764560',
+    '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
+  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
   copyrightText:
-    'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy',
+    'Copyright © 2028 All Rights Reserved, Terms of Use and Privacy Policy',
 };
 
 const DEFAULT_PARTNER_LOGOS: PartnerLogo[] = [
@@ -267,13 +268,15 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
 export const DEFAULT_CASE_STUDIES: CaseStudyItem[] = [
   {
     documentId: 'seed-cs-1',
-    title: 'Jockey Australia Website Revamp',
+    title: 'Jockey Australia.Website Revamp',
     slug: 'jockey-australia-website-revamp',
     category: 'E-commerce',
     metaOneLabel: 'CLIENT',
-    metaOneValue: 'LCG (Lion Capital Group)',
-    metaTwoLabel: 'PROJECT TYPE',
-    metaTwoValue: 'B2B Sales, Financial Services',
+    metaOneValue: 'LCG ( Leon Capital Group)',
+    metaTwoLabel: 'REGION',
+    metaTwoValue: 'United States',
+    metaThreeLabel: 'PROJECT TYPE',
+    metaThreeValue: 'B2B Saas, Financial services',
     summary:
       'Modernized storefront architecture, performance optimization, and high-converting checkout flows for Jockey Australia.',
     themeVariant: 'a',
@@ -284,10 +287,12 @@ export const DEFAULT_CASE_STUDIES: CaseStudyItem[] = [
     title: 'Building A High-Conversion Patient Financing Website',
     slug: 'high-conversion-patient-financing-website',
     category: 'Healthcare',
-    metaOneLabel: 'REGION',
-    metaOneValue: 'United States',
-    metaTwoLabel: 'PROJECT TYPE',
-    metaTwoValue: 'B2B Sales, Financial Services',
+    metaOneLabel: '',
+    metaOneValue: '',
+    metaTwoLabel: '',
+    metaTwoValue: '',
+    metaThreeLabel: '',
+    metaThreeValue: '',
     summary:
       'Engineered an accessible patient financing portal integrating provider onboarding, eligibility workflows, and measurable funnel analytics.',
     themeVariant: 'b',
@@ -561,26 +566,26 @@ export const DEFAULT_PAGES: PageItem[] = [
           },
           {
             number: '05',
-            title: 'Digital Marketing & Lead Generation',
-            category: 'Digital Growth & Visibility',
+            title: 'Cloud & DevOps Engineering',
+            category: 'Scalable Cloud Solutions',
             href: '/services/digital-marketing-performance-growth',
           },
           {
             number: '06',
-            title: 'Cloud, DevOps & Infrastructure',
-            category: 'Scalable Cloud Solutions',
+            title: 'UI/UX Design & Branding',
+            category: 'User Experience & Identity',
             href: '/service-1',
           },
           {
             number: '07',
-            title: 'Dedicated Development Team',
-            category: 'Expert Team Augmentation',
+            title: 'Software Testing & QA',
+            category: 'Quality Assurance & Testing',
             href: '/contact',
           },
           {
             number: '08',
-            title: 'Maintenance, Security & Support',
-            category: 'Ongoing Technical Support',
+            title: 'Emerging Tech & Web3',
+            category: 'Decentralized & Future Tech',
             href: '/contact',
           },
         ],
@@ -588,8 +593,8 @@ export const DEFAULT_PAGES: PageItem[] = [
       {
         __component: 'sections.why-choose',
         pill: 'Why choose Walstar',
-        headingPrefix: 'Built different.',
-        headingSerif: 'Built\nfor impact.',
+        headingPrefix: 'Built different. ',
+        headingSerif: 'Built for impact.',
         reasons: [
           {
             icon: '▭',
@@ -655,9 +660,21 @@ export const DEFAULT_PAGES: PageItem[] = [
         executiveQuote: '“Quality Is Not Optional. It Is Our Foundation.”',
         executiveQuoteAuthor: '-Walstar Technologies',
         executives: [
-          { role: 'Executive' },
-          { role: 'Executive' },
-          { role: 'Executive' },
+          {
+            name: 'Ashish Manwadkar',
+            role: 'Founder & Managing Director',
+            linkedinUrl: '#cta',
+          },
+          {
+            name: 'Chetan Patil',
+            role: 'Co-Founder & CEO',
+            linkedinUrl: '#cta',
+          },
+          {
+            name: 'Snehal Manwadkar',
+            role: 'Co-Founder & Director',
+            linkedinUrl: '#cta',
+          },
         ],
         advisoryTitle: 'Global Advisory Panel',
         advisoryMembers: [
@@ -763,9 +780,9 @@ export const DEFAULT_PAGES: PageItem[] = [
       {
         ...SHARED_CTA_BAND,
         pill: 'CTA',
-        heading: 'Ready to make your next move?',
+        heading: 'Ready to build something iconic?',
         subheading: 'Walstar Technologies is ready to power your digital growth.',
-        buttonLabel: 'Connect With Us ↗',
+        buttonLabel: 'Schedule a Consultation ↗',
         buttonHref: '/contact',
       },
     ],
@@ -1005,9 +1022,10 @@ export const DEFAULT_FOOTER: FooterData = {
   logoAccentText: 'TECHNOLOGIES PVT. LTD.',
   aboutText:
     'Results-driven digital agency building secure, scalable solutions for global businesses.',
+  aboutLogo: null,
   consultationShow: true,
-  consultationTitle: 'Have Project in mind?',
-  consultationSubtitle: "Let's create something great",
+  consultationTitle: 'Have Project in mind ?',
+  consultationSubtitle: 'Let’s create something great.',
   consultationButtonLabel: 'Free Consultation ↗',
   headlinePrefix: 'Build',
   headlineSerif: 'AI Products',
@@ -1036,17 +1054,16 @@ export const DEFAULT_FOOTER: FooterData = {
     },
   ],
   officeAddress:
-    '203/171, Bonsim Nagar, Front of Datta Mandir, Kothrud, Maharashtra 411038',
-  officePhones: '+91 9657764560\n+44 757 798 8543\n+91 9657764560',
-  contactEmail: 'info@walstartechnologies.com',
+    '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
+  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
+  contactEmail: 'sales@walstartechnologies.com',
   socialLinks: [
-    { platform: 'LinkedIn', href: '#cta' },
     { platform: 'X', href: '#cta' },
-    { platform: 'Facebook', href: '#cta' },
     { platform: 'Instagram', href: '#cta' },
+    { platform: 'Facebook', href: '#cta' },
   ],
   copyrightText:
-    'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy',
+    'Copyright © 2028 All Rights Reserved, Terms of Use and Privacy Policy',
 };
 
 export function getDefaultPageBySlug(slug: string): PageItem | null {

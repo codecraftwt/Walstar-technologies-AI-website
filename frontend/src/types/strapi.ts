@@ -13,7 +13,7 @@ export interface StrapiResponse<T> {
 }
 
 export interface StrapiMedia {
-  id: number;
+  id?: number;
   documentId?: string;
   url: string;
   alternativeText?: string | null;
@@ -78,6 +78,7 @@ export interface SiteSetting {
   heroSubtitle?: string | null;
   contactEmail: string;
   footerAbout: string;
+  footerAboutLogo?: StrapiMedia | null;
   footerNewsletterTitle: string;
   footerNewsletterSubtitle: string;
   footerNewsletterButtonLabel: string;
@@ -127,10 +128,12 @@ export interface CaseStudyItem {
   title: string;
   slug: string;
   category: string;
-  metaOneLabel: string;
-  metaOneValue: string;
-  metaTwoLabel: string;
-  metaTwoValue: string;
+  metaOneLabel?: string | null;
+  metaOneValue?: string | null;
+  metaTwoLabel?: string | null;
+  metaTwoValue?: string | null;
+  metaThreeLabel?: string | null;
+  metaThreeValue?: string | null;
   summary?: string | null;
   content?: string | null;
   themeVariant: 'a' | 'b';
@@ -236,6 +239,8 @@ export interface TrustBannerSection {
   headingPrefix?: string | null;
   headingSerif?: string | null;
   headingSuffix?: string | null;
+  topRowLogos?: PartnerLogo[];
+  bottomRowLogos?: PartnerLogo[];
   logos?: PartnerLogo[];
 }
 
@@ -457,6 +462,7 @@ export interface GlobalOfficesSection {
   headingSerif?: string | null;
   headingSuffix?: string | null;
   showWorldMap?: boolean | null;
+  image?: StrapiMedia | null;
   mapPins?: WorldMapPinItem[];
   offices?: OfficeLocationItem[];
 }
@@ -551,6 +557,7 @@ export interface FooterData {
   logoImage?: StrapiMedia | null;
   logoAccentText?: string | null;
   aboutText?: string | null;
+  aboutLogo?: StrapiMedia | null;
   consultationShow?: boolean;
   consultationTitle?: string | null;
   consultationSubtitle?: string | null;

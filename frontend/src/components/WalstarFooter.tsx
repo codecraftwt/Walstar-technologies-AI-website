@@ -14,6 +14,7 @@ import type {
   FooterColumn,
   FooterData,
   SiteSetting,
+  StrapiMedia,
 } from '@/types/strapi';
 
 export function WalstarCtaBand({
@@ -68,13 +69,14 @@ function buildFallbackLinkColumns(siteSetting?: SiteSetting): FooterColumn[] {
 export function WalstarFooter({
   footer,
   siteSetting,
-  source = 'fallback',
   trailingCta,
+  aboutLogo,
 }: {
   footer?: FooterData | null;
   siteSetting?: SiteSetting;
   source?: 'strapi' | 'fallback';
   trailingCta?: CtaBandSection | null;
+  aboutLogo?: StrapiMedia | string | null;
 }) {
   const fallbackSetting = siteSetting ?? DEFAULT_SITE_SETTING;
   const resolved = {
@@ -82,6 +84,8 @@ export function WalstarFooter({
     logoAccentText:
       footer?.logoAccentText || fallbackSetting.footerLogoAccentText,
     aboutText: footer?.aboutText || fallbackSetting.footerAbout,
+    aboutLogo:
+      aboutLogo ?? footer?.aboutLogo ?? fallbackSetting.footerAboutLogo ?? null,
     consultationShow: footer?.consultationShow ?? true,
     consultationTitle:
       footer?.consultationTitle || fallbackSetting.footerNewsletterTitle,
@@ -113,6 +117,10 @@ export function WalstarFooter({
   };
 
   const logoUrl = getStrapiMediaUrl(resolved.logoImage?.url);
+  const aboutLogoUrl =
+    typeof resolved.aboutLogo === 'string'
+      ? resolved.aboutLogo
+      : getStrapiMediaUrl(resolved.aboutLogo?.url);
 
   return (
     <div className="end" id="cta">
@@ -126,7 +134,7 @@ export function WalstarFooter({
         }
       >
         <div className="f1">
-          <div className="f1-brand">
+          <div className="f1-top">
             {logoUrl ? (
               <Link href="/" className="walstar-brand-link">
                 <Image
@@ -134,34 +142,59 @@ export function WalstarFooter({
                   alt={
                     resolved.logoImage?.alternativeText || 'Walstar Technologies'
                   }
-                  width={220}
-                  height={52}
+                  width={207}
+                  height={71}
                   className="walstar-footer-logo-img"
                 />
               </Link>
             ) : (
               <BrandWordmark subtext={resolved.logoAccentText} />
             )}
+          </div>
+
+          <div className="f1-row">
             <div className="fabout">
-              <span className="fabout-badge" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M12 2L14.9 9.1L22 12L14.9 14.9L12 22L9.1 14.9L2 12L9.1 9.1L12 2Z"
-                    fill="#f4691f"
+              <span
+                className={
+                  aboutLogoUrl
+                    ? 'fabout-badge fabout-badge--img'
+                    : 'fabout-badge'
+                }
+                aria-hidden={!aboutLogoUrl}
+              >
+                {aboutLogoUrl ? (
+                  <Image
+                    src={aboutLogoUrl}
+                    alt={
+                      typeof resolved.aboutLogo === 'object' &&
+                      resolved.aboutLogo?.alternativeText
+                        ? resolved.aboutLogo.alternativeText
+                        : 'About Walstar'
+                    }
+                    width={38}
+                    height={38}
+                    className="fabout-badge-img"
                   />
-                </svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 2L14.9 9.1L22 12L14.9 14.9L12 22L9.1 14.9L2 12L9.1 9.1L12 2Z"
+                      fill="#f4691f"
+                    />
+                  </svg>
+                )}
               </span>
               <span>{resolved.aboutText}</span>
             </div>
-          </div>
 
-          {resolved.consultationShow ? (
-            <ConsultationForm
-              title={resolved.consultationTitle}
-              subtitle={resolved.consultationSubtitle}
-              buttonLabel={resolved.consultationButtonLabel}
-            />
-          ) : null}
+            {resolved.consultationShow ? (
+              <ConsultationForm
+                title={resolved.consultationTitle}
+                subtitle={resolved.consultationSubtitle}
+                buttonLabel={resolved.consultationButtonLabel}
+              />
+            ) : null}
+          </div>
         </div>
 
         <div className="f2">
@@ -244,31 +277,38 @@ export function WalstarFooter({
         <div className="copy">
           <span>{resolved.copyrightText}</span>
           <div className="copy-right">
-            <Link
-              href="/status"
-              className="copy-status"
-              title={`Content source: ${source}`}
-            >
-              CMS Status ({source === 'strapi' ? 'Strapi Live' : 'Seed Fallback'})
-            </Link>
             <span className="soc2" aria-label="Social links">
-              {resolved.socialLinks.slice(0, 4).map((social) => {
-                const openNewTab =
-                  social.openInNewTab && social.href.startsWith('http');
-                return (
-                  <a
-                    key={`footer-${social.platform}`}
-                    href={social.href}
-                    aria-label={social.platform}
-                    title={social.platform}
-                    className={social.icon?.url ? 'has-custom-icon' : undefined}
-                    target={openNewTab ? '_blank' : undefined}
-                    rel={openNewTab ? 'noopener noreferrer' : undefined}
-                  >
-                    <SocialIconContent social={social} />
-                  </a>
+              {(() => {
+                const ALLOWED = ['twitter', 'x', 'instagram', 'insta', 'facebook', 'fb'];
+                const matched = resolved.socialLinks.filter((s) =>
+                  ALLOWED.some((allow) => s.platform.trim().toLowerCase().includes(allow))
                 );
-              })}
+                const displaySocials =
+                  matched.length > 0
+                    ? matched
+                    : [
+                        { platform: 'X', href: '#cta' },
+                        { platform: 'Instagram', href: '#cta' },
+                        { platform: 'Facebook', href: '#cta' },
+                      ];
+                return displaySocials.map((social) => {
+                  const openNewTab =
+                    social.openInNewTab && social.href.startsWith('http');
+                  return (
+                    <a
+                      key={`footer-${social.platform}`}
+                      href={social.href}
+                      aria-label={social.platform}
+                      title={social.platform}
+                      className={social.icon?.url ? 'has-custom-icon' : undefined}
+                      target={openNewTab ? '_blank' : undefined}
+                      rel={openNewTab ? 'noopener noreferrer' : undefined}
+                    >
+                      <SocialIconContent social={social} />
+                    </a>
+                  );
+                });
+              })()}
             </span>
           </div>
         </div>

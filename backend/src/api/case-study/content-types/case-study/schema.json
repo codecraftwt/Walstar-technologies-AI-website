@@ -39,6 +39,13 @@
     "metaTwoValue": {
       "type": "string"
     },
+    "metaThreeLabel": {
+      "type": "string",
+      "default": "PROJECT TYPE"
+    },
+    "metaThreeValue": {
+      "type": "string"
+    },
     "summary": {
       "type": "text"
     },

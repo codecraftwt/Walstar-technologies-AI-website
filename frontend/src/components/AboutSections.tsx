@@ -8,6 +8,7 @@ import {
 import { WalstarButton, WalstarButtonArrow } from '@/components/WalstarButton';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
+  AboutSection,
   GlobalOfficesSection,
   JourneyStatsSection,
   SolutionsGridSection,
@@ -84,12 +85,112 @@ function TeamMemberCard({
   );
 }
 
+export function AboutBlock({ section }: { section: AboutSection }) {
+  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url);
+  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url);
+  const highlightIconUrl = getStrapiMediaUrl(section.highlightIcon?.url);
+
+  return (
+    <section className="about" id="about">
+      <div className="wrap grid section">
+        <div className="photos" aria-hidden={!primaryImgUrl && !secondaryImgUrl}>
+          <div className={primaryImgUrl ? 'p1 overflow-hidden' : 'p1 p1--empty overflow-hidden'}>
+            {primaryImgUrl ? (
+              <Image
+                src={primaryImgUrl}
+                alt={section.primaryImage?.alternativeText || 'About Walstar'}
+                fill
+                sizes="(max-width: 900px) 100vw, 40vw"
+                className="object-cover"
+              />
+            ) : null}
+          </div>
+          <div className={secondaryImgUrl ? 'p2 overflow-hidden' : 'p2 p2--empty overflow-hidden'}>
+            {secondaryImgUrl ? (
+              <Image
+                src={secondaryImgUrl}
+                alt={section.secondaryImage?.alternativeText || 'Walstar team'}
+                fill
+                sizes="(max-width: 900px) 60vw, 25vw"
+                className="object-cover"
+              />
+            ) : null}
+          </div>
+        </div>
+        <div>
+          {section.tag ? <span className="pill">{section.tag}</span> : null}
+          <h2>
+            {section.headingPrefix}{' '}
+            {section.headingSerif ? (
+              <span className="serif">{section.headingSerif}</span>
+            ) : null}{' '}
+            {section.headingSuffix}
+          </h2>
+          {section.description ? (
+            <p className="lead" style={{ marginTop: 14 }}>
+              {section.description}
+            </p>
+          ) : null}
+          {section.highlightTitle ? (
+            <div className="mini">
+              <i>
+                {highlightIconUrl ? (
+                  <Image
+                    src={highlightIconUrl}
+                    alt={section.highlightIcon?.alternativeText || section.highlightTitle}
+                    width={26}
+                    height={26}
+                  />
+                ) : (
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="6"
+                      y="6"
+                      width="12"
+                      height="12"
+                      rx="3"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <path
+                      d="M12 9V15M9 12H15M9 3V6M15 3V6M9 18V21M15 18V21M3 9H6M3 15H6M18 9H21M18 15H21"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+              </i>
+              <div>
+                <h4>{section.highlightTitle}</h4>
+                <p>{section.highlightDescription}</p>
+              </div>
+            </div>
+          ) : null}
+          {section.ctaLabel ? (
+            <WalstarButton variant="orange" href={section.ctaHref || '/about-us'}>
+              {section.ctaLabel}
+            </WalstarButton>
+          ) : null}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
   const imageUrl = getStrapiMediaUrl(section.image?.url);
 
   return (
     <section className="sec who">
-      <div className="wrap">
+      <div className="wrap section">
         <div
           className={imageUrl ? 'ph relative overflow-hidden' : 'ph'}
           role={imageUrl ? undefined : 'img'}
@@ -204,7 +305,9 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
               <>
                 <div className="n">
                   <span>{item.number}</span>
-                  <i aria-hidden="true">↗</i>
+                  <i aria-hidden="true" className="n-arrow">
+                    <WalstarButtonArrow width={15} height={15} />
+                  </i>
                 </div>
                 <h4>{item.title}</h4>
                 {item.category ? <small>{item.category}</small> : null}
@@ -392,6 +495,7 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
 export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection }) {
   const mapPins = section.mapPins ?? [];
   const offices = section.offices ?? [];
+  const mapImageUrl = section.image ? getStrapiMediaUrl(section.image.url) : null;
 
   return (
     <section className="sec">
@@ -406,40 +510,52 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
 
         {section.showWorldMap !== false ? (
           <div className="map">
-            <svg viewBox="0 0 900 340" aria-hidden="true">
-              <g fill="#d4d4d4">
-                <path d="M120 60l90-20 90 20 20 50-30 60-50 30-40 40-30-50-40-40z" />
-                <path d="M250 210l60 10 20 50-30 60-30-40z" />
-                <path d="M400 70l90-20 120 10 140 20 40 60-60 40-80 20-40 60-60-20-30-60-60 10-30-50z" />
-                <path d="M410 160l70 20 20 70-30 50-40-40z" />
-                <path d="M690 230l70-10 30 40-50 30-50-20z" />
-              </g>
-              <g strokeWidth="1">
-                <path d="M135 20v152" stroke="#d6003b" />
-                <path d="M470 30v168" stroke="#f0a020" />
-                <path d="M570 100v155" stroke="#1a2a8a" />
-              </g>
-              <circle cx="135" cy="172" r="3" fill="#d6003b" />
-              <circle cx="470" cy="198" r="3" fill="#f0a020" />
-              <circle cx="570" cy="255" r="3" fill="#1a2a8a" />
-            </svg>
+            {mapImageUrl ? (
+              <Image
+                src={mapImageUrl}
+                alt={section.image?.alternativeText || 'Areas we serve'}
+                fill
+                sizes="(max-width: 900px) 100vw, 40vw"
+                className="object-cover"
+              />
+            ) : (
+              <>
+                <svg viewBox="0 0 900 340" aria-hidden="true">
+                  <g fill="#d4d4d4">
+                    <path d="M120 60l90-20 90 20 20 50-30 60-50 30-40 40-30-50-40-40z" />
+                    <path d="M250 210l60 10 20 50-30 60-30-40z" />
+                    <path d="M400 70l90-20 120 10 140 20 40 60-60 40-80 20-40 60-60-20-30-60-60 10-30-50z" />
+                    <path d="M410 160l70 20 20 70-30 50-40-40z" />
+                    <path d="M690 230l70-10 30 40-50 30-50-20z" />
+                  </g>
+                  <g strokeWidth="1">
+                    <path d="M135 20v152" stroke="#d6003b" />
+                    <path d="M470 30v168" stroke="#f0a020" />
+                    <path d="M570 100v155" stroke="#1a2a8a" />
+                  </g>
+                  <circle cx="135" cy="172" r="3" fill="#d6003b" />
+                  <circle cx="470" cy="198" r="3" fill="#f0a020" />
+                  <circle cx="570" cy="255" r="3" fill="#1a2a8a" />
+                </svg>
 
-            {mapPins.map((pin, idx) => {
-              const topPercent = `${(((pin.topPx ?? 14) / 340) * 100).toFixed(2)}%`;
-              const leftPercent = `${pin.leftPercent ?? 50}%`;
-              const flagBg = FLAG_BACKGROUNDS[pin.flagVariant ?? 'in'];
+                {mapPins.map((pin, idx) => {
+                  const topPercent = `${(((pin.topPx ?? 14) / 340) * 100).toFixed(2)}%`;
+                  const leftPercent = `${pin.leftPercent ?? 50}%`;
+                  const flagBg = FLAG_BACKGROUNDS[pin.flagVariant ?? 'in'];
 
-              return (
-                <span
-                  key={`${pin.label}-${pin.id ?? idx}`}
-                  className="lb"
-                  style={{ left: leftPercent, top: topPercent }}
-                >
-                  <i style={{ background: flagBg }} aria-hidden="true" />
-                  <span>{pin.label}</span>
-                </span>
-              );
-            })}
+                  return (
+                    <span
+                      key={`${pin.label}-${pin.id ?? idx}`}
+                      className="lb"
+                      style={{ left: leftPercent, top: topPercent }}
+                    >
+                      <i style={{ background: flagBg }} aria-hidden="true" />
+                      <span>{pin.label}</span>
+                    </span>
+                  );
+                })}
+              </>
+            )}
           </div>
         ) : null}
 

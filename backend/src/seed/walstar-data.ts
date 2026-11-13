@@ -48,10 +48,10 @@ export const INITIAL_SITE_SETTING = {
     { label: 'Events & Programs', href: '/#prod', hasDropdown: false },
   ],
   officeAddress:
-    '203/171, Bonsim Nagar, Front of Datta Mandir, Kothrud, Maharashtra 411038',
-  officePhones: '+91 9657764560\n+44 757 798 8543\n+91 9657764560',
+    '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
+  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
   copyrightText:
-    'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy',
+    'Copyright © 2028 All Rights Reserved, Terms of Use and Privacy Policy',
 };
 
 const SHARED_PARTNER_LOGOS = [
@@ -261,17 +261,19 @@ export const INITIAL_PRODUCTS = [
 
 export const INITIAL_CASE_STUDIES = [
   {
-    title: 'Jockey Australia Website Revamp',
+    title: 'Jockey Australia.Website Revamp',
     slug: 'jockey-australia-website-revamp',
     category: 'E-commerce',
     metaOneLabel: 'CLIENT',
-    metaOneValue: 'LCG (Lion Capital Group)',
-    metaTwoLabel: 'PROJECT TYPE',
-    metaTwoValue: 'B2B Sales, Financial Services',
+    metaOneValue: 'LCG ( Leon Capital Group)',
+    metaTwoLabel: 'REGION',
+    metaTwoValue: 'United States',
+    metaThreeLabel: 'PROJECT TYPE',
+    metaThreeValue: 'B2B Saas, Financial services',
     summary:
       'Modernized storefront architecture, performance optimization, and high-converting checkout flows for Jockey Australia.',
     content:
-      'Walstar Technologies partnered with Lion Capital Group to deliver a high-speed commerce revamp focused on mobile UX, catalog scalability, and conversion performance.',
+      'Walstar Technologies partnered with Leon Capital Group to deliver a high-speed commerce revamp focused on mobile UX, catalog scalability, and conversion performance.',
     themeVariant: 'a' as const,
     order: 1,
   },
@@ -279,10 +281,12 @@ export const INITIAL_CASE_STUDIES = [
     title: 'Building A High-Conversion Patient Financing Website',
     slug: 'high-conversion-patient-financing-website',
     category: 'Healthcare',
-    metaOneLabel: 'REGION',
-    metaOneValue: 'United States',
-    metaTwoLabel: 'PROJECT TYPE',
-    metaTwoValue: 'B2B Sales, Financial Services',
+    metaOneLabel: '',
+    metaOneValue: '',
+    metaTwoLabel: '',
+    metaTwoValue: '',
+    metaThreeLabel: '',
+    metaThreeValue: '',
     summary:
       'Engineered an accessible patient financing portal integrating provider onboarding, eligibility workflows, and measurable funnel analytics.',
     content:
@@ -1027,15 +1031,14 @@ export const INITIAL_FOOTER = {
     },
   ],
   officeAddress:
-    '203/171, Bonsim Nagar, Front of Datta Mandir, Kothrud, Maharashtra 411038',
-  officePhones: '+91 9657764560\n+44 757 798 8543\n+91 9657764560',
-  contactEmail: 'info@walstartechnologies.com',
+    '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
+  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
+  contactEmail: 'sales@walstartechnologies.com',
   socialLinks: [
-    { platform: 'LinkedIn', href: '#cta' },
     { platform: 'X', href: '#cta' },
-    { platform: 'Facebook', href: '#cta' },
     { platform: 'Instagram', href: '#cta' },
+    { platform: 'Facebook', href: '#cta' },
   ],
   copyrightText:
-    'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy',
+    'Copyright © 2028 All Rights Reserved, Terms of Use and Privacy Policy',
 };

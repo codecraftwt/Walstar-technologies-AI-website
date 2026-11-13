@@ -470,6 +470,9 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
     metaOneLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'CLIENT'>;
     metaOneValue: Schema.Attribute.String;
+    metaThreeLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'PROJECT TYPE'>;
+    metaThreeValue: Schema.Attribute.String;
     metaTwoLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'PROJECT TYPE'>;
     metaTwoValue: Schema.Attribute.String;
@@ -535,10 +538,12 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    aboutLogo: Schema.Attribute.Media<'images'>;
     aboutText: Schema.Attribute.Text;
     consultationButtonLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Free Consultation \u2197'>;
-    consultationShow: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    consultationShow: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
     consultationSubtitle: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<"Let's create something great">;
     consultationTitle: Schema.Attribute.String &
@@ -546,7 +551,7 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
     contactEmail: Schema.Attribute.Email &
       Schema.Attribute.DefaultTo<'info@walstartechnologies.com'>;
     copyrightText: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Copyright © 2026 All Rights Reserved. Terms of Use and Privacy Policy'>;
+      Schema.Attribute.DefaultTo<'Copyright \u00A9 2026 All Rights Reserved. Terms of Use and Privacy Policy'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -555,7 +560,8 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
     ctaOpenInNewTab: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
     ctaRoute: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/contact'>;
-    headlinePrefix: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Build'>;
+    headlinePrefix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Build'>;
     headlineSerif: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'AI Products'>;
     headlineSuffix: Schema.Attribute.String &
@@ -643,8 +649,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    isHomepage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     footer: Schema.Attribute.Relation<'manyToOne', 'api::footer.footer'>;
+    isHomepage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
       Schema.Attribute.Private;
@@ -784,6 +790,7 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     footerAbout: Schema.Attribute.Text;
+    footerAboutLogo: Schema.Attribute.Media<'images'>;
     footerBigPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Build'>;
     footerBigSerif: Schema.Attribute.String &

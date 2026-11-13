@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { WalstarButton, WalstarButtonArrow } from './WalstarButton';
 import {
+  AboutBlock,
   GlobalOfficesBlock,
   JourneyStatsBlock,
   SolutionsGridBlock,
@@ -24,7 +25,6 @@ import {
 import { WalstarCtaBand, WalstarFooter } from '@/components/WalstarFooter';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
-  AboutSection,
   BeforeAfterSection,
   CapabilitiesSection,
   CaseStudiesSection,
@@ -238,105 +238,6 @@ function PartnerStripBlock({ section }: { section: PartnerStripSection }) {
   );
 }
 
-function AboutBlock({ section }: { section: AboutSection }) {
-  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url);
-  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url);
-  const highlightIconUrl = getStrapiMediaUrl(section.highlightIcon?.url);
-
-  return (
-    <section className="about" id="about">
-      <div className="wrap grid">
-        <div className="photos" aria-hidden={!primaryImgUrl && !secondaryImgUrl}>
-          <div className={primaryImgUrl ? 'p1 overflow-hidden' : 'p1 p1--empty overflow-hidden'}>
-            {primaryImgUrl ? (
-              <Image
-                src={primaryImgUrl}
-                alt={section.primaryImage?.alternativeText || 'About Walstar'}
-                fill
-                sizes="(max-width: 900px) 100vw, 40vw"
-                className="object-cover"
-              />
-            ) : null}
-          </div>
-          <div className={secondaryImgUrl ? 'p2 overflow-hidden' : 'p2 p2--empty overflow-hidden'}>
-            {secondaryImgUrl ? (
-              <Image
-                src={secondaryImgUrl}
-                alt={section.secondaryImage?.alternativeText || 'Walstar team'}
-                fill
-                sizes="(max-width: 900px) 60vw, 25vw"
-                className="object-cover"
-              />
-            ) : null}
-          </div>
-        </div>
-        <div>
-          {section.tag ? <span className="pill">{section.tag}</span> : null}
-          <h2>
-            {section.headingPrefix}{' '}
-            {section.headingSerif ? (
-              <span className="serif">{section.headingSerif}</span>
-            ) : null}{' '}
-            {section.headingSuffix}
-          </h2>
-          {section.description ? (
-            <p className="lead" style={{ marginTop: 14 }}>
-              {section.description}
-            </p>
-          ) : null}
-          {section.highlightTitle ? (
-            <div className="mini">
-              <i>
-                {highlightIconUrl ? (
-                  <Image
-                    src={highlightIconUrl}
-                    alt={section.highlightIcon?.alternativeText || section.highlightTitle}
-                    width={26}
-                    height={26}
-                  />
-                ) : (
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="6"
-                      y="6"
-                      width="12"
-                      height="12"
-                      rx="3"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    />
-                    <path
-                      d="M12 9V15M9 12H15M9 3V6M15 3V6M9 18V21M15 18V21M3 9H6M3 15H6M18 9H21M18 15H21"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                )}
-              </i>
-              <div>
-                <h4>{section.highlightTitle}</h4>
-                <p>{section.highlightDescription}</p>
-              </div>
-            </div>
-          ) : null}
-          {section.ctaLabel ? (
-            <WalstarButton variant="orange" href={section.ctaHref || '/about-us'}>
-              {section.ctaLabel}
-            </WalstarButton>
-          ) : null}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function renderServiceFallbackIcon(service: ServiceItem) {
   const key = `${service.slug} ${service.title}`.toLowerCase();
@@ -627,7 +528,7 @@ function ProductsShowcaseBlock({
     <section className="prod" id="prod">
       <div className="wrap">
         <div className="head center">
-          {section.tag ? <span className="tag">{section.tag}</span> : null}
+          {section.tag ? <span className="pill tag">{section.tag}</span> : null}
           <h2>
             {section.headingPrefix}{' '}
             {section.headingSerif ? (
@@ -697,7 +598,7 @@ function ProductsShowcaseBlock({
                         src={mediaUrl}
                         alt={product.image?.alternativeText || product.name}
                         fill
-                        sizes="(max-width: 560px) 100vw, 240px"
+                        sizes="(max-width: 560px) 100vw, (max-width: 900px) 40vw, (max-width: 1440px) 25vw, 360px"
                         className="object-cover"
                       />
                     ) : null}
@@ -782,10 +683,24 @@ function TrustMarqueeRow({
 }
 
 function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
-  const logos = section.logos ?? [];
-  const midpoint = Math.ceil(logos.length / 2);
-  const topRowLogos = logos.slice(0, midpoint);
-  const bottomRowLogos = logos.slice(midpoint);
+  const hasDedicatedRows =
+    (Boolean(section.topRowLogos && section.topRowLogos.length > 0)) ||
+    (Boolean(section.bottomRowLogos && section.bottomRowLogos.length > 0));
+
+  let topRowLogos: PartnerLogo[] = [];
+  let bottomRowLogos: PartnerLogo[] = [];
+
+  if (hasDedicatedRows) {
+    topRowLogos = section.topRowLogos ?? [];
+    bottomRowLogos = section.bottomRowLogos ?? [];
+  } else {
+    const logos = section.logos ?? [];
+    const midpoint = Math.ceil(logos.length / 2);
+    topRowLogos = logos.slice(0, midpoint);
+    bottomRowLogos = logos.slice(midpoint);
+  }
+
+  const hasAnyLogos = topRowLogos.length > 0 || bottomRowLogos.length > 0;
 
   return (
     <section className="trust">
@@ -797,9 +712,11 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
           section.headingSuffix
         )}
       </h2>
-      {logos.length > 0 ? (
+      {hasAnyLogos ? (
         <div className="trust-logos" aria-label={section.tag || 'Trusted businesses'}>
-          <TrustMarqueeRow logos={topRowLogos} direction="left" />
+          {topRowLogos.length > 0 ? (
+            <TrustMarqueeRow logos={topRowLogos} direction="left" />
+          ) : null}
           {bottomRowLogos.length > 0 ? (
             <TrustMarqueeRow logos={bottomRowLogos} direction="right" />
           ) : null}
@@ -816,17 +733,21 @@ function CaseStudiesBlock({
   section: CaseStudiesSection;
   fallbackCaseStudies: LandingPayload['caseStudies'];
 }) {
-  const caseStudies =
+  const rawCaseStudies =
     section.showAllCaseStudies === false && section.caseStudies?.length
       ? section.caseStudies
       : section.caseStudies?.length
         ? section.caseStudies
         : fallbackCaseStudies;
 
+  const caseStudies = [...rawCaseStudies].sort(
+    (a, b) => (a.order ?? 0) - (b.order ?? 0)
+  );
+
   return (
     <section className="case" id="case">
       <div className="wrap center head">
-        {section.tag ? <span className="tag">{section.tag}</span> : null}
+        {section.tag ? <span className="pill tag">{section.tag}</span> : null}
         <h2>
           {section.headingPrefix}{' '}
           {section.headingSerif ? (
@@ -837,70 +758,97 @@ function CaseStudiesBlock({
       </div>
 
       <div className="wrap cgrid">
-        {caseStudies.map((cs) => {
+        {caseStudies.map((cs, idx) => {
           const coverUrl = getStrapiMediaUrl(cs.coverImage?.url);
-          const hasMetaOne = Boolean(cs.metaOneLabel || cs.metaOneValue);
-          const hasMetaTwo = Boolean(cs.metaTwoLabel || cs.metaTwoValue);
+          const isWideCard = idx % 2 === 0;
+
+          const clientLabel = cs.metaOneLabel || 'CLIENT';
+          const clientValue = cs.metaOneValue || 'LCG ( Leon Capital Group)';
+          const regionLabel = cs.metaThreeLabel ? (cs.metaTwoLabel || 'REGION') : 'REGION';
+          const regionValue = cs.metaThreeLabel ? (cs.metaTwoValue || 'United States') : 'United States';
+          const projectTypeLabel = cs.metaThreeLabel || cs.metaTwoLabel || 'PROJECT TYPE';
+          const projectTypeValue = cs.metaThreeValue || cs.metaTwoValue || 'B2B Saas, Financial services';
+
+          const formattedTitle = cs.title === 'Jockey Australia Website Revamp'
+            ? 'Jockey Australia.Website Revamp'
+            : cs.title;
+
           return (
             <Link
-              key={cs.documentId || cs.slug}
+              key={cs.documentId || cs.slug || idx}
               href={`/case-studies/${encodeURIComponent(cs.slug)}`}
-              className={`cs ${cs.themeVariant || 'a'}`}
+              className={`cs ${isWideCard ? 'cs-wide' : 'cs-narrow'} ${cs.themeVariant || (isWideCard ? 'a' : 'b')}`}
             >
               {coverUrl ? (
                 <Image
                   src={coverUrl}
                   alt={cs.coverImage?.alternativeText || cs.title}
                   fill
-                  sizes="(max-width: 900px) 100vw, 60vw"
+                  sizes={isWideCard ? '(max-width: 900px) 100vw, 60vw' : '(max-width: 900px) 100vw, 40vw'}
                   className="z-0 object-cover pointer-events-none"
                 />
               ) : null}
               {cs.category ? <span className="cs-pill">{cs.category}</span> : null}
-              <h3>{cs.title}</h3>
-              {hasMetaOne || hasMetaTwo ? (
+              <h3>{formattedTitle}</h3>
+
+              {isWideCard ? (
                 <div className="meta">
-                  {hasMetaOne ? (
-                    <div className="meta-item">
-                      <svg
-                        className="meta-ic"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        aria-hidden="true"
-                      >
-                        <circle cx="12" cy="8" r="4" />
-                        <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" strokeLinecap="round" />
-                      </svg>
-                      <span>
-                        {cs.metaOneLabel}
-                        <b>{cs.metaOneValue}</b>
-                      </span>
-                    </div>
-                  ) : null}
-                  {hasMetaTwo ? (
-                    <div className="meta-item">
-                      <svg
-                        className="meta-ic"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 21s6-5.4 6-10.2A6 6 0 1 0 6 10.8C6 15.6 12 21 12 21Z"
-                          strokeLinejoin="round"
-                        />
-                        <circle cx="12" cy="10.5" r="2.2" />
-                      </svg>
-                      <span>
-                        {cs.metaTwoLabel}
-                        <b>{cs.metaTwoValue}</b>
-                      </span>
-                    </div>
-                  ) : null}
+                  <div className="meta-item">
+                    <svg
+                      className="meta-ic"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="7" r="4" />
+                      <path d="M5 21v-2a7 7 0 0 1 14 0v2" strokeLinecap="round" />
+                    </svg>
+                    <span>
+                      {clientLabel}
+                      <b>{clientValue}</b>
+                    </span>
+                  </div>
+
+                  <div className="meta-item">
+                    <svg
+                      className="meta-ic"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12 21c-4.2-4.4-7-7.7-7-11.2A7 7 0 0 1 19 9.8c0 3.5-2.8 6.8-7 11.2z"
+                        strokeLinejoin="round"
+                      />
+                      <circle cx="12" cy="10" r="2.5" />
+                    </svg>
+                    <span>
+                      {regionLabel}
+                      <b>{regionValue}</b>
+                    </span>
+                  </div>
+
+                  <div className="meta-item">
+                    <svg
+                      className="meta-ic"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18M3 12h18" strokeLinecap="round" />
+                    </svg>
+                    <span>
+                      {projectTypeLabel}
+                      <b>{projectTypeValue}</b>
+                    </span>
+                  </div>
                 </div>
               ) : null}
             </Link>
@@ -952,7 +900,7 @@ function RichContentBlock({ section }: { section: RichContentSection }) {
     <section className="rich-sec">
       <div className="wrap">
         <div className="rich-box">
-          {section.tag ? <span className="tag">{section.tag}</span> : null}
+          {section.tag ? <span className="pill tag">{section.tag}</span> : null}
           {section.headingPrefix || section.headingSerif ? (
             <h2>
               {section.headingPrefix}{' '}
@@ -987,7 +935,7 @@ function ContactSectionView({
       <div className="wrap">
         <div className="contact-grid">
           <div className="contact-info-box">
-            {section.tag ? <span className="tag">{section.tag}</span> : null}
+            {section.tag ? <span className="pill tag">{section.tag}</span> : null}
             <h2>
               {section.headingPrefix}{' '}
               {section.headingSerif ? (

@@ -38,6 +38,11 @@
     "aboutText": {
       "type": "text"
     },
+    "aboutLogo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
     "consultationShow": {
       "type": "boolean",
       "default": true

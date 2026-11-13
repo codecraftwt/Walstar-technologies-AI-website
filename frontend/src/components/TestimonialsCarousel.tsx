@@ -63,8 +63,9 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: count }).map((_, idx) => (
         <svg
           key={idx}
-          width="14"
-          height="14"
+          className="t-star"
+          width="23"
+          height="23"
           viewBox="0 0 20 20"
           fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +95,7 @@ function TestimonialCard({
             src={avatarUrl}
             alt={item.authorName}
             fill
-            sizes="72px"
+            sizes="98px"
             className="object-cover"
           />
         ) : (
@@ -105,13 +106,13 @@ function TestimonialCard({
       <QuoteMarkSvg />
 
       <div className="t-body">
-        <h5>{item.authorName}</h5>
         <p>{item.quote}</p>
       </div>
 
       <div className="t-meta">
         <span className="t-divider" aria-hidden="true" />
-        <div className="co">{item.companyName}</div>
+        <h5>{item.authorName}</h5>
+        {item.companyName ? <div className="co">{item.companyName}</div> : null}
         <StarRating rating={item.rating || 5} />
       </div>
     </article>
@@ -219,14 +220,14 @@ export function TestimonialsCarousel({
   if (count === 1) {
     return (
       <section className="tm">
-        <div className="wrap center">
-          {tag ? <span className="tag">{tag}</span> : null}
+        <div className="head">
+          {tag ? <span className="pill">{tag}</span> : null}
           <h2>
             {headingPrefix} <span className="serif">{headingSerif}</span>
           </h2>
-          <div className="t-single">
-            <TestimonialCard item={testimonials[0]} isCenter />
-          </div>
+        </div>
+        <div className="t-single">
+          <TestimonialCard item={testimonials[0]} isCenter />
         </div>
       </section>
     );
@@ -236,45 +237,45 @@ export function TestimonialsCarousel({
 
   return (
     <section className="tm">
-      <div className="wrap center">
-        {tag ? <span className="tag">{tag}</span> : null}
+      <div className="head">
+        {tag ? <span className="pill">{tag}</span> : null}
         <h2>
           {headingPrefix} <span className="serif">{headingSerif}</span>
         </h2>
+      </div>
 
-        <div className="tviewport">
-          <div
-            ref={trackRef}
-            className={`ttrack${stepDir === 1 ? ' is-next' : stepDir === -1 ? ' is-prev' : ''}`}
-            onTransitionEnd={handleTrackTransitionEnd}
-          >
-            {SLIDE_OFFSETS.map((offset) => {
-              const virtualIndex = cursor + offset;
-              const item = testimonials[wrapIndex(virtualIndex, count)];
-              const isCenter = virtualIndex === activeVirtualIndex;
+      <div className="tviewport">
+        <div
+          ref={trackRef}
+          className={`ttrack${stepDir === 1 ? ' is-next' : stepDir === -1 ? ' is-prev' : ''}`}
+          onTransitionEnd={handleTrackTransitionEnd}
+        >
+          {SLIDE_OFFSETS.map((offset) => {
+            const virtualIndex = cursor + offset;
+            const item = testimonials[wrapIndex(virtualIndex, count)];
+            const isCenter = virtualIndex === activeVirtualIndex;
 
-              return (
-                <div className="tslot" key={virtualIndex}>
-                  <TestimonialCard item={item} isCenter={isCenter} />
-                </div>
-              );
-            })}
-          </div>
+            return (
+              <div className="tslot" key={virtualIndex}>
+                <TestimonialCard item={item} isCenter={isCenter} />
+              </div>
+            );
+          })}
         </div>
+      </div>
 
-        <div className="dots" role="tablist" aria-label="Testimonials">
-          {testimonials.map((item, idx) => (
-            <button
-              key={item.documentId || `${item.authorName}-${idx}`}
-              type="button"
-              role="tab"
-              aria-label={`Highlight testimonial from ${item.authorName}`}
-              aria-selected={idx === activeDotIndex}
-              className={idx === activeDotIndex ? 'active' : undefined}
-              onClick={() => handleDotClick(idx)}
-            />
-          ))}
-        </div>
+      <div className="dots" role="tablist" aria-label="Testimonials">
+        {testimonials.map((item, idx) => (
+          <button
+            key={item.documentId || `${item.authorName}-${idx}`}
+            type="button"
+            role="tab"
+            aria-label={`Highlight testimonial from ${item.authorName}`}
+            aria-selected={idx === activeDotIndex}
+            className={idx === activeDotIndex ? 'active' : undefined}
+            onClick={() => handleDotClick(idx)}
+          />
+        ))}
       </div>
     </section>
   );

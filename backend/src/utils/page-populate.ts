@@ -20,6 +20,7 @@ export const NAVBAR_POPULATE = {
 
 export const FOOTER_POPULATE = {
   logoImage: true,
+  aboutLogo: true,
   socialLinks: {
     populate: ['icon'],
   },
@@ -83,6 +84,12 @@ export const PAGE_POPULATE = {
           logos: {
             populate: ['image'],
           },
+          topRowLogos: {
+            populate: ['image'],
+          },
+          bottomRowLogos: {
+            populate: ['image'],
+          },
         },
       },
       'sections.case-studies': {
@@ -136,6 +143,7 @@ export const PAGE_POPULATE = {
 
 export const SITE_SETTING_POPULATE = {
   siteLogo: true,
+  footerAboutLogo: true,
   topbarEmailIcon: true,
   topbarPhoneIcon: true,
   socialLinks: {

@@ -82,6 +82,11 @@
     "footerAbout": {
       "type": "text"
     },
+    "footerAboutLogo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
     "footerNewsletterTitle": {
       "type": "string",
       "default": "Have Project in mind?"

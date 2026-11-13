@@ -37,12 +37,20 @@ function stripTrailingArrow(label: ReactNode): ReactNode {
   return label;
 }
 
-export function WalstarButtonArrow({ className = '' }: { className?: string }) {
+export function WalstarButtonArrow({
+  className = '',
+  width = 14,
+  height = 14,
+}: {
+  className?: string;
+  width?: number | string;
+  height?: number | string;
+}) {
   return (
     <svg
       className={className ? `walstar-btn-arrow ${className}` : 'walstar-btn-arrow'}
-      width="14"
-      height="14"
+      width={width}
+      height={height}
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

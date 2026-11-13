@@ -110,7 +110,7 @@ export interface AboutWhyReason extends Struct.ComponentSchema {
   };
 }
 
-export interface FooterColumn extends Struct.ComponentSchema {
+export interface FooterFooterColumn extends Struct.ComponentSchema {
   collectionName: 'components_footer_footer_columns';
   info: {
     displayName: 'Footer Column';
@@ -122,7 +122,7 @@ export interface FooterColumn extends Struct.ComponentSchema {
   };
 }
 
-export interface FooterLink extends Struct.ComponentSchema {
+export interface FooterFooterLink extends Struct.ComponentSchema {
   collectionName: 'components_footer_footer_links';
   info: {
     displayName: 'Footer Link';
@@ -356,6 +356,7 @@ export interface SectionsGlobalOffices extends Struct.ComponentSchema {
     headingSerif: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'offices'>;
     headingSuffix: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
     mapPins: Schema.Attribute.Component<'about.map-pin', true>;
     offices: Schema.Attribute.Component<'about.office-location', true>;
     pill: Schema.Attribute.String &
@@ -546,10 +547,12 @@ export interface SectionsTestimonials extends Struct.ComponentSchema {
 export interface SectionsTrustBanner extends Struct.ComponentSchema {
   collectionName: 'components_sections_trust_banners';
   info: {
+    description: 'Dual-row trusted brands marquee';
     displayName: 'Trust Banner';
     icon: 'shield';
   };
   attributes: {
+    bottomRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Trusted by'>;
     headingSerif: Schema.Attribute.String & Schema.Attribute.DefaultTo<'70+'>;
@@ -558,6 +561,7 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
     logos: Schema.Attribute.Component<'shared.partner-logo', true>;
     tag: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Trusted by Brands'>;
+    topRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
   };
 }
 
@@ -693,8 +697,8 @@ declare module '@strapi/strapi' {
       'about.team-member': AboutTeamMember;
       'about.ticker-item': AboutTickerItem;
       'about.why-reason': AboutWhyReason;
-      'footer.footer-column': FooterColumn;
-      'footer.footer-link': FooterLink;
+      'footer.footer-column': FooterFooterColumn;
+      'footer.footer-link': FooterFooterLink;
       'home.process-step': HomeProcessStep;
       'navigation.nav-item': NavigationNavItem;
       'navigation.sub-nav-item': NavigationSubNavItem;
