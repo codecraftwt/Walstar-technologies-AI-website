@@ -140,7 +140,7 @@ export const PAGE_POPULATE = {
         },
       },
       'sections.global-offices': {
-        populate: ['mapPins', 'offices'],
+        populate: ['image', 'mapPins', 'offices'],
       },
     },
   },
