@@ -25,6 +25,15 @@
     "message": {
       "type": "text"
     },
+    "phone": {
+      "type": "string"
+    },
+    "projectBudget": {
+      "type": "string"
+    },
+    "serviceInterest": {
+      "type": "string"
+    },
     "source": {
       "type": "string",
       "default": "footer-consultation"

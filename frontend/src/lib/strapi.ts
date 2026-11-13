@@ -45,10 +45,16 @@ export function getStrapiMediaUrl(url?: string | null): string | null {
 }
 
 export function getStrapiTimeoutMs(): number {
+  const configured = Number(process.env.STRAPI_TIMEOUT_MS);
+  if (Number.isFinite(configured) && configured > 0) {
+    return configured;
+  }
+
+  // Local Strapi often still talks to a remote DB, so keep a generous timeout.
   const baseUrl = getStrapiBaseUrl();
   const isLocal =
     baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1');
-  return isLocal ? 3000 : 25000;
+  return isLocal ? 30000 : 25000;
 }
 
 export class StrapiHttpError extends Error {
@@ -119,6 +125,29 @@ function mergeSiteSetting(partial?: Partial<SiteSetting> | null): SiteSetting {
   };
 }
 
+function resolvePageSections(
+  page: PageItem,
+  fallbackPage: PageItem
+): PageItem['sections'] {
+  const incoming = Array.isArray(page.sections) ? page.sections : null;
+  const fallbackSections = fallbackPage.sections ?? [];
+
+  if (!incoming || incoming.length === 0) {
+    return fallbackSections;
+  }
+
+  const isLegacyContact =
+    (page.pageType === 'contact' || page.slug === 'contact') &&
+    !incoming.some(
+      (section) => section.__component === 'sections.contact-interest'
+    ) &&
+    fallbackSections.some(
+      (section) => section.__component === 'sections.contact-interest'
+    );
+
+  return isLegacyContact ? fallbackSections : incoming;
+}
+
 function normalizeLandingPayload(
   payload: Partial<LandingPayload>,
   fallbackPage: PageItem
@@ -126,9 +155,7 @@ function normalizeLandingPayload(
   const page = payload.page
     ? {
         ...payload.page,
-        sections: Array.isArray(payload.page.sections)
-          ? payload.page.sections
-          : fallbackPage.sections ?? [],
+        sections: resolvePageSections(payload.page, fallbackPage),
       }
     : fallbackPage;
 

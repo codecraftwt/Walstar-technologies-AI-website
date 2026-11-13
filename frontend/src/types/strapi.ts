@@ -301,6 +301,11 @@ export interface RichContentSection {
   ctaHref?: string | null;
 }
 
+export interface InterestOptionItem {
+  id?: number;
+  label: string;
+}
+
 export interface ContactSectionBlock {
   __component: 'sections.contact-section';
   id?: number;
@@ -309,7 +314,28 @@ export interface ContactSectionBlock {
   headingSerif?: string | null;
   subtitle?: string | null;
   showOfficeDetails?: boolean | null;
+  callLabel?: string | null;
+  callPhones?: string | null;
+  emailLabel?: string | null;
+  emailAddresses?: string | null;
+  formTitle?: string | null;
+  formSubtitle?: string | null;
+  formButtonLabel?: string | null;
   formSource?: string | null;
+  budgetOptions?: InterestOptionItem[];
+  serviceOptions?: InterestOptionItem[];
+}
+
+export interface ContactInterestSection {
+  __component: 'sections.contact-interest';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  subtitle?: string | null;
+  image?: StrapiMedia | null;
+  options?: InterestOptionItem[];
 }
 
 export interface JourneyMilestone {
@@ -480,6 +506,7 @@ export type PageSection =
   | CtaBandSection
   | RichContentSection
   | ContactSectionBlock
+  | ContactInterestSection
   | WhoWeAreSection
   | JourneyStatsSection
   | SolutionsGridSection

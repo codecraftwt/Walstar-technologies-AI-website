@@ -498,7 +498,7 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
   const mapImageUrl = section.image ? getStrapiMediaUrl(section.image.url) : null;
 
   return (
-    <section className="sec">
+    <section className="sec offices">
       <div className="wrap">
         <WalstarSectionHeader
           pill={section.pill}

@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_sections_contact_interests",
+  "info": {
+    "displayName": "Contact Interest",
+    "icon": "handHeart"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Contact Walstar"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Let's build something"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "great"
+    },
+    "headingSuffix": {
+      "type": "string",
+      "default": "together"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.interest-option"
+    }
+  }
+}

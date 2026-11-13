@@ -13,7 +13,10 @@ import {
   WhyChooseBlock,
 } from '@/components/AboutSections';
 import { BeforeAfterSlider } from '@/components/BeforeAfterSlider';
-import { ConsultationForm } from '@/components/ConsultationForm';
+import {
+  ContactInterestBlock,
+  ContactSectionView,
+} from '@/components/ContactSections';
 import { HeroBackgroundVideo } from '@/components/HeroBackgroundVideo';
 import { renderHeadingParts } from '@/components/SectionPrimitives';
 import { TestimonialsCarousel } from '@/components/TestimonialsCarousel';
@@ -28,7 +31,6 @@ import type {
   BeforeAfterSection,
   CapabilitiesSection,
   CaseStudiesSection,
-  ContactSectionBlock,
   HeroSection,
   LandingPayload,
   NavbarData,
@@ -105,12 +107,14 @@ function HeroBlock({
   siteSetting,
   includeNavbar,
   currentPath,
+  pageType,
 }: {
   section: HeroSection;
   navbar?: NavbarData | null;
   siteSetting: SiteSetting;
   includeNavbar: boolean;
   currentPath?: string;
+  pageType?: string;
 }) {
   const bgImageIsVideo = isVideoAsset(section.backgroundImage?.url, section.backgroundImage?.mime);
   const bgImageUrl = bgImageIsVideo ? null : getStrapiMediaUrl(section.backgroundImage?.url);
@@ -119,11 +123,16 @@ function HeroBlock({
     resolveHeroVideoUrl(section.backgroundVideoUrl) ||
     (bgImageIsVideo ? resolveHeroVideoUrl(section.backgroundImage?.url) : null);
   const isCompact = section.variant === 'compact';
+  const isContactPage = pageType === 'contact';
   const HeroWrapper = includeNavbar ? 'header' : 'section';
   const wrapperClass = includeNavbar
-    ? isCompact
-      ? 'hero-box hero-box--compact'
-      : 'hero-box'
+    ? [
+        'hero-box',
+        isCompact ? 'hero-box--compact' : '',
+        isContactPage && isCompact ? 'hero-box--contact' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')
     : 'subpage-header';
 
   return (
@@ -923,79 +932,6 @@ function RichContentBlock({ section }: { section: RichContentSection }) {
   );
 }
 
-function ContactSectionView({
-  section,
-  siteSetting,
-}: {
-  section: ContactSectionBlock;
-  siteSetting: SiteSetting;
-}) {
-  return (
-    <section className="contact-sec" id="contact-form">
-      <div className="wrap">
-        <div className="contact-grid">
-          <div className="contact-info-box">
-            {section.tag ? <span className="pill tag">{section.tag}</span> : null}
-            <h2>
-              {section.headingPrefix}{' '}
-              {section.headingSerif ? (
-                <span className="serif">{section.headingSerif}</span>
-              ) : null}
-            </h2>
-            {section.subtitle ? <p className="lead">{section.subtitle}</p> : null}
-
-            {section.showOfficeDetails !== false ? (
-              <div className="contact-meta-list">
-                <div className="contact-meta-item">
-                  <b>⌖</b>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[#5d6280]">
-                      Headquarters
-                    </div>
-                    <p className="mt-0.5">{siteSetting.officeAddress}</p>
-                  </div>
-                </div>
-                <div className="contact-meta-item">
-                  <b>✆</b>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[#5d6280]">
-                      Phone
-                    </div>
-                    <p className="mt-0.5 whitespace-pre-line">{siteSetting.officePhones}</p>
-                  </div>
-                </div>
-                <div className="contact-meta-item">
-                  <b>✉</b>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[#5d6280]">
-                      Direct Email
-                    </div>
-                    <a
-                      href={`mailto:${siteSetting.contactEmail}`}
-                      className="mt-0.5 inline-block text-[#2f80ff] hover:underline"
-                    >
-                      {siteSetting.contactEmail}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-          </div>
-
-          <ConsultationForm
-            title="Start a Conversation"
-            subtitle="Tell us about your project and we'll respond within 1 business day."
-            buttonLabel="Send Project Inquiry ↗"
-            variant="card"
-            source={section.formSource || 'contact-page'}
-            anchorId="contact-page-consultation"
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function renderDynamicSection(
   section: PageSection,
   idx: number,
@@ -1013,6 +949,7 @@ function renderDynamicSection(
           section={section}
           navbar={data.navbar ?? data.page.navbar}
           siteSetting={data.siteSetting}
+          pageType={data.page.pageType}
           includeNavbar={includeHeroNavbar}
           currentPath={currentPath}
         />
@@ -1069,6 +1006,8 @@ function renderDynamicSection(
           siteSetting={data.siteSetting}
         />
       );
+    case 'sections.contact-interest':
+      return <ContactInterestBlock key={key} section={section} />;
     case 'sections.who-we-are':
       return <WhoWeAreBlock key={key} section={section} />;
     case 'sections.journey-stats':
@@ -1106,8 +1045,10 @@ export function PageSectionsRenderer({
     lastSection?.__component === 'sections.cta-band' ? lastSection : null;
   const middleSections = trailingCta ? sections.slice(0, -1) : sections;
 
+  const isContactPage = data.page.pageType === 'contact' || data.page.slug === 'contact';
+
   return (
-    <div className="walstar-page">
+    <div className={isContactPage ? 'walstar-page walstar-page--contact' : 'walstar-page'}>
       <WalstarTopbar siteSetting={data.siteSetting} />
 
       {!hasHeroFirst ? (

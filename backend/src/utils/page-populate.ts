@@ -113,7 +113,12 @@ export const PAGE_POPULATE = {
       },
       'sections.cta-band': true,
       'sections.rich-content': true,
-      'sections.contact-section': true,
+      'sections.contact-section': {
+        populate: ['budgetOptions', 'serviceOptions'],
+      },
+      'sections.contact-interest': {
+        populate: ['image', 'options'],
+      },
       'sections.who-we-are': {
         populate: ['image'],
       },

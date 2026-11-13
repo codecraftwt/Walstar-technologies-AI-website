@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_interest_options",
+  "info": {
+    "displayName": "Interest Option",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

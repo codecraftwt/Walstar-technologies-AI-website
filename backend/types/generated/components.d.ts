@@ -305,6 +305,26 @@ export interface SectionsCaseStudies extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsContactInterest extends Struct.ComponentSchema {
+  collectionName: 'components_sections_contact_interests';
+  info: {
+    displayName: 'Contact Interest';
+    icon: 'handHeart';
+  };
+  attributes: {
+    headingPrefix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"Let's build something">;
+    headingSerif: Schema.Attribute.String & Schema.Attribute.DefaultTo<'great'>;
+    headingSuffix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'together'>;
+    image: Schema.Attribute.Media<'images'>;
+    options: Schema.Attribute.Component<'shared.interest-option', true>;
+    subtitle: Schema.Attribute.Text;
+    tag: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Contact Walstar'>;
+  };
+}
+
 export interface SectionsContactSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_contact_sections';
   info: {
@@ -634,6 +654,17 @@ export interface SectionsWhyChoose extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedInterestOption extends Struct.ComponentSchema {
+  collectionName: 'components_shared_interest_options';
+  info: {
+    displayName: 'Interest Option';
+    icon: 'bulletList';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_links';
   info: {
@@ -706,6 +737,7 @@ declare module '@strapi/strapi' {
       'sections.before-after': SectionsBeforeAfter;
       'sections.capabilities': SectionsCapabilities;
       'sections.case-studies': SectionsCaseStudies;
+      'sections.contact-interest': SectionsContactInterest;
       'sections.contact-section': SectionsContactSection;
       'sections.cta-band': SectionsCtaBand;
       'sections.global-offices': SectionsGlobalOffices;
@@ -721,6 +753,7 @@ declare module '@strapi/strapi' {
       'sections.vision-mission': SectionsVisionMission;
       'sections.who-we-are': SectionsWhoWeAre;
       'sections.why-choose': SectionsWhyChoose;
+      'shared.interest-option': SharedInterestOption;
       'shared.link': SharedLink;
       'shared.partner-logo': SharedPartnerLogo;
       'shared.seo': SharedSeo;

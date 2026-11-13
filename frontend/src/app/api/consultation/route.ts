@@ -6,7 +6,14 @@ interface ConsultationRequestBody {
   name?: unknown;
   company?: unknown;
   message?: unknown;
+  phone?: unknown;
+  projectBudget?: unknown;
+  serviceInterest?: unknown;
   source?: unknown;
+}
+
+function optionalString(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim() ? value.trim() : undefined;
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,15 +37,13 @@ export async function POST(request: Request) {
   const payload = {
     data: {
       email,
-      name: typeof body.name === 'string' ? body.name.trim() || undefined : undefined,
-      company:
-        typeof body.company === 'string' ? body.company.trim() || undefined : undefined,
-      message:
-        typeof body.message === 'string' ? body.message.trim() || undefined : undefined,
-      source:
-        typeof body.source === 'string' && body.source.trim()
-          ? body.source.trim()
-          : 'footer-consultation',
+      name: optionalString(body.name),
+      company: optionalString(body.company),
+      message: optionalString(body.message),
+      phone: optionalString(body.phone),
+      projectBudget: optionalString(body.projectBudget),
+      serviceInterest: optionalString(body.serviceInterest),
+      source: optionalString(body.source) || 'footer-consultation',
     },
   };
 

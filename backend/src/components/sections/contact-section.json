@@ -8,15 +8,15 @@
   "attributes": {
     "tag": {
       "type": "string",
-      "default": "Contact Us"
+      "default": "Let's talk about your business"
     },
     "headingPrefix": {
       "type": "string",
-      "default": "Let's Build"
+      "default": "Reach out"
     },
     "headingSerif": {
       "type": "string",
-      "default": "Something Great"
+      "default": "directly"
     },
     "subtitle": {
       "type": "text"
@@ -25,9 +25,44 @@
       "type": "boolean",
       "default": true
     },
+    "callLabel": {
+      "type": "string",
+      "default": "Call Us :"
+    },
+    "callPhones": {
+      "type": "text"
+    },
+    "emailLabel": {
+      "type": "string",
+      "default": "Email Us :"
+    },
+    "emailAddresses": {
+      "type": "text"
+    },
+    "formTitle": {
+      "type": "string",
+      "default": "Let's Get Started"
+    },
+    "formSubtitle": {
+      "type": "text"
+    },
+    "formButtonLabel": {
+      "type": "string",
+      "default": "Send Message ↗"
+    },
     "formSource": {
       "type": "string",
       "default": "contact-page"
+    },
+    "budgetOptions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.interest-option"
+    },
+    "serviceOptions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.interest-option"
     }
   }
 }

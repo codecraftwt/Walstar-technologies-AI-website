@@ -36,9 +36,34 @@ All public read permissions (plus `api::page.page.resolve` and `consultation-lea
 - `/status` — Strapi + PostgreSQL health and CMS connection dashboard
 - `POST /api/consultation` — Validates consultation & contact submissions and forwards them to Strapi `/api/consultation-leads`
 
-## Database Configuration
+## Shared Strapi CMS (Team Workflow)
 
-Strapi v5 requires **PostgreSQL 14+**. To avoid colliding with any local PostgreSQL server running on port `5432`, `docker-compose.yml` exposes PostgreSQL 16 on host port **`5433`** by default:
+The team shares one deployed Strapi instance so content and media stay in sync and local databases do not conflict:
+
+- **CMS URL**: `https://walstar-technologies-ai-website.onrender.com`
+- **Admin panel**: `https://walstar-technologies-ai-website.onrender.com/admin`
+
+Each developer points their local frontend at this instance by creating `frontend/.env.local`. That file is gitignored, so it never causes merge conflicts:
+
+```bash
+cp frontend/.env.example frontend/.env.local
+```
+
+```env
+NEXT_PUBLIC_STRAPI_URL=https://walstar-technologies-ai-website.onrender.com
+STRAPI_URL=https://walstar-technologies-ai-website.onrender.com
+```
+
+Guidelines for working together:
+
+- Create a **separate Strapi admin account per developer** instead of sharing one login.
+- Content changes are shared instantly by everyone using the deployed CMS. Coordinate large content edits, or set up a staging CMS if you need isolated environments.
+- Never commit `.env` files, API tokens, or admin passwords.
+- Backend schema/component changes are deployed to Render through code; keep them in reviewed pull requests.
+
+### Optional Local Database
+
+A local PostgreSQL is only needed if you want to run Strapi on your own machine. Strapi v5 requires **PostgreSQL 14+**. To avoid colliding with any local PostgreSQL server running on port `5432`, `docker-compose.yml` exposes PostgreSQL 16 on host port **`5433`** by default:
 
 - **Host**: `127.0.0.1`
 - **Port**: `5433`
@@ -46,22 +71,46 @@ Strapi v5 requires **PostgreSQL 14+**. To avoid colliding with any local Postgre
 - **Username**: `strapi`
 - **Password**: `strapi_password`
 
-`backend/.env` is pre-configured to connect to this database.
+Copy `backend/.env.example` to `backend/.env` and adjust the database credentials if needed. Do **not** point multiple local Strapi instances at the shared production database.
 
 ## Getting Started
 
-1. **Start PostgreSQL** (ensure Docker Desktop is running):
+### Frontend against the shared CMS (recommended)
+
+1. **Create your local env file**:
+   ```bash
+   cp frontend/.env.example frontend/.env.local
+   ```
+
+2. **Start Next.js Frontend** (`http://localhost:3000`, or the next free port):
+   ```bash
+   npm run frontend:dev
+   ```
+
+The frontend reads pages, services, products, case studies, and testimonials from the shared Strapi CMS. If the CMS is unreachable it falls back to the seeded content in `frontend/src/lib/default-landing.ts`.
+
+### Full local stack (optional)
+
+Only do this if you need to modify the Strapi backend locally.
+
+1. **Start PostgreSQL** (install Docker Desktop first; alternatively use an existing local PostgreSQL):
    ```bash
    npm run db:up
    ```
 
-2. **Start Strapi CMS** (`http://localhost:1337`):
+2. **Create `backend/.env`**:
+   ```bash
+   cp backend/.env.example backend/.env
+   ```
+   Generate values for the secrets listed in the file (`APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, etc.).
+
+3. **Start Strapi CMS** (`http://localhost:1337`):
    ```bash
    npm run backend:dev
    ```
-   Open `http://localhost:1337/admin` to create your admin user and manage pages under **Content Manager -> Page**.
+   Open `http://localhost:1337/admin` to create your admin user and manage pages under **Content Manager -> Page**. Starter content and public permissions are seeded automatically on boot.
 
-3. **Start Next.js Frontend** (`http://localhost:3000`):
+4. **Point the frontend at your local Strapi** by setting `NEXT_PUBLIC_STRAPI_URL=http://localhost:1337` and `STRAPI_URL=http://localhost:1337` in `frontend/.env.local`, then start the frontend:
    ```bash
    npm run frontend:dev
    ```

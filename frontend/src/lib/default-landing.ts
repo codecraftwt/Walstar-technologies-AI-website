@@ -342,6 +342,101 @@ const SHARED_CTA_BAND = {
   buttonHref: '#footer-consultation',
 };
 
+const CONTACT_INTEREST_OPTIONS = [
+  'ERP & CRM Development',
+  'Web Development',
+  'AI & Automation Solutions',
+  'Cyber security',
+  'Digital Marketing',
+  'Maintenance & Support',
+  'UX Design',
+  'Mobile App Development',
+  'Amazon Service',
+].map((label) => ({ label }));
+
+const CONTACT_BUDGET_OPTIONS = [
+  'Under $5,000',
+  '$5,000 – $15,000',
+  '$15,000 – $50,000',
+  '$50,000+',
+  'Not sure yet',
+].map((label) => ({ label }));
+
+const SHARED_GLOBAL_OFFICES = {
+  __component: 'sections.global-offices' as const,
+  pill: 'Areas we serve',
+  headingPrefix: 'Our Global',
+  headingSerif: 'Offices',
+  showWorldMap: true,
+  mapPins: [
+    {
+      label: 'Dallas, TX USA',
+      leftPercent: 12,
+      topPx: 0,
+      flagVariant: 'us' as const,
+    },
+    {
+      label: 'Kolhapur | Pune, India',
+      leftPercent: 46,
+      topPx: 14,
+      flagVariant: 'in' as const,
+    },
+    {
+      label: 'Brisbane, QLD Australia',
+      leftPercent: 64,
+      topPx: 118,
+      flagVariant: 'au' as const,
+    },
+  ],
+  offices: [
+    {
+      regionLabel: 'India · HQ',
+      title: 'SHIVAJI PARK',
+      cityRegion: 'Kolhapur, Maharashtra',
+      address:
+        '2103/47 E, Rukmini Nagar, Back side of Sayaji Hotel, Kolhapur, Maharashtra 416005',
+      isHeadquarters: true,
+    },
+    {
+      regionLabel: 'USA',
+      title: 'McKinney',
+      cityRegion: 'Texas, USA',
+      address: '5860 Collin McKinney Pkwy, St# 601, McKinney TX 75070 USA',
+      isHeadquarters: false,
+    },
+    {
+      regionLabel: 'Australia',
+      title: 'Carindale',
+      cityRegion: 'Queensland, Australia',
+      address: '105 Bridgnorth Street, Carindale Qld 4152, Australia',
+      isHeadquarters: false,
+    },
+    {
+      regionLabel: 'UK',
+      title: 'Burgess Hill',
+      cityRegion: 'England, UK',
+      address: 'Wolstonbury Court Burgess Hill, RH15',
+      isHeadquarters: false,
+    },
+    {
+      regionLabel: 'India',
+      title: 'Warje',
+      cityRegion: 'Pune, India',
+      address:
+        'Wallstreet 24, Above Mc-Donald, Mumbai-Banglore Highway. Warje, Pune 411058',
+      isHeadquarters: false,
+    },
+    {
+      regionLabel: 'India',
+      title: 'Goregaon West',
+      cityRegion: 'Mumbai, India',
+      address:
+        '7/213, Siddharth nagar, SV Road, Goregaon West, Maharashtra 400104',
+      isHeadquarters: false,
+    },
+  ],
+};
+
 export const DEFAULT_PAGES: PageItem[] = [
   {
     documentId: 'seed-page-home',
@@ -796,31 +891,60 @@ export const DEFAULT_PAGES: PageItem[] = [
     order: 3,
     summary:
       'Connect with Walstar Technologies for AI solutions, automation audits, and custom software engineering.',
+    seo: {
+      metaTitle: 'Contact Us | Walstar Technologies',
+      metaDescription:
+        'Book a strategy call or send a project inquiry to Walstar Technologies.',
+    },
     sections: [
       {
         __component: 'sections.hero',
-        chip: 'Connect With Us • Global Delivery',
-        headlinePrefix: "Let's Build",
-        headlineSerif: 'Something',
-        headlineSuffix: 'Great.',
-        description:
-          'Have an AI workflow, SaaS product, or enterprise software initiative in mind? Tell us what you are building.',
-        primaryCtaLabel: 'Send Inquiry ↓',
-        primaryCtaHref: '#contact-form',
-        secondaryCtaLabel: 'Explore Services ↗',
-        secondaryCtaHref: '/service-1',
+        chip: 'Contact Walstar',
+        headlinePrefix: 'Your Next',
+        headlineSerif: 'Digital Journey',
+        headlineSuffix: 'Starts Here',
+        variant: 'compact',
+      },
+      {
+        __component: 'sections.contact-interest',
+        tag: 'Contact Walstar',
+        headingPrefix: "Let's build something\n",
+        headingSerif: 'great',
+        headingSuffix: 'together',
+        subtitle:
+          'Have an idea, project, or challenge in mind? Let’s connect and turn it into something impactful.',
+        options: CONTACT_INTEREST_OPTIONS,
       },
       {
         __component: 'sections.contact-section',
-        tag: 'Contact Us',
-        headingPrefix: 'Book your',
-        headingSerif: 'strategy call',
+        tag: "Let's talk about your business",
+        headingPrefix: 'Reach out',
+        headingSerif: 'directly',
         subtitle:
-          'Submit your work email and project details below. Inquiries save straight into Strapi PostgreSQL for rapid follow-up.',
+          "Prefer a quick conversation? We're just a call or email away.",
         showOfficeDetails: true,
+        callLabel: 'Call Us :',
+        callPhones: '+91 9665784568\n+44 7877 910843\n+1 617 610 9184',
+        emailLabel: 'Email Us :',
+        emailAddresses:
+          'career@walstartechnologies.com\nsales@walstartechnologies.com',
+        formTitle: "Let's Get Started",
+        formSubtitle:
+          'Receive a free consultation for your project to discuss ideas, solutions, and next steps.',
+        formButtonLabel: 'Send Message ↗',
         formSource: 'contact-page',
+        budgetOptions: CONTACT_BUDGET_OPTIONS,
+        serviceOptions: CONTACT_INTEREST_OPTIONS,
       },
-      SHARED_CTA_BAND,
+      SHARED_GLOBAL_OFFICES,
+      {
+        ...SHARED_CTA_BAND,
+        pill: 'CTA',
+        heading: 'Ready to make your next move?',
+        subheading: 'Walstar Technologies is ready to power your digital growth.',
+        buttonLabel: 'Connect With Us ↗',
+        buttonHref: '#contact-form',
+      },
     ],
   },
   {
