@@ -441,11 +441,11 @@ export const INITIAL_PAGES = [
       {
         __component: 'sections.hero' as const,
         chip: 'AI-Powered Innovation • Digital Solutions • Business Growth',
-        headlinePrefix: 'Transform Your Business With',
+        headlinePrefix: 'Transform Your Business\nWith',
         headlineSerif: 'The Power',
         headlineSuffix: 'of AI.',
         description:
-          'We combine artificial intelligence, intelligent automation, and modern software engineering to help brands work smarter, innovate faster, and scale with confidence.',
+          'We combine artificial intelligence, intelligent automation, and modern software\nengineering to help businesses work smarter, innovate faster, and\nscale with confidence.',
         primaryCtaLabel: 'Explore AI Solutions ↗',
         primaryCtaHref: '#cap',
         secondaryCtaLabel: 'Discover your Project ↗',
@@ -465,7 +465,7 @@ export const INITIAL_PAGES = [
         headingSerif: 'smarter',
         headingSuffix: 'automation',
         description:
-          'From intelligent agents to connected business workflows, we design and implement practical AI solutions that help businesses save time, improve decisions, and deliver better customer experiences every day.',
+          'From intelligent agents to connected business workflows, we design\nand implement practical AI solutions that help businesses save time,\nimprove decisions, and deliver better customer experiences.',
         highlightTitle: 'Engineering an Intelligent Future',
         highlightDescription:
           'We specialize in designing & deploying production AI systems that combine security, cost efficiency and lasting performance.',
@@ -507,6 +507,10 @@ export const INITIAL_PAGES = [
         headingPrefix: 'Trusted by 10k+',
         headingSerif: 'fast-growing',
         headingSuffix: 'businesses',
+        topRowDurationSeconds: 28,
+        topRowDirection: 'left' as const,
+        bottomRowDurationSeconds: 42,
+        bottomRowDirection: 'right' as const,
         logos: SHARED_TRUSTED_LOGOS,
       },
       {
@@ -1151,7 +1155,7 @@ export const INITIAL_FOOTER = {
   ],
   officeAddress:
     '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
-  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
+  officePhones: '+91 9665784568\n+44 787 791 0843\n+16178109184',
   contactEmail: 'sales@walstartechnologies.com',
   socialLinks: [
     { platform: 'X', href: '#cta' },

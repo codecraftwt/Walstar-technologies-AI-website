@@ -85,7 +85,7 @@
     "footerAboutLogo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "files"]
     },
     "footerNewsletterTitle": {
       "type": "string",

@@ -517,7 +517,10 @@ export interface ApiConsultationLeadConsultationLead
       Schema.Attribute.Private;
     message: Schema.Attribute.Text;
     name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    projectBudget: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    serviceInterest: Schema.Attribute.String;
     source: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'footer-consultation'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -538,7 +541,7 @@ export interface ApiFooterFooter extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    aboutLogo: Schema.Attribute.Media<'images'>;
+    aboutLogo: Schema.Attribute.Media<'images' | 'files'>;
     aboutText: Schema.Attribute.Text;
     consultationButtonLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Free Consultation \u2197'>;
@@ -675,6 +678,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.cta-band',
         'sections.rich-content',
         'sections.contact-section',
+        'sections.contact-interest',
         'sections.who-we-are',
         'sections.journey-stats',
         'sections.solutions-grid',
@@ -790,7 +794,7 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     footerAbout: Schema.Attribute.Text;
-    footerAboutLogo: Schema.Attribute.Media<'images'>;
+    footerAboutLogo: Schema.Attribute.Media<'images' | 'files'>;
     footerBigPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Build'>;
     footerBigSerif: Schema.Attribute.String &

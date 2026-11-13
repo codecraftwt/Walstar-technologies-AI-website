@@ -97,9 +97,10 @@ export function SocialIconContent({ social }: { social: SocialLink }) {
       <Image
         src={customIconUrl}
         alt={social.icon?.alternativeText || social.platform}
-        width={18}
-        height={18}
+        width={26}
+        height={26}
         className="soc-custom-img"
+        unoptimized
       />
     );
   }

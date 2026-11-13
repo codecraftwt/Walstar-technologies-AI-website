@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ConsultationForm } from '@/components/ConsultationForm';
@@ -48,16 +49,60 @@ export function WalstarCtaBand({
   );
 }
 
+function WalstarOrigamiBadgeStar() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="fabout-origami-star"
+    >
+      <polygon points="10,4 20,16 10,26" fill="#F4691F" />
+      <polygon points="20,16 30,12 21,21" fill="#FF8A48" />
+      <polygon points="21,21 28,30 19,26" fill="#F4691F" />
+    </svg>
+  );
+}
+
+function formatAboutText(text?: string | null) {
+  if (!text) return null;
+  if (text.includes('\n')) {
+    const lines = text.split('\n');
+    return lines.map((line, idx) => (
+      <Fragment key={idx}>
+        {line}
+        {idx < lines.length - 1 ? <br className="fabout-br" /> : null}
+      </Fragment>
+    ));
+  }
+  if (text.includes('secure, scalable')) {
+    const [part1, part2] = text.split('secure, scalable');
+    return (
+      <Fragment>
+        {part1}secure,
+        <br className="fabout-br" />
+        scalable{part2}
+      </Fragment>
+    );
+  }
+  return text;
+}
+
 function buildFallbackLinkColumns(siteSetting?: SiteSetting): FooterColumn[] {
   const source = siteSetting ?? DEFAULT_SITE_SETTING;
   return [
     {
+      title: 'Company',
       links: source.footerPrimaryLinks.map((link) => ({
         label: link.label,
         route: link.href,
       })),
     },
     {
+      title: 'Explore',
       links: source.footerSecondaryLinks.map((link) => ({
         label: link.label,
         route: link.href,
@@ -163,7 +208,7 @@ export function WalstarFooter({
                 aria-hidden={!aboutLogoUrl}
               >
                 {aboutLogoUrl ? (
-                  <Image
+                  <img
                     src={aboutLogoUrl}
                     alt={
                       typeof resolved.aboutLogo === 'object' &&
@@ -171,20 +216,18 @@ export function WalstarFooter({
                         ? resolved.aboutLogo.alternativeText
                         : 'About Walstar'
                     }
-                    width={38}
-                    height={38}
+                    width={44}
+                    height={44}
                     className="fabout-badge-img"
+                    style={{ display: 'block', width: 44, height: 44 }}
                   />
                 ) : (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M12 2L14.9 9.1L22 12L14.9 14.9L12 22L9.1 14.9L2 12L9.1 9.1L12 2Z"
-                      fill="#f4691f"
-                    />
-                  </svg>
+                  <WalstarOrigamiBadgeStar />
                 )}
               </span>
-              <span>{resolved.aboutText}</span>
+              <span className="fabout-text">
+                {formatAboutText(resolved.aboutText)}
+              </span>
             </div>
 
             {resolved.consultationShow ? (
@@ -201,7 +244,7 @@ export function WalstarFooter({
           <div className="f2-lead">
             <div className="fbig">
               {resolved.headlinePrefix}{' '}
-              <span className="serif" style={{ color: '#5a9bff' }}>
+              <span className="serif">
                 {resolved.headlineSerif}
               </span>{' '}
               {resolved.headlineSuffix}
@@ -211,34 +254,45 @@ export function WalstarFooter({
               href={resolved.ctaRoute}
               target={resolved.ctaOpenInNewTab ? '_blank' : undefined}
               rel={resolved.ctaOpenInNewTab ? 'noopener noreferrer' : undefined}
+              className="footer-contact-btn"
             >
               {resolved.ctaLabel}
             </WalstarButton>
           </div>
 
-          {resolved.linkColumns.map((column, colIdx) => (
-            <ul
-              className="fl"
-              key={`${column.title || 'column'}-${column.id ?? colIdx}`}
-            >
-              {(column.links ?? []).map((link, linkIdx) => {
-                const href = resolveCmsRoute(link.route, link.page);
-                return (
-                  <li key={`${link.label}-${href}-${link.id ?? linkIdx}`}>
-                    <Link
-                      href={href}
-                      target={link.openInNewTab ? '_blank' : undefined}
-                      rel={
-                        link.openInNewTab ? 'noopener noreferrer' : undefined
-                      }
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          ))}
+          <div className="f2-links">
+            {resolved.linkColumns.map((column, colIdx) => {
+              const columnTitle = column.title;
+              return (
+                <div
+                  className="fl-col"
+                  key={`${column.id ?? colIdx}`}
+                >
+                  {columnTitle ? (
+                    <h4 className="fl-title">{columnTitle}</h4>
+                  ) : null}
+                  <ul className="fl">
+                    {(column.links ?? []).map((link, linkIdx) => {
+                      const href = resolveCmsRoute(link.route, link.page);
+                      return (
+                        <li key={`${link.label}-${href}-${link.id ?? linkIdx}`}>
+                          <Link
+                            href={href}
+                            target={link.openInNewTab ? '_blank' : undefined}
+                            rel={
+                              link.openInNewTab ? 'noopener noreferrer' : undefined
+                            }
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
 
           <div className="fc">
             <div>
@@ -279,25 +333,36 @@ export function WalstarFooter({
           <div className="copy-right">
             <span className="soc2" aria-label="Social links">
               {(() => {
-                const ALLOWED = ['twitter', 'x', 'instagram', 'insta', 'facebook', 'fb'];
-                const matched = resolved.socialLinks.filter((s) =>
-                  ALLOWED.some((allow) => s.platform.trim().toLowerCase().includes(allow))
-                );
+                const getSocialPriority = (platform: string): number => {
+                  const p = platform.trim().toLowerCase();
+                  if (p === 'twitter' || p === 'x' || p.includes('twitter')) return 1;
+                  if (p === 'insta' || p.includes('instagram') || p === 'ig') return 2;
+                  if (p === 'facebook' || p.includes('facebook') || p === 'fb') return 3;
+                  return 99;
+                };
+
+                const matched = (resolved.socialLinks || [])
+                  .filter((s) => getSocialPriority(s.platform) <= 3)
+                  .sort(
+                    (a, b) => getSocialPriority(a.platform) - getSocialPriority(b.platform)
+                  );
+
                 const displaySocials =
                   matched.length > 0
                     ? matched
                     : [
-                        { platform: 'X', href: '#cta' },
+                        { platform: 'Twitter', href: '#cta' },
                         { platform: 'Instagram', href: '#cta' },
                         { platform: 'Facebook', href: '#cta' },
                       ];
+
                 return displaySocials.map((social) => {
                   const openNewTab =
-                    social.openInNewTab && social.href.startsWith('http');
+                    Boolean(social.openInNewTab && social.href?.startsWith('http'));
                   return (
                     <a
                       key={`footer-${social.platform}`}
-                      href={social.href}
+                      href={social.href || '#cta'}
                       aria-label={social.platform}
                       title={social.platform}
                       className={social.icon?.url ? 'has-custom-icon' : undefined}

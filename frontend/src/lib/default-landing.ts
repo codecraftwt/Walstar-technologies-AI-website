@@ -36,7 +36,7 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
   headerCtaHref: '/contact',
   contactEmail: 'info@walstartechnologies.com',
   footerAbout:
-    'Results-driven digital agency building secure, scalable solutions for global businesses.',
+    'Results-driven digital agency building secure,\nscalable solutions for global businesses.',
   footerAboutLogo: null,
   footerNewsletterTitle: 'Have Project in mind ?',
   footerNewsletterSubtitle: 'Let’s create something great.',
@@ -60,7 +60,7 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
   ],
   officeAddress:
     '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
-  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
+  officePhones: '+91 9665784568\n+44 787 791 0843\n+16178109184',
   copyrightText:
     'Copyright © 2028 All Rights Reserved, Terms of Use and Privacy Policy',
 };
@@ -456,11 +456,11 @@ export const DEFAULT_PAGES: PageItem[] = [
       {
         __component: 'sections.hero',
         chip: 'AI-Powered Innovation • Digital Solutions • Business Growth',
-        headlinePrefix: 'Transform Your Business With',
+        headlinePrefix: 'Transform Your Business\nWith',
         headlineSerif: 'The Power',
         headlineSuffix: 'of AI.',
         description:
-          'We combine artificial intelligence, intelligent automation, and modern software engineering to help brands work smarter, innovate faster, and scale with confidence.',
+          'We combine artificial intelligence, intelligent automation, and modern software\nengineering to help businesses work smarter, innovate faster, and\nscale with confidence.',
         primaryCtaLabel: 'Explore AI Solutions ↗',
         primaryCtaHref: '#cap',
         secondaryCtaLabel: 'Discover your Project ↗',
@@ -480,7 +480,7 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingSerif: 'smarter',
         headingSuffix: 'automation',
         description:
-          'From intelligent agents to connected business workflows, we design and implement practical AI solutions that help businesses save time, improve decisions, and deliver better customer experiences every day.',
+          'From intelligent agents to connected business workflows, we design\nand implement practical AI solutions that help businesses save time,\nimprove decisions, and deliver better customer experiences.',
         highlightTitle: 'Engineering an Intelligent Future',
         highlightDescription:
           'We specialize in designing & deploying production AI systems that combine security, cost efficiency and lasting performance.',
@@ -522,6 +522,10 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingPrefix: 'Trusted by 10k+',
         headingSerif: 'fast-growing',
         headingSuffix: 'businesses',
+        topRowDurationSeconds: 28,
+        topRowDirection: 'left',
+        bottomRowDurationSeconds: 42,
+        bottomRowDirection: 'right',
         logos: DEFAULT_TRUSTED_LOGOS,
       },
       {
@@ -1145,7 +1149,7 @@ export const DEFAULT_FOOTER: FooterData = {
   isDefault: true,
   logoAccentText: 'TECHNOLOGIES PVT. LTD.',
   aboutText:
-    'Results-driven digital agency building secure, scalable solutions for global businesses.',
+    'Results-driven digital agency building secure,\nscalable solutions for global businesses.',
   aboutLogo: null,
   consultationShow: true,
   consultationTitle: 'Have Project in mind ?',
@@ -1179,10 +1183,10 @@ export const DEFAULT_FOOTER: FooterData = {
   ],
   officeAddress:
     '2103/47 E, Rukmini Nagar, Front of Datta Mandir Kolhapur, Maharashtra 416005',
-  officePhones: '+91 9665764568\n+44 787 791 0843\n+18178109184',
+  officePhones: '+91 9665784568\n+44 787 791 0843\n+16178109184',
   contactEmail: 'sales@walstartechnologies.com',
   socialLinks: [
-    { platform: 'X', href: '#cta' },
+    { platform: 'Twitter', href: '#cta' },
     { platform: 'Instagram', href: '#cta' },
     { platform: 'Facebook', href: '#cta' },
   ],

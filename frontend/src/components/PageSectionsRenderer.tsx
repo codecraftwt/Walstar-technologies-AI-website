@@ -18,7 +18,7 @@ import {
   ContactSectionView,
 } from '@/components/ContactSections';
 import { HeroBackgroundVideo } from '@/components/HeroBackgroundVideo';
-import { renderHeadingParts } from '@/components/SectionPrimitives';
+import { renderHeadingParts, renderMultilineText } from '@/components/SectionPrimitives';
 import { TestimonialsCarousel } from '@/components/TestimonialsCarousel';
 import {
   WalstarCompactHeader,
@@ -101,6 +101,25 @@ function resolveHeroVideoUrl(rawUrl?: string | null): string | null {
   return getStrapiMediaUrl(trimmed);
 }
 
+function formatHeroHeadingPrefix(prefix?: string | null): string | null | undefined {
+  if (!prefix) return prefix;
+  const trimmed = prefix.trim();
+  if (trimmed === 'Transform Your Business With') {
+    return 'Transform Your Business\nWith';
+  }
+  return prefix;
+}
+
+function formatHeroDescription(desc?: string | null): string | null | undefined {
+  if (!desc) return desc;
+  if (!desc.includes('\n') && desc.includes('work smarter') && desc.includes('scale with confidence')) {
+    return desc
+      .replace(/(modern software)\s+(engineering)/i, '$1\n$2')
+      .replace(/(faster, and)\s+(scale)/i, '$1\n$2');
+  }
+  return desc;
+}
+
 function HeroBlock({
   section,
   navbar,
@@ -165,12 +184,14 @@ function HeroBlock({
         {section.chip ? <span className="chip">{section.chip}</span> : null}
         <h1>
           {renderHeadingParts(
-            section.headlinePrefix,
+            formatHeroHeadingPrefix(section.headlinePrefix),
             section.headlineSerif,
             section.headlineSuffix
           )}
         </h1>
-        {section.description ? <p>{section.description}</p> : null}
+        {section.description ? (
+          <p>{renderMultilineText(formatHeroDescription(section.description))}</p>
+        ) : null}
         {section.primaryCtaLabel || section.secondaryCtaLabel ? (
           <div className="cta">
             {section.primaryCtaLabel ? (
@@ -645,15 +666,20 @@ function expandTrustRowLogos(rowLogos: PartnerLogo[]): PartnerLogo[] {
 
 function TrustMarqueeRow({
   logos,
-  direction,
+  direction = 'left',
+  durationSeconds,
 }: {
   logos: PartnerLogo[];
-  direction: 'left' | 'right';
+  direction?: 'left' | 'right';
+  durationSeconds?: number | null;
 }) {
   const groupLogos = expandTrustRowLogos(logos);
   if (groupLogos.length === 0) return null;
 
-  const durationSeconds = Math.max(24, Math.round(groupLogos.length * 4.8));
+  const resolvedDuration =
+    typeof durationSeconds === 'number' && durationSeconds > 0
+      ? durationSeconds
+      : Math.max(20, Math.round(groupLogos.length * 3.2));
   const directionClass = direction === 'right' ? 'is-right' : 'is-left';
 
   return (
@@ -662,7 +688,7 @@ function TrustMarqueeRow({
         className={`trust-marquee-track ${directionClass}`}
         style={
           {
-            '--trust-marquee-duration': `${durationSeconds}s`,
+            '--trust-marquee-duration': `${resolvedDuration}s`,
           } as CSSProperties
         }
       >
@@ -711,6 +737,21 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
 
   const hasAnyLogos = topRowLogos.length > 0 || bottomRowLogos.length > 0;
 
+  const topDuration =
+    section.topRowDurationSeconds || section.animationDurationSeconds || 28;
+  const topDirection =
+    section.topRowDirection || (section.scrollDirection === 'right' ? 'right' : 'left');
+
+  const bottomDuration =
+    section.bottomRowDurationSeconds ||
+    (typeof section.topRowDurationSeconds === 'number'
+      ? Math.round(section.topRowDurationSeconds * 1.5)
+      : typeof section.animationDurationSeconds === 'number'
+        ? Math.round(section.animationDurationSeconds * 1.5)
+        : 42);
+  const bottomDirection =
+    section.bottomRowDirection || 'right';
+
   return (
     <section className="trust">
       {section.tag ? <span className="pill">{section.tag}</span> : null}
@@ -724,10 +765,18 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
       {hasAnyLogos ? (
         <div className="trust-logos" aria-label={section.tag || 'Trusted businesses'}>
           {topRowLogos.length > 0 ? (
-            <TrustMarqueeRow logos={topRowLogos} direction="left" />
+            <TrustMarqueeRow
+              logos={topRowLogos}
+              direction={topDirection}
+              durationSeconds={topDuration}
+            />
           ) : null}
           {bottomRowLogos.length > 0 ? (
-            <TrustMarqueeRow logos={bottomRowLogos} direction="right" />
+            <TrustMarqueeRow
+              logos={bottomRowLogos}
+              direction={bottomDirection}
+              durationSeconds={bottomDuration}
+            />
           ) : null}
         </div>
       ) : null}

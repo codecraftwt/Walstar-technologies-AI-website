@@ -332,16 +332,30 @@ export interface SectionsContactSection extends Struct.ComponentSchema {
     icon: 'envelop';
   };
   attributes: {
+    budgetOptions: Schema.Attribute.Component<'shared.interest-option', true>;
+    callLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Call Us :'>;
+    callPhones: Schema.Attribute.Text;
+    emailAddresses: Schema.Attribute.Text;
+    emailLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Email Us :'>;
+    formButtonLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Send Message \u2197'>;
     formSource: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'contact-page'>;
+    formSubtitle: Schema.Attribute.Text;
+    formTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"Let's Get Started">;
     headingPrefix: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<"Let's Build">;
+      Schema.Attribute.DefaultTo<'Reach out'>;
     headingSerif: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Something Great'>;
+      Schema.Attribute.DefaultTo<'directly'>;
+    serviceOptions: Schema.Attribute.Component<'shared.interest-option', true>;
     showOfficeDetails: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     subtitle: Schema.Attribute.Text;
-    tag: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Contact Us'>;
+    tag: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"Let's talk about your business">;
   };
 }
 
@@ -572,6 +586,28 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
     icon: 'shield';
   };
   attributes: {
+    animationDurationSeconds: Schema.Attribute.Integer &
+      Schema.Attribute.CustomField<'global::speed-slider'> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 120;
+          min: 4;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<32>;
+    bottomRowDirection: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'right'>;
+    bottomRowDurationSeconds: Schema.Attribute.Integer &
+      Schema.Attribute.CustomField<'global::speed-slider'> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 120;
+          min: 4;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<42>;
     bottomRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Trusted by'>;
@@ -579,8 +615,22 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
     headingSuffix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'High-Growth Companies Globally'>;
     logos: Schema.Attribute.Component<'shared.partner-logo', true>;
+    scrollDirection: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
     tag: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Trusted by Brands'>;
+    topRowDirection: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
+    topRowDurationSeconds: Schema.Attribute.Integer &
+      Schema.Attribute.CustomField<'global::speed-slider'> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 120;
+          min: 4;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<28>;
     topRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
   };
 }

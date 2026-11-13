@@ -41,7 +41,7 @@
     "aboutLogo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "files"]
     },
     "consultationShow": {
       "type": "boolean",

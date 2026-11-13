@@ -85,6 +85,22 @@ function TeamMemberCard({
   );
 }
 
+function formatAboutDescription(desc?: string | null): string | null | undefined {
+  if (!desc) return desc;
+  if (!desc.includes('\n') && desc.includes('intelligent agents') && desc.includes('connected business workflows')) {
+    return desc
+      .replace(
+        'connected business workflows, we design and implement',
+        'connected business workflows, we design\nand implement'
+      )
+      .replace(
+        'help businesses save time, improve decisions,',
+        'help businesses save time,\nimprove decisions,'
+      );
+  }
+  return desc;
+}
+
 export function AboutBlock({ section }: { section: AboutSection }) {
   const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url);
   const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url);
@@ -119,16 +135,18 @@ export function AboutBlock({ section }: { section: AboutSection }) {
         </div>
         <div>
           {section.tag ? <span className="pill">{section.tag}</span> : null}
-          <h2>
-            {section.headingPrefix}{' '}
-            {section.headingSerif ? (
-              <span className="serif">{section.headingSerif}</span>
-            ) : null}{' '}
-            {section.headingSuffix}
+          <h2 className="about-heading">
+            <span className="about-heading-row">{section.headingPrefix}</span>
+            <span className="about-heading-row">
+              {section.headingSerif ? (
+                <span className="serif">{section.headingSerif}</span>
+              ) : null}{' '}
+              {section.headingSuffix}
+            </span>
           </h2>
           {section.description ? (
-            <p className="lead" style={{ marginTop: 14 }}>
-              {section.description}
+            <p className="lead about-lead-desc" style={{ marginTop: 14, color: '#666666' }}>
+              {renderMultilineText(formatAboutDescription(section.description))}
             </p>
           ) : null}
           {section.highlightTitle ? (
@@ -168,9 +186,9 @@ export function AboutBlock({ section }: { section: AboutSection }) {
                   </svg>
                 )}
               </i>
-              <div>
-                <h4>{section.highlightTitle}</h4>
-                <p>{section.highlightDescription}</p>
+              <div className="mini-content">
+                <h4 className="mini-title">{section.highlightTitle}</h4>
+                <p className="mini-desc">{section.highlightDescription}</p>
               </div>
             </div>
           ) : null}
@@ -492,10 +510,19 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
   );
 }
 
+const DEFAULT_MAP_PINS: WorldMapPinItem[] = [
+  { label: 'Dallas,TX USA', leftPercent: 12, topPx: 0, flagVariant: 'us' },
+  { label: 'Kolhapur | Pune, India', leftPercent: 46, topPx: 14, flagVariant: 'in' },
+  { label: 'Brisbane, QLD Australia', leftPercent: 64, topPx: 118, flagVariant: 'au' },
+];
+
 export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection }) {
-  const mapPins = section.mapPins ?? [];
+  const rawPins = section.mapPins ?? [];
+  const mapPins = rawPins.length > 0 ? rawPins : DEFAULT_MAP_PINS;
   const offices = section.offices ?? [];
-  const mapImageUrl = section.image ? getStrapiMediaUrl(section.image.url) : null;
+  const mapImageUrl = section.image?.url
+    ? getStrapiMediaUrl(section.image.url)
+    : null;
 
   return (
     <section className="sec offices">
@@ -515,47 +542,46 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
                 src={mapImageUrl}
                 alt={section.image?.alternativeText || 'Areas we serve'}
                 fill
-                sizes="(max-width: 900px) 100vw, 40vw"
-                className="object-cover"
+                sizes="(max-width: 900px) 100vw, 900px"
+                className="object-contain"
+                priority={false}
               />
             ) : (
-              <>
-                <svg viewBox="0 0 900 340" aria-hidden="true">
-                  <g fill="#d4d4d4">
-                    <path d="M120 60l90-20 90 20 20 50-30 60-50 30-40 40-30-50-40-40z" />
-                    <path d="M250 210l60 10 20 50-30 60-30-40z" />
-                    <path d="M400 70l90-20 120 10 140 20 40 60-60 40-80 20-40 60-60-20-30-60-60 10-30-50z" />
-                    <path d="M410 160l70 20 20 70-30 50-40-40z" />
-                    <path d="M690 230l70-10 30 40-50 30-50-20z" />
-                  </g>
-                  <g strokeWidth="1">
-                    <path d="M135 20v152" stroke="#d6003b" />
-                    <path d="M470 30v168" stroke="#f0a020" />
-                    <path d="M570 100v155" stroke="#1a2a8a" />
-                  </g>
-                  <circle cx="135" cy="172" r="3" fill="#d6003b" />
-                  <circle cx="470" cy="198" r="3" fill="#f0a020" />
-                  <circle cx="570" cy="255" r="3" fill="#1a2a8a" />
-                </svg>
-
-                {mapPins.map((pin, idx) => {
-                  const topPercent = `${(((pin.topPx ?? 14) / 340) * 100).toFixed(2)}%`;
-                  const leftPercent = `${pin.leftPercent ?? 50}%`;
-                  const flagBg = FLAG_BACKGROUNDS[pin.flagVariant ?? 'in'];
-
-                  return (
-                    <span
-                      key={`${pin.label}-${pin.id ?? idx}`}
-                      className="lb"
-                      style={{ left: leftPercent, top: topPercent }}
-                    >
-                      <i style={{ background: flagBg }} aria-hidden="true" />
-                      <span>{pin.label}</span>
-                    </span>
-                  );
-                })}
-              </>
+              <svg viewBox="0 0 900 340" aria-hidden="true">
+                <g fill="#d4d4d4">
+                  <path d="M120 60l90-20 90 20 20 50-30 60-50 30-40 40-30-50-40-40z" />
+                  <path d="M250 210l60 10 20 50-30 60-30-40z" />
+                  <path d="M400 70l90-20 120 10 140 20 40 60-60 40-80 20-40 60-60-20-30-60-60 10-30-50z" />
+                  <path d="M410 160l70 20 20 70-30 50-40-40z" />
+                  <path d="M690 230l70-10 30 40-50 30-50-20z" />
+                </g>
+                <g strokeWidth="1">
+                  <path d="M135 20v152" stroke="#d6003b" />
+                  <path d="M470 30v168" stroke="#f0a020" />
+                  <path d="M570 100v155" stroke="#1a2a8a" />
+                </g>
+                <circle cx="135" cy="172" r="3" fill="#d6003b" />
+                <circle cx="470" cy="198" r="3" fill="#f0a020" />
+                <circle cx="570" cy="255" r="3" fill="#1a2a8a" />
+              </svg>
             )}
+
+            {mapPins.map((pin, idx) => {
+              const topPercent = `${(((pin.topPx ?? 14) / 340) * 100).toFixed(2)}%`;
+              const leftPercent = `${pin.leftPercent ?? 50}%`;
+              const flagBg = FLAG_BACKGROUNDS[pin.flagVariant ?? 'in'];
+
+              return (
+                <span
+                  key={`${pin.label}-${pin.id ?? idx}`}
+                  className="lb"
+                  style={{ left: leftPercent, top: topPercent }}
+                >
+                  <i style={{ background: flagBg }} aria-hidden="true" />
+                  <span>{pin.label}</span>
+                </span>
+              );
+            })}
           </div>
         ) : null}
 

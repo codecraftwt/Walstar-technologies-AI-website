@@ -242,6 +242,12 @@ export interface TrustBannerSection {
   topRowLogos?: PartnerLogo[];
   bottomRowLogos?: PartnerLogo[];
   logos?: PartnerLogo[];
+  topRowDurationSeconds?: number | null;
+  topRowDirection?: 'left' | 'right' | null;
+  bottomRowDurationSeconds?: number | null;
+  bottomRowDirection?: 'left' | 'right' | null;
+  animationDurationSeconds?: number | null;
+  scrollDirection?: 'left' | 'right' | null;
 }
 
 export interface CaseStudiesSection {

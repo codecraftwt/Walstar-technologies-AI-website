@@ -3,7 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
+import { createPortal } from 'react-dom';
 import { WalstarButton } from '@/components/WalstarButton';
 import { resolveCmsRoute } from '@/lib/cms-routes';
 import { getStrapiMediaUrl } from '@/lib/strapi';
@@ -86,16 +94,46 @@ function ChevronDownIcon({ rotated }: { rotated: boolean }) {
       aria-hidden="true"
       style={{
         transform: rotated ? 'rotate(180deg)' : 'rotate(0deg)',
-        transition: 'transform 0.18s ease',
+        transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       <path
         d="M4 6L8 10L12 6"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="mobile-menu-icon"
+      aria-hidden="true"
+    >
+      {isOpen ? (
+        <>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </>
+      ) : (
+        <>
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </>
+      )}
     </svg>
   );
 }
@@ -118,13 +156,63 @@ export function Navbar({
   const [pathname, setPathname] = useState(initialPath);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdownKey, setOpenDropdownKey] = useState<string | null>(null);
+  const [expandedMobileKeys, setExpandedMobileKeys] = useState<Record<string, boolean>>({});
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const navRef = useRef<HTMLElement>(null);
+
+  // Close mobile drawer and dropdowns automatically on route navigation
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMobileOpen(false);
+    setOpenDropdownKey(null);
+  }
 
   const logoImgUrl = getStrapiMediaUrl(data.logoImage?.url);
   const logoHref = data.logoHref?.trim() || '/';
   const ctaHref = data.ctaRoute?.trim() || '/contact';
   const showCta = data.ctaShow !== false && Boolean(data.ctaLabel?.trim());
 
+  const toggleMobileSub = useCallback((key: string) => {
+    setExpandedMobileKeys((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  }, []);
+
+  // Lock body/html scroll when mobile menu is open to prevent background scrolling & glitches
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyTouchAction = document.body.style.touchAction;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+    document.body.classList.add('walstar-scroll-locked');
+    document.documentElement.classList.add('walstar-scroll-locked');
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.touchAction = originalBodyTouchAction;
+      document.body.style.paddingRight = '';
+      document.body.classList.remove('walstar-scroll-locked');
+      document.documentElement.classList.remove('walstar-scroll-locked');
+    };
+  }, [mobileOpen]);
+
+  // Handle escape key, outside click, and desktop resize
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -137,19 +225,29 @@ export function Navbar({
         setMobileOpen(false);
       }
     }
+    function handleResize() {
+      if (window.innerWidth >= 1025 && mobileOpen) {
+        setMobileOpen(false);
+      }
+    }
+
     document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [mobileOpen]);
 
   return (
     <nav ref={navRef} className="hero-nav" aria-label={data.name || 'Primary navigation'}>
       <Suspense fallback={null}>
         <PathnameTracker onChange={setPathname} />
       </Suspense>
+
       <Link
         className="walstar-brand-link"
         href={logoHref}
@@ -253,12 +351,13 @@ export function Navbar({
       <div className="nav-actions">
         <button
           type="button"
-          className="mobile-menu-btn"
+          className={`mobile-menu-btn ${mobileOpen ? 'is-active' : ''}`}
           aria-expanded={mobileOpen}
-          aria-label="Toggle navigation menu"
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
           onClick={() => setMobileOpen((prev) => !prev)}
         >
-          {mobileOpen ? 'Close' : 'Menu'}
+          <HamburgerIcon isOpen={mobileOpen} />
+          <span className="mobile-menu-label">{mobileOpen ? 'Close' : 'Menu'}</span>
         </button>
 
         {showCta ? (
@@ -274,50 +373,170 @@ export function Navbar({
         ) : null}
       </div>
 
-      {mobileOpen ? (
-        <div className="mobile-nav-drawer">
-          <div className="mobile-nav-list">
-            {(data.items ?? []).map((item, idx) => {
-              const itemHref = resolveRoute(item.route, item.page);
-              const subItems = item.subItems ?? [];
-              const active = isNavItemActive(pathname, item);
+      {mounted && mobileOpen && typeof document !== 'undefined'
+        ? createPortal(
+            <>
+              <div
+                className="mobile-nav-backdrop"
+                onClick={() => setMobileOpen(false)}
+                onTouchMove={(e) => e.preventDefault()}
+                aria-hidden="true"
+              />
 
-              return (
-                <div key={`mobile-${item.label}-${idx}`} className="mobile-nav-group">
+              <aside
+                className="mobile-nav-drawer"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Mobile Navigation Drawer"
+              >
+                <div className="mobile-drawer-header">
                   <Link
-                    href={itemHref}
-                    target={item.openInNewTab ? '_blank' : undefined}
-                    rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
+                    className="walstar-brand-link"
+                    href={logoHref}
+                    aria-label={data.logoImage?.alternativeText || 'Walstar Technologies'}
                     onClick={() => setMobileOpen(false)}
-                    className={`mobile-nav-link ${active ? 'is-active' : ''}`}
                   >
-                    {item.label}
+                    {logoImgUrl ? (
+                      <Image
+                        src={logoImgUrl}
+                        alt={data.logoImage?.alternativeText || 'Walstar Technologies'}
+                        width={data.logoImage?.width || 170}
+                        height={data.logoImage?.height || 58}
+                        loading="eager"
+                        className="walstar-logo-img"
+                      />
+                    ) : (
+                      <DefaultWalstarLogoSvg />
+                    )}
                   </Link>
-                  {subItems.length > 0 ? (
-                    <div className="mobile-sub-list">
-                      {subItems.map((sub, subIdx) => (
-                        <Link
-                          key={`mobile-sub-${sub.label}-${subIdx}`}
-                          href={resolveRoute(sub.route, sub.page)}
-                          target={sub.openInNewTab ? '_blank' : undefined}
-                          rel={sub.openInNewTab ? 'noopener noreferrer' : undefined}
-                          onClick={() => setMobileOpen(false)}
-                          className="mobile-sub-link"
-                        >
-                          <span>{sub.label}</span>
-                          {sub.badge ? (
-                            <span className="nav-dropdown-badge">{sub.badge}</span>
-                          ) : null}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : null}
+
+                  <button
+                    type="button"
+                    className="mobile-drawer-close"
+                    aria-label="Close navigation menu"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
+
+                <div className="mobile-drawer-body">
+                  <nav className="mobile-nav-list" aria-label="Mobile menu navigation">
+                    {(data.items ?? []).map((item, idx) => {
+                      const itemKey = `${item.label}-${item.id ?? idx}`;
+                      const itemHref = resolveRoute(item.route, item.page);
+                      const subItems = item.subItems ?? [];
+                      const hasDropdown = Boolean(item.hasDropdown || subItems.length > 0);
+                      const active = isNavItemActive(pathname, item);
+                      const isSubOpen = Boolean(expandedMobileKeys[itemKey]);
+
+                      return (
+                        <div
+                          key={`m-item-${itemKey}`}
+                          className={`mobile-nav-group ${active ? 'is-active-group' : ''}`}
+                        >
+                          <div className="mobile-nav-row">
+                            <Link
+                              href={itemHref}
+                              target={item.openInNewTab ? '_blank' : undefined}
+                              rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
+                              className={`mobile-nav-link ${active ? 'is-active' : ''}`}
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              <span>{item.label}</span>
+                              {item.isHighlighted ? (
+                                <span className="mobile-highlight-dot" />
+                              ) : null}
+                            </Link>
+
+                            {hasDropdown ? (
+                              <button
+                                type="button"
+                                className={`mobile-sub-toggle ${isSubOpen ? 'is-open' : ''}`}
+                                aria-expanded={isSubOpen}
+                                aria-label={`Toggle ${item.label} submenu`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleMobileSub(itemKey);
+                                }}
+                              >
+                                <ChevronDownIcon rotated={isSubOpen} />
+                              </button>
+                            ) : null}
+                          </div>
+
+                          {hasDropdown && subItems.length > 0 && isSubOpen ? (
+                            <div className="mobile-sub-list">
+                              {subItems.map((sub, subIdx) => {
+                                const subHref = resolveRoute(sub.route, sub.page);
+                                const subActive = isRouteActive(pathname, subHref);
+
+                                return (
+                                  <Link
+                                    key={`m-sub-${sub.label}-${sub.id ?? subIdx}`}
+                                    href={subHref}
+                                    target={sub.openInNewTab ? '_blank' : undefined}
+                                    rel={sub.openInNewTab ? 'noopener noreferrer' : undefined}
+                                    className={`mobile-sub-link ${subActive ? 'is-active' : ''}`}
+                                    onClick={() => setMobileOpen(false)}
+                                  >
+                                    <div className="mobile-sub-content">
+                                      <div className="mobile-sub-head">
+                                        <span className="mobile-sub-label">{sub.label}</span>
+                                        {sub.badge ? (
+                                          <span className="nav-dropdown-badge">{sub.badge}</span>
+                                        ) : null}
+                                      </div>
+                                      {sub.description ? (
+                                        <span className="mobile-sub-desc">{sub.description}</span>
+                                      ) : null}
+                                    </div>
+                                    <span className="mobile-sub-arrow" aria-hidden="true">
+                                      →
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </div>
+                      );
+                    })}
+                  </nav>
+                </div>
+
+                {showCta ? (
+                  <div className="mobile-drawer-footer">
+                    <WalstarButton
+                      variant="orange"
+                      className="mobile-drawer-cta"
+                      href={ctaHref}
+                      target={data.ctaOpenInNewTab ? '_blank' : undefined}
+                      rel={data.ctaOpenInNewTab ? 'noopener noreferrer' : undefined}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {data.ctaLabel}
+                    </WalstarButton>
+                  </div>
+                ) : null}
+              </aside>
+            </>,
+            document.body
+          )
+        : null}
     </nav>
   );
 }

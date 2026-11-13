@@ -37,6 +37,42 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.partner-logo"
+    },
+    "topRowDurationSeconds": {
+      "type": "customField",
+      "customField": "global::speed-slider",
+      "default": 28,
+      "min": 4,
+      "max": 120
+    },
+    "topRowDirection": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "left"
+    },
+    "bottomRowDurationSeconds": {
+      "type": "customField",
+      "customField": "global::speed-slider",
+      "default": 42,
+      "min": 4,
+      "max": 120
+    },
+    "bottomRowDirection": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "right"
+    },
+    "animationDurationSeconds": {
+      "type": "customField",
+      "customField": "global::speed-slider",
+      "default": 32,
+      "min": 4,
+      "max": 120
+    },
+    "scrollDirection": {
+      "type": "enumeration",
+      "enum": ["left", "right"],
+      "default": "left"
     }
   }
 }
