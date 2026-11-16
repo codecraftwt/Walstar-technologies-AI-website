@@ -6,6 +6,31 @@
   },
   "options": {},
   "attributes": {
+    "country": {
+      "type": "enumeration",
+      "enum": [
+        "United States",
+        "India",
+        "United Kingdom",
+        "Australia",
+        "United Arab Emirates",
+        "Canada",
+        "Germany",
+        "Singapore",
+        "France",
+        "Japan",
+        "Saudi Arabia",
+        "Qatar",
+        "Malaysia",
+        "New Zealand",
+        "Netherlands",
+        "Switzerland",
+        "Ireland",
+        "Brazil",
+        "South Africa",
+        "Other"
+      ]
+    },
     "regionLabel": {
       "type": "string",
       "required": true
@@ -27,6 +52,60 @@
     "isHeadquarters": {
       "type": "boolean",
       "default": false
+    },
+    "countryPreset": {
+      "type": "enumeration",
+      "enum": [
+        "usa_dover_nh",
+        "usa",
+        "uk",
+        "australia",
+        "india",
+        "india_kolhapur_hq",
+        "india_pune",
+        "india_mumbai",
+        "india_delhi",
+        "india_bengaluru",
+        "india_hyderabad",
+        "usa_dallas",
+        "usa_newyork",
+        "usa_sanfrancisco",
+        "usa_chicago",
+        "usa_seattle",
+        "usa_austin",
+        "uk_london",
+        "uk_manchester",
+        "uk_edinburgh",
+        "australia_brisbane",
+        "australia_sydney",
+        "australia_melbourne",
+        "australia_perth",
+        "uae_dubai",
+        "uae_abudhabi",
+        "saudi_arabia_riyadh",
+        "qatar_doha",
+        "singapore",
+        "japan_tokyo",
+        "malaysia_kualalumpur",
+        "newzealand_auckland",
+        "germany_berlin",
+        "germany_frankfurt",
+        "france_paris",
+        "netherlands_amsterdam",
+        "switzerland_zurich",
+        "ireland_dublin",
+        "canada_toronto",
+        "canada_vancouver",
+        "brazil_saopaulo",
+        "south_africa_capetown",
+        "custom_coordinates"
+      ]
+    },
+    "latitude": {
+      "type": "decimal"
+    },
+    "longitude": {
+      "type": "decimal"
     }
   }
 }

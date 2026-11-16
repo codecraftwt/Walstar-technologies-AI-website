@@ -369,6 +369,7 @@ export interface SolutionCardItem {
 export interface WhyChooseReason {
   id?: number;
   icon?: string | null;
+  iconImage?: StrapiMedia | { url: string; alternativeText?: string } | null;
   title: string;
   description: string;
 }
@@ -376,6 +377,7 @@ export interface WhyChooseReason {
 export interface TickerLabelItem {
   id?: number;
   label: string;
+  iconImage?: StrapiMedia | { url: string; alternativeText?: string } | null;
 }
 
 export interface TeamMemberItem {
@@ -388,12 +390,16 @@ export interface TeamMemberItem {
 
 export interface OfficeLocationItem {
   id?: number;
+  country?: string | null;
   regionLabel: string;
   title: string;
   cityRegion?: string | null;
   address: string;
   mapUrl?: string | null;
   isHeadquarters?: boolean;
+  countryPreset?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface WorldMapPinItem {
@@ -401,7 +407,10 @@ export interface WorldMapPinItem {
   label: string;
   leftPercent?: number;
   topPx?: number;
-  flagVariant?: 'us' | 'in' | 'au' | 'uk';
+  flagVariant?: string | null;
+  countryPreset?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface WhoWeAreSection {
@@ -438,6 +447,8 @@ export interface SolutionsGridSection {
   headingSuffix?: string | null;
   subtitle?: string | null;
   hasTopOverlap?: boolean | null;
+  direction?: 'left' | 'right' | null;
+  speedSeconds?: number | null;
   items?: SolutionCardItem[];
 }
 
@@ -499,6 +510,124 @@ export interface GlobalOfficesSection {
   offices?: OfficeLocationItem[];
 }
 
+
+/* ─── Service page sub-items ─────────────────────────────────────── */
+export interface SvcChallengeItem {
+  id?: number;
+  icon?: string | null;
+  title: string;
+  description?: string | null;
+}
+
+export interface SvcCapabilityItem {
+  id?: number;
+  icon?: string | null;
+  title: string;
+  description?: string | null;
+}
+
+export interface SvcBenefitItem {
+  id?: number;
+  icon?: string | null;
+  title: string;
+  description?: string | null;
+  isDark?: boolean | null;
+}
+
+export interface SvcProcessStepItem {
+  id?: number;
+  number: string;
+  title: string;
+  description?: string | null;
+}
+
+export interface SvcGetItem {
+  id?: number;
+  label: string;
+}
+
+/* ─── Service page sections ──────────────────────────────────────── */
+export interface SvcIntroSection {
+  __component: 'sections.svc-intro';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  description?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  image?: StrapiMedia | null;
+}
+
+export interface SvcChallengesSection {
+  __component: 'sections.svc-challenges';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  bodyOne?: string | null;
+  bodyTwo?: string | null;
+  challengeItems?: SvcChallengeItem[];
+}
+
+export interface SvcCapabilitiesSection {
+  __component: 'sections.svc-capabilities';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  capabilityItems?: SvcCapabilityItem[];
+}
+
+export interface SvcBenefitsSection {
+  __component: 'sections.svc-benefits';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  benefitItems?: SvcBenefitItem[];
+}
+
+export interface SvcProcessSection {
+  __component: 'sections.svc-process';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  steps?: SvcProcessStepItem[];
+}
+
+export interface SvcApproachSection {
+  __component: 'sections.svc-approach';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  bodyOne?: string | null;
+  bodyTwo?: string | null;
+  getBoxTitle?: string | null;
+  getBoxItems?: SvcGetItem[];
+}
+
+export interface SvcCtaSection {
+  __component: 'sections.svc-cta';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  bodyOne?: string | null;
+  bodyTwo?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+}
+
 export type PageSection =
   | HeroSection
   | PartnerStripSection
@@ -519,9 +648,17 @@ export type PageSection =
   | WhyChooseSection
   | VisionMissionSection
   | TeamShowcaseSection
-  | GlobalOfficesSection;
+  | GlobalOfficesSection
+  | SvcIntroSection
+  | SvcChallengesSection
+  | SvcCapabilitiesSection
+  | SvcBenefitsSection
+  | SvcProcessSection
+  | SvcApproachSection
+  | SvcCtaSection;
 
 export type PageType = 'homepage' | 'about' | 'contact' | 'service' | 'standard';
+
 
 export interface NavPageRef {
   id?: number;

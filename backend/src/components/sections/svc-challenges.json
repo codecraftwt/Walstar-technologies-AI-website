@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_svc_challenges",
+  "info": {
+    "displayName": "Service Challenges",
+    "icon": "puzzle"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string" },
+    "headingPrefix": { "type": "string" },
+    "headingSerif": { "type": "string" },
+    "headingSuffix": { "type": "string" },
+    "bodyOne": { "type": "text" },
+    "bodyTwo": { "type": "text" },
+    "challengeItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.challenge-item"
+    }
+  }
+}

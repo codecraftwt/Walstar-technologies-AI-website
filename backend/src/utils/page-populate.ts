@@ -129,7 +129,14 @@ export const PAGE_POPULATE = {
         populate: ['items'],
       },
       'sections.why-choose': {
-        populate: ['reasons', 'tickerItems'],
+        populate: {
+          reasons: {
+            populate: ['iconImage'],
+          },
+          tickerItems: {
+            populate: ['iconImage'],
+          },
+        },
       },
       'sections.vision-mission': true,
       'sections.team-showcase': {

@@ -77,7 +77,14 @@
         "sections.why-choose",
         "sections.vision-mission",
         "sections.team-showcase",
-        "sections.global-offices"
+        "sections.global-offices",
+        "sections.svc-intro",
+        "sections.svc-challenges",
+        "sections.svc-capabilities",
+        "sections.svc-benefits",
+        "sections.svc-process",
+        "sections.svc-approach",
+        "sections.svc-cta"
       ]
     }
   }

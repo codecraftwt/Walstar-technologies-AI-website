@@ -7,10 +7,70 @@ export interface AboutMapPin extends Struct.ComponentSchema {
     icon: 'earth';
   };
   attributes: {
-    flagVariant: Schema.Attribute.Enumeration<['us', 'in', 'au', 'uk']> &
+    countryPreset: Schema.Attribute.Enumeration<
+      [
+        'india_kolhapur_hq',
+        'india_pune',
+        'india_mumbai',
+        'india_delhi',
+        'india_bengaluru',
+        'india_hyderabad',
+        'usa_dallas',
+        'usa_newyork',
+        'usa_sanfrancisco',
+        'usa_chicago',
+        'usa_seattle',
+        'usa_austin',
+        'uk_london',
+        'uk_manchester',
+        'uk_edinburgh',
+        'australia_brisbane',
+        'australia_sydney',
+        'australia_melbourne',
+        'australia_perth',
+        'uae_dubai',
+        'uae_abudhabi',
+        'saudi_arabia_riyadh',
+        'qatar_doha',
+        'singapore',
+        'japan_tokyo',
+        'malaysia_kualalumpur',
+        'newzealand_auckland',
+        'germany_berlin',
+        'germany_frankfurt',
+        'france_paris',
+        'netherlands_amsterdam',
+        'switzerland_zurich',
+        'ireland_dublin',
+        'canada_toronto',
+        'canada_vancouver',
+        'brazil_saopaulo',
+        'south_africa_capetown',
+        'custom_coordinates',
+      ]
+    >;
+    flagVariant: Schema.Attribute.Enumeration<
+      [
+        'us',
+        'in',
+        'au',
+        'uk',
+        'ae',
+        'sg',
+        'ca',
+        'de',
+        'fr',
+        'jp',
+        'sa',
+        'za',
+        'br',
+      ]
+    > &
       Schema.Attribute.DefaultTo<'in'>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
+    latitude: Schema.Attribute.Decimal;
     leftPercent: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<50>;
+    longitude: Schema.Attribute.Decimal;
     topPx: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<14>;
   };
 }
@@ -38,8 +98,81 @@ export interface AboutOfficeLocation extends Struct.ComponentSchema {
   attributes: {
     address: Schema.Attribute.Text & Schema.Attribute.Required;
     cityRegion: Schema.Attribute.String;
+    country: Schema.Attribute.Enumeration<
+      [
+        'United States',
+        'India',
+        'United Kingdom',
+        'Australia',
+        'United Arab Emirates',
+        'Canada',
+        'Germany',
+        'Singapore',
+        'France',
+        'Japan',
+        'Saudi Arabia',
+        'Qatar',
+        'Malaysia',
+        'New Zealand',
+        'Netherlands',
+        'Switzerland',
+        'Ireland',
+        'Brazil',
+        'South Africa',
+        'Other',
+      ]
+    >;
+    countryPreset: Schema.Attribute.Enumeration<
+      [
+        'usa_dover_nh',
+        'usa',
+        'uk',
+        'australia',
+        'india',
+        'india_kolhapur_hq',
+        'india_pune',
+        'india_mumbai',
+        'india_delhi',
+        'india_bengaluru',
+        'india_hyderabad',
+        'usa_dallas',
+        'usa_newyork',
+        'usa_sanfrancisco',
+        'usa_chicago',
+        'usa_seattle',
+        'usa_austin',
+        'uk_london',
+        'uk_manchester',
+        'uk_edinburgh',
+        'australia_brisbane',
+        'australia_sydney',
+        'australia_melbourne',
+        'australia_perth',
+        'uae_dubai',
+        'uae_abudhabi',
+        'saudi_arabia_riyadh',
+        'qatar_doha',
+        'singapore',
+        'japan_tokyo',
+        'malaysia_kualalumpur',
+        'newzealand_auckland',
+        'germany_berlin',
+        'germany_frankfurt',
+        'france_paris',
+        'netherlands_amsterdam',
+        'switzerland_zurich',
+        'ireland_dublin',
+        'canada_toronto',
+        'canada_vancouver',
+        'brazil_saopaulo',
+        'south_africa_capetown',
+        'custom_coordinates',
+      ]
+    >;
     isHeadquarters: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
+    latitude: Schema.Attribute.Decimal;
+    longitude: Schema.Attribute.Decimal;
     mapUrl: Schema.Attribute.String;
     regionLabel: Schema.Attribute.String & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -93,6 +226,7 @@ export interface AboutTickerItem extends Struct.ComponentSchema {
     icon: 'check';
   };
   attributes: {
+    iconImage: Schema.Attribute.Media<'images'>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -105,7 +239,7 @@ export interface AboutWhyReason extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u25AD'>;
+    iconImage: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -518,6 +652,8 @@ export interface SectionsSolutionsGrid extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
+    direction: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
     hasTopOverlap: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Digital solutions\nbuilt to'>;
@@ -525,7 +661,143 @@ export interface SectionsSolutionsGrid extends Struct.ComponentSchema {
     headingSuffix: Schema.Attribute.String;
     items: Schema.Attribute.Component<'about.solution-item', true>;
     pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'What we do'>;
+    speedSeconds: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 120;
+          min: 5;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<30>;
     subtitle: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsSvcApproach extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_approaches';
+  info: {
+    displayName: 'Service Approach';
+    icon: 'expand';
+  };
+  attributes: {
+    bodyOne: Schema.Attribute.Text;
+    bodyTwo: Schema.Attribute.Text;
+    getBoxItems: Schema.Attribute.Component<'service.get-item', true>;
+    getBoxTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'What you get?'>;
+    headingPrefix: Schema.Attribute.String;
+    headingSerif: Schema.Attribute.String;
+    headingSuffix: Schema.Attribute.String;
+    pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Our Approach'>;
+  };
+}
+
+export interface SectionsSvcBenefits extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_benefits';
+  info: {
+    displayName: 'Service Benefits';
+    icon: 'star';
+  };
+  attributes: {
+    benefitItems: Schema.Attribute.Component<'service.benefit-item', true>;
+    headingPrefix: Schema.Attribute.String;
+    headingSerif: Schema.Attribute.String;
+    headingSuffix: Schema.Attribute.String;
+    pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Benefits'>;
+  };
+}
+
+export interface SectionsSvcCapabilities extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_capabilities';
+  info: {
+    displayName: 'Service Capabilities Grid';
+    icon: 'grid';
+  };
+  attributes: {
+    capabilityItems: Schema.Attribute.Component<
+      'service.capability-item',
+      true
+    >;
+    headingPrefix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'What we'>;
+    headingSerif: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Build'>;
+    headingSuffix: Schema.Attribute.String;
+    pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Capabilities'>;
+  };
+}
+
+export interface SectionsSvcChallenges extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_challenges';
+  info: {
+    displayName: 'Service Challenges';
+    icon: 'puzzle';
+  };
+  attributes: {
+    bodyOne: Schema.Attribute.Text;
+    bodyTwo: Schema.Attribute.Text;
+    challengeItems: Schema.Attribute.Component<'service.challenge-item', true>;
+    headingPrefix: Schema.Attribute.String;
+    headingSerif: Schema.Attribute.String;
+    headingSuffix: Schema.Attribute.String;
+    pill: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsSvcCta extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_ctas';
+  info: {
+    displayName: 'Service CTA';
+    icon: 'rocket';
+  };
+  attributes: {
+    bodyOne: Schema.Attribute.Text;
+    bodyTwo: Schema.Attribute.Text;
+    ctaHref: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#contact-form'>;
+    ctaLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Discuss Your Project \u2197'>;
+    headingPrefix: Schema.Attribute.String;
+    headingSerif: Schema.Attribute.String;
+    headingSuffix: Schema.Attribute.String;
+    pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<"Let's Talk">;
+  };
+}
+
+export interface SectionsSvcIntro extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_intros';
+  info: {
+    displayName: 'Service Intro';
+    icon: 'feather';
+  };
+  attributes: {
+    ctaHref: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#contact-form'>;
+    ctaLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Get a Free Consultation \u2197'>;
+    description: Schema.Attribute.Text;
+    headingPrefix: Schema.Attribute.String;
+    headingSerif: Schema.Attribute.String;
+    headingSuffix: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    pill: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsSvcProcess extends Struct.ComponentSchema {
+  collectionName: 'components_sections_svc_processes';
+  info: {
+    displayName: 'Service Process Steps';
+    icon: 'bulletList';
+  };
+  attributes: {
+    headingPrefix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Our AI Development &'>;
+    headingSerif: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Automation Process'>;
+    headingSuffix: Schema.Attribute.String;
+    pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'How we work'>;
+    steps: Schema.Attribute.Component<'service.process-step', true>;
   };
 }
 
@@ -704,6 +976,72 @@ export interface SectionsWhyChoose extends Struct.ComponentSchema {
   };
 }
 
+export interface ServiceBenefitItem extends Struct.ComponentSchema {
+  collectionName: 'components_service_benefit_items';
+  info: {
+    displayName: 'Benefit Item';
+    icon: 'star';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u25F7'>;
+    isDark: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceCapabilityItem extends Struct.ComponentSchema {
+  collectionName: 'components_service_capability_items';
+  info: {
+    displayName: 'Capability Item';
+    icon: 'cog';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u2699'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceChallengeItem extends Struct.ComponentSchema {
+  collectionName: 'components_service_challenge_items';
+  info: {
+    displayName: 'Challenge Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u25F7'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceGetItem extends Struct.ComponentSchema {
+  collectionName: 'components_service_get_items';
+  info: {
+    displayName: 'Get Item';
+    icon: 'check';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServiceProcessStep extends Struct.ComponentSchema {
+  collectionName: 'components_service_process_steps';
+  info: {
+    displayName: 'Service Process Step';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    number: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'01'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedInterestOption extends Struct.ComponentSchema {
   collectionName: 'components_shared_interest_options';
   info: {
@@ -797,12 +1135,24 @@ declare module '@strapi/strapi' {
       'sections.products-showcase': SectionsProductsShowcase;
       'sections.rich-content': SectionsRichContent;
       'sections.solutions-grid': SectionsSolutionsGrid;
+      'sections.svc-approach': SectionsSvcApproach;
+      'sections.svc-benefits': SectionsSvcBenefits;
+      'sections.svc-capabilities': SectionsSvcCapabilities;
+      'sections.svc-challenges': SectionsSvcChallenges;
+      'sections.svc-cta': SectionsSvcCta;
+      'sections.svc-intro': SectionsSvcIntro;
+      'sections.svc-process': SectionsSvcProcess;
       'sections.team-showcase': SectionsTeamShowcase;
       'sections.testimonials': SectionsTestimonials;
       'sections.trust-banner': SectionsTrustBanner;
       'sections.vision-mission': SectionsVisionMission;
       'sections.who-we-are': SectionsWhoWeAre;
       'sections.why-choose': SectionsWhyChoose;
+      'service.benefit-item': ServiceBenefitItem;
+      'service.capability-item': ServiceCapabilityItem;
+      'service.challenge-item': ServiceChallengeItem;
+      'service.get-item': ServiceGetItem;
+      'service.process-step': ServiceProcessStep;
       'shared.interest-option': SharedInterestOption;
       'shared.link': SharedLink;
       'shared.partner-logo': SharedPartnerLogo;

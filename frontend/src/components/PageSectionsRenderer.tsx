@@ -17,6 +17,17 @@ import {
   ContactInterestBlock,
   ContactSectionView,
 } from '@/components/ContactSections';
+import {
+  SvcIntroBlock,
+  SvcChallengesBlock,
+  SvcCapabilitiesBlock,
+  SvcBenefitsBlock,
+  SvcProcessBlock,
+  SvcApproachBlock,
+  SvcCtaBlock,
+} from '@/components/ServiceSections';
+import { CapabilitiesBlock } from '@/components/CapabilitiesSection';
+
 import { HeroBackgroundVideo } from '@/components/HeroBackgroundVideo';
 import { renderHeadingParts, renderMultilineText } from '@/components/SectionPrimitives';
 import { TestimonialsCarousel } from '@/components/TestimonialsCarousel';
@@ -48,6 +59,11 @@ import type {
 const DEFAULT_MARQUEE_SECONDS = 24;
 const MIN_MARQUEE_SECONDS = 4;
 const MAX_MARQUEE_SECONDS = 120;
+
+function cleanPillTag(text?: string | null): string {
+  if (!text) return '';
+  return text.replace(/^[●•\s\u25CF\u2022]+/, '').trim();
+}
 
 function PartnerLogoContent({
   logo,
@@ -143,57 +159,63 @@ function HeroBlock({
     (bgImageIsVideo ? resolveHeroVideoUrl(section.backgroundImage?.url) : null);
   const isCompact = section.variant === 'compact';
   const isContactPage = pageType === 'contact';
+  const isAboutPage = pageType === 'about';
+  const isServicePage = pageType === 'service' || currentPath === '/service-1';
+  // Contact, about, and service pages share the same compact-hero banner treatment
+  const isContactLikePage = isContactPage || isAboutPage || isServicePage;
   const HeroWrapper = includeNavbar ? 'header' : 'section';
   const wrapperClass = includeNavbar
     ? [
         'hero-box',
         isCompact ? 'hero-box--compact' : '',
-        isContactPage && isCompact ? 'hero-box--contact' : '',
+        isContactLikePage && isCompact ? 'hero-box--contact' : '',
       ]
         .filter(Boolean)
         .join(' ')
     : 'subpage-header';
+
+  const rawHeroChip = isServicePage && (!section.chip || section.chip === 'Services')
+    ? 'Services'
+    : isAboutPage && (!section.chip || section.chip.includes('About Walstar'))
+    ? 'About Us'
+    : section.chip;
+  const heroChip = rawHeroChip ? rawHeroChip.replace(/^[●•\s\u25CF\u2022]+/, '').trim() : null;
+
+  const heroHeadlinePrefix = isServicePage
+    ? null
+    : formatHeroHeadingPrefix(section.headlinePrefix);
+  const heroHeadlineSerif = isServicePage
+    ? (section.headlineSerif || 'AI')
+    : section.headlineSerif;
+  const heroHeadlineSuffix = isServicePage
+    ? (section.headlineSuffix && section.headlineSuffix.includes('\n')
+        ? section.headlineSuffix
+        : 'Solutions &\nBusiness Automation')
+    : isContactLikePage && isCompact && section.headlineSuffix
+    ? section.headlineSuffix.startsWith('\n')
+      ? section.headlineSuffix
+      : `\n${section.headlineSuffix}`
+    : section.headlineSuffix;
 
   return (
     <HeroWrapper className={wrapperClass}>
       {videoUrl ? (
         <div className="hero-bg-media">
           <HeroBackgroundVideo src={videoUrl} poster={bgImageUrl} />
-          <div className="hero-bg-scrim" aria-hidden="true" />
+          <div className="hero-bg-scrim hero-bg-scrim--contact" aria-hidden="true" />
         </div>
-      ) : bgImageUrl && isContactPage && isCompact ? (
+      ) : (
         <div className="hero-bg-media" aria-hidden="true">
           {/* Plain img so Figma multiply/offset styles are not overridden by next/image fill */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={bgImageUrl}
+            src={bgImageUrl || '/images/contact-hero-building.jpg'}
             alt=""
             className="hero-bg-photo"
           />
           <div className="hero-bg-scrim hero-bg-scrim--contact" />
         </div>
-      ) : bgImageUrl ? (
-        <div className="hero-bg-media">
-          <Image
-            src={bgImageUrl}
-            alt={section.backgroundImage?.alternativeText || section.headlinePrefix}
-            fill
-            sizes="100vw"
-            loading={includeNavbar ? 'eager' : undefined}
-            className="object-cover opacity-30"
-          />
-        </div>
-      ) : isContactPage && isCompact ? (
-        <div className="hero-bg-media" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/contact-hero-building.jpg"
-            alt=""
-            className="hero-bg-photo"
-          />
-          <div className="hero-bg-scrim hero-bg-scrim--contact" />
-        </div>
-      ) : null}
+      )}
       {includeNavbar ? (
         <WalstarHeaderNav
           navbar={navbar}
@@ -204,28 +226,24 @@ function HeroBlock({
       <div
         className={
           isCompact
-            ? isContactPage
+            ? isContactLikePage
               ? 'hero hero--compact hero--contact'
               : 'hero hero--compact'
             : 'hero'
         }
       >
-        {section.chip ? <span className="chip">{section.chip}</span> : null}
+        {heroChip ? <span className="chip">{heroChip}</span> : null}
         <h1>
           {renderHeadingParts(
-            formatHeroHeadingPrefix(section.headlinePrefix),
-            section.headlineSerif,
-            isContactPage && isCompact && section.headlineSuffix
-              ? section.headlineSuffix.startsWith('\n')
-                ? section.headlineSuffix
-                : `\n${section.headlineSuffix}`
-              : section.headlineSuffix
+            heroHeadlinePrefix,
+            heroHeadlineSerif,
+            heroHeadlineSuffix
           )}
         </h1>
         {section.description ? (
           <p>{renderMultilineText(formatHeroDescription(section.description))}</p>
         ) : null}
-        {!(isContactPage && isCompact) &&
+        {!(isContactLikePage && isCompact) &&
         (section.primaryCtaLabel || section.secondaryCtaLabel) ? (
           <div className="cta">
             {section.primaryCtaLabel ? (
@@ -386,188 +404,6 @@ function renderServiceFallbackIcon(service: ServiceItem) {
   return <span>{service.icon}</span>;
 }
 
-function CapabilitiesBlock({
-  section,
-  fallbackServices,
-}: {
-  section: CapabilitiesSection;
-  fallbackServices: LandingPayload['services'];
-}) {
-  const services =
-    section.showAllServices === false && section.services?.length
-      ? section.services
-      : fallbackServices.length
-        ? fallbackServices
-        : section.services ?? [];
-
-  const repeatPerHalf =
-    services.length > 0 && services.length <= 4 ? Math.max(2, Math.ceil(6 / services.length)) : 1;
-  const halfServices: ServiceItem[] = Array.from({ length: repeatPerHalf }, () => services).flat();
-
-  const rawSeconds = section.animationDurationSeconds;
-  const baseSeconds =
-    typeof rawSeconds === 'number' && rawSeconds > 0
-      ? Math.min(240, Math.max(6, rawSeconds))
-      : 36;
-  const durationSeconds = Math.min(480, baseSeconds * repeatPerHalf);
-  const isRightDirection = section.scrollDirection === 'right';
-  const trackStyle = {
-    '--cap-marquee-duration': `${durationSeconds}s`,
-  } as CSSProperties;
-
-  const sortedSteps = [...(section.processSteps ?? [])].sort(
-    (a, b) => a.stepNumber - b.stepNumber
-  );
-  const [stepOne, stepTwo, stepThree, stepFour] = sortedSteps;
-
-  return (
-    <section className="cap" id="cap">
-      <div className="head">
-        {section.pill ? <span className="pill">{section.pill}</span> : null}
-        <h2>
-          {section.headingPrefix}{' '}
-          {section.headingSerif ? (
-            <span className="serif">{section.headingSerif}</span>
-          ) : null}
-        </h2>
-        {section.subtitle ? <p>{section.subtitle}</p> : null}
-      </div>
-
-      {services.length > 0 ? (
-        <div className="track" style={trackStyle}>
-          <div className={isRightDirection ? 'cap-marquee-track is-right' : 'cap-marquee-track'}>
-            {[0, 1].map((groupIndex) => (
-              <div
-                key={`cap-group-${groupIndex}`}
-                className="cap-marquee-group"
-                aria-hidden={groupIndex === 1}
-              >
-                {halfServices.map((service, idx) => {
-                  const mediaUrl = getStrapiMediaUrl(service.image?.url);
-                  const iconImgUrl = getStrapiMediaUrl(service.iconImage?.url);
-                  const shotClass =
-                    service.themeVariant && service.themeVariant !== 'a'
-                      ? `shot ${service.themeVariant} relative overflow-hidden`
-                      : 'shot relative overflow-hidden';
-
-                  return (
-                    <Link
-                      key={`${groupIndex}-${service.documentId || service.slug}-${idx}`}
-                      href={`/services/${encodeURIComponent(service.slug)}`}
-                      className="card"
-                      tabIndex={groupIndex === 1 ? -1 : undefined}
-                    >
-                      <span className="nt" aria-hidden="true" />
-                      <span className="ic" aria-hidden="true">
-                        {iconImgUrl ? (
-                          <Image
-                            src={iconImgUrl}
-                            alt=""
-                            width={28}
-                            height={28}
-                            className="cap-ic-img"
-                          />
-                        ) : (
-                          renderServiceFallbackIcon(service)
-                        )}
-                      </span>
-                      <h3>{service.title}</h3>
-                      <p>{service.description}</p>
-                      <div className={shotClass}>
-                        {mediaUrl ? (
-                          <Image
-                            src={mediaUrl}
-                            alt={service.image?.alternativeText || service.title}
-                            fill
-                            sizes="(max-width: 900px) 80vw, 350px"
-                            className="object-cover"
-                          />
-                        ) : null}
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
-
-      {section.ctaLabel ? (
-        <div className="more">
-          <WalstarButton variant="orange" href={section.ctaHref || '/service-1'}>
-            {section.ctaLabel}
-          </WalstarButton>
-        </div>
-      ) : null}
-
-      {section.showProcess !== false && sortedSteps.length > 0 ? (
-        <div className="proc">
-          <div className="hd">
-            {section.processPill ? (
-              <span className="pill">{section.processPill}</span>
-            ) : null}
-            <h2>
-              {section.processHeadingPrefix}{' '}
-              {section.processHeadingSerif ? (
-                <span className="serif">{section.processHeadingSerif}</span>
-              ) : null}
-              <br />
-              {section.processHeadingSuffix}
-            </h2>
-          </div>
-
-          {stepThree ? (
-            <div className="pc pc-top pc-step-3">
-              <h4>{renderMultilineTitle(stepThree.title)}</h4>
-              <p>{stepThree.description}</p>
-            </div>
-          ) : null}
-
-          {stepFour ? (
-            <div className="pc pc-top pc-step-4">
-              <h4>{renderMultilineTitle(stepFour.title)}</h4>
-              <p>{stepFour.description}</p>
-            </div>
-          ) : null}
-
-          <div className="tl" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
-
-          {stepOne ? (
-            <div className="pc pc-bottom pc-step-1">
-              <h4>{renderMultilineTitle(stepOne.title)}</h4>
-              <p>{stepOne.description}</p>
-            </div>
-          ) : null}
-
-          {stepTwo ? (
-            <div className="pc pc-bottom pc-step-2">
-              <h4>{renderMultilineTitle(stepTwo.title)}</h4>
-              <p>{stepTwo.description}</p>
-            </div>
-          ) : null}
-
-          <div className="pnote">
-            {section.processNote ? <p>{section.processNote}</p> : null}
-            {section.processVideoLabel ? (
-              <Link className="vid" href={section.processVideoUrl || '#cta'}>
-                <i>
-                  <WalstarButtonArrow className="vid-arrow" />
-                </i>
-                {section.processVideoLabel}
-              </Link>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-    </section>
-  );
-}
 
 function ProductsShowcaseBlock({
   section,
@@ -592,7 +428,7 @@ function ProductsShowcaseBlock({
     <section className="prod" id="prod">
       <div className="wrap">
         <div className="head center">
-          {section.tag ? <span className="pill tag">{section.tag}</span> : null}
+          {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
           <h2>
             {section.headingPrefix}{' '}
             {section.headingSerif ? (
@@ -788,7 +624,7 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
 
   return (
     <section className="trust">
-      {section.tag ? <span className="pill">{section.tag}</span> : null}
+      {section.tag ? <span className="pill">{cleanPillTag(section.tag)}</span> : null}
       <h2>
         {renderHeadingParts(
           section.headingPrefix,
@@ -839,7 +675,7 @@ function CaseStudiesBlock({
   return (
     <section className="case" id="case">
       <div className="wrap center head">
-        {section.tag ? <span className="pill tag">{section.tag}</span> : null}
+        {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
         <h2>
           {section.headingPrefix}{' '}
           {section.headingSerif ? (
@@ -992,7 +828,7 @@ function RichContentBlock({ section }: { section: RichContentSection }) {
     <section className="rich-sec">
       <div className="wrap">
         <div className="rich-box">
-          {section.tag ? <span className="pill tag">{section.tag}</span> : null}
+          {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
           {section.headingPrefix || section.headingSerif ? (
             <h2>
               {section.headingPrefix}{' '}
@@ -1105,6 +941,20 @@ function renderDynamicSection(
       return <TeamShowcaseBlock key={key} section={section} />;
     case 'sections.global-offices':
       return <GlobalOfficesBlock key={key} section={section} />;
+    case 'sections.svc-intro':
+      return <SvcIntroBlock key={key} section={section} />;
+    case 'sections.svc-challenges':
+      return <SvcChallengesBlock key={key} section={section} />;
+    case 'sections.svc-capabilities':
+      return <SvcCapabilitiesBlock key={key} section={section} />;
+    case 'sections.svc-benefits':
+      return <SvcBenefitsBlock key={key} section={section} />;
+    case 'sections.svc-process':
+      return <SvcProcessBlock key={key} section={section} />;
+    case 'sections.svc-approach':
+      return <SvcApproachBlock key={key} section={section} />;
+    case 'sections.svc-cta':
+      return <SvcCtaBlock key={key} section={section} />;
     default:
       return null;
   }

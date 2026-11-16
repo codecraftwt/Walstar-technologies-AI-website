@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_service_benefit_items",
+  "info": {
+    "displayName": "Benefit Item",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "icon": { "type": "string", "default": "◷" },
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text" },
+    "isDark": { "type": "boolean", "default": false }
+  }
+}

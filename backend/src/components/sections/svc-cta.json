@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_svc_ctas",
+  "info": {
+    "displayName": "Service CTA",
+    "icon": "rocket"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string", "default": "Let's Talk" },
+    "headingPrefix": { "type": "string" },
+    "headingSerif": { "type": "string" },
+    "headingSuffix": { "type": "string" },
+    "bodyOne": { "type": "text" },
+    "bodyTwo": { "type": "text" },
+    "ctaLabel": { "type": "string", "default": "Discuss Your Project ↗" },
+    "ctaHref": { "type": "string", "default": "#contact-form" }
+  }
+}

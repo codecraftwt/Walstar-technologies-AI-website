@@ -9,6 +9,14 @@
     "label": {
       "type": "string",
       "required": true
+    },
+    "iconImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

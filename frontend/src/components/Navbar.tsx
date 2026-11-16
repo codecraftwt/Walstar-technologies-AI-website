@@ -19,6 +19,9 @@ import type { NavItem, NavbarData } from '@/types/strapi';
 
 const resolveRoute = resolveCmsRoute;
 
+export const DEFAULT_NAVBAR_LOGO =
+  'https://res.cloudinary.com/dwwykeft2/image/upload/v1794482840/Logo_38ef472bf8.png';
+
 function isRouteActive(pathname: string, href: string): boolean {
   if (!href || href === '#') return false;
   if (href === '/') return pathname === '/' || pathname === '/home';
@@ -172,7 +175,7 @@ export function Navbar({
     setOpenDropdownKey(null);
   }
 
-  const logoImgUrl = getStrapiMediaUrl(data.logoImage?.url);
+  const logoImgUrl = getStrapiMediaUrl(data.logoImage?.url) || DEFAULT_NAVBAR_LOGO;
   const logoHref = data.logoHref?.trim() || '/';
   const ctaHref = data.ctaRoute?.trim() || '/contact';
   const showCta = data.ctaShow !== false && Boolean(data.ctaLabel?.trim());

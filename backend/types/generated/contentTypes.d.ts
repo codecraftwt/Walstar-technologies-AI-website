@@ -686,6 +686,13 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.vision-mission',
         'sections.team-showcase',
         'sections.global-offices',
+        'sections.svc-intro',
+        'sections.svc-challenges',
+        'sections.svc-capabilities',
+        'sections.svc-benefits',
+        'sections.svc-process',
+        'sections.svc-approach',
+        'sections.svc-cta',
       ]
     >;
     seo: Schema.Attribute.Component<'shared.seo', false>;

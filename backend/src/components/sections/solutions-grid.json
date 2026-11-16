@@ -28,6 +28,20 @@
       "type": "boolean",
       "default": true
     },
+    "direction": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right"
+      ],
+      "default": "left"
+    },
+    "speedSeconds": {
+      "type": "integer",
+      "default": 30,
+      "min": 5,
+      "max": 120
+    },
     "items": {
       "type": "component",
       "repeatable": true,

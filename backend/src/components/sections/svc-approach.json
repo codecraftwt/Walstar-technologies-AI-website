@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_svc_approaches",
+  "info": {
+    "displayName": "Service Approach",
+    "icon": "expand"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string", "default": "Our Approach" },
+    "headingPrefix": { "type": "string" },
+    "headingSerif": { "type": "string" },
+    "headingSuffix": { "type": "string" },
+    "bodyOne": { "type": "text" },
+    "bodyTwo": { "type": "text" },
+    "getBoxTitle": { "type": "string", "default": "What you get?" },
+    "getBoxItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.get-item"
+    }
+  }
+}

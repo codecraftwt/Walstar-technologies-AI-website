@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_service_challenge_items",
+  "info": {
+    "displayName": "Challenge Item",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "icon": { "type": "string", "default": "◷" },
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text" }
+  }
+}

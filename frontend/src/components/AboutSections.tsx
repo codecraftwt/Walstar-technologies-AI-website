@@ -1,11 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  WalstarSectionHeader,
   renderHeadingParts,
   renderMultilineText,
 } from '@/components/SectionPrimitives';
 import { WalstarButton, WalstarButtonArrow } from '@/components/WalstarButton';
+import { GlobalOfficesWorldMap } from '@/components/GlobalOfficesWorldMap';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
   AboutSection,
@@ -17,6 +19,8 @@ import type {
   VisionMissionSection,
   WhoWeAreSection,
   WhyChooseSection,
+  WhyChooseReason,
+  TickerLabelItem,
   WorldMapPinItem,
 } from '@/types/strapi';
 
@@ -85,6 +89,11 @@ function TeamMemberCard({
   );
 }
 
+export function cleanPill(text?: string | null): string {
+  if (!text) return '';
+  return text.replace(/^[●•\s\u25CF\u2022]+/, '').trim();
+}
+
 function formatAboutDescription(desc?: string | null): string | null | undefined {
   if (!desc) return desc;
   if (!desc.includes('\n') && desc.includes('intelligent agents') && desc.includes('connected business workflows')) {
@@ -134,7 +143,7 @@ export function AboutBlock({ section }: { section: AboutSection }) {
           </div>
         </div>
         <div>
-          {section.tag ? <span className="pill">{section.tag}</span> : null}
+          {section.tag ? <span className="pill">{cleanPill(section.tag)}</span> : null}
           <h2 className="about-heading">
             <span className="about-heading-row">{section.headingPrefix}</span>
             <span className="about-heading-row">
@@ -205,19 +214,23 @@ export function AboutBlock({ section }: { section: AboutSection }) {
 
 export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
   const imageUrl = getStrapiMediaUrl(section.image?.url);
+  const rawPill = section.pill || 'Who we are';
+  const pillText = cleanPill(rawPill) || 'Who we are';
+  const prefix = section.headingPrefix?.trim() || 'A trusted partner for';
+  const serif = section.headingSerif || 'what’s next';
 
   return (
-    <section className="sec who">
+    <section className="sec who" id="who-we-are">
       <div className="wrap section">
         <div
           className={imageUrl ? 'ph relative overflow-hidden' : 'ph'}
           role={imageUrl ? undefined : 'img'}
-          aria-label={imageUrl ? undefined : section.pill || 'Team collaborating'}
+          aria-label={imageUrl ? undefined : pillText}
         >
           {imageUrl ? (
             <Image
               src={imageUrl}
-              alt={section.image?.alternativeText || section.pill || 'Team collaborating'}
+              alt={section.image?.alternativeText || pillText}
               fill
               sizes="(max-width: 900px) 100vw, 45vw"
               className="object-cover"
@@ -226,23 +239,33 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
         </div>
 
         <div>
-          {section.pill ? <span className="pill">{section.pill}</span> : null}
-          <h2>
-            {renderHeadingParts(
-              section.headingPrefix,
-              section.headingSerif,
-              section.headingSuffix
-            )}
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading">
+            <span className="about-heading-row">{prefix}</span>
+            <span className="about-heading-row">
+              <span className="serif">{serif}</span>
+              {section.headingSuffix ? ` ${section.headingSuffix}` : null}
+            </span>
           </h2>
           {section.description ? (
-            <p>{renderMultilineText(section.description)}</p>
+            <div className="about-lead-desc" style={{ marginTop: 14 }}>
+              {section.description
+                .split('\n')
+                .map((para) => para.trim())
+                .filter(Boolean)
+                .map((para, idx) => (
+                  <p key={idx} style={{ margin: '0 0 14px' }}>
+                    {para}
+                  </p>
+                ))}
+            </div>
           ) : null}
           {section.ctaLabel ? (
             <Link className="go" href={section.ctaHref || '/service-1'}>
               <i aria-hidden="true">
                 <WalstarButtonArrow />
               </i>
-              <span>{section.ctaLabel.replace(/\s*[↗→]\s*$/, '')}</span>
+              <span>{section.ctaLabel.replace(/\s*[↗→]\s*$/, '')} ↗</span>
             </Link>
           ) : null}
         </div>
@@ -254,21 +277,41 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
 export function JourneyStatsBlock({ section }: { section: JourneyStatsSection }) {
   const milestones = section.milestones ?? [];
   const stats = section.stats ?? [];
+  const rawPill = section.pill || 'The Walstar Way';
+  const pillText = cleanPill(rawPill) || 'The Walstar Way';
+
+  const isDefaultWayHeading =
+    !section.headingPrefix ||
+    section.headingPrefix.includes('first idea') ||
+    section.headingSerif?.includes('lasting');
 
   return (
-    <section className="way">
+    <section className="way" id="journey-stats">
       <div className="wrap">
         <div>
-          {section.pill ? <span className="pill">{section.pill}</span> : null}
-          <h2>
-            {renderHeadingParts(
-              section.headingPrefix,
-              section.headingSerif,
-              section.headingSuffix
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading">
+            {isDefaultWayHeading ? (
+              <>
+                <span className="about-heading-row">
+                  From first idea to <span className="serif">lasting</span>
+                </span>
+                <span className="about-heading-row">
+                  <span className="serif">impact</span>
+                </span>
+              </>
+            ) : (
+              renderHeadingParts(
+                section.headingPrefix,
+                section.headingSerif,
+                section.headingSuffix
+              )
             )}
           </h2>
           {section.description ? (
-            <p>{renderMultilineText(section.description)}</p>
+            <p className="about-lead-desc" style={{ marginTop: 14 }}>
+              {renderMultilineText(section.description)}
+            </p>
           ) : null}
         </div>
 
@@ -302,46 +345,164 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
   );
 }
 
+const FALLBACK_10_SOLUTIONS = [
+  {
+    number: '01',
+    title: 'AI & Automation Solutions',
+    category: 'AI-Powered Business Automation',
+    href: '/services/ai-solutions-business-automation',
+  },
+  {
+    number: '02',
+    title: 'Digital Marketing & Performance Growth',
+    category: 'Search, Social & Brand Visibility',
+    href: '/services/digital-marketing-performance-growth',
+  },
+  {
+    number: '03',
+    title: 'Custom Software Development',
+    category: 'Digital Growth Solutions',
+    href: '/services/custom-software-development',
+  },
+  {
+    number: '04',
+    title: 'Web & SaaS Product Development',
+    category: 'Websites and SaaS built to scale.',
+    href: '/services/web-saas-product-development',
+  },
+  {
+    number: '05',
+    title: 'Mobile App Development',
+    category: 'Scalable Android and iOS apps.',
+    href: '/services/mobile-app-development',
+  },
+  {
+    number: '06',
+    title: 'ECommerce & Shopify Solutions',
+    category: 'Seamless online shopping solutions',
+    href: '/services/ecommerce-shopify-solutions',
+  },
+  {
+    number: '07',
+    title: 'Cloud & DevOps Engineering',
+    category: 'Scalable Cloud Infrastructure',
+    href: '/services/cloud-devops-engineering',
+  },
+  {
+    number: '08',
+    title: 'Cybersecurity & Data Protection',
+    category: 'Secure enterprise solutions',
+    href: '/services/cybersecurity-data-protection',
+  },
+  {
+    number: '09',
+    title: 'UI/UX & Product Design',
+    category: 'Intuitive user experiences',
+    href: '/services/ui-ux-design-branding',
+  },
+  {
+    number: '10',
+    title: 'Dedicated Development Teams',
+    category: 'Pre-vetted engineering squads',
+    href: '/services/dedicated-teams',
+  },
+];
+
 export function SolutionsGridBlock({ section }: { section: SolutionsGridSection }) {
-  const items = section.items ?? [];
+  const incomingItems =
+    Array.isArray(section.items) && section.items.length > 0
+      ? section.items
+      : FALLBACK_10_SOLUTIONS;
+  const rawPill = section.pill || 'What we do';
+  const pillText = cleanPill(rawPill) || 'What we do';
+
+  // Direction and speed are managed directly in the Strapi CMS Admin Panel
+  const direction = section.direction === 'right' ? 'right' : 'left';
+  const speed =
+    typeof section.speedSeconds === 'number' && section.speedSeconds > 0
+      ? section.speedSeconds
+      : 30;
+
+  // 3 duplicate cycles create a smooth infinite seamless marquee loop
+  const marqueeItems = [...incomingItems, ...incomingItems, ...incomingItems];
 
   return (
-    <section className={section.hasTopOverlap !== false ? 'sec sol' : 'sec'}>
+    <section className={section.hasTopOverlap !== false ? 'sec sol sol-marquee-sec' : 'sec sol-marquee-sec'} id="solutions-grid">
       <div className="wrap">
-        <WalstarSectionHeader
-          pill={section.pill}
-          headingPrefix={section.headingPrefix}
-          headingSerif={section.headingSerif}
-          headingSuffix={section.headingSuffix}
-          subtitle={section.subtitle}
-        />
+        <div className="hd2" style={{ textAlign: 'center', marginBottom: 28 }}>
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading" style={{ textAlign: 'center' }}>
+            {section.headingPrefix ? (
+              <span className="about-heading-row">
+                {renderMultilineText(section.headingPrefix.replace(/\n+$/, ''))}
+              </span>
+            ) : (
+              <span className="about-heading-row">Digital solutions</span>
+            )}
+            <span className="about-heading-row">
+              built to <span className="serif">{section.headingSerif || 'scale'}</span>
+              {section.headingSuffix ? ` ${section.headingSuffix}` : null}
+            </span>
+          </h2>
+          {section.subtitle ? (
+            <p className="about-lead-desc" style={{ maxWidth: 680, margin: '14px auto 0', textAlign: 'center' }}>
+              {renderMultilineText(section.subtitle)}
+            </p>
+          ) : null}
+        </div>
+      </div>
 
-        <div className="g4">
-          {items.map((item, idx) => {
-            const key = `${item.number}-${item.id ?? idx}`;
+      {/* Full-width continuous scrolling marquee row */}
+      <div className="sol-marquee-viewport">
+        <div
+          className={`sol-marquee-track ${direction === 'right' ? 'is-reverse' : ''}`}
+          style={{ animationDuration: `${speed}s` }}
+        >
+          {marqueeItems.map((item, idx) => {
+            const key = `sol-${item.number}-${idx}`;
+            const numVal = parseInt(item.number.replace(/\D/g, ''), 10) || (idx + 1);
+            const isOrange = numVal % 2 === 0;
+            const cardClass = `sc ${isOrange ? 'sol-card--orange' : 'sol-card--blue'}`;
+
             const cardBody = (
               <>
                 <div className="n">
                   <span>{item.number}</span>
                   <i aria-hidden="true" className="n-arrow">
-                    <WalstarButtonArrow width={15} height={15} />
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M3.5 12.5L12.5 3.5M12.5 3.5H5.75M12.5 3.5V10.25"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </i>
                 </div>
                 <h4>{item.title}</h4>
-                {item.category ? <small>{item.category}</small> : null}
+                <div className="sol-card-divider" />
+                {item.category ? <small className="sol-card-category">{item.category}</small> : null}
               </>
             );
 
             if (item.href) {
               return (
-                <Link key={key} href={item.href} className="sc">
+                <Link key={key} href={item.href} className={cardClass}>
                   {cardBody}
                 </Link>
               );
             }
 
             return (
-              <article key={key} className="sc">
+              <article key={key} className={cardClass}>
                 {cardBody}
               </article>
             );
@@ -352,30 +513,138 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
   );
 }
 
+const FALLBACK_WHY_REASONS: WhyChooseReason[] = [
+  {
+    id: 1,
+    iconImage: { url: '/images/why-choose/web-app-solutions.png', alternativeText: 'Customized Web And App Solutions' },
+    title: 'Customized Web And App Solutions',
+    description:
+      'We don’t believe in templates. Every website and application is built from scratch based on business objectives and user behavior.',
+  },
+  {
+    id: 2,
+    iconImage: { url: '/images/why-choose/industry-experience.png', alternativeText: '8+ Years Of Industry Experience' },
+    title: '8+ Years Of Industry Experience',
+    description:
+      'Since 2017, we have successfully delivered 500+ digital projects across multiple industries worldwide.',
+  },
+  {
+    id: 3,
+    iconImage: { url: '/images/why-choose/cost-effective.png', alternativeText: 'Cost-Effective Development' },
+    title: 'Cost-Effective Development',
+    description:
+      'We provide high-quality web design and software development at competitive pricing without compromising performance.',
+  },
+  {
+    id: 4,
+    iconImage: { url: '/images/why-choose/conversion-focused.png', alternativeText: 'Conversion-Focused Approach' },
+    title: 'Conversion-Focused Approach',
+    description:
+      'Our websites are not just visually appealing. They are optimized for SEO, speed, and lead generation.',
+  },
+  {
+    id: 5,
+    iconImage: { url: '/images/why-choose/global-clientele.png', alternativeText: 'Global Clientele' },
+    title: 'Global Clientele',
+    description:
+      'We proudly serve clients across India, the United States, Australia, and the United Kingdom.',
+  },
+];
+
+const DEFAULT_WHY_ICONS = [
+  '/images/why-choose/web-app-solutions.png',
+  '/images/why-choose/industry-experience.png',
+  '/images/why-choose/cost-effective.png',
+  '/images/why-choose/conversion-focused.png',
+  '/images/why-choose/global-clientele.png',
+];
+
+function resolveWhyIcon(reason: { iconImage?: { url: string } | null; title: string }, idx: number): string {
+  const directUrl = getStrapiMediaUrl(reason.iconImage?.url);
+  if (directUrl) return directUrl;
+  const titleLower = reason.title.toLowerCase();
+  if (titleLower.includes('custom') || titleLower.includes('web')) return '/images/why-choose/web-app-solutions.png';
+  if (titleLower.includes('year') || titleLower.includes('experience')) return '/images/why-choose/industry-experience.png';
+  if (titleLower.includes('cost') || titleLower.includes('effective')) return '/images/why-choose/cost-effective.png';
+  if (titleLower.includes('conversion') || titleLower.includes('approach')) return '/images/why-choose/conversion-focused.png';
+  if (titleLower.includes('global') || titleLower.includes('client')) return '/images/why-choose/global-clientele.png';
+  return DEFAULT_WHY_ICONS[idx % DEFAULT_WHY_ICONS.length];
+}
+
+const DEFAULT_WHY_TICKER: TickerLabelItem[] = [
+  {
+    id: 1,
+    label: 'Improve User Experience',
+    iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Improve User Experience Badge' },
+  },
+  {
+    id: 2,
+    label: 'Increase Online Visibility',
+    iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Increase Online Visibility Badge' },
+  },
+  {
+    id: 3,
+    label: 'Generate Qualified Leads',
+    iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Generate Qualified Leads Badge' },
+  },
+  {
+    id: 4,
+    label: 'Boost Revenue Growth',
+    iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Boost Revenue Growth Badge' },
+  },
+];
+
+function resolveTickerIcon(item: TickerLabelItem): string {
+  const directUrl = getStrapiMediaUrl(item.iconImage?.url);
+  if (directUrl) return directUrl;
+  return '/images/why-choose/ticker-badge.png';
+}
+
 export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
-  const reasons = section.reasons ?? [];
-  const tickerItems = section.tickerItems ?? [];
+  const reasons =
+    section.reasons && section.reasons.length > 0 ? section.reasons : FALLBACK_WHY_REASONS;
+  const tickerItems =
+    section.tickerItems && section.tickerItems.length > 0
+      ? section.tickerItems
+      : DEFAULT_WHY_TICKER;
+  const rawPill = section.pill || 'Why choose Walstar';
+  const pillText = cleanPill(rawPill) || 'Why choose Walstar';
 
   return (
-    <div className="whyw">
+    <div className="whyw" id="why-choose">
       <section className="why">
-        <WalstarSectionHeader
-          pill={section.pill}
-          headingPrefix={section.headingPrefix}
-          headingSerif={section.headingSerif}
-          headingSuffix={section.headingSuffix}
-          style={{ marginBottom: 0 }}
-        />
+        <div className="hd2" style={{ textAlign: 'center', marginBottom: 0 }}>
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row">
+              Built different. <span className="serif">Built</span>
+            </span>
+            <span className="about-heading-row">
+              <span className="serif">for impact.</span>
+            </span>
+          </h2>
+        </div>
 
         {reasons.length > 0 ? (
           <div className="rows">
-            {reasons.map((reason, idx) => (
-              <div key={`${reason.title}-${reason.id ?? idx}`} className="row">
-                <i aria-hidden="true">{reason.icon || '▭'}</i>
-                <h4>{reason.title}</h4>
-                <p>{renderMultilineText(reason.description)}</p>
-              </div>
-            ))}
+            {reasons.map((reason, idx) => {
+              const iconUrl = resolveWhyIcon(reason, idx);
+              return (
+                <div key={`${reason.title}-${reason.id ?? idx}`} className="row">
+                  <div className="why-icon-wrap" aria-hidden="true">
+                    <Image
+                      src={iconUrl}
+                      alt={reason.title}
+                      width={46}
+                      height={46}
+                      className="why-icon-img"
+                    />
+                  </div>
+                  <h4>{reason.title}</h4>
+                  <p>{renderMultilineText(reason.description)}</p>
+                </div>
+              );
+            })}
           </div>
         ) : null}
       </section>
@@ -383,14 +652,36 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
       {tickerItems.length > 0 ? (
         <div className="tick" aria-label="Outcomes we drive">
           <div>
-            {tickerItems.map((item, idx) => (
-              <span key={`tick-a-${item.id ?? idx}`}>{item.label}</span>
-            ))}
-            {tickerItems.map((item, idx) => (
-              <span key={`tick-b-${item.id ?? idx}`} aria-hidden="true">
-                {item.label}
-              </span>
-            ))}
+            {tickerItems.map((item, idx) => {
+              const iconUrl = resolveTickerIcon(item);
+              return (
+                <span key={`tick-a-${item.id ?? idx}`}>
+                  <Image
+                    src={iconUrl}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="tick-icon"
+                  />
+                  {item.label}
+                </span>
+              );
+            })}
+            {tickerItems.map((item, idx) => {
+              const iconUrl = resolveTickerIcon(item);
+              return (
+                <span key={`tick-b-${item.id ?? idx}`} aria-hidden="true">
+                  <Image
+                    src={iconUrl}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="tick-icon"
+                  />
+                  {item.label}
+                </span>
+              );
+            })}
           </div>
         </div>
       ) : null}
@@ -399,15 +690,21 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
 }
 
 export function VisionMissionBlock({ section }: { section: VisionMissionSection }) {
+  const rawPill = section.pill === 'Walstar Group' ? 'Our Purpose' : section.pill || 'Our Purpose';
+  const pillText = cleanPill(rawPill) || 'Our Purpose';
+
   return (
-    <section className="sec">
+    <section className="sec vm-sec" id="vision-mission">
       <div className="wrap">
-        <WalstarSectionHeader
-          pill={section.pill}
-          headingPrefix={section.headingPrefix}
-          headingSerif={section.headingSerif}
-          headingSuffix={section.headingSuffix}
-        />
+        <div className="hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row">
+              Shaping the <span className="serif">future</span>
+            </span>
+            <span className="about-heading-row">together</span>
+          </h2>
+        </div>
 
         <div className="vm">
           <div className="v">
@@ -416,7 +713,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
             </div>
             <h3>{section.visionTitle || 'Our Vision'}</h3>
             {section.visionDescription ? (
-              <p>{renderMultilineText(section.visionDescription)}</p>
+              <p className="about-lead-desc">{renderMultilineText(section.visionDescription)}</p>
             ) : null}
             {section.visionCtaLabel ? (
               <Link className="btn" href={section.visionCtaHref || '/contact'}>
@@ -431,7 +728,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
             </div>
             <h3>{section.missionTitle || 'Our Mission'}</h3>
             {section.missionDescription ? (
-              <p>{renderMultilineText(section.missionDescription)}</p>
+              <p className="about-lead-desc">{renderMultilineText(section.missionDescription)}</p>
             ) : null}
           </div>
         </div>
@@ -444,16 +741,21 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
   const executives = section.executives ?? [];
   const advisoryMembers = section.advisoryMembers ?? [];
   const salesMembers = section.salesMembers ?? [];
+  const rawPill = section.pill === 'Our Team' ? 'Our Leadership' : section.pill || 'Our Leadership';
+  const pillText = cleanPill(rawPill) || 'Our Leadership';
 
   return (
-    <section className="team">
+    <section className="team" id="leadership">
       <div className="wrap">
-        <WalstarSectionHeader
-          pill={section.pill}
-          headingPrefix={section.headingPrefix}
-          headingSerif={section.headingSerif}
-          headingSuffix={section.headingSuffix}
-        />
+        <div className="hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row">We do things that</span>
+            <span className="about-heading-row">
+              <span className="serif">matter</span>
+            </span>
+          </h2>
+        </div>
 
         <div className="ex">
           <div className="q">
@@ -517,110 +819,23 @@ const DEFAULT_MAP_PINS: WorldMapPinItem[] = [
 ];
 
 export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection }) {
-  const rawPins = section.mapPins ?? [];
-  const mapPins = rawPins.length > 0 ? rawPins : DEFAULT_MAP_PINS;
-  const offices = section.offices ?? [];
-  const mapImageUrl = getStrapiMediaUrl(section.image?.url);
-  const mapAlt =
-    section.image?.alternativeText || 'Walstar Technologies global offices map';
+  const rawPill = section.pill === 'Areas we serve' ? 'Global Reach' : section.pill || 'Global Reach';
+  const pillText = cleanPill(rawPill) || 'Global Reach';
 
   return (
-    <section className="sec offices">
+    <section className="sec offices" id="offices">
       <div className="wrap">
-        <WalstarSectionHeader
-          pill={section.pill}
-          headingPrefix={section.headingPrefix}
-          headingSerif={section.headingSerif}
-          headingSuffix={section.headingSuffix}
-          style={{ marginBottom: 0 }}
-        />
+        <div className="hd2" style={{ textAlign: 'center', marginBottom: 0 }}>
+          <span className="pill">{pillText}</span>
+          <h2 className="about-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row">
+              Our global <span className="serif">offices</span>
+            </span>
+          </h2>
+        </div>
 
         {section.showWorldMap !== false ? (
-          <div className="map">
-            {mapImageUrl ? (
-              // Use a plain img so Cloudinary CMS uploads render without Next optimizer issues.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={mapImageUrl}
-                alt={mapAlt}
-                className="map-img"
-                width={1205}
-                height={549}
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <svg
-                  className="map-img"
-                  viewBox="0 0 900 340"
-                  role="img"
-                  aria-label={mapAlt}
-                >
-                <g fill="#d4d4d4">
-                  <path d="M120 60l90-20 90 20 20 50-30 60-50 30-40 40-30-50-40-40z" />
-                  <path d="M250 210l60 10 20 50-30 60-30-40z" />
-                  <path d="M400 70l90-20 120 10 140 20 40 60-60 40-80 20-40 60-60-20-30-60-60 10-30-50z" />
-                  <path d="M410 160l70 20 20 70-30 50-40-40z" />
-                  <path d="M690 230l70-10 30 40-50 30-50-20z" />
-                </g>
-                <g strokeWidth="1">
-                  <path d="M135 20v152" stroke="#d6003b" />
-                  <path d="M470 30v168" stroke="#f0a020" />
-                  <path d="M570 100v155" stroke="#1a2a8a" />
-                </g>
-                <circle cx="135" cy="172" r="3" fill="#d6003b" />
-                <circle cx="470" cy="198" r="3" fill="#f0a020" />
-                <circle cx="570" cy="255" r="3" fill="#1a2a8a" />
-              </svg>
-            )}
-
-            {mapPins.map((pin, idx) => {
-              const topPercent = `${(((pin.topPx ?? 14) / 340) * 100).toFixed(2)}%`;
-              const leftPercent = `${pin.leftPercent ?? 50}%`;
-              const flagBg = FLAG_BACKGROUNDS[pin.flagVariant ?? 'in'];
-
-              return (
-                <span
-                  key={`${pin.label}-${pin.id ?? idx}`}
-                  className="lb"
-                  style={{ left: leftPercent, top: topPercent }}
-                >
-                  <i style={{ background: flagBg }} aria-hidden="true" />
-                  <span>{pin.label}</span>
-                </span>
-              );
-            })}
-          </div>
-        ) : null}
-
-        {offices.length > 0 ? (
-          <div className="oc">
-            {offices.map((office, idx) => {
-              const mapHref =
-                office.mapUrl?.trim() ||
-                `https://maps.google.com/?q=${encodeURIComponent(office.address)}`;
-
-              return (
-                <article
-                  key={`${office.title}-${office.id ?? idx}`}
-                  className={office.isHeadquarters ? 'of hq' : 'of'}
-                >
-                  <em>{office.regionLabel}</em>
-                  <h4>{office.title}</h4>
-                  {office.cityRegion ? <small>{office.cityRegion}</small> : null}
-                  <p>{renderMultilineText(office.address)}</p>
-                  <WalstarButton
-                    variant="outline-blue"
-                    href={mapHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View On Map
-                  </WalstarButton>
-                </article>
-              );
-            })}
-          </div>
+          <GlobalOfficesWorldMap section={section} />
         ) : null}
       </div>
     </section>

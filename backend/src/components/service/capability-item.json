@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_service_capability_items",
+  "info": {
+    "displayName": "Capability Item",
+    "icon": "cog"
+  },
+  "options": {},
+  "attributes": {
+    "icon": { "type": "string", "default": "⚙" },
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text" }
+  }
+}

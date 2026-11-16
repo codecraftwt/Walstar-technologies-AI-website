@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_svc_capabilities",
+  "info": {
+    "displayName": "Service Capabilities Grid",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string", "default": "Capabilities" },
+    "headingPrefix": { "type": "string", "default": "What we" },
+    "headingSerif": { "type": "string", "default": "Build" },
+    "headingSuffix": { "type": "string" },
+    "capabilityItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.capability-item"
+    }
+  }
+}

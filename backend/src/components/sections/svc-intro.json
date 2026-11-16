@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_svc_intros",
+  "info": {
+    "displayName": "Service Intro",
+    "icon": "feather"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string" },
+    "headingPrefix": { "type": "string" },
+    "headingSerif": { "type": "string" },
+    "headingSuffix": { "type": "string" },
+    "description": { "type": "text" },
+    "ctaLabel": { "type": "string", "default": "Get a Free Consultation ↗" },
+    "ctaHref": { "type": "string", "default": "#contact-form" },
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] }
+  }
+}

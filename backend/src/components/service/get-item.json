@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_service_get_items",
+  "info": {
+    "displayName": "Get Item",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true }
+  }
+}

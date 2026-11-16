@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_svc_benefits",
+  "info": {
+    "displayName": "Service Benefits",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string", "default": "Benefits" },
+    "headingPrefix": { "type": "string" },
+    "headingSerif": { "type": "string" },
+    "headingSuffix": { "type": "string" },
+    "benefitItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.benefit-item"
+    }
+  }
+}

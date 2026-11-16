@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_svc_processes",
+  "info": {
+    "displayName": "Service Process Steps",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "pill": { "type": "string", "default": "How we work" },
+    "headingPrefix": { "type": "string", "default": "Our AI Development &" },
+    "headingSerif": { "type": "string", "default": "Automation Process" },
+    "headingSuffix": { "type": "string" },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.process-step"
+    }
+  }
+}

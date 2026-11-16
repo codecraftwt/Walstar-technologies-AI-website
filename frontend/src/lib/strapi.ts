@@ -41,6 +41,14 @@ export function getStrapiMediaUrl(url?: string | null): string | null {
   if (url.startsWith('http://') || url.startsWith('https://')) {
     return url;
   }
+  if (
+    url.startsWith('/images/') ||
+    url.startsWith('/icons/') ||
+    url.startsWith('/logos/') ||
+    url.startsWith('/favicon')
+  ) {
+    return url;
+  }
   return `${getStrapiPublicUrl()}${url.startsWith('/') ? '' : '/'}${url}`;
 }
 
@@ -145,7 +153,25 @@ function resolvePageSections(
       (section) => section.__component === 'sections.contact-interest'
     );
 
-  return isLegacyContact ? fallbackSections : incoming;
+  const isLegacyService =
+    (page.pageType === 'service' || page.slug === 'service-1') &&
+    !incoming.some(
+      (section) => section.__component === 'sections.svc-intro'
+    ) &&
+    fallbackSections.some(
+      (section) => section.__component === 'sections.svc-intro'
+    );
+
+  const isLegacyAbout =
+    (page.pageType === 'about' || page.slug === 'about-us') &&
+    !incoming.some(
+      (section) => section.__component === 'sections.hero'
+    ) &&
+    fallbackSections.some(
+      (section) => section.__component === 'sections.hero'
+    );
+
+  return isLegacyContact || isLegacyService || isLegacyAbout ? fallbackSections : incoming;
 }
 
 function normalizeLandingPayload(

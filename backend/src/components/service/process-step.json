@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_service_process_steps",
+  "info": {
+    "displayName": "Service Process Step",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "number": { "type": "string", "required": true, "default": "01" },
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text" }
+  }
+}

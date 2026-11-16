@@ -126,6 +126,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     description:
       'We build AI chatbots, process automation, and intelligent digital solutions that streamline operations, boost efficiency, and deliver smarter, modern experiences.',
     icon: '✦',
+    iconImage: {
+      url: '/images/capabilities/ai-solutions.png',
+    },
     themeVariant: 'a',
     order: 1,
   },
@@ -136,6 +139,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     description:
       'Improve AI-search visibility, attract relevant visitors, generate qualified leads, and optimize digital campaigns using measurable performance data.',
     icon: '◀',
+    iconImage: {
+      url: '/images/capabilities/digital-marketing.png',
+    },
     themeVariant: 'b',
     order: 2,
   },
@@ -146,6 +152,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     description:
       'Simplify business operations with custom ERP systems, CRM platforms, inventory management, automated workflows, and connected business applications.',
     icon: '▣',
+    iconImage: {
+      url: '/images/capabilities/custom-software.png',
+    },
     themeVariant: 'c',
     order: 3,
   },
@@ -156,18 +165,89 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     description:
       'Fast, secure, search-friendly websites and scalable SaaS platforms, built on modern technology with performance and SEO included from day one.',
     icon: '◉',
+    iconImage: {
+      url: '/images/capabilities/web-saas.png',
+    },
     themeVariant: 'd',
     order: 4,
   },
   {
     documentId: 'seed-service-5',
-    title: 'AI Agents & Integrations',
-    slug: 'ai-agents-integrations',
+    title: 'Mobile App Development',
+    slug: 'mobile-app-development',
     description:
-      'Connect your tools with agents that plan, act and report across CRMs, support desks, ERPs, and internal data stores.',
-    icon: '⚙',
+      'Reach customers wherever they are with intuitive Android and iOS apps, dependable integrations, and a scalable foundation.',
+    icon: '📱',
+    iconImage: {
+      url: '/images/capabilities/mobile-app.png',
+    },
     themeVariant: 'a',
     order: 5,
+  },
+  {
+    documentId: 'seed-service-6',
+    title: 'ECommerce & Shopify Solutions',
+    slug: 'ecommerce-shopify-solutions',
+    description:
+      'Create smooth digital shopping experiences with B2B portals and the payment, shipping, and inventory tools you need.',
+    icon: '🛍',
+    iconImage: {
+      url: '/images/capabilities/ecommerce.png',
+    },
+    themeVariant: 'b',
+    order: 6,
+  },
+  {
+    documentId: 'seed-service-7',
+    title: 'Cloud, DevOps & Platform Engineering',
+    slug: 'cloud-devops-platform-engineering',
+    description:
+      'Ship with confidence using secure cloud foundations and smarter deployments that keep applications fast, stable.',
+    icon: '☁',
+    iconImage: {
+      url: '/images/capabilities/cloud-devops.png',
+    },
+    themeVariant: 'c',
+    order: 7,
+  },
+  {
+    documentId: 'seed-service-8',
+    title: 'Cybersecurity & Managed IT',
+    slug: 'cybersecurity-managed-it',
+    description:
+      'Protect your systems and keep applications healthy, secure, and reliable with responsive ongoing technical support.',
+    icon: '🛡',
+    iconImage: {
+      url: '/images/capabilities/cybersecurity.png',
+    },
+    themeVariant: 'd',
+    order: 8,
+  },
+  {
+    documentId: 'seed-service-9',
+    title: 'UI/UX & Product Design',
+    slug: 'ui-ux-product-design',
+    description:
+      'Turn user research and testing into clear, on-brand experiences designed to earn sign-ups, sales.',
+    icon: '✏',
+    iconImage: {
+      url: '/images/capabilities/ui-ux-design.png',
+    },
+    themeVariant: 'a',
+    order: 9,
+  },
+  {
+    documentId: 'seed-service-10',
+    title: 'White-Label Development & Dedicated Teams',
+    slug: 'white-label-development-dedicated-teams',
+    description:
+      'Extend your team without the hiring burden. Work with us as a confidential delivery partner, or add dedicated developers to your own workflow.',
+    icon: '👥',
+    iconImage: {
+      url: '/images/capabilities/dedicated-teams.png',
+    },
+    themeVariant: 'b',
+    order: 10,
   },
 ];
 
@@ -371,20 +451,34 @@ const SHARED_GLOBAL_OFFICES = {
   mapPins: [
     {
       label: 'Dallas, TX USA',
-      leftPercent: 12,
-      topPx: 0,
+      latitude: 33.1972,
+      longitude: -96.6398,
+      leftPercent: 23,
+      topPx: 45,
       flagVariant: 'us' as const,
     },
     {
+      label: 'Burgess Hill, England UK',
+      latitude: 50.9536,
+      longitude: -0.1264,
+      leftPercent: 50,
+      topPx: 25,
+      flagVariant: 'uk' as const,
+    },
+    {
       label: 'Kolhapur | Pune, India',
-      leftPercent: 46,
-      topPx: 14,
+      latitude: 16.7050,
+      longitude: 74.2433,
+      leftPercent: 70,
+      topPx: 60,
       flagVariant: 'in' as const,
     },
     {
       label: 'Brisbane, QLD Australia',
-      leftPercent: 64,
-      topPx: 118,
+      latitude: -27.5028,
+      longitude: 153.1009,
+      leftPercent: 92,
+      topPx: 125,
       flagVariant: 'au' as const,
     },
   ],
@@ -395,13 +489,26 @@ const SHARED_GLOBAL_OFFICES = {
       cityRegion: 'Kolhapur, Maharashtra',
       address:
         '2103/47 E, Rukmini Nagar, Back side of Sayaji Hotel, Kolhapur, Maharashtra 416005',
+      latitude: 16.7050,
+      longitude: 74.2433,
       isHeadquarters: true,
     },
     {
       regionLabel: 'USA',
       title: 'McKinney',
-      cityRegion: 'Texas, USA',
+      cityRegion: 'Dallas, Texas',
       address: '5860 Collin McKinney Pkwy, St# 601, McKinney TX 75070 USA',
+      latitude: 33.1972,
+      longitude: -96.6398,
+      isHeadquarters: false,
+    },
+    {
+      regionLabel: 'USA',
+      title: 'Silicon Valley',
+      cityRegion: 'San Jose, California',
+      address: '100 Enterprise Way, Suite 400, San Jose CA 95110 USA',
+      latitude: 37.3382,
+      longitude: -121.8863,
       isHeadquarters: false,
     },
     {
@@ -409,6 +516,8 @@ const SHARED_GLOBAL_OFFICES = {
       title: 'Carindale',
       cityRegion: 'Queensland, Australia',
       address: '105 Bridgnorth Street, Carindale Qld 4152, Australia',
+      latitude: -27.5028,
+      longitude: 153.1009,
       isHeadquarters: false,
     },
     {
@@ -416,22 +525,18 @@ const SHARED_GLOBAL_OFFICES = {
       title: 'Burgess Hill',
       cityRegion: 'England, UK',
       address: 'Wolstonbury Court Burgess Hill, RH15',
+      latitude: 50.9536,
+      longitude: -0.1264,
       isHeadquarters: false,
     },
     {
       regionLabel: 'India',
       title: 'Warje',
-      cityRegion: 'Pune, India',
+      cityRegion: 'Pune, Maharashtra',
       address:
         'Wallstreet 24, Above Mc-Donald, Mumbai-Banglore Highway. Warje, Pune 411058',
-      isHeadquarters: false,
-    },
-    {
-      regionLabel: 'India',
-      title: 'Goregaon West',
-      cityRegion: 'Mumbai, India',
-      address:
-        '7/213, Siddharth nagar, SV Road, Goregaon West, Maharashtra 400104',
+      latitude: 18.4800,
+      longitude: 73.8000,
       isHeadquarters: false,
     },
   ],
@@ -576,14 +681,14 @@ export const DEFAULT_PAGES: PageItem[] = [
       {
         __component: 'sections.hero',
         variant: 'compact',
-        chip: '● About Walstar Technologies',
+        chip: '● About Us',
         headlinePrefix: 'Building Digital',
         headlineSerif: 'Experiences',
         headlineSuffix: '\nThat Move Business Forward.',
       },
       {
         __component: 'sections.who-we-are',
-        pill: 'Who we are',
+        pill: '● Who we are',
         headingPrefix: 'A trusted partner for\n',
         headingSerif: 'what’s next',
         description: [
@@ -595,8 +700,8 @@ export const DEFAULT_PAGES: PageItem[] = [
       },
       {
         __component: 'sections.journey-stats',
-        pill: 'The Walstar Way',
-        headingPrefix: 'From first idea to',
+        pill: '● The Walstar Way',
+        headingPrefix: 'From first idea to\n',
         headingSerif: 'lasting impact',
         description:
           'We combine innovation, technology, and creativity to build solutions that improve user experience, increase online visibility, and boost revenue growth.',
@@ -632,12 +737,14 @@ export const DEFAULT_PAGES: PageItem[] = [
       },
       {
         __component: 'sections.solutions-grid',
-        pill: 'What we do',
+        pill: '● What we do',
         headingPrefix: 'Digital solutions\nbuilt to',
-        headingSerif: 'Scale',
+        headingSerif: 'scale',
         subtitle:
           'Our multi-disciplinary team of designers, developers, strategists, and digital marketers works collaboratively to deliver meaningful outcomes.',
         hasTopOverlap: true,
+        direction: 'left',
+        speedSeconds: 30,
         items: [
           {
             number: '01',
@@ -647,95 +754,124 @@ export const DEFAULT_PAGES: PageItem[] = [
           },
           {
             number: '02',
-            title: 'ERP & CRM Development',
-            category: 'Business Management Solutions',
-            href: '/services/custom-software-development',
-          },
-          {
-            number: '03',
-            title: 'Website & ECommerce Development',
-            category: 'Digital Growth Solutions',
-            href: '/services/web-saas-product-development',
-          },
-          {
-            number: '04',
-            title: 'Mobile App Development',
-            category: 'Scalable Mobile Solutions',
-            href: '/service-1',
-          },
-          {
-            number: '05',
-            title: 'Cloud & DevOps Engineering',
-            category: 'Scalable Cloud Solutions',
+            title: 'Digital Marketing & Performance Growth',
+            category: 'Search, Social & Brand Visibility',
             href: '/services/digital-marketing-performance-growth',
           },
           {
+            number: '03',
+            title: 'Custom Software Development',
+            category: 'Digital Growth Solutions',
+            href: '/services/custom-software-development',
+          },
+          {
+            number: '04',
+            title: 'Web & SaaS Product Development',
+            category: 'Websites and SaaS built to scale.',
+            href: '/services/web-saas-product-development',
+          },
+          {
+            number: '05',
+            title: 'Mobile App Development',
+            category: 'Scalable Android and iOS apps.',
+            href: '/services/mobile-app-development',
+          },
+          {
             number: '06',
-            title: 'UI/UX Design & Branding',
-            category: 'User Experience & Identity',
-            href: '/service-1',
+            title: 'ECommerce & Shopify Solutions',
+            category: 'Seamless online shopping solutions',
+            href: '/services/ecommerce-shopify-solutions',
           },
           {
             number: '07',
-            title: 'Software Testing & QA',
-            category: 'Quality Assurance & Testing',
-            href: '/contact',
+            title: 'Cloud & DevOps Engineering',
+            category: 'Scalable Cloud Infrastructure',
+            href: '/services/cloud-devops-engineering',
           },
           {
             number: '08',
-            title: 'Emerging Tech & Web3',
-            category: 'Decentralized & Future Tech',
-            href: '/contact',
+            title: 'Cybersecurity & Data Protection',
+            category: 'Secure enterprise solutions',
+            href: '/services/cybersecurity-data-protection',
+          },
+          {
+            number: '09',
+            title: 'UI/UX & Product Design',
+            category: 'Intuitive user experiences',
+            href: '/services/ui-ux-design-branding',
+          },
+          {
+            number: '10',
+            title: 'Dedicated Development Teams',
+            category: 'Pre-vetted engineering squads',
+            href: '/services/dedicated-teams',
           },
         ],
       },
       {
         __component: 'sections.why-choose',
-        pill: 'Why choose Walstar',
+        pill: '● Why choose Walstar',
         headingPrefix: 'Built different. ',
-        headingSerif: 'Built for impact.',
+        headingSerif: 'Built\nfor impact.',
         reasons: [
           {
             icon: '▭',
+            iconImage: { url: '/images/why-choose/web-app-solutions.png', alternativeText: 'Customized Web And App Solutions' },
             title: 'Customized Web And App Solutions',
             description:
               'We don’t believe in templates. Every website and application is built from scratch based on business objectives and user behavior.',
           },
           {
             icon: '✪',
+            iconImage: { url: '/images/why-choose/industry-experience.png', alternativeText: '8+ Years Of Industry Experience' },
             title: '8+ Years Of Industry Experience',
             description:
               'Since 2017, we have successfully delivered 500+ digital projects across multiple industries worldwide.',
           },
           {
             icon: '▤',
+            iconImage: { url: '/images/why-choose/cost-effective.png', alternativeText: 'Cost-Effective Development' },
             title: 'Cost-Effective Development',
             description:
               'We provide high-quality web design and software development at competitive pricing without compromising performance.',
           },
           {
             icon: '▥',
+            iconImage: { url: '/images/why-choose/conversion-focused.png', alternativeText: 'Conversion-Focused Approach' },
             title: 'Conversion-Focused Approach',
             description:
               'Our websites are not just visually appealing. They are optimized for SEO, speed, and lead generation.',
           },
           {
             icon: '◍',
+            iconImage: { url: '/images/why-choose/global-clientele.png', alternativeText: 'Global Clientele' },
             title: 'Global Clientele',
             description:
               'We proudly serve clients across India, the United States, Australia, and the United Kingdom.',
           },
         ],
         tickerItems: [
-          { label: 'Improve User Experience' },
-          { label: 'Increase Online Visibility' },
-          { label: 'Generate Qualified Leads' },
-          { label: 'Boost Revenue Growth' },
+          {
+            label: 'Improve User Experience',
+            iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Improve User Experience Badge' },
+          },
+          {
+            label: 'Increase Online Visibility',
+            iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Increase Online Visibility Badge' },
+          },
+          {
+            label: 'Generate Qualified Leads',
+            iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Generate Qualified Leads Badge' },
+          },
+          {
+            label: 'Boost Revenue Growth',
+            iconImage: { url: '/images/why-choose/ticker-badge.png', alternativeText: 'Boost Revenue Growth Badge' },
+          },
         ],
       },
       {
         __component: 'sections.vision-mission',
-        pill: 'Walstar Group',
+        pill: '● Our Purpose',
         headingPrefix: 'Shaping the',
         headingSerif: 'future',
         headingSuffix: '\ntogether',
@@ -752,9 +888,9 @@ export const DEFAULT_PAGES: PageItem[] = [
       },
       {
         __component: 'sections.team-showcase',
-        pill: 'Our Team',
+        pill: '● Our Leadership',
         headingPrefix: 'We do things that\n',
-        headingSerif: 'matters',
+        headingSerif: 'matter',
         executiveLabel: 'Executive Team',
         executiveQuote: '“Quality Is Not Optional. It Is Our Foundation.”',
         executiveQuoteAuthor: '-Walstar Technologies',
@@ -803,28 +939,42 @@ export const DEFAULT_PAGES: PageItem[] = [
       },
       {
         __component: 'sections.global-offices',
-        pill: 'Areas we serve',
+        pill: '● Global Reach',
         headingPrefix: 'Our global',
         headingSerif: 'offices',
         showWorldMap: true,
         mapPins: [
           {
-            label: 'Dallas,TX USA',
-            leftPercent: 12,
-            topPx: 0,
-            flagVariant: 'us',
+            label: 'Dallas, TX USA',
+            latitude: 33.1972,
+            longitude: -96.6398,
+            leftPercent: 23,
+            topPx: 45,
+            flagVariant: 'us' as const,
+          },
+          {
+            label: 'Burgess Hill, England UK',
+            latitude: 50.9536,
+            longitude: -0.1264,
+            leftPercent: 50,
+            topPx: 25,
+            flagVariant: 'uk' as const,
           },
           {
             label: 'Kolhapur | Pune, India',
-            leftPercent: 46,
-            topPx: 14,
-            flagVariant: 'in',
+            latitude: 16.7050,
+            longitude: 74.2433,
+            leftPercent: 70,
+            topPx: 60,
+            flagVariant: 'in' as const,
           },
           {
             label: 'Brisbane, QLD Australia',
-            leftPercent: 64,
-            topPx: 118,
-            flagVariant: 'au',
+            latitude: -27.5028,
+            longitude: 153.1009,
+            leftPercent: 92,
+            topPx: 125,
+            flagVariant: 'au' as const,
           },
         ],
         offices: [
@@ -834,14 +984,28 @@ export const DEFAULT_PAGES: PageItem[] = [
             cityRegion: 'Kolhapur, Maharashtra',
             address:
               '2103/47 E, Rukmini Nagar, Back side of Sayaji Hotel, Kolhapur, Maharashtra 416005',
+            latitude: 16.7050,
+            longitude: 74.2433,
             isHeadquarters: true,
           },
           {
             regionLabel: 'USA',
             title: 'McKinney',
-            cityRegion: 'Texas, USA',
+            cityRegion: 'Dallas, Texas',
             address:
               '5860 Collin McKinney Pkwy, St# 601, McKinney TX 75070 USA',
+            latitude: 33.1972,
+            longitude: -96.6398,
+            isHeadquarters: false,
+          },
+          {
+            regionLabel: 'USA',
+            title: 'Silicon Valley',
+            cityRegion: 'San Jose, California',
+            address:
+              '100 Enterprise Way, Suite 400, San Jose CA 95110 USA',
+            latitude: 37.3382,
+            longitude: -121.8863,
             isHeadquarters: false,
           },
           {
@@ -849,6 +1013,8 @@ export const DEFAULT_PAGES: PageItem[] = [
             title: 'Carindale',
             cityRegion: 'Queensland, Australia',
             address: '105 Bridgnorth Street, Carindale Qld 4152, Australia',
+            latitude: -27.5028,
+            longitude: 153.1009,
             isHeadquarters: false,
           },
           {
@@ -856,32 +1022,28 @@ export const DEFAULT_PAGES: PageItem[] = [
             title: 'Burgess Hill',
             cityRegion: 'England, UK',
             address: 'Wolstonbury Court Burgess Hill, RH15',
+            latitude: 50.9536,
+            longitude: -0.1264,
             isHeadquarters: false,
           },
           {
             regionLabel: 'India',
             title: 'Warje',
-            cityRegion: 'Pune, India',
+            cityRegion: 'Pune, Maharashtra',
             address:
               'Wallstreet 24, Above Mc-Donald, Mumbai-Banglore Highway. Warje, Pune 411058',
-            isHeadquarters: false,
-          },
-          {
-            regionLabel: 'India',
-            title: 'Goregaon West',
-            cityRegion: 'Mumbai, India',
-            address:
-              '7/213, Siddharth nagar, SV Road, Goregaon West, Maharashtra 400104',
+            latitude: 18.4800,
+            longitude: 73.8000,
             isHeadquarters: false,
           },
         ],
       },
       {
         ...SHARED_CTA_BAND,
-        pill: 'CTA',
-        heading: 'Ready to build something iconic?',
+        pill: '● CTA',
+        heading: 'Ready to make your next move?',
         subheading: 'Walstar Technologies is ready to power your digital growth.',
-        buttonLabel: 'Schedule a Consultation ↗',
+        buttonLabel: 'Connect With Us ↗',
         buttonHref: '/contact',
       },
     ],
@@ -953,7 +1115,7 @@ export const DEFAULT_PAGES: PageItem[] = [
   },
   {
     documentId: 'seed-page-service-1',
-    title: 'Service 1',
+    title: 'AI Solutions & Business Automation',
     slug: 'service-1',
     isHomepage: false,
     pageType: 'service',
@@ -963,60 +1125,230 @@ export const DEFAULT_PAGES: PageItem[] = [
     sections: [
       {
         __component: 'sections.hero',
-        chip: 'Service 1 • AI Solutions & Business Automation',
-        headlinePrefix: 'AI Systems',
-        headlineSerif: 'Built for',
-        headlineSuffix: 'Real ROI.',
+        variant: 'compact',
+        chip: '● Services',
+        headlinePrefix: '',
+        headlineSerif: 'AI',
+        headlineSuffix: 'Solutions &\nBusiness Automation',
         description:
           'From autonomous customer agents and ERP integrations to cloud SaaS architecture, we engineer end-to-end systems that ship smoothly into production.',
-        primaryCtaLabel: 'Explore Capabilities ↓',
-        primaryCtaHref: '#cap',
-        secondaryCtaLabel: 'Book Consultation ↗',
-        secondaryCtaHref: '/contact',
       },
       {
-        __component: 'sections.capabilities',
-        pill: 'Capabilities',
+        __component: 'sections.svc-intro',
+        pill: '● AI Solutions & Business Automation',
+        headingPrefix: 'AI Agents and Automation that cut',
+        headingSerif: 'Manual Work',
+        headingSuffix: 'and bring in more Leads',
+        description:
+          'Walstar is an AI development company in India helping startups, SMEs and enterprises build AI chatbots, AI agents and workflow automation that respond faster, work around the clock and turn your data into decisions.',
+        ctaLabel: 'Get a Free AI Consultation ↗',
+        ctaHref: '#contact-form',
+      },
+      {
+        __component: 'sections.svc-challenges',
+        pill: '● AI Solutions & Business Automation',
+        headingPrefix: 'Turn everyday Business challenges\ninto',
+        headingSerif: 'Intelligent Solutions',
+        bodyOne:
+          'Most businesses lose time and leads to the same problems: slow replies, repeated manual tasks, scattered data and processes that depend on one person. AI can fix much of this, but only when it is built around how your business actually runs.',
+        bodyTwo:
+          "Walstar designs and builds AI solutions that connect to your website, CRM, WhatsApp and internal tools. We don't sell AI as a buzzword. We start with a business problem, such as missed leads or hours of manual data entry, and build the smallest solution that solves it. Because we also build and run our own AI products, we know what works in real businesses and what only works in a demo.",
+        challengeItems: [
+          {
+            icon: '◷',
+            title: 'Slow replies',
+            description: 'Leads go cold while they wait for an answer.',
+          },
+          {
+            icon: '⚙',
+            title: 'Repeated manual tasks',
+            description: 'Hours lost to data entry and routine follow-ups.',
+          },
+          {
+            icon: '✲',
+            title: 'Scattered data',
+            description: 'Information spread across tools and teams.',
+          },
+          {
+            icon: '☻',
+            title: 'Processes that depend on one person',
+            description: 'Work stops when that person is unavailable.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-capabilities',
+        pill: '● Capabilities',
         headingPrefix: 'What we',
-        headingSerif: 'do',
-        subtitle:
-          'End-to-end AI services engineered for performance, data security',
-        ctaLabel: 'Book a Strategy Call ↗',
-        ctaHref: '/contact',
-        showAllServices: true,
-        showProcess: true,
-        processPill: 'Delivery Process',
-        processHeadingPrefix: 'From',
-        processHeadingSerif: 'idea',
-        processHeadingSuffix: 'to production',
-        processNote:
-          'Every engagement follows a clear 4-stage blueprint designed for speed, security, and measurable impact.',
-        processVideoLabel: 'Video Presentation',
-        processVideoUrl: '/contact',
-        processSteps: DEFAULT_PROCESS_STEPS,
+        headingSerif: 'Build',
+        capabilityItems: [
+          {
+            icon: '⚙',
+            title: 'AI Chatbots & Virtual Assistants',
+            description:
+              'Deliver faster, more consistent customer support with AI-powered assistants that answer common questions, guide users, qualify leads, and help customers find the information they need.',
+          },
+          {
+            icon: '⚙',
+            title: 'Business Process Automation',
+            description:
+              'Reduce repetitive manual work by automating routine business tasks, approvals, notifications, data entry, and other workflows.',
+          },
+          {
+            icon: '⚙',
+            title: 'AI Workflow Automation & Integration',
+            description:
+              'Connect your business applications and automate processes across CRM systems, ERP platforms, websites, eCommerce stores, and third-party tools.',
+          },
+          {
+            icon: '⚙',
+            title: 'Custom AI Development',
+            description:
+              'Build AI-powered applications, intelligent features, and tailored solutions designed around your business requirements, data, and operational challenges.',
+          },
+          {
+            icon: '⚙',
+            title: 'AI Data Processing & Intelligent Analytics',
+            description:
+              'Turn business data into useful insights with automated data processing, intelligent reporting, pattern analysis, and decision-support tools.',
+          },
+          {
+            icon: '⚙',
+            title: 'WhatsApp Business Automation',
+            description:
+              'Streamline customer communication through automated replies, lead qualification, inquiry management, notifications, and conversational workflows on WhatsApp.',
+          },
+          {
+            icon: '⚙',
+            title: 'Generative AI & Business Assistants',
+            description:
+              'Explore AI-powered assistants that help teams find information, summarize documents, generate content, and work with business knowledge more efficiently.',
+          },
+          {
+            icon: '⚙',
+            title: 'AI Integration for Existing Software',
+            description:
+              'Enhance your current websites, mobile apps, and business software with AI capabilities without necessarily rebuilding your entire technology platform.',
+          },
+        ],
       },
       {
-        __component: 'sections.before-after',
-        beforeEyebrow: 'BEFORE',
-        beforeTitle: 'Your Team Today',
-        beforeCaption: '40 hrs / week of manual work',
-        afterEyebrow: 'AFTER',
-        afterTitle: 'With Walstar AI',
-        afterCaption: '85% less manual effort. 05 hrs / week',
+        __component: 'sections.svc-benefits',
+        pill: '● Benefits',
+        headingPrefix: 'What an AI Automation do',
+        headingSerif: 'for Your Business?',
+        benefitItems: [
+          {
+            icon: '◷',
+            title: 'Save Time on Repetitive Tasks',
+            description:
+              'Automate routine activities and reduce the need for manual intervention across everyday workflows.',
+            isDark: false,
+          },
+          {
+            icon: '☺',
+            title: 'Improve Customer Engagement',
+            description:
+              'Automate routine activities and reduce the need for manual intervention across everyday workflows.',
+            isDark: true,
+          },
+          {
+            icon: '◎',
+            title: 'Streamline Business Operations',
+            description:
+              'Connect systems, reduce unnecessary handoffs, and make business processes more consistent.',
+            isDark: false,
+          },
+          {
+            icon: '◍',
+            title: 'Make Better-Informed Decisions',
+            description:
+              'Use available business data to identify patterns, generate insights, and support decision-making.',
+            isDark: false,
+          },
+          {
+            icon: '▣',
+            title: 'Scale With Greater Efficiency',
+            description:
+              'Build automation workflows that can adapt as your business, customer base, and operational needs grow.',
+            isDark: false,
+          },
+        ],
       },
       {
-        __component: 'sections.case-studies',
-        tag: 'Proof of Work',
-        headingPrefix: 'Featured',
-        headingSerif: 'client outcomes',
-        subtitle:
-          'See how modern architecture and automation translate into faster teams and higher conversions.',
-        ctaLabel: 'Discuss Your Project ↗',
-        ctaHref: '/contact',
-        showAllCaseStudies: true,
+        __component: 'sections.svc-process',
+        pill: '● How we work',
+        headingPrefix: 'Our AI Development &',
+        headingSerif: 'Automation Process',
+        steps: [
+          {
+            number: '01',
+            title: 'Discovery & Business Analysis',
+            description:
+              'We learn about your goals, current workflows, challenges, and existing technology to identify suitable AI opportunities.',
+          },
+          {
+            number: '02',
+            title: 'AI Strategy & Solution Planning',
+            description:
+              'We define the scope, select appropriate technologies, and create a practical implementation roadmap aligned with your business priorities.',
+          },
+          {
+            number: '03',
+            title: 'Design and Development',
+            description:
+              'We build your AI solution, automation workflows, and required integrations around your use cases and technical environment.',
+          },
+          {
+            number: '04',
+            title: 'Integration & Testing',
+            description:
+              'We test functionality, validate outputs, review security considerations, and check how the solution works with your existing systems.',
+          },
+          {
+            number: '05',
+            title: 'Deployment & Improvement',
+            description:
+              'We help deploy the solution, monitor its performance, and identify opportunities for ongoing improvements and support.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-approach',
+        pill: '● Our Approach',
+        headingPrefix: 'AI Solutions Built Around',
+        headingSerif: 'Your Business',
+        bodyOne:
+          'Every business has different processes, customers, and technology requirements. We take a practical approach to AI development, focusing on solutions that address real operational needs rather than adding AI simply for the sake of innovation.',
+        bodyTwo:
+          'Our team can help you assess automation opportunities, integrate AI into your existing systems, and develop custom solutions that can evolve with your business.',
+        getBoxTitle: 'What you get?',
+        getBoxItems: [
+          { label: 'Business-focused AI strategy and implementation' },
+          { label: 'Integration with existing business applications' },
+          { label: 'Solutions designed for scalability and maintainability' },
+          { label: 'Appropriate data privacy and security considerations' },
+          { label: 'Ongoing optimization and technical support' },
+        ],
+      },
+      {
+        __component: 'sections.svc-cta',
+        pill: "● Let's Talk",
+        headingPrefix: 'Ready to Make Your',
+        headingSerif: 'Business Smarter?',
+        bodyOne:
+          'Discover how AI solutions and business automation can help simplify your operations, improve customer experiences, and unlock new opportunities for growth.',
+        bodyTwo:
+          "Let's discuss your goals and find the right solution for your business.",
+        ctaLabel: 'Discuss Your AI Project ↗',
+        ctaHref: '#contact-form',
       },
       {
         ...SHARED_CTA_BAND,
+        pill: '● CTA',
+        heading: 'Have a Project? Please Contact Us',
+        subheading: "Let's talk about your next move.",
+        buttonLabel: 'Get in Touch ↗',
         buttonHref: '/contact',
       },
     ],
@@ -1060,6 +1392,12 @@ export const DEFAULT_NAVBAR: NavbarData = {
   slug: 'main',
   isDefault: true,
   logoHref: '/',
+  logoImage: {
+    url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794482840/Logo_38ef472bf8.png',
+    alternativeText: 'Walstar Technologies',
+    width: 210,
+    height: 71,
+  },
   items: [
     {
       label: 'Home',
