@@ -149,6 +149,25 @@ export const PAGE_POPULATE = {
       'sections.global-offices': {
         populate: ['image', 'mapPins', 'offices'],
       },
+      'sections.svc-intro': {
+        populate: ['image'],
+      },
+      'sections.svc-challenges': {
+        populate: ['challengeItems'],
+      },
+      'sections.svc-capabilities': {
+        populate: ['capabilityItems'],
+      },
+      'sections.svc-benefits': {
+        populate: ['benefitItems'],
+      },
+      'sections.svc-process': {
+        populate: ['steps'],
+      },
+      'sections.svc-approach': {
+        populate: ['getBoxItems'],
+      },
+      'sections.svc-cta': true,
     },
   },
 } as const;

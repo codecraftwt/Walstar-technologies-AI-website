@@ -38,7 +38,12 @@ export function getStrapiBaseUrl(): string {
 
 export function getStrapiMediaUrl(url?: string | null): string | null {
   if (!url) return null;
-  if (url.startsWith('http://') || url.startsWith('https://')) {
+  if (
+    url.startsWith('http://') ||
+    url.startsWith('https://') ||
+    url.startsWith('data:') ||
+    url.startsWith('blob:')
+  ) {
     return url;
   }
   if (
@@ -47,6 +52,10 @@ export function getStrapiMediaUrl(url?: string | null): string | null {
     url.startsWith('/logos/') ||
     url.startsWith('/favicon')
   ) {
+    return url;
+  }
+  // Local frontend public assets (e.g. /walstar-star.gif, /about.gif) not under Strapi /uploads/
+  if (url.startsWith('/') && !url.startsWith('/uploads/')) {
     return url;
   }
   return `${getStrapiPublicUrl()}${url.startsWith('/') ? '' : '/'}${url}`;

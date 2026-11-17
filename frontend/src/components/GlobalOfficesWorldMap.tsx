@@ -949,6 +949,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
   const [activePointId, setActivePointId] = useState<string | null>(null);
   const [activeSubIndices, setActiveSubIndices] = useState<Record<string, number>>({});
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'in' | 'us' | 'uk' | 'au'>('all');
+  const [activeOfficeId, setActiveOfficeId] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -973,6 +974,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
     }
     hoverTimeoutRef.current = setTimeout(() => {
       setActivePointId(null);
+      setActiveOfficeId(null);
     }, 180);
   };
 
@@ -1296,7 +1298,14 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                   fill="transparent"
                   stroke="transparent"
                   className="realistic-hit-target"
-                  onMouseEnter={() => handlePointEnter(marker.id)}
+                  onMouseEnter={() => {
+                    handlePointEnter(marker.id);
+                    if (marker.locations.length === 1) {
+                      setActiveOfficeId(marker.locations[0].id);
+                    } else {
+                      setActiveOfficeId(null);
+                    }
+                  }}
                   onMouseLeave={handlePointLeave}
                   onClick={() => setActivePointId(isActive ? null : marker.id)}
                 />
@@ -1321,7 +1330,14 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                   top: `${topPct}%`,
                   borderBottomColor: marker.themeColor,
                 }}
-                onMouseEnter={() => handlePointEnter(marker.id)}
+                onMouseEnter={() => {
+                  handlePointEnter(marker.id);
+                  if (marker.locations.length === 1) {
+                    setActiveOfficeId(marker.locations[0].id);
+                  } else {
+                    setActiveOfficeId(null);
+                  }
+                }}
                 onMouseLeave={handlePointLeave}
                 onClick={() => setActivePointId(isActive ? null : marker.id)}
               >
@@ -1466,7 +1482,19 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
 
                         return (
                           <React.Fragment key={`broader-loc-${loc.id || idx}`}>
-                            <div className="broader-office-col">
+                            <div
+                              className="broader-office-col"
+                              onMouseEnter={() => {
+                                if (hoverTimeoutRef.current) {
+                                  clearTimeout(hoverTimeoutRef.current);
+                                  hoverTimeoutRef.current = null;
+                                }
+                                setActiveOfficeId(loc.id);
+                              }}
+                              onMouseLeave={() => {
+                                setActiveOfficeId(null);
+                              }}
+                            >
                               <div className="broader-office-top">
                                 <div className="broader-office-title-wrap">
                                   <h5 className="broader-office-name">{loc.title}</h5>
@@ -1528,15 +1556,19 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
       {offices.length > 0 ? (
         <div className="oc walstar-sync-office-grid" style={{ marginTop: '36px' }}>
           {offices.map((office, idx) => {
+            const officeId = `office-${office.id ?? idx}`;
             const geo = resolveOfficeGeo(
               office.latitude,
               office.longitude,
+              office.country,
+              office.countryPreset,
               office.title,
               office.cityRegion,
-              office.regionLabel
+              office.regionLabel,
+              office.address
             );
 
-            const isSelected = activePointId?.includes(geo.countryCode);
+            const isSelected = activeOfficeId === officeId;
             const mapHref =
               office.mapUrl?.trim() ||
               `https://maps.google.com/?q=${encodeURIComponent(office.address)}`;
@@ -1546,11 +1578,13 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                 key={`${office.title}-${office.id ?? idx}`}
                 className={`of ${office.isHeadquarters ? 'hq' : ''} ${isSelected ? 'is-card-highlighted' : ''}`}
                 onMouseEnter={() => {
+                  setActiveOfficeId(officeId);
                   const match = markers.find((m) => m.countryCode === geo.countryCode);
                   if (match) {
                     handlePointEnter(match.id);
                     const subIdx = match.locations.findIndex(
                       (l) =>
+                        l.id === officeId ||
                         l.title.toLowerCase() === office.title.toLowerCase() ||
                         (office.cityRegion && office.cityRegion.toLowerCase().includes(l.city.toLowerCase()))
                     );
@@ -1559,7 +1593,10 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                     }
                   }
                 }}
-                onMouseLeave={handlePointLeave}
+                onMouseLeave={() => {
+                  setActiveOfficeId(null);
+                  handlePointLeave();
+                }}
                 style={{ cursor: 'pointer', transition: 'all 0.25s ease' }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>

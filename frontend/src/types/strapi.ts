@@ -524,6 +524,9 @@ export interface SvcCapabilityItem {
   icon?: string | null;
   title: string;
   description?: string | null;
+  isDark?: boolean | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
 }
 
 export interface SvcBenefitItem {
@@ -544,6 +547,7 @@ export interface SvcProcessStepItem {
 export interface SvcGetItem {
   id?: number;
   label: string;
+  icon?: string | null;
 }
 
 /* ─── Service page sections ──────────────────────────────────────── */
@@ -579,6 +583,7 @@ export interface SvcCapabilitiesSection {
   headingPrefix?: string | null;
   headingSerif?: string | null;
   headingSuffix?: string | null;
+  description?: string | null;
   capabilityItems?: SvcCapabilityItem[];
 }
 

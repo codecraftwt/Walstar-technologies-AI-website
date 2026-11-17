@@ -16,7 +16,170 @@ import type {
   SvcCtaSection,
 } from '@/types/strapi';
 
-/* ─── Custom Challenge SVGs Matching Reference Image ─────────────────── */
+/* ─── Vector Icons Matching Exact Reference SVG Symbols ───────────────── */
+export function SvgLayersIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3l9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5" />
+    </svg>
+  );
+}
+
+export function SvgUsersIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M2.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6M16 5a3.5 3.5 0 010 7M18 14c2.5.6 4 2.5 4 6" />
+    </svg>
+  );
+}
+
+export function SvgBoxIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10" />
+    </svg>
+  );
+}
+
+export function SvgFlowIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="3.5" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" />
+    </svg>
+  );
+}
+
+export function SvgGridIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+      <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+      <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
+    </svg>
+  );
+}
+
+export function SvgPlugIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0zM12 17v4" />
+    </svg>
+  );
+}
+
+export function SvgBarsIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="4" y="12" width="4" height="8" rx="1" />
+      <rect x="10" y="4" width="4" height="16" rx="1" />
+      <rect x="16" y="9" width="4" height="11" rx="1" />
+    </svg>
+  );
+}
+
+export function SvgTargetIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.5" />
+    </svg>
+  );
+}
+
+export function SvgSlidersIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 7h10M17 7h4M3 17h4M11 17h10" />
+      <circle cx="15" cy="7" r="2" />
+      <circle cx="9" cy="17" r="2" />
+    </svg>
+  );
+}
+
+export function SvgBoltIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M13 2L5 14h6l-1 8 8-12h-6z" />
+    </svg>
+  );
+}
+
+export function SvgDbIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <ellipse cx="12" cy="6" rx="7" ry="3" />
+      <path d="M5 6v12c0 1.7 3 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3 3 7 3s7-1.3 7-3" />
+    </svg>
+  );
+}
+
+export function SvgNetIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="2.5" />
+      <circle cx="5" cy="5" r="2" />
+      <circle cx="19" cy="5" r="2" />
+      <circle cx="5" cy="19" r="2" />
+      <circle cx="19" cy="19" r="2" />
+      <path d="M7 7l3 3M17 7l-3 3M7 17l3-3M17 17l-3-3" />
+    </svg>
+  );
+}
+
+export function SvgShieldIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+      <path d="M8.5 12l2.5 2.5L16 9.5" />
+    </svg>
+  );
+}
+
+export function SvgMonitorIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="12" rx="2" />
+      <path d="M8 20h8M12 16v4" />
+    </svg>
+  );
+}
+
+export function SvgHeadsetIcon() {
+  return (
+    <svg className="i" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 14v-2a8 8 0 0116 0v2" />
+      <rect x="3" y="13" width="4" height="6" rx="1.5" />
+      <rect x="17" y="13" width="4" height="6" rx="1.5" />
+      <path d="M19 19c0 2-3 2-7 2" />
+    </svg>
+  );
+}
+
+export function renderNamedSvgIcon(name?: string | null, index = 0): React.ReactNode {
+  const key = name?.toLowerCase().trim() || '';
+  if (key === 'layers' || key.includes('erp') || (index === 0 && !name)) return <SvgLayersIcon />;
+  if (key === 'users' || key.includes('crm') || index === 1) return <SvgUsersIcon />;
+  if (key === 'box' || key.includes('inventory') || index === 2) return <SvgBoxIcon />;
+  if (key === 'flow' || key.includes('workflow') || index === 3) return <SvgFlowIcon />;
+  if (key === 'grid' || key.includes('application') || index === 4) return <SvgGridIcon />;
+  if (key === 'plug' || key.includes('integration') || index === 5) return <SvgPlugIcon />;
+  if (key === 'bars' || key.includes('reporting') || index === 6) return <SvgBarsIcon />;
+  if (key === 'target' || key.includes('customer')) return <SvgTargetIcon />;
+  if (key === 'sliders' || key.includes('operation')) return <SvgSlidersIcon />;
+  if (key === 'bolt' || key.includes('productiv')) return <SvgBoltIcon />;
+  if (key === 'db' || key.includes('database') || key.includes('centralize')) return <SvgDbIcon />;
+  if (key === 'net' || key.includes('network') || key.includes('connect') || key.includes('architecture')) return <SvgNetIcon />;
+  if (key === 'shield' || key.includes('security') || key.includes('access')) return <SvgShieldIcon />;
+  if (key === 'monitor' || key.includes('interface') || key.includes('ui')) return <SvgMonitorIcon />;
+  if (key === 'head' || key.includes('support') || key.includes('maintenance')) return <SvgHeadsetIcon />;
+  return <SvgLayersIcon />;
+}
+
+/* ─── Challenge SVGs for Service 1 ───────────────────────────────────── */
 function ClockIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -72,27 +235,39 @@ export function cleanPill(text?: string | null): string {
 
 /* ─── Service Intro ──────────────────────────────────────────────────── */
 export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
-  const imageUrl = getStrapiMediaUrl(section.image?.url) || '/images/service-team-ai.png';
-  const prefix = section.headingPrefix?.trim() || 'AI Agents and Automation that cut';
-  const serif = section.headingSerif?.trim() || 'Manual Work';
-  const suffix = section.headingSuffix?.trim() || 'and bring in more Leads';
+  // If Strapi media provided, use it; otherwise fallback to default placeholder
+  const strapiUrl = getStrapiMediaUrl(section.image?.url);
+  const prefix = section.headingPrefix?.trim() || '';
+  const serif = section.headingSerif?.trim() || '';
+  const suffix = section.headingSuffix?.trim() || '';
 
-  // Check if standard copy matches reference image to guarantee exact 3-row wrapping
-  const isReferenceCopy =
+  const isCustomSoftware =
+    serif.includes('Custom Software') ||
+    prefix.includes('Custom Software') ||
+    suffix.includes('Business Works');
+
+  const defaultImage = isCustomSoftware
+    ? '/images/placeholder.png'
+    : '/images/service-team-ai.png';
+
+  const imageUrl = strapiUrl || defaultImage;
+
+  // Check if standard copy matches reference image to guarantee exact multi-row wrapping
+  const isService1ReferenceCopy =
     prefix === 'AI Agents and Automation that cut' &&
     serif === 'Manual Work';
 
   return (
-    <section className="sec svc-intro">
-      <div className="wrap svc-intro-grid">
+    <section className="sec intro svc-intro">
+      <div className="wrap svc-intro-grid intro-grid">
         <div
-          className="svc-intro-ph"
+          className="svc-intro-ph ph"
           role="img"
-          aria-label={section.image?.alternativeText || section.pill || 'Team working with AI automation'}
+          aria-label={section.image?.alternativeText || section.pill || 'Developer typing on a laptop'}
         >
           <Image
             src={imageUrl}
-            alt={section.image?.alternativeText || section.headingPrefix || 'Team collaborating on AI automation'}
+            alt={section.image?.alternativeText || section.headingPrefix || 'Walstar Software Engineering'}
             fill
             sizes="(max-width: 900px) 100vw, 45vw"
             className="object-cover"
@@ -106,9 +281,20 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
               {cleanPill(section.pill)}
             </span>
           ) : (
-            <span className="pill">AI Solutions & Business Automation</span>
+            <span className="pill">
+              {isCustomSoftware ? 'Designed to Scale' : 'AI Solutions & Business Automation'}
+            </span>
           )}
-          {isReferenceCopy ? (
+
+          {isCustomSoftware ? (
+            <h2 className="svc-heading">
+              <span className="svc-heading-row">
+                Build <span className="serif">Custom Software</span> That
+              </span>
+              <span className="svc-heading-row">Works the Way Your Business</span>
+              <span className="svc-heading-row">Works</span>
+            </h2>
+          ) : isService1ReferenceCopy ? (
             <h2 className="svc-heading">
               <span className="svc-heading-row">AI Agents and Automation that cut</span>
               <span className="svc-heading-row">
@@ -121,12 +307,18 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
               {renderHeadingParts(prefix, serif, suffix)}
             </h2>
           )}
+
           {section.description ? (
             <p className="lead svc-lead-desc">{renderMultilineText(section.description)}</p>
           ) : null}
+
           {section.ctaLabel ? (
-            <WalstarButton variant="orange" href={section.ctaHref || '#contact-form'}>
+            <WalstarButton variant="orange" href={section.ctaHref || '#cta'}>
               {section.ctaLabel}
+            </WalstarButton>
+          ) : isCustomSoftware ? (
+            <WalstarButton variant="orange" href="#cta">
+              Discuss Your Software Project ↗
             </WalstarButton>
           ) : null}
         </div>
@@ -144,7 +336,6 @@ export function SvcChallengesBlock({ section }: { section: SvcChallengesSection 
   const serif = section.headingSerif?.trim() || 'Intelligent Solutions';
   const suffix = section.headingSuffix?.trim();
 
-  // Check if standard copy matches reference image to guarantee exact 2-row wrapping
   const isReferenceCopy =
     prefix.includes('Turn everyday Business challenges') &&
     serif.includes('Intelligent Solutions');
@@ -198,122 +389,67 @@ export function SvcChallengesBlock({ section }: { section: SvcChallengesSection 
   );
 }
 
-const DEFAULT_SVC_CAPABILITY_ITEMS: SvcCapabilityItem[] = [
-  {
-    id: 1,
-    title: 'AI Chatbots & Virtual Assistants',
-    description:
-      'Deliver faster, more consistent customer support with AI-powered assistants that answer common questions, guide users, qualify leads, and help customers find the information they need.',
-  },
-  {
-    id: 2,
-    title: 'Business Process Automation',
-    description:
-      'Reduce repetitive manual work by automating routine business tasks, approvals, notifications, data entry, and other workflows.',
-  },
-  {
-    id: 3,
-    title: 'AI Workflow Automation & Integration',
-    description:
-      'Connect your business applications and automate processes across CRM systems, ERP platforms, websites, eCommerce stores, and third-party tools.',
-  },
-  {
-    id: 4,
-    title: 'Custom AI Development',
-    description:
-      'Build AI-powered applications, intelligent features, and tailored solutions designed around your business requirements, data, and operational challenges.',
-  },
-  {
-    id: 5,
-    title: 'AI Data Processing & Intelligent Analytics',
-    description:
-      'Turn business data into useful insights with automated data processing, intelligent reporting, pattern analysis, and decision-support tools.',
-  },
-  {
-    id: 6,
-    title: 'WhatsApp Business Automation',
-    description:
-      'Streamline customer communication through automated replies, lead qualification, inquiry management, notifications, and conversational workflows on WhatsApp.',
-  },
-  {
-    id: 7,
-    title: 'Generative AI & Business Assistants',
-    description:
-      'Explore AI-powered assistants that help teams find information, summarize documents, generate content, and work with business knowledge more efficiently.',
-  },
-  {
-    id: 8,
-    title: 'AI Integration for Existing Software',
-    description:
-      'Enhance your current websites, mobile apps, and business software with AI capabilities without necessarily rebuilding your entire technology platform.',
-  },
-];
-
-function renderSvcCapabilityIcon(item: { icon?: string | null; title?: string }, index: number) {
-  const iconMap: Record<number, React.ReactNode> = {
-    0: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <circle cx="9" cy="10" r="1" fill="currentColor" />
-        <circle cx="15" cy="10" r="1" fill="currentColor" />
-      </svg>
-    ),
-    1: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-      </svg>
-    ),
-    2: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="3" width="6" height="6" rx="1" />
-        <rect x="15" y="3" width="6" height="6" rx="1" />
-        <rect x="9" y="15" width="6" height="6" rx="1" />
-        <path d="M6 9v3a3 3 0 0 0 3 3h3m6-6v3a3 3 0 0 1-3 3" />
-      </svg>
-    ),
-    3: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="4" y="4" width="16" height="16" rx="2" />
-        <rect x="9" y="9" width="6" height="6" />
-        <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
-      </svg>
-    ),
-    4: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <line x1="18" y1="20" x2="18" y2="10" />
-        <line x1="12" y1="20" x2="12" y2="4" />
-        <line x1="6" y1="20" x2="6" y2="14" />
-        <line x1="2" y1="20" x2="22" y2="20" />
-      </svg>
-    ),
-    5: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-      </svg>
-    ),
-    6: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
-      </svg>
-    ),
-    7: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M20.5 14.5A2.5 2.5 0 0 0 18 12h-2V7a2 2 0 0 0-2-2h-3a2.5 2.5 0 0 0-5 0H3a2 2 0 0 0-2 2v3a2.5 2.5 0 0 0 0 5v3a2 2 0 0 0 2 2h3a2.5 2.5 0 0 0 5 0h3a2 2 0 0 0 2-2v-2h2a2.5 2.5 0 0 0 2.5-2.5z" />
-      </svg>
-    ),
-  };
-
-  return iconMap[index % 8] || iconMap[0];
-}
-
 /* ─── Service Capabilities ───────────────────────────────────────────── */
 export function SvcCapabilitiesBlock({ section }: { section: SvcCapabilitiesSection }) {
   const incomingItems = section.capabilityItems ?? [];
-  const items = incomingItems.length > 0 ? incomingItems : DEFAULT_SVC_CAPABILITY_ITEMS;
-  const rawPill = section.pill || 'Capabilities';
-  const pillText = cleanPill(rawPill) || 'Capabilities';
+  const rawPill = section.pill || 'Services';
+  const pillText = cleanPill(rawPill) || 'Services';
+  const prefix = section.headingPrefix?.trim() || 'Custom Software Solutions for';
+  const serif = section.headingSerif?.trim() || 'Business Management';
+  const suffix = section.headingSuffix?.trim() || '';
 
+  const isCustomSoftware =
+    serif.includes('Business Management') ||
+    incomingItems.some((it) => it.isDark || it.icon === 'layers') ||
+    Boolean(section.description);
+
+  if (isCustomSoftware) {
+    return (
+      <section className="sol2 svc-cap-sol2">
+        <div className="hd2">
+          <span className="pill">{pillText}</span>
+          <h2 className="svc-heading">
+            <span className="svc-heading-row">Custom Software Solutions for</span>
+            <span className="svc-heading-row">
+              Better <span className="serif">Business Management</span>
+            </span>
+          </h2>
+          {section.description ? (
+            <p className="svc-sol2-desc">{renderMultilineText(section.description)}</p>
+          ) : (
+            <p className="svc-sol2-desc">
+              Every business has its own processes, challenges, and operational requirements. Off-the-shelf software may not always provide the flexibility or functionality you need. Our custom software development services help businesses build applications that fit their workflows, connect their systems, and support their long-term goals.
+            </p>
+          )}
+        </div>
+
+        <div className="g8">
+          {incomingItems.map((item, idx) => {
+            if (item.isDark) {
+              return (
+                <article key={`${item.title}-${item.id ?? idx}`} className="sc2 dk">
+                  <h4>{renderMultilineText(item.title)}</h4>
+                  <WalstarButton variant="orange" href={item.ctaHref || '#cta'}>
+                    {item.ctaLabel || 'Discuss Your Project ↗'}
+                  </WalstarButton>
+                </article>
+              );
+            }
+
+            return (
+              <article key={`${item.title}-${item.id ?? idx}`} className="sc2">
+                <i>{renderNamedSvgIcon(item.icon, idx)}</i>
+                <h4>{renderMultilineText(item.title)}</h4>
+                {item.description ? <p>{renderMultilineText(item.description)}</p> : null}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+
+  // Fallback to Service 1 Capabilities layout
   return (
     <section className="svc-cap">
       <div className="wrap">
@@ -327,9 +463,9 @@ export function SvcCapabilitiesBlock({ section }: { section: SvcCapabilitiesSect
         </div>
 
         <div className="svc-c4">
-          {items.map((item, idx) => (
+          {incomingItems.map((item, idx) => (
             <article key={`${item.title}-${item.id ?? idx}`} className="svc-cc">
-              <i aria-hidden="true">{renderSvcCapabilityIcon(item, idx)}</i>
+              <i aria-hidden="true">{renderNamedSvgIcon(item.icon, idx)}</i>
               <h4>{item.title}</h4>
               {item.description ? (
                 <p>{renderMultilineText(item.description)}</p>
@@ -347,7 +483,59 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
   const items = section.benefitItems ?? [];
   const rawPill = section.pill || 'Benefits';
   const pillText = cleanPill(rawPill) || 'Benefits';
+  const prefix = section.headingPrefix?.trim() || 'How Custom Software';
+  const serif = section.headingSerif?.trim() || 'Helps Your Business';
+  const suffix = section.headingSuffix?.trim() || '';
 
+  const isCustomSoftware =
+    serif.includes('Helps Your Business') ||
+    prefix.includes('Custom Software') ||
+    items.some((it) => it.isDark && it.title.includes('Connect Your Existing Systems'));
+
+  if (isCustomSoftware) {
+    const regularItems = items.filter((it) => !it.isDark);
+    const darkItem = items.find((it) => it.isDark);
+
+    return (
+      <section className="sec ben svc-benefits-custom">
+        <div className="wrap ben-grid">
+          <div className="ben-left">
+            <span className="pill">{pillText}</span>
+            <h2 className="svc-heading">
+              <span className="svc-heading-row">How Custom Software</span>
+              <span className="svc-heading-row">
+                <span className="serif">Helps Your Business</span>
+              </span>
+            </h2>
+          </div>
+
+          <div className="bg ben-right-grid">
+            {regularItems.map((item, idx) => (
+              <article key={`${item.title}-${item.id ?? idx}`} className="bc">
+                <i>{renderNamedSvgIcon(item.icon, idx)}</i>
+                <h4>{renderMultilineText(item.title)}</h4>
+                {item.description ? <p>{renderMultilineText(item.description)}</p> : null}
+              </article>
+            ))}
+
+            {darkItem ? (
+              <article className="dk2">
+                <i>{renderNamedSvgIcon(darkItem.icon || 'net', 99)}</i>
+                <div>
+                  <h4>{darkItem.title}</h4>
+                  {darkItem.description ? (
+                    <p>{renderMultilineText(darkItem.description)}</p>
+                  ) : null}
+                </div>
+              </article>
+            ) : null}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Service 1: 5-column layout
   return (
     <section className="sec svc-benefits">
       <div className="wrap">
@@ -366,9 +554,9 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
             {items.map((item, idx) => (
               <article
                 key={`${item.title}-${item.id ?? idx}`}
-                className={item.isDark ? 'svc-bn svc-bn--dk' : 'svc-bn'}
+                className="svc-bn"
               >
-                <i aria-hidden="true">{item.icon || '◷'}</i>
+                <i aria-hidden="true">{renderNamedSvgIcon(item.icon, idx)}</i>
                 <h4>{item.title}</h4>
                 {item.description ? (
                   <p>{renderMultilineText(item.description)}</p>
@@ -385,9 +573,44 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
 /* ─── Service Process ────────────────────────────────────────────────── */
 export function SvcProcessBlock({ section }: { section: SvcProcessSection }) {
   const steps = section.steps ?? [];
-  const rawPill = section.pill || 'How we work';
-  const pillText = cleanPill(rawPill) || 'How we work';
+  const rawPill = section.pill || 'Process';
+  const pillText = cleanPill(rawPill) || 'Process';
+  const prefix = section.headingPrefix?.trim() || 'Our Custom Software';
+  const serif = section.headingSerif?.trim() || 'Development Process';
+  const suffix = section.headingSuffix?.trim() || '';
 
+  const isCustomSoftware =
+    serif.includes('Development Process') ||
+    prefix.includes('Custom Software') ||
+    steps.length === 6;
+
+  if (isCustomSoftware) {
+    return (
+      <section className="pr6 svc-pr6">
+        <div className="hd2" style={{ margin: '0 auto 36px', textAlign: 'center' }}>
+          <span className="pill">{pillText}</span>
+          <h2 className="svc-heading" style={{ textAlign: 'center' }}>
+            <span className="svc-heading-row">Our Custom Software</span>
+            <span className="svc-heading-row">
+              <span className="serif">Development Process</span>
+            </span>
+          </h2>
+        </div>
+
+        <div className="g6">
+          {steps.map((step, idx) => (
+            <article key={`${step.number}-${step.id ?? idx}`} className="pc6">
+              <b>{step.number}</b>
+              <h4>{renderMultilineText(step.title)}</h4>
+              {step.description ? <p>{renderMultilineText(step.description)}</p> : null}
+            </article>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Service 1: 5-step horizontal timeline stepper
   return (
     <section className="svc-pr">
       <div className="wrap">
@@ -426,7 +649,68 @@ export function SvcApproachBlock({ section }: { section: SvcApproachSection }) {
   const getItems = section.getBoxItems ?? [];
   const rawPill = section.pill || 'Our Approach';
   const pillText = cleanPill(rawPill) || 'Our Approach';
+  const prefix = section.headingPrefix?.trim() || 'Software Designed Around';
+  const serif = section.headingSerif?.trim() || 'Your Business Requirements';
+  const suffix = section.headingSuffix?.trim() || '';
 
+  const isCustomSoftware =
+    serif.includes('Business Requirements') ||
+    prefix.includes('Software Designed Around') ||
+    getItems.length === 7 ||
+    getItems.some((it) => Boolean(it.icon));
+
+  if (isCustomSoftware) {
+    // Split into 2 columns: 4 in col 1, 3 in col 2
+    const midPoint = Math.ceil(getItems.length / 2);
+    const col1 = getItems.slice(0, midPoint);
+    const col2 = getItems.slice(midPoint);
+
+    return (
+      <section className="sec ap svc-ap">
+        <div className="wrap ap-container">
+          <div className="top ap-top">
+            <div>
+              <span className="pill">{pillText}</span>
+              <h2 className="svc-heading">
+                <span className="svc-heading-row">Software Designed Around</span>
+                <span className="svc-heading-row">
+                  <span className="serif">Your Business Requirements</span>
+                </span>
+              </h2>
+            </div>
+            {section.bodyOne ? (
+              <p className="ap-desc">{renderMultilineText(section.bodyOne)}</p>
+            ) : (
+              <p className="ap-desc">
+                We believe business software should solve real operational challenges rather than force your team to change the way everything works. Our approach focuses on understanding your requirements and building solutions that are practical, reliable, and adaptable.
+              </p>
+            )}
+          </div>
+
+          <div className="lists ap-lists">
+            <div className="col">
+              {col1.map((item, idx) => (
+                <div key={`${item.label}-${item.id ?? idx}`} className="it">
+                  <i>{renderNamedSvgIcon(item.icon, idx)}</i>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="col">
+              {col2.map((item, idx) => (
+                <div key={`${item.label}-${item.id ?? idx}`} className="it">
+                  <i>{renderNamedSvgIcon(item.icon, midPoint + idx)}</i>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Service 1 Approach
   return (
     <section className="sec svc-appr">
       <div className="wrap svc-appr-grid">
@@ -470,14 +754,23 @@ export function SvcApproachBlock({ section }: { section: SvcApproachSection }) {
 export function SvcCtaBlock({ section }: { section: SvcCtaSection }) {
   const rawPill = section.pill || "Let's Talk";
   const pillText = cleanPill(rawPill) || "Let's Talk";
+  const prefix = section.headingPrefix?.trim() || 'Ready to Build Software';
+  const serif = section.headingSerif?.trim() || 'Around Your Business?';
+  const suffix = section.headingSuffix?.trim() || '';
 
   return (
-    <section className="svc-rd">
+    <section className="svc-rd rd">
       <div className="wrap svc-rd-inner">
-        <span className="pill">{pillText}</span>
-        <h2 className="svc-heading" style={{ color: '#FFFFFF', textAlign: 'center' }}>
+        <span className="pill" style={{ background: 'rgba(255, 255, 255, 0.85)', color: '#001930' }}>
+          {pillText}
+        </span>
+        <h2 className="svc-heading" style={{ color: '#0b1d36', textAlign: 'center' }}>
           <span className="svc-heading-row">
-            Ready to Make Your <span className="serif" style={{ color: '#FFFFFF' }}>Business Smarter?</span>
+            {prefix}{' '}
+            <span className="serif" style={{ color: '#FFFFFF' }}>
+              {serif}
+            </span>
+            {suffix ? ` ${suffix}` : ''}
           </span>
         </h2>
         {section.bodyOne ? (
@@ -491,10 +784,14 @@ export function SvcCtaBlock({ section }: { section: SvcCtaSection }) {
           </p>
         ) : null}
         {section.ctaLabel ? (
-          <WalstarButton variant="orange" href={section.ctaHref || '#contact-form'}>
+          <WalstarButton variant="orange" href={section.ctaHref || '#cta'}>
             {section.ctaLabel}
           </WalstarButton>
-        ) : null}
+        ) : (
+          <WalstarButton variant="orange" href="#cta">
+            Discuss Your Software Project ↗
+          </WalstarButton>
+        )}
       </div>
     </section>
   );

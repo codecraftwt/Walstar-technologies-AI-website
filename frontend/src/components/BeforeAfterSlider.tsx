@@ -51,8 +51,8 @@ export function BeforeAfterSlider({ section }: { section: BeforeAfterSection }) 
   const [isDragging, setIsDragging] = useState(false);
   const [ariaValue, setAriaValue] = useState(INITIAL_PERCENT);
 
-  const beforeUrl = getStrapiMediaUrl(section.beforeImage?.url);
-  const afterUrl = getStrapiMediaUrl(section.afterImage?.url);
+  const beforeUrl = getStrapiMediaUrl(section.beforeImage?.url) || '/images/before-after/before.webp';
+  const afterUrl = getStrapiMediaUrl(section.afterImage?.url) || '/images/before-after/after.webp';
 
   const applyPosition = useCallback((nextPercent: number, syncAria = false) => {
     const clamped = clampPercent(nextPercent);

@@ -37,7 +37,12 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
   contactEmail: 'info@walstartechnologies.com',
   footerAbout:
     'Results-driven digital agency building secure,\nscalable solutions for global businesses.',
-  footerAboutLogo: null,
+  footerAboutLogo: {
+    url: '/images/about/walstar-origami.gif',
+    alternativeText: 'Walstar Technologies Origami Star',
+    width: 44,
+    height: 44,
+  },
   footerNewsletterTitle: 'Have Project in mind ?',
   footerNewsletterSubtitle: 'Let’s create something great.',
   footerNewsletterButtonLabel: 'Free Consultation ↗',
@@ -66,25 +71,103 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
 };
 
 const DEFAULT_PARTNER_LOGOS: PartnerLogo[] = [
-  { name: 'BIGCOMMERCE' },
-  { name: '◆ shopify partner' },
-  { name: 'BLACKSMITH' },
-  { name: 'Razorpay' },
-  { name: '◉ Certified' },
-  { name: '■ Clutch' },
+  {
+    name: 'BIGCOMMERCE',
+    image: { url: '/images/partners/bigcommerce.png', alternativeText: 'BIGCOMMERCE' },
+  },
+  {
+    name: '◆ shopify partner',
+    image: { url: '/images/partners/shopify.png', alternativeText: 'Shopify Partner' },
+  },
+  {
+    name: 'BLACKSMITH',
+    image: { url: '/images/partners/blacksmith.png', alternativeText: 'BLACKSMITH' },
+  },
+  {
+    name: 'Razorpay',
+    image: { url: '/images/partners/razorpay.png', alternativeText: 'Razorpay' },
+  },
+  {
+    name: '◉ Certified',
+    image: { url: '/images/partners/certified.png', alternativeText: 'Certified' },
+  },
+  {
+    name: '■ Clutch',
+    image: { url: '/images/partners/clutch.png', alternativeText: 'Clutch' },
+  },
 ];
 
 const DEFAULT_TRUSTED_LOGOS: PartnerLogo[] = [
-  { name: 'LEON' },
-  { name: 'Mathew Trutman' },
-  { name: 'LEXOPULUS' },
-  { name: '24G' },
-  { name: 'CENTURY' },
-  { name: 'WebWorks89' },
-  { name: 'LifeSpring' },
-  { name: 'GLN' },
-  { name: 'JOCKEY' },
-  { name: 'NEXT LEVEL US' },
+  {
+    name: 'LEON',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794485597/image_59_fe1d171275.png',
+      alternativeText: 'LEON',
+    },
+  },
+  {
+    name: 'Mathew Trutman',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794485603/mayhewtrautman_logo_1024x293_1_2_6fc1cfacb0.png',
+      alternativeText: 'Mathew Trutman',
+    },
+  },
+  {
+    name: 'LEXOPULUS',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794485599/image_60_91c2a2e862.png',
+      alternativeText: 'LEXOPULUS',
+    },
+  },
+  {
+    name: '24G',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794485595/image_58_07aed9cfea.png',
+      alternativeText: '24G',
+    },
+  },
+  {
+    name: 'CENTURY',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794485601/image_61_bd37f94998.png',
+      alternativeText: 'CENTURY',
+    },
+  },
+  {
+    name: 'LifeSpring',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794896780/image_49_da5c5b2c18.png',
+      alternativeText: 'LifeSpring',
+    },
+  },
+  {
+    name: 'GLN',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794896785/image_50_f96a42b6f3.png',
+      alternativeText: 'GLN',
+    },
+  },
+  {
+    name: 'JOCKEY',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794896793/image_51_67482fd13b.png',
+      alternativeText: 'JOCKEY',
+    },
+  },
+  {
+    name: 'NEXT LEVEL US',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794896799/image_52_5a4964d13e.png',
+      alternativeText: 'NEXT LEVEL US',
+    },
+  },
+  {
+    name: 'WebWorks89',
+    image: {
+      url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794896804/Mask_group_d42e22c6a3.png',
+      alternativeText: 'WebWorks89',
+    },
+  },
 ];
 
 const DEFAULT_PROCESS_STEPS: ProcessStep[] = [
@@ -129,6 +212,10 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     iconImage: {
       url: '/images/capabilities/ai-solutions.png',
     },
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'AI Solutions & Business Automation',
+    },
     themeVariant: 'a',
     order: 1,
   },
@@ -141,6 +228,10 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     icon: '◀',
     iconImage: {
       url: '/images/capabilities/digital-marketing.png',
+    },
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Digital Marketing & Performance Growth',
     },
     themeVariant: 'b',
     order: 2,
@@ -155,6 +246,10 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     iconImage: {
       url: '/images/capabilities/custom-software.png',
     },
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Custom Software Development',
+    },
     themeVariant: 'c',
     order: 3,
   },
@@ -167,6 +262,10 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     icon: '◉',
     iconImage: {
       url: '/images/capabilities/web-saas.png',
+    },
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Web & SaaS Product Development',
     },
     themeVariant: 'd',
     order: 4,
@@ -261,6 +360,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'NRI Circle is a digital service-management platform designed to help Indians living abroad manage their families, properties, and everyday responsibilities in India.',
     isFeatured: true,
     accentGradient: 'linear-gradient(135deg,#0d1230,#1a2b6b 60%,#2f80ff)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'NRI Circle Platform',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/nri-circle',
     order: 1,
@@ -274,6 +377,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'Talk2Site is an AI-powered sales assistant platform that transforms traditional business websites into autonomous revenue engines.',
     isFeatured: false,
     accentGradient: 'linear-gradient(135deg,#fff,#ffd9c2)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Talk2site Platform',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/talk2site',
     order: 2,
@@ -287,6 +394,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'Panchayat Pro is a digital Panchayat management platform designed to modernize village-level administration.',
     isFeatured: false,
     accentGradient: 'linear-gradient(135deg,#5b8a4a,#2e3d2c)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Panchayat Pro Platform',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/panchayat-pro',
     order: 3,
@@ -300,6 +411,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'Create, manage, and analyze aptitude exams with a powerful multi-tenant SaaS platform. Go from setup to results fast.',
     isFeatured: false,
     accentGradient: 'linear-gradient(135deg,#1a1a1a,#c9a227)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Smart Aptitude Platform',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/smart-aptitude',
     order: 4,
@@ -313,6 +428,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'All-in-One Hospital Software: EMR, Billing, Appointments, Labs, Pharmacy, Analytics. For Hospital Management.',
     isFeatured: false,
     accentGradient: 'linear-gradient(135deg,#0b2d52,#2fb5d9)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Multispecialty Hospital Management System',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/multispecialty-hospital',
     order: 5,
@@ -326,6 +445,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'Smart vehicle service platform with Booking, Payments, Tracking and Automation. Streamline operations and more.',
     isFeatured: false,
     accentGradient: 'linear-gradient(135deg,#8aa0a8,#2c3a40)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Swift Reach Vehicle Service App',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/swift-reach',
     order: 6,
@@ -339,6 +462,10 @@ export const DEFAULT_PRODUCTS: ProductItem[] = [
       'WhatsApp marketing platform with chatbots, drip campaigns, and CRM integration. Automate engagement.',
     isFeatured: false,
     accentGradient: 'linear-gradient(135deg,#7a8a8f,#d6dde0)',
+    image: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Chat Walstargroup WhatsApp Automation Tool',
+    },
     ctaLabel: 'Read More ↗',
     ctaUrl: '/products/chat-walstargroup',
     order: 7,
@@ -359,6 +486,10 @@ export const DEFAULT_CASE_STUDIES: CaseStudyItem[] = [
     metaThreeValue: 'B2B Saas, Financial services',
     summary:
       'Modernized storefront architecture, performance optimization, and high-converting checkout flows for Jockey Australia.',
+    coverImage: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Jockey Australia.Website Revamp',
+    },
     themeVariant: 'a',
     order: 1,
   },
@@ -375,6 +506,10 @@ export const DEFAULT_CASE_STUDIES: CaseStudyItem[] = [
     metaThreeValue: '',
     summary:
       'Engineered an accessible patient financing portal integrating provider onboarding, eligibility workflows, and measurable funnel analytics.',
+    coverImage: {
+      url: '/images/placeholder.png',
+      alternativeText: 'Building A High-Conversion Patient Financing Website',
+    },
     themeVariant: 'b',
     order: 2,
   },
@@ -388,6 +523,10 @@ export const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
       'Walstar Technologies Pvt Ltd has delivered working websites that drive engagement, strengthen brands, and support business growth.',
     companyName: 'Company name',
     rating: 5,
+    avatar: {
+      url: '/images/testimonials/nathan-fowler.png',
+      alternativeText: 'Nathan Fowler',
+    },
     isHighlighted: false,
     order: 1,
   },
@@ -398,6 +537,10 @@ export const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
       'I was impressed with their communications, knowledge, and fair pricing, along with their professionalism, commitment to delivering quality results.',
     companyName: 'Company name',
     rating: 5,
+    avatar: {
+      url: '/images/testimonials/fred-fuller.png',
+      alternativeText: 'Fred Fuller',
+    },
     isHighlighted: true,
     order: 2,
   },
@@ -408,6 +551,10 @@ export const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
       'Working with Walstar Technologies was a great experience. Their team provided excellent support throughout the project.',
     companyName: 'Company name',
     rating: 5,
+    avatar: {
+      url: '/images/testimonials/derek-campbell.png',
+      alternativeText: 'Derek Campbell',
+    },
     isHighlighted: false,
     order: 3,
   },
@@ -589,6 +736,18 @@ export const DEFAULT_PAGES: PageItem[] = [
         highlightTitle: 'Engineering an Intelligent Future',
         highlightDescription:
           'We specialize in designing & deploying production AI systems that combine security, cost efficiency and lasting performance.',
+        primaryImage: {
+          url: '/images/about/about-primary.png',
+          alternativeText: 'About Walstar Technologies',
+        },
+        secondaryImage: {
+          url: '/images/about/about-secondary.png',
+          alternativeText: 'Walstar Team',
+        },
+        highlightIcon: {
+          url: '/images/about/about-highlight-icon.png',
+          alternativeText: 'Engineering an Intelligent Future',
+        },
         ctaLabel: 'More About Us ↗',
         ctaHref: '/about-us',
       },
@@ -631,6 +790,8 @@ export const DEFAULT_PAGES: PageItem[] = [
         topRowDirection: 'left',
         bottomRowDurationSeconds: 42,
         bottomRowDirection: 'right',
+        topRowLogos: DEFAULT_TRUSTED_LOGOS.slice(0, 5),
+        bottomRowLogos: DEFAULT_TRUSTED_LOGOS.slice(5),
         logos: DEFAULT_TRUSTED_LOGOS,
       },
       {
@@ -656,9 +817,17 @@ export const DEFAULT_PAGES: PageItem[] = [
         beforeEyebrow: 'BEFORE',
         beforeTitle: 'Your Team Today',
         beforeCaption: '40 hrs / week of manual work',
+        beforeImage: {
+          url: '/images/before-after/before.webp',
+          alternativeText: 'Your Team Today',
+        },
         afterEyebrow: 'AFTER',
         afterTitle: 'With Walstar AI',
         afterCaption: '85% less manual effort. 05 hrs / week',
+        afterImage: {
+          url: '/images/before-after/after.webp',
+          alternativeText: 'With Walstar AI',
+        },
       },
       SHARED_CTA_BAND,
     ],
@@ -697,6 +866,10 @@ export const DEFAULT_PAGES: PageItem[] = [
         ].join('\n'),
         ctaLabel: 'See what we do',
         ctaHref: '/service-1',
+        image: {
+          url: '/images/about/who-we-are.jpg',
+          alternativeText: 'Who We Are',
+        },
       },
       {
         __component: 'sections.journey-stats',
@@ -1079,6 +1252,10 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingSuffix: 'together',
         subtitle:
           'Have an idea, project, or challenge in mind? Let’s connect and turn it into something impactful.',
+        image: {
+          url: '/images/contact-keyboard.jpg',
+          alternativeText: 'Contact Walstar',
+        },
         options: CONTACT_INTEREST_OPTIONS,
       },
       {
@@ -1141,6 +1318,10 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingSuffix: 'and bring in more Leads',
         description:
           'Walstar is an AI development company in India helping startups, SMEs and enterprises build AI chatbots, AI agents and workflow automation that respond faster, work around the clock and turn your data into decisions.',
+        image: {
+          url: '/images/service-team-ai.png',
+          alternativeText: 'AI Solutions & Business Automation',
+        },
         ctaLabel: 'Get a Free AI Consultation ↗',
         ctaHref: '#contact-form',
       },
@@ -1354,6 +1535,239 @@ export const DEFAULT_PAGES: PageItem[] = [
     ],
   },
   {
+    documentId: 'seed-page-service-2',
+    title: 'Custom Software Development',
+    slug: 'service-2',
+    isHomepage: false,
+    pageType: 'service',
+    order: 5,
+    summary:
+      'Custom ERPs, CRMs, inventory systems, workflow automation, and enterprise application integration designed around your business.',
+    sections: [
+      {
+        __component: 'sections.hero',
+        variant: 'compact',
+        chip: '● Services',
+        headlinePrefix: 'Custom Software Built',
+        headlineSerif: 'for Your Business',
+        headlineSuffix: '',
+        description: null,
+      },
+      {
+        __component: 'sections.svc-intro',
+        pill: '● Designed to Scale',
+        headingPrefix: 'Build ',
+        headingSerif: 'Custom Software',
+        headingSuffix: ' That\nWorks the Way Your Business\nWorks',
+        description:
+          'From business management systems to workflow automation, we develop scalable software solutions designed to simplify operations and improve productivity.',
+        image: {
+          url: '/images/placeholder.png',
+          alternativeText: 'Custom Software Built for Your Business',
+        },
+        ctaLabel: 'Discuss Your Software Project ↗',
+        ctaHref: '#cta',
+      },
+      {
+        __component: 'sections.svc-capabilities',
+        pill: '● Services',
+        headingPrefix: 'Custom Software Solutions for\nBetter ',
+        headingSerif: 'Business Management',
+        headingSuffix: '',
+        description:
+          'Every business has its own processes, challenges, and operational requirements. Off-the-shelf software may not always provide the flexibility or functionality you need.\nOur custom software development services help businesses build applications that fit their workflows, connect their systems, and support their long-term goals.',
+        capabilityItems: [
+          {
+            icon: 'layers',
+            title: 'Custom ERP Software\nDevelopment',
+            description:
+              'Manage finance, sales, inventory, purchasing, and employees with customized ERP solutions that streamline business operations and reporting.',
+          },
+          {
+            icon: 'users',
+            title: 'CRM Software\nDevelopment',
+            description:
+              'Build stronger customer relationships with custom CRM solutions for managing leads, sales, communication, follow-ups, and business opportunities.',
+          },
+          {
+            icon: 'box',
+            title: 'Inventory & Stock\nManagement Systems',
+            description:
+              'Gain inventory control with stock tracking, purchase orders, warehouse management, supplier coordination, and real-time reporting.',
+          },
+          {
+            icon: 'flow',
+            title: 'Business Process &\nWorkflow Automation',
+            description:
+              'Automate approvals, notifications, data entry, and task assignments to reduce manual work and improve operational efficiency.',
+          },
+          {
+            icon: 'grid',
+            title: 'Custom Business\nApplications',
+            description:
+              'Build custom web applications tailored to business needs, streamlining internal management, operations, and specialized workflows.',
+          },
+          {
+            icon: 'plug',
+            title: 'Enterprise Application\nIntegration',
+            description:
+              'Connect software, databases, and business applications for seamless data sharing and smoother, more efficient workflows.',
+          },
+          {
+            icon: 'bars',
+            title: 'Reporting & Business\nIntelligence Solutions',
+            description:
+              'Gain business insights through customized dashboards, reports, and data visualizations that support smarter decision-making.',
+          },
+          {
+            icon: 'bolt',
+            title: 'Ready to Build\nSoftware Around Your\nBusiness?',
+            description: '',
+            isDark: true,
+            ctaLabel: 'Discuss Your Project ↗',
+            ctaHref: '#cta',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-benefits',
+        pill: '● Benefits',
+        headingPrefix: 'How Custom Software\n',
+        headingSerif: 'Helps Your Business',
+        benefitItems: [
+          {
+            icon: 'target',
+            title: 'Reach More Relevant\nCustomers',
+            description:
+              'Improve your visibility where potential customers search for products, services, and solutions like yours.',
+            isDark: false,
+          },
+          {
+            icon: 'sliders',
+            title: 'Simplify Daily\nOperations',
+            description:
+              'Bring important business processes into organized systems and reduce the complexity of managing multiple tools.',
+            isDark: false,
+          },
+          {
+            icon: 'bolt',
+            title: 'Improve\nProductivity',
+            description:
+              'Automate repetitive activities and give your team more time to focus on important business tasks.',
+            isDark: false,
+          },
+          {
+            icon: 'db',
+            title: 'Centralize Business\nInformation',
+            description:
+              'Manage customer, inventory, sales, and operational information through connected systems.',
+            isDark: false,
+          },
+          {
+            icon: 'bars',
+            title: 'Improve Business\nVisibility',
+            description:
+              'Use dashboards and reports to understand performance, identify issues, and make informed decisions.',
+            isDark: false,
+          },
+          {
+            icon: 'sliders',
+            title: 'Adapt to Your\nBusiness Needs',
+            description:
+              'Build software around your processes, with the flexibility to introduce new features as your business evolves.',
+            isDark: false,
+          },
+          {
+            icon: 'net',
+            title: 'Connect Your Existing Systems',
+            description:
+              'Integrate business applications and reduce unnecessary manual data transfers between platforms.',
+            isDark: true,
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-process',
+        pill: '● Process',
+        headingPrefix: 'Our Custom Software\n',
+        headingSerif: 'Development Process',
+        steps: [
+          {
+            number: '01',
+            title: 'Requirement Analysis\n& Discovery',
+            description:
+              'We understand your operations, challenges, objectives, users, and functional requirements to define the right software solution.',
+          },
+          {
+            number: '02',
+            title: 'Planning & Solution\nArchitecture',
+            description:
+              'We identify the required features, application structure, technology stack, integrations, and development roadmap.',
+          },
+          {
+            number: '03',
+            title: 'UI/UX Design &\nPrototyping',
+            description:
+              'We design intuitive user interfaces and application workflows that make your software easier to use and manage.',
+          },
+          {
+            number: '04',
+            title: 'Development &\nIntegration',
+            description:
+              'Our development team builds the application, implements required functionality, and connects it with relevant business systems.',
+          },
+          {
+            number: '05',
+            title: 'Testing & Quality\nAssurance',
+            description:
+              'We test application functionality, performance, usability, and integrations to identify and resolve issues before deployment.',
+          },
+          {
+            number: '06',
+            title: 'Deployment &\nOngoing Support',
+            description:
+              'We help launch your software and provide maintenance, technical support, and enhancements based on your requirements.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-approach',
+        pill: '● Our Approach',
+        headingPrefix: 'Software Designed Around\n',
+        headingSerif: 'Your Business Requirements',
+        bodyOne:
+          'We believe business software should solve real operational challenges rather than force your team to change the way everything works.\nOur approach focuses on understanding your requirements and building solutions that are practical, reliable, and adaptable.',
+        getBoxItems: [
+          { label: 'Customized features and business workflows', icon: 'target' },
+          { label: 'User-friendly interfaces and application experiences', icon: 'monitor' },
+          { label: 'Scalable application architecture', icon: 'net' },
+          { label: 'Integration with existing business systems', icon: 'plug' },
+          { label: 'Role-based access and permission management', icon: 'shield' },
+          { label: 'Data management and reporting capabilities', icon: 'bars' },
+          { label: 'Ongoing maintenance and technical support', icon: 'head' },
+        ],
+      },
+      {
+        __component: 'sections.svc-cta',
+        pill: "● Let's Talk",
+        headingPrefix: 'Ready to Build Software\n',
+        headingSerif: 'Around Your Business?',
+        bodyOne:
+          "Let's discuss your business challenges, understand your requirements, and explore how custom software can simplify your operations and support your growth.",
+        ctaLabel: 'Discuss Your Software Project ↗',
+        ctaHref: '#cta',
+      },
+      {
+        ...SHARED_CTA_BAND,
+        pill: '● CTA',
+        heading: 'For Instant Support, Please Contact Us',
+        subheading: 'Have a project in mind?',
+        buttonLabel: 'Connect With Us ↗',
+        buttonHref: '#cta',
+      },
+    ],
+  },
+  {
     documentId: 'seed-page-welcome',
     title: 'Welcome to Walstar Technologies',
     slug: 'welcome',
@@ -1486,9 +1900,20 @@ export const DEFAULT_FOOTER: FooterData = {
   slug: 'primary-footer',
   isDefault: true,
   logoAccentText: 'TECHNOLOGIES PVT. LTD.',
+  logoImage: {
+    url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794482840/Logo_38ef472bf8.png',
+    alternativeText: 'Walstar Technologies',
+    width: 210,
+    height: 71,
+  },
   aboutText:
     'Results-driven digital agency building secure,\nscalable solutions for global businesses.',
-  aboutLogo: null,
+  aboutLogo: {
+    url: '/images/about/walstar-origami.gif',
+    alternativeText: 'Walstar Technologies Origami Star',
+    width: 44,
+    height: 44,
+  },
   consultationShow: true,
   consultationTitle: 'Have Project in mind ?',
   consultationSubtitle: 'Let’s create something great.',
@@ -1534,6 +1959,20 @@ export const DEFAULT_FOOTER: FooterData = {
 
 export function getDefaultPageBySlug(slug: string): PageItem | null {
   if (slug === 'home') return DEFAULT_HOMEPAGE_PAGE;
+  if (slug === 'service-2' || slug === 'custom-software-development') {
+    return (
+      DEFAULT_PAGES.find(
+        (page) => page.slug === 'service-2' || page.slug === 'custom-software-development'
+      ) ?? null
+    );
+  }
+  if (slug === 'service-1' || slug === 'ai-solutions-business-automation') {
+    return (
+      DEFAULT_PAGES.find(
+        (page) => page.slug === 'service-1' || page.slug === 'ai-solutions-business-automation'
+      ) ?? null
+    );
+  }
   return DEFAULT_PAGES.find((page) => page.slug === slug) ?? null;
 }
 

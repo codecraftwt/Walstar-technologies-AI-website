@@ -10,6 +10,7 @@
     "headingPrefix": { "type": "string", "default": "What we" },
     "headingSerif": { "type": "string", "default": "Build" },
     "headingSuffix": { "type": "string" },
+    "description": { "type": "text" },
     "capabilityItems": {
       "type": "component",
       "repeatable": true,

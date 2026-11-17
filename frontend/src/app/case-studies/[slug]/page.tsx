@@ -17,7 +17,8 @@ async function CaseStudyContent({
     notFound();
   }
 
-  const coverUrl = getStrapiMediaUrl(caseStudy.coverImage?.url);
+  const fallbackCover = '/images/placeholder.png';
+  const coverUrl = getStrapiMediaUrl(caseStudy.coverImage?.url) || fallbackCover;
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[#e3e8f2] bg-white shadow-sm">

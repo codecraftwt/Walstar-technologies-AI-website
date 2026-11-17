@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -64,21 +65,24 @@ function TeamMemberCard({
       ) : null}
 
       {member.name ? (
-        <div className="chip2">
-          <b>{member.name}</b>
-          {member.role ? renderMultilineText(member.role) : null}
+        <div className="chip2 team-member-info">
+          <b className="team-member-name">{member.name}</b>
+          {member.role ? (
+            <span className="team-member-role">{renderMultilineText(member.role)}</span>
+          ) : null}
           {linkedinHref ? (
             isExternalHref(linkedinHref) ? (
               <a
                 href={linkedinHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="team-member-linkedin"
                 aria-label={`${member.name} LinkedIn profile`}
               >
                 in
               </a>
             ) : (
-              <Link href={linkedinHref} aria-label={`${member.name} profile`}>
+              <Link href={linkedinHref} className="team-member-linkedin" aria-label={`${member.name} profile`}>
                 in
               </Link>
             )
@@ -111,9 +115,9 @@ function formatAboutDescription(desc?: string | null): string | null | undefined
 }
 
 export function AboutBlock({ section }: { section: AboutSection }) {
-  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url);
-  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url);
-  const highlightIconUrl = getStrapiMediaUrl(section.highlightIcon?.url);
+  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url) || '/images/about/about-primary.png';
+  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url) || '/images/about/about-secondary.png';
+  const highlightIconUrl = getStrapiMediaUrl(section.highlightIcon?.url) || '/images/about/about-highlight-icon.png';
 
   return (
     <section className="about" id="about">
@@ -143,14 +147,18 @@ export function AboutBlock({ section }: { section: AboutSection }) {
           </div>
         </div>
         <div>
-          {section.tag ? <span className="pill">{cleanPill(section.tag)}</span> : null}
-          <h2 className="about-heading">
-            <span className="about-heading-row">{section.headingPrefix}</span>
-            <span className="about-heading-row">
+          {section.tag ? <span className="pill about-pill">{cleanPill(section.tag)}</span> : null}
+          <h2 className="about-heading about-intro-heading">
+            <span className="about-heading-row about-heading-row--prefix">
+              <span className="about-heading-text">{section.headingPrefix}</span>
+            </span>
+            <span className="about-heading-row about-heading-row--serif">
               {section.headingSerif ? (
-                <span className="serif">{section.headingSerif}</span>
-              ) : null}{' '}
-              {section.headingSuffix}
+                <span className="serif about-heading-serif">{section.headingSerif}</span>
+              ) : null}
+              {section.headingSuffix ? (
+                <span className="about-heading-suffix">{` ${section.headingSuffix}`}</span>
+              ) : null}
             </span>
           </h2>
           {section.description ? (
@@ -213,7 +221,7 @@ export function AboutBlock({ section }: { section: AboutSection }) {
 }
 
 export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
-  const imageUrl = getStrapiMediaUrl(section.image?.url);
+  const imageUrl = getStrapiMediaUrl(section.image?.url) || '/images/about/who-we-are.jpg';
   const rawPill = section.pill || 'Who we are';
   const pillText = cleanPill(rawPill) || 'Who we are';
   const prefix = section.headingPrefix?.trim() || 'A trusted partner for';
@@ -221,7 +229,7 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
 
   return (
     <section className="sec who" id="who-we-are">
-      <div className="wrap section">
+      <div className="wrap">
         <div
           className={imageUrl ? 'ph relative overflow-hidden' : 'ph'}
           role={imageUrl ? undefined : 'img'}
@@ -232,23 +240,28 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
               src={imageUrl}
               alt={section.image?.alternativeText || pillText}
               fill
-              sizes="(max-width: 900px) 100vw, 45vw"
+              sizes="(max-width: 900px) 100vw, (max-width: 1920px) 696px, 696px"
+              priority
               className="object-cover"
             />
           ) : null}
         </div>
 
         <div>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading">
-            <span className="about-heading-row">{prefix}</span>
-            <span className="about-heading-row">
-              <span className="serif">{serif}</span>
-              {section.headingSuffix ? ` ${section.headingSuffix}` : null}
+          <span className="pill who-pill">{pillText}</span>
+          <h2 className="about-heading who-heading">
+            <span className="about-heading-row who-heading-row who-heading-row--prefix">
+              <span className="who-heading-text">{prefix}</span>
+            </span>
+            <span className="about-heading-row who-heading-row who-heading-row--serif">
+              <span className="serif who-heading-serif">{serif}</span>
+              {section.headingSuffix ? (
+                <span className="who-heading-suffix">{` ${section.headingSuffix}`}</span>
+              ) : null}
             </span>
           </h2>
           {section.description ? (
-            <div className="about-lead-desc" style={{ marginTop: 14 }}>
+            <div className="about-lead-desc who-desc" style={{ marginTop: 14 }}>
               {section.description
                 .split('\n')
                 .map((para) => para.trim())
@@ -261,11 +274,11 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
             </div>
           ) : null}
           {section.ctaLabel ? (
-            <Link className="go" href={section.ctaHref || '/service-1'}>
-              <i aria-hidden="true">
+            <Link className="go who-cta" href={section.ctaHref || '/service-1'}>
+              <i aria-hidden="true" className="go-icon">
                 <WalstarButtonArrow />
               </i>
-              <span>{section.ctaLabel.replace(/\s*[↗→]\s*$/, '')} ↗</span>
+              <span className="go-text">{section.ctaLabel.replace(/\s*[↗→]\s*$/, '')} </span>
             </Link>
           ) : null}
         </div>
@@ -289,15 +302,16 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
     <section className="way" id="journey-stats">
       <div className="wrap">
         <div>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading">
+          <span className="pill way-pill">{pillText}</span>
+          <h2 className="about-heading way-heading">
             {isDefaultWayHeading ? (
               <>
-                <span className="about-heading-row">
-                  From first idea to <span className="serif">lasting</span>
+                <span className="about-heading-row way-heading-row way-heading-row--prefix">
+                  <span className="way-heading-text">From first idea to </span>
+                  <span className="serif way-heading-serif">lasting</span>
                 </span>
-                <span className="about-heading-row">
-                  <span className="serif">impact</span>
+                <span className="about-heading-row way-heading-row way-heading-row--suffix">
+                  <span className="serif way-heading-serif">impact</span>
                 </span>
               </>
             ) : (
@@ -309,7 +323,7 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
             )}
           </h2>
           {section.description ? (
-            <p className="about-lead-desc" style={{ marginTop: 14 }}>
+            <p className="about-lead-desc way-desc" style={{ marginTop: 14 }}>
               {renderMultilineText(section.description)}
             </p>
           ) : null}
@@ -320,11 +334,11 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
             {milestones.map((milestone, idx) => (
               <div
                 key={`${milestone.era}-${milestone.id ?? idx}`}
-                className={milestone.isCurrent ? 'now' : undefined}
+                className={milestone.isCurrent ? 'tlv-item now' : 'tlv-item'}
               >
-                <small>{milestone.era}</small>
-                <h4>{milestone.title}</h4>
-                <p>{renderMultilineText(milestone.description)}</p>
+                <small className="tlv-era">{milestone.era}</small>
+                <h4 className="tlv-title">{milestone.title}</h4>
+                <p className="tlv-desc">{renderMultilineText(milestone.description)}</p>
               </div>
             ))}
           </div>
@@ -334,9 +348,9 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
       {stats.length > 0 ? (
         <div className="stats">
           {stats.map((stat, idx) => (
-            <div key={`${stat.value}-${stat.id ?? idx}`}>
-              <b>{stat.value}</b>
-              <span>{renderMultilineText(stat.label)}</span>
+            <div key={`${stat.value}-${stat.id ?? idx}`} className="stat-item">
+              <b className="stat-value">{stat.value}</b>
+              <span className="stat-label">{renderMultilineText(stat.label)}</span>
             </div>
           ))}
         </div>
@@ -429,23 +443,28 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
   return (
     <section className={section.hasTopOverlap !== false ? 'sec sol sol-marquee-sec' : 'sec sol-marquee-sec'} id="solutions-grid">
       <div className="wrap">
-        <div className="hd2" style={{ textAlign: 'center', marginBottom: 28 }}>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading" style={{ textAlign: 'center' }}>
+        <div className="hd2 sol-hd2" style={{ textAlign: 'center', marginBottom: 28 }}>
+          <span className="pill sol-pill">{pillText}</span>
+          <h2 className="about-heading sol-heading" style={{ textAlign: 'center' }}>
             {section.headingPrefix ? (
-              <span className="about-heading-row">
-                {renderMultilineText(section.headingPrefix.replace(/\n+$/, ''))}
+              <span className="about-heading-row sol-heading-row sol-heading-row--prefix">
+                <span className="sol-heading-text">{renderMultilineText(section.headingPrefix.replace(/\n+$/, ''))}</span>
               </span>
             ) : (
-              <span className="about-heading-row">Digital solutions</span>
+              <span className="about-heading-row sol-heading-row sol-heading-row--prefix">
+                <span className="sol-heading-text">Digital solutions</span>
+              </span>
             )}
-            <span className="about-heading-row">
-              built to <span className="serif">{section.headingSerif || 'scale'}</span>
-              {section.headingSuffix ? ` ${section.headingSuffix}` : null}
+            <span className="about-heading-row sol-heading-row sol-heading-row--suffix">
+              <span className="sol-heading-text">built to </span>
+              <span className="serif sol-heading-serif">{section.headingSerif || 'scale'}</span>
+              {section.headingSuffix ? (
+                <span className="sol-heading-suffix">{` ${section.headingSuffix}`}</span>
+              ) : null}
             </span>
           </h2>
           {section.subtitle ? (
-            <p className="about-lead-desc" style={{ maxWidth: 680, margin: '14px auto 0', textAlign: 'center' }}>
+            <p className="about-lead-desc sol-desc" style={{ maxWidth: 680, margin: '14px auto 0', textAlign: 'center' }}>
               {renderMultilineText(section.subtitle)}
             </p>
           ) : null}
@@ -467,7 +486,7 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
             const cardBody = (
               <>
                 <div className="n">
-                  <span>{item.number}</span>
+                  <span className="n-num sol-card-num">{item.number}</span>
                   <i aria-hidden="true" className="n-arrow">
                     <svg
                       width="15"
@@ -613,14 +632,15 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
   return (
     <div className="whyw" id="why-choose">
       <section className="why">
-        <div className="hd2" style={{ textAlign: 'center', marginBottom: 0 }}>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading" style={{ textAlign: 'center' }}>
-            <span className="about-heading-row">
-              Built different. <span className="serif">Built</span>
+        <div className="hd2 why-hd2" style={{ textAlign: 'center', marginBottom: 0 }}>
+          <span className="pill why-pill">{pillText}</span>
+          <h2 className="about-heading why-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row why-heading-row why-heading-row--prefix">
+              <span className="why-heading-text">Built different. </span>
+              <span className="serif why-heading-serif">Built</span>
             </span>
-            <span className="about-heading-row">
-              <span className="serif">for impact.</span>
+            <span className="about-heading-row why-heading-row why-heading-row--suffix">
+              <span className="serif why-heading-serif">for impact.</span>
             </span>
           </h2>
         </div>
@@ -640,8 +660,8 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
                       className="why-icon-img"
                     />
                   </div>
-                  <h4>{reason.title}</h4>
-                  <p>{renderMultilineText(reason.description)}</p>
+                  <h4 className="why-row-title">{reason.title}</h4>
+                  <p className="why-row-desc">{renderMultilineText(reason.description)}</p>
                 </div>
               );
             })}
@@ -655,7 +675,7 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
             {tickerItems.map((item, idx) => {
               const iconUrl = resolveTickerIcon(item);
               return (
-                <span key={`tick-a-${item.id ?? idx}`}>
+                <span key={`tick-a-${item.id ?? idx}`} className="tick-item">
                   <Image
                     src={iconUrl}
                     alt=""
@@ -663,14 +683,14 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
                     height={20}
                     className="tick-icon"
                   />
-                  {item.label}
+                  <span className="tick-label">{item.label}</span>
                 </span>
               );
             })}
             {tickerItems.map((item, idx) => {
               const iconUrl = resolveTickerIcon(item);
               return (
-                <span key={`tick-b-${item.id ?? idx}`} aria-hidden="true">
+                <span key={`tick-b-${item.id ?? idx}`} className="tick-item" aria-hidden="true">
                   <Image
                     src={iconUrl}
                     alt=""
@@ -678,7 +698,7 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
                     height={20}
                     className="tick-icon"
                   />
-                  {item.label}
+                  <span className="tick-label">{item.label}</span>
                 </span>
               );
             })}
@@ -690,26 +710,59 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
 }
 
 export function VisionMissionBlock({ section }: { section: VisionMissionSection }) {
+  const [hoveredCard, setHoveredCard] = useState<'v' | 'm' | null>(null);
   const rawPill = section.pill === 'Walstar Group' ? 'Our Purpose' : section.pill || 'Our Purpose';
   const pillText = cleanPill(rawPill) || 'Our Purpose';
 
   return (
     <section className="sec vm-sec" id="vision-mission">
       <div className="wrap">
-        <div className="hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading" style={{ textAlign: 'center' }}>
-            <span className="about-heading-row">
-              Shaping the <span className="serif">future</span>
+        <div className="hd2 vm-hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
+          <span className="pill vm-pill">{pillText}</span>
+          <h2 className="about-heading vm-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row vm-heading-row vm-heading-row--prefix">
+              <span className="vm-heading-text">Shaping the </span>
+              <span className="serif vm-heading-serif">future</span>
             </span>
-            <span className="about-heading-row">together</span>
+            <span className="about-heading-row vm-heading-row vm-heading-row--suffix">
+              <span className="vm-heading-text">together</span>
+            </span>
           </h2>
         </div>
 
-        <div className="vm">
-          <div className="v">
+        <div className={`vm ${hoveredCard ? `has-hovered-${hoveredCard}` : ''}`}>
+          <div
+            className={`v ${hoveredCard === 'v' ? 'is-active is-expanded' : hoveredCard === 'm' ? 'is-shrunk' : ''}`}
+            onMouseEnter={() => setHoveredCard('v')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="vm-corner-art" aria-hidden="true">
+              <Image
+                src="/images/about/hover-blur-corner-art.png"
+                alt=""
+                width={280}
+                height={270}
+                className="vm-corner-art-img"
+              />
+            </div>
+
             <div className="ico" aria-hidden="true">
-              {section.visionIcon || '◎'}
+              <Image
+                src="/images/about/vision-icon-orange.png"
+                alt="Our Vision"
+                width={32}
+                height={32}
+                className="ico-img ico-img--orange"
+                priority
+              />
+              <Image
+                src="/images/about/vision-icon-blue.png"
+                alt="Our Vision"
+                width={32}
+                height={32}
+                className="ico-img ico-img--blue"
+                priority
+              />
             </div>
             <h3>{section.visionTitle || 'Our Vision'}</h3>
             {section.visionDescription ? (
@@ -722,9 +775,38 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
             ) : null}
           </div>
 
-          <div className="m">
+          <div
+            className={`m ${hoveredCard === 'm' ? 'is-active is-expanded' : hoveredCard === 'v' ? 'is-shrunk' : ''}`}
+            onMouseEnter={() => setHoveredCard('m')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="vm-corner-art" aria-hidden="true">
+              <Image
+                src="/images/about/hover-blur-corner-art.png"
+                alt=""
+                width={280}
+                height={270}
+                className="vm-corner-art-img"
+              />
+            </div>
+
             <div className="ico" aria-hidden="true">
-              {section.missionIcon || '◎'}
+              <Image
+                src="/images/about/mission-icon-orange.png"
+                alt="Our Mission"
+                width={32}
+                height={32}
+                className="ico-img ico-img--orange"
+                priority
+              />
+              <Image
+                src="/images/about/mission-icon-blue.png"
+                alt="Our Mission"
+                width={32}
+                height={32}
+                className="ico-img ico-img--blue"
+                priority
+              />
             </div>
             <h3>{section.missionTitle || 'Our Mission'}</h3>
             {section.missionDescription ? (
@@ -747,12 +829,14 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
   return (
     <section className="team" id="leadership">
       <div className="wrap">
-        <div className="hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading" style={{ textAlign: 'center' }}>
-            <span className="about-heading-row">We do things that</span>
-            <span className="about-heading-row">
-              <span className="serif">matter</span>
+        <div className="hd2 team-hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
+          <span className="pill team-pill">{pillText}</span>
+          <h2 className="about-heading team-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row team-heading-row team-heading-row--prefix">
+              <span className="team-heading-text">We do things that</span>
+            </span>
+            <span className="about-heading-row team-heading-row team-heading-row--suffix">
+              <span className="serif team-heading-serif">matter</span>
             </span>
           </h2>
         </div>
@@ -825,11 +909,12 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
   return (
     <section className="sec offices" id="offices">
       <div className="wrap">
-        <div className="hd2" style={{ textAlign: 'center', marginBottom: 0 }}>
-          <span className="pill">{pillText}</span>
-          <h2 className="about-heading" style={{ textAlign: 'center' }}>
-            <span className="about-heading-row">
-              Our global <span className="serif">offices</span>
+        <div className="hd2 offices-hd2" style={{ textAlign: 'center', marginBottom: 0 }}>
+          <span className="pill offices-pill">{pillText}</span>
+          <h2 className="about-heading offices-heading" style={{ textAlign: 'center' }}>
+            <span className="about-heading-row offices-heading-row">
+              <span className="offices-heading-text">Our global </span>
+              <span className="serif offices-heading-serif">offices</span>
             </span>
           </h2>
         </div>

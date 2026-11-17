@@ -719,6 +719,7 @@ export interface SectionsSvcCapabilities extends Struct.ComponentSchema {
       'service.capability-item',
       true
     >;
+    description: Schema.Attribute.Text;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'What we'>;
     headingSerif: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Build'>;
@@ -997,8 +998,11 @@ export interface ServiceCapabilityItem extends Struct.ComponentSchema {
     icon: 'cog';
   };
   attributes: {
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
     description: Schema.Attribute.Text;
     icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u2699'>;
+    isDark: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -1023,6 +1027,7 @@ export interface ServiceGetItem extends Struct.ComponentSchema {
     icon: 'check';
   };
   attributes: {
+    icon: Schema.Attribute.String;
     label: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }

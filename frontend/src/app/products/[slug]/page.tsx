@@ -17,7 +17,8 @@ async function ProductContent({
     notFound();
   }
 
-  const imageUrl = getStrapiMediaUrl(product.image?.url);
+  const fallbackProductImage = '/images/placeholder.png';
+  const imageUrl = getStrapiMediaUrl(product.image?.url) || fallbackProductImage;
 
   return (
     <article className="overflow-hidden rounded-2xl border border-[#e3e8f2] bg-white shadow-sm">

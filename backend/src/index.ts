@@ -113,15 +113,30 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
             ((s as Record<string, unknown>).items as unknown[]).length < 10
         ));
 
+    const isLegacyServiceSeed =
+      item.slug === 'service-1' &&
+      !existingSections.some(
+        (section) => section.__component === 'sections.svc-intro'
+      );
+
+    const isLegacyService2Seed =
+      item.slug === 'service-2' &&
+      !existingSections.some(
+        (section) => section.__component === 'sections.svc-capabilities'
+      );
+
     if (
       existingSections.length === 0 ||
       isUntouchedLegacyAboutSeed ||
       isLegacyContactSeed ||
-      needsAboutSync
+      needsAboutSync ||
+      isLegacyServiceSeed ||
+      isLegacyService2Seed
     ) {
       await pageDoc.update({
         documentId: existing.documentId,
         data: {
+          title: item.title,
           isHomepage: item.isHomepage,
           pageType: item.pageType,
           order: item.order,
@@ -335,6 +350,104 @@ async function ensureTickerAndWhyChooseIcons(strapi: Core.Strapi): Promise<void>
   }
 }
 
+async function ensureServiceMedia(strapi: Core.Strapi): Promise<void> {
+  try {
+    const knex = strapi.db.connection;
+    const hasFilesTable = await knex.schema.hasTable('files');
+    const hasMphTable = await knex.schema.hasTable('files_related_mph');
+    const hasIntroTable = await knex.schema.hasTable('components_sections_svc_intros');
+    if (!hasFilesTable || !hasMphTable) {
+      return;
+    }
+
+    let aiImgFile = await knex('files')
+      .where('name', 'like', '%Collaborative AI%')
+      .orWhere('url', 'like', '%Collaborative_AI%')
+      .first();
+
+    if (!aiImgFile) {
+      const crypto = await import('crypto');
+      const docId = crypto.randomBytes(12).toString('hex');
+      const [inserted] = await knex('files')
+        .insert({
+          document_id: docId,
+          name: 'Collaborative AI in a Modern Office 1.png',
+          alternative_text: 'AI Solutions & Business Automation',
+          caption: null,
+          width: 2780,
+          height: 2164,
+          formats: null,
+          hash: 'Collaborative_AI_in_a_Modern_Office_1_59e5ed1401',
+          ext: '.png',
+          mime: 'image/png',
+          size: 2055.57,
+          url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794897929/Collaborative_AI_in_a_Modern_Office_1_59e5ed1401.png',
+          preview_url: null,
+          provider: 'cloudinary',
+          folder_path: '/',
+          created_at: new Date(),
+          updated_at: new Date(),
+          published_at: new Date(),
+        })
+        .returning('*');
+      aiImgFile = inserted || (await knex('files').where('name', 'like', '%Collaborative AI%').first());
+    }
+
+    if (aiImgFile?.id) {
+      if (hasIntroTable) {
+        const intros = await knex('components_sections_svc_intros').select('id');
+        for (const intro of intros) {
+          const existingLink = await knex('files_related_mph')
+            .where({
+              related_type: 'sections.svc-intro',
+              field: 'image',
+              related_id: intro.id,
+            })
+            .first();
+
+          if (!existingLink) {
+            await knex('files_related_mph').insert({
+              file_id: aiImgFile.id,
+              related_id: intro.id,
+              order: 1,
+              related_type: 'sections.svc-intro',
+              field: 'image',
+            });
+          }
+        }
+      }
+
+      const hasServicesTable = await knex.schema.hasTable('services');
+      if (hasServicesTable) {
+        const aiServices = await knex('services')
+          .where('slug', 'ai-solutions-business-automation')
+          .select('id');
+        for (const svc of aiServices) {
+          const existingLink = await knex('files_related_mph')
+            .where({
+              related_type: 'api::service.service',
+              field: 'image',
+              related_id: svc.id,
+            })
+            .first();
+
+          if (!existingLink) {
+            await knex('files_related_mph').insert({
+              file_id: aiImgFile.id,
+              related_id: svc.id,
+              order: 1,
+              related_type: 'api::service.service',
+              field: 'image',
+            });
+          }
+        }
+      }
+    }
+  } catch (error) {
+    strapi.log.warn('Could not auto-link service media during bootstrap:', error);
+  }
+}
+
 export default {
   register({ strapi }: { strapi: Core.Strapi }) {
     strapi.customFields.register({
@@ -364,6 +477,7 @@ export default {
       await seedSingleTypes(strapi);
       await seedCollections(strapi);
       await ensureTickerAndWhyChooseIcons(strapi);
+      await ensureServiceMedia(strapi);
     } catch (error) {
       strapi.log.error(
         'Initial starter bootstrap skipped or encountered an error:',

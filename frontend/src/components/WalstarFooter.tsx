@@ -111,6 +111,33 @@ function buildFallbackLinkColumns(siteSetting?: SiteSetting): FooterColumn[] {
   ];
 }
 
+export type AboutLogoProp =
+  | StrapiMedia
+  | { url?: string | null; src?: string; alternativeText?: string | null }
+  | { src: string; width?: number; height?: number }
+  | string
+  | null;
+
+const DEFAULT_ABOUT_LOGO_URL = '/images/about/walstar-origami.gif';
+
+function resolveAboutLogoUrl(
+  input: AboutLogoProp | undefined | null
+): string | null {
+  if (!input) return null;
+  if (typeof input === 'string') {
+    return getStrapiMediaUrl(input);
+  }
+  if (typeof input === 'object') {
+    if ('src' in input && typeof input.src === 'string') {
+      return input.src;
+    }
+    if ('url' in input && typeof input.url === 'string') {
+      return getStrapiMediaUrl(input.url);
+    }
+  }
+  return null;
+}
+
 export function WalstarFooter({
   footer,
   siteSetting,
@@ -121,7 +148,7 @@ export function WalstarFooter({
   siteSetting?: SiteSetting;
   source?: 'strapi' | 'fallback';
   trailingCta?: CtaBandSection | null;
-  aboutLogo?: StrapiMedia | string | null;
+  aboutLogo?: AboutLogoProp;
 }) {
   const fallbackSetting = siteSetting ?? DEFAULT_SITE_SETTING;
   const resolved = {
@@ -130,7 +157,10 @@ export function WalstarFooter({
       footer?.logoAccentText || fallbackSetting.footerLogoAccentText,
     aboutText: footer?.aboutText || fallbackSetting.footerAbout,
     aboutLogo:
-      aboutLogo ?? footer?.aboutLogo ?? fallbackSetting.footerAboutLogo ?? null,
+      aboutLogo ??
+      footer?.aboutLogo ??
+      fallbackSetting.footerAboutLogo ??
+      DEFAULT_ABOUT_LOGO_URL,
     consultationShow: footer?.consultationShow ?? true,
     consultationTitle:
       footer?.consultationTitle || fallbackSetting.footerNewsletterTitle,
@@ -162,10 +192,7 @@ export function WalstarFooter({
   };
 
   const logoUrl = getStrapiMediaUrl(resolved.logoImage?.url);
-  const aboutLogoUrl =
-    typeof resolved.aboutLogo === 'string'
-      ? resolved.aboutLogo
-      : getStrapiMediaUrl(resolved.aboutLogo?.url);
+  const aboutLogoUrl = resolveAboutLogoUrl(resolved.aboutLogo);
 
   return (
     <div className="end" id="cta">
@@ -212,14 +239,21 @@ export function WalstarFooter({
                     src={aboutLogoUrl}
                     alt={
                       typeof resolved.aboutLogo === 'object' &&
-                      resolved.aboutLogo?.alternativeText
+                      resolved.aboutLogo &&
+                      'alternativeText' in resolved.aboutLogo &&
+                      resolved.aboutLogo.alternativeText
                         ? resolved.aboutLogo.alternativeText
                         : 'About Walstar'
                     }
                     width={44}
                     height={44}
                     className="fabout-badge-img"
-                    style={{ display: 'block', width: 44, height: 44 }}
+                    style={{
+                      display: 'block',
+                      width: 44,
+                      height: 44,
+                      objectFit: 'contain',
+                    }}
                   />
                 ) : (
                   <WalstarOrigamiBadgeStar />

@@ -78,6 +78,15 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
+function getTestimonialFallbackAvatar(authorName?: string): string | null {
+  if (!authorName) return null;
+  const s = authorName.toLowerCase();
+  if (s.includes('nathan')) return '/images/testimonials/nathan-fowler.png';
+  if (s.includes('fred')) return '/images/testimonials/fred-fuller.png';
+  if (s.includes('derek')) return '/images/testimonials/derek-campbell.png';
+  return null;
+}
+
 function TestimonialCard({
   item,
   isCenter,
@@ -85,7 +94,7 @@ function TestimonialCard({
   item: TestimonialItem;
   isCenter: boolean;
 }) {
-  const avatarUrl = getStrapiMediaUrl(item.avatar?.url);
+  const avatarUrl = getStrapiMediaUrl(item.avatar?.url) || getTestimonialFallbackAvatar(item.authorName);
 
   return (
     <article className={isCenter ? 't mid' : 't'}>
@@ -132,9 +141,19 @@ export function TestimonialsCarousel({
 
   const [cursor, setCursor] = useState(initialIndex);
   const [stepDir, setStepDir] = useState<0 | 1 | -1>(0);
+  const [dragOffset, setDragOffset] = useState<number | null>(null);
+  const [isSnapping, setIsSnapping] = useState(false);
+  const [userInteractedAt, setUserInteractedAt] = useState(0);
 
   const trackRef = useRef<HTMLDivElement | null>(null);
   const fallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+  const isHorizontalSwipeRef = useRef<boolean | null>(null);
+  const currentDragRef = useRef<number>(0);
+
+  const isMouseDownRef = useRef(false);
+  const mouseStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const commitStep = useCallback((direction: 1 | -1) => {
     if (fallbackTimerRef.current) {
@@ -177,12 +196,14 @@ export function TestimonialsCarousel({
   }, []);
 
   useEffect(() => {
-    if (count <= 1 || stepDir !== 0) return;
+    if (count <= 1 || stepDir !== 0 || dragOffset !== null) return;
+    const isRecentlyInteracted = Date.now() - userInteractedAt < 4500;
+    const delay = isRecentlyInteracted ? 4500 : HOLD_DURATION_MS;
     const holdTimer = setTimeout(() => {
       triggerStep(1);
-    }, HOLD_DURATION_MS);
+    }, delay);
     return () => clearTimeout(holdTimer);
-  }, [count, stepDir, triggerStep]);
+  }, [count, cursor, dragOffset, stepDir, triggerStep, userInteractedAt]);
 
   const handleTrackTransitionEnd = (e: TransitionEvent<HTMLDivElement>) => {
     if (
@@ -194,10 +215,107 @@ export function TestimonialsCarousel({
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (stepDir !== 0 || count <= 1) return;
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+    isHorizontalSwipeRef.current = null;
+    currentDragRef.current = 0;
+    setIsSnapping(false);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!touchStartRef.current || stepDir !== 0 || count <= 1) return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - touchStartRef.current.x;
+    const dy = touch.clientY - touchStartRef.current.y;
+
+    if (isHorizontalSwipeRef.current === null) {
+      if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
+        isHorizontalSwipeRef.current = Math.abs(dx) >= Math.abs(dy);
+      }
+    }
+
+    if (isHorizontalSwipeRef.current === true) {
+      currentDragRef.current = dx;
+      setDragOffset(dx);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartRef.current && isHorizontalSwipeRef.current === true) {
+      const dx = currentDragRef.current;
+      const threshold = 40;
+      setUserInteractedAt(Date.now());
+
+      if (dx < -threshold) {
+        setDragOffset(null);
+        triggerStep(1);
+      } else if (dx > threshold) {
+        setDragOffset(null);
+        triggerStep(-1);
+      } else {
+        setIsSnapping(true);
+        setDragOffset(null);
+        setTimeout(() => setIsSnapping(false), 280);
+      }
+    }
+    touchStartRef.current = null;
+    isHorizontalSwipeRef.current = null;
+    currentDragRef.current = 0;
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 0 || stepDir !== 0 || count <= 1) return;
+    isMouseDownRef.current = true;
+    mouseStartRef.current = { x: e.clientX, y: e.clientY };
+    currentDragRef.current = 0;
+    setIsSnapping(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isMouseDownRef.current || !mouseStartRef.current || stepDir !== 0 || count <= 1) return;
+    const dx = e.clientX - mouseStartRef.current.x;
+    if (Math.abs(dx) > 4) {
+      currentDragRef.current = dx;
+      setDragOffset(dx);
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (isMouseDownRef.current) {
+      isMouseDownRef.current = false;
+      const dx = currentDragRef.current;
+      const threshold = 40;
+      setUserInteractedAt(Date.now());
+
+      if (dx < -threshold) {
+        setDragOffset(null);
+        triggerStep(1);
+      } else if (dx > threshold) {
+        setDragOffset(null);
+        triggerStep(-1);
+      } else if (dx !== 0) {
+        setIsSnapping(true);
+        setDragOffset(null);
+        setTimeout(() => setIsSnapping(false), 280);
+      }
+      currentDragRef.current = 0;
+      mouseStartRef.current = null;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isMouseDownRef.current) {
+      handleMouseUp();
+    }
+  };
+
   const activeDotIndex = wrapIndex(cursor + stepDir, count);
 
   const handleDotClick = (targetIdx: number) => {
     if (count <= 1 || stepDir !== 0) return;
+    setUserInteractedAt(Date.now());
     const currentMod = wrapIndex(cursor, count);
     if (targetIdx === currentMod) return;
 
@@ -244,10 +362,28 @@ export function TestimonialsCarousel({
         </h2>
       </div>
 
-      <div className="tviewport">
+      <div
+        className={`tviewport${dragOffset !== null ? ' is-dragging' : ''}`}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+      >
         <div
           ref={trackRef}
-          className={`ttrack${stepDir === 1 ? ' is-next' : stepDir === -1 ? ' is-prev' : ''}`}
+          className={`ttrack${stepDir === 1 ? ' is-next' : stepDir === -1 ? ' is-prev' : ''}${isSnapping ? ' is-snapping' : ''}`}
+          style={
+            dragOffset !== null && stepDir === 0
+              ? {
+                  transform: `translate3d(calc(var(--t-rest) + ${dragOffset}px), 0, 0)`,
+                  transition: 'none',
+                }
+              : undefined
+          }
           onTransitionEnd={handleTrackTransitionEnd}
         >
           {SLIDE_OFFSETS.map((offset) => {

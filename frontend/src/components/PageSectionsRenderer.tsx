@@ -65,6 +65,26 @@ function cleanPillTag(text?: string | null): string {
   return text.replace(/^[●•\s\u25CF\u2022]+/, '').trim();
 }
 
+export function getPartnerLogoFallback(name?: string | null): string | null {
+  if (!name) return null;
+  const s = name.toLowerCase();
+  if (s.includes('bigcommerce')) return '/images/partners/bigcommerce.png';
+  if (s.includes('shopify')) return '/images/partners/shopify.png';
+  if (s.includes('blacksmith')) return '/images/partners/blacksmith.png';
+  if (s.includes('razorpay')) return '/images/partners/razorpay.png';
+  if (s.includes('certified')) return '/images/partners/certified.png';
+  if (s.includes('clutch')) return '/images/partners/clutch.png';
+  return null;
+}
+
+export function getProductFallbackImage(_slugOrName?: string | null): string {
+  return '/images/placeholder.png';
+}
+
+export function getCaseStudyFallbackImage(_slugOrTitle?: string | null): string {
+  return '/images/placeholder.png';
+}
+
 function PartnerLogoContent({
   logo,
   imgClassName,
@@ -74,7 +94,7 @@ function PartnerLogoContent({
   imgClassName: string;
   textClassName?: string;
 }) {
-  const imgUrl = getStrapiMediaUrl(logo.image?.url);
+  const imgUrl = getStrapiMediaUrl(logo.image?.url) || getPartnerLogoFallback(logo.name);
   if (imgUrl) {
     return (
       <Image
@@ -160,7 +180,10 @@ function HeroBlock({
   const isCompact = section.variant === 'compact';
   const isContactPage = pageType === 'contact';
   const isAboutPage = pageType === 'about';
-  const isServicePage = pageType === 'service' || currentPath === '/service-1';
+  const isServicePage =
+    pageType === 'service' ||
+    Boolean(currentPath?.startsWith('/service')) ||
+    currentPath === '/custom-software-development';
   // Contact, about, and service pages share the same compact-hero banner treatment
   const isContactLikePage = isContactPage || isAboutPage || isServicePage;
   const HeroWrapper = includeNavbar ? 'header' : 'section';
@@ -181,21 +204,15 @@ function HeroBlock({
     : section.chip;
   const heroChip = rawHeroChip ? rawHeroChip.replace(/^[●•\s\u25CF\u2022]+/, '').trim() : null;
 
-  const heroHeadlinePrefix = isServicePage
-    ? null
-    : formatHeroHeadingPrefix(section.headlinePrefix);
-  const heroHeadlineSerif = isServicePage
-    ? (section.headlineSerif || 'AI')
-    : section.headlineSerif;
-  const heroHeadlineSuffix = isServicePage
-    ? (section.headlineSuffix && section.headlineSuffix.includes('\n')
-        ? section.headlineSuffix
-        : 'Solutions &\nBusiness Automation')
-    : isContactLikePage && isCompact && section.headlineSuffix
-    ? section.headlineSuffix.startsWith('\n')
-      ? section.headlineSuffix
-      : `\n${section.headlineSuffix}`
-    : section.headlineSuffix;
+  const heroHeadlinePrefix = section.headlinePrefix
+    ? formatHeroHeadingPrefix(section.headlinePrefix)
+    : null;
+  const heroHeadlineSerif = section.headlineSerif ?? null;
+  const heroHeadlineSuffix = section.headlineSuffix
+    ? isContactLikePage && isCompact && section.headlineSuffix && !section.headlineSuffix.includes('\n')
+      ? `\n${section.headlineSuffix}`
+      : section.headlineSuffix
+    : null;
 
   return (
     <HeroWrapper className={wrapperClass}>
@@ -440,46 +457,55 @@ function ProductsShowcaseBlock({
 
         <div className="pgrid">
           {featuredProduct ? (
-            <article className="feat">
-              <div
-                className="img relative"
-                style={
-                  featuredProduct.accentGradient
-                    ? { background: featuredProduct.accentGradient }
-                    : undefined
-                }
-              >
-                {getStrapiMediaUrl(featuredProduct.image?.url) ? (
-                  <Image
-                    src={getStrapiMediaUrl(featuredProduct.image?.url)!}
-                    alt={
-                      featuredProduct.image?.alternativeText || featuredProduct.name
+            (() => {
+              const featuredImgUrl =
+                getStrapiMediaUrl(featuredProduct.image?.url) ||
+                getProductFallbackImage(featuredProduct.slug || featuredProduct.name);
+              return (
+                <article className="feat">
+                  <div
+                    className="img relative"
+                    style={
+                      featuredProduct.accentGradient
+                        ? { background: featuredProduct.accentGradient }
+                        : undefined
                     }
-                    fill
-                    sizes="(max-width: 900px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                ) : null}
-              </div>
-              <div className="txt">
-                <h4>{featuredProduct.name}</h4>
-                {featuredProduct.tagline ? (
-                  <small>{featuredProduct.tagline}</small>
-                ) : null}
-                <p>{featuredProduct.description}</p>
-                <WalstarButton
-                  variant="compact-blue"
-                  href={`/products/${encodeURIComponent(featuredProduct.slug)}`}
-                >
-                  {featuredProduct.ctaLabel || 'Read More'}
-                </WalstarButton>
-              </div>
-            </article>
+                  >
+                    {featuredImgUrl ? (
+                      <Image
+                        src={featuredImgUrl}
+                        alt={
+                          featuredProduct.image?.alternativeText || featuredProduct.name
+                        }
+                        fill
+                        sizes="(max-width: 900px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    ) : null}
+                  </div>
+                  <div className="txt">
+                    <h4>{featuredProduct.name}</h4>
+                    {featuredProduct.tagline ? (
+                      <small>{featuredProduct.tagline}</small>
+                    ) : null}
+                    <p>{featuredProduct.description}</p>
+                    <WalstarButton
+                      variant="compact-blue"
+                      href={`/products/${encodeURIComponent(featuredProduct.slug)}`}
+                    >
+                      {featuredProduct.ctaLabel || 'Read More'}
+                    </WalstarButton>
+                  </div>
+                </article>
+              );
+            })()
           ) : null}
 
           <div className="plist">
             {secondaryProducts.map((product) => {
-              const mediaUrl = getStrapiMediaUrl(product.image?.url);
+              const mediaUrl =
+                getStrapiMediaUrl(product.image?.url) ||
+                getProductFallbackImage(product.slug || product.name);
               return (
                 <article
                   key={product.documentId || product.slug}
@@ -538,10 +564,12 @@ function TrustMarqueeRow({
   logos,
   direction = 'left',
   durationSeconds,
+  rowClassName,
 }: {
   logos: PartnerLogo[];
   direction?: 'left' | 'right';
   durationSeconds?: number | null;
+  rowClassName?: string;
 }) {
   const groupLogos = expandTrustRowLogos(logos);
   if (groupLogos.length === 0) return null;
@@ -553,7 +581,7 @@ function TrustMarqueeRow({
   const directionClass = direction === 'right' ? 'is-right' : 'is-left';
 
   return (
-    <div className="trust-marquee-row">
+    <div className={`trust-marquee-row${rowClassName ? ` ${rowClassName}` : ''}`}>
       <div
         className={`trust-marquee-track ${directionClass}`}
         style={
@@ -639,6 +667,7 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
               logos={topRowLogos}
               direction={topDirection}
               durationSeconds={topDuration}
+              rowClassName="trust-row-1"
             />
           ) : null}
           {bottomRowLogos.length > 0 ? (
@@ -646,6 +675,7 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
               logos={bottomRowLogos}
               direction={bottomDirection}
               durationSeconds={bottomDuration}
+              rowClassName="trust-row-2"
             />
           ) : null}
         </div>
@@ -687,7 +717,9 @@ function CaseStudiesBlock({
 
       <div className="wrap cgrid">
         {caseStudies.map((cs, idx) => {
-          const coverUrl = getStrapiMediaUrl(cs.coverImage?.url);
+          const coverUrl =
+            getStrapiMediaUrl(cs.coverImage?.url) ||
+            getCaseStudyFallbackImage(cs.slug || cs.title);
           const isWideCard = idx % 2 === 0;
 
           const clientLabel = cs.metaOneLabel || 'CLIENT';
@@ -733,9 +765,9 @@ function CaseStudiesBlock({
                       <circle cx="12" cy="7" r="4" />
                       <path d="M5 21v-2a7 7 0 0 1 14 0v2" strokeLinecap="round" />
                     </svg>
-                    <span>
-                      {clientLabel}
-                      <b>{clientValue}</b>
+                    <span className="meta-text">
+                      <span className="meta-label">{clientLabel}</span>
+                      <b className="meta-value">{clientValue}</b>
                     </span>
                   </div>
 
@@ -754,9 +786,9 @@ function CaseStudiesBlock({
                       />
                       <circle cx="12" cy="10" r="2.5" />
                     </svg>
-                    <span>
-                      {regionLabel}
-                      <b>{regionValue}</b>
+                    <span className="meta-text">
+                      <span className="meta-label">{regionLabel}</span>
+                      <b className="meta-value">{regionValue}</b>
                     </span>
                   </div>
 
@@ -772,9 +804,9 @@ function CaseStudiesBlock({
                       <circle cx="12" cy="12" r="9" />
                       <path d="M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18M3 12h18" strokeLinecap="round" />
                     </svg>
-                    <span>
-                      {projectTypeLabel}
-                      <b>{projectTypeValue}</b>
+                    <span className="meta-text">
+                      <span className="meta-label">{projectTypeLabel}</span>
+                      <b className="meta-value">{projectTypeValue}</b>
                     </span>
                   </div>
                 </div>
