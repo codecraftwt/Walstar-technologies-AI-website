@@ -9,6 +9,8 @@
     "icon": { "type": "string", "default": "⚙" },
     "title": { "type": "string", "required": true },
     "description": { "type": "text" },
+    "tag": { "type": "string" },
+    "more": { "type": "string" },
     "isDark": { "type": "boolean", "default": false },
     "ctaLabel": { "type": "string" },
     "ctaHref": { "type": "string" }

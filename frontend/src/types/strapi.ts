@@ -100,6 +100,11 @@ export interface ServiceItem {
   title: string;
   slug: string;
   description: string;
+  tag?: string | null;
+  more?: string | null;
+  moreLabel?: string | null;
+  moreHref?: string | null;
+  isWide?: boolean | null;
   icon: string;
   iconImage?: StrapiMedia | null;
   themeVariant: 'a' | 'b' | 'c' | 'd';
@@ -524,6 +529,8 @@ export interface SvcCapabilityItem {
   icon?: string | null;
   title: string;
   description?: string | null;
+  tag?: string | null;
+  more?: string | null;
   isDark?: boolean | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;

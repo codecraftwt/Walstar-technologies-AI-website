@@ -206,6 +206,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-1',
     title: 'AI Solutions & Business Automation',
     slug: 'ai-solutions-business-automation',
+    tag: 'Work smarter',
+    more: 'Explore AI solutions',
+    isWide: true,
     description:
       'We build AI chatbots, process automation, and intelligent digital solutions that streamline operations, boost efficiency, and deliver smarter, modern experiences.',
     icon: '✦',
@@ -223,6 +226,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-2',
     title: 'Digital Marketing & Performance Growth',
     slug: 'digital-marketing-performance-growth',
+    tag: 'Grow with intent',
+    more: 'Explore digital growth',
+    isWide: false,
     description:
       'Improve AI-search visibility, attract relevant visitors, generate qualified leads, and optimize digital campaigns using measurable performance data.',
     icon: '◀',
@@ -240,6 +246,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-3',
     title: 'Custom Software Development',
     slug: 'custom-software-development',
+    tag: 'Built around you',
+    more: 'Explore business software',
+    isWide: false,
     description:
       'Simplify business operations with custom ERP systems, CRM platforms, inventory management, automated workflows, and connected business applications.',
     icon: '▣',
@@ -257,6 +266,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-4',
     title: 'Web & SaaS Product Development',
     slug: 'web-saas-product-development',
+    tag: 'Made to scale',
+    more: 'Web & SaaS development',
+    isWide: false,
     description:
       'Fast, secure, search-friendly websites and scalable SaaS platforms, built on modern technology with performance and SEO included from day one.',
     icon: '◉',
@@ -274,6 +286,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-5',
     title: 'Mobile App Development',
     slug: 'mobile-app-development',
+    tag: 'Made for people',
+    more: 'Explore mobile apps',
+    isWide: false,
     description:
       'Reach customers wherever they are with intuitive Android and iOS apps, dependable integrations, and a scalable foundation.',
     icon: '📱',
@@ -287,6 +302,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-6',
     title: 'ECommerce & Shopify Solutions',
     slug: 'ecommerce-shopify-solutions',
+    tag: 'Sell with impact',
+    more: 'Explore eCommerce',
+    isWide: false,
     description:
       'Create smooth digital shopping experiences with B2B portals and the payment, shipping, and inventory tools you need.',
     icon: '🛍',
@@ -300,6 +318,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-7',
     title: 'Cloud, DevOps & Platform Engineering',
     slug: 'cloud-devops-platform-engineering',
+    tag: 'Engineered to last',
+    more: 'Explore cloud solutions',
+    isWide: false,
     description:
       'Ship with confidence using secure cloud foundations and smarter deployments that keep applications fast, stable.',
     icon: '☁',
@@ -313,6 +334,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-8',
     title: 'Cybersecurity & Managed IT',
     slug: 'cybersecurity-managed-it',
+    tag: 'Built to defend',
+    more: 'Explore security',
+    isWide: false,
     description:
       'Protect your systems and keep applications healthy, secure, and reliable with responsive ongoing technical support.',
     icon: '🛡',
@@ -326,6 +350,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-9',
     title: 'UI/UX & Product Design',
     slug: 'ui-ux-product-design',
+    tag: 'Design that connects',
+    more: 'Explore product design',
+    isWide: false,
     description:
       'Turn user research and testing into clear, on-brand experiences designed to earn sign-ups, sales.',
     icon: '✏',
@@ -339,6 +366,9 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     documentId: 'seed-service-10',
     title: 'White-Label Development & Dedicated Teams',
     slug: 'white-label-development-dedicated-teams',
+    tag: 'Build together',
+    more: 'Explore team partnerships',
+    isWide: false,
     description:
       'Extend your team without the hiring burden. Work with us as a confidential delivery partner, or add dedicated developers to your own workflow.',
     icon: '👥',
@@ -347,6 +377,22 @@ export const DEFAULT_SERVICES: ServiceItem[] = [
     },
     themeVariant: 'b',
     order: 10,
+  },
+  {
+    documentId: 'seed-service-11',
+    title: 'Amazon EBC & Brand Content',
+    slug: 'amazon-ebc-brand-content',
+    tag: 'Make your brand stand out',
+    more: 'Explore Amazon EBC Services',
+    isWide: false,
+    description:
+      'Enhance your Amazon product listings with compelling A+ Content, engaging Brand Stories, and professional Brand Stores that build trust, showcase your brand, and drive more conversions.',
+    icon: '🛍',
+    iconImage: {
+      url: '/images/capabilities/ecommerce.png',
+    },
+    themeVariant: 'a',
+    order: 11,
   },
 ];
 

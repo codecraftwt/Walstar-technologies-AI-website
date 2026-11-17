@@ -25,6 +25,19 @@
       "type": "text",
       "required": true
     },
+    "tag": {
+      "type": "string"
+    },
+    "more": {
+      "type": "string"
+    },
+    "moreHref": {
+      "type": "string"
+    },
+    "isWide": {
+      "type": "boolean",
+      "default": false
+    },
     "icon": {
       "type": "string",
       "default": "✦"

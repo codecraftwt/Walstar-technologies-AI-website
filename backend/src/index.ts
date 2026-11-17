@@ -156,7 +156,20 @@ async function seedCollections(strapi: Core.Strapi): Promise<void> {
       filters: { slug: item.slug },
     });
     if (!existing) {
-      await serviceDoc.create({ data: item, status: 'published' });
+      await serviceDoc.create({ data: item as never, status: 'published' });
+    } else {
+      const existingRecord = existing as Record<string, unknown>;
+      if (!existingRecord.tag || !existingRecord.more) {
+        await serviceDoc.update({
+          documentId: existing.documentId,
+          data: {
+            tag: existingRecord.tag || item.tag,
+            more: existingRecord.more || item.more,
+            isWide: typeof existingRecord.isWide === 'boolean' ? existingRecord.isWide : item.isWide,
+          } as never,
+          status: 'published',
+        });
+      }
     }
   }
 

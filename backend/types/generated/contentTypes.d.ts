@@ -763,15 +763,19 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u2726'>;
     iconImage: Schema.Attribute.Media<'images'>;
     image: Schema.Attribute.Media<'images'>;
+    isWide: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::service.service'
     > &
       Schema.Attribute.Private;
+    more: Schema.Attribute.String;
+    moreHref: Schema.Attribute.String;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    tag: Schema.Attribute.String;
     themeVariant: Schema.Attribute.Enumeration<['a', 'b', 'c', 'd']> &
       Schema.Attribute.DefaultTo<'a'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;

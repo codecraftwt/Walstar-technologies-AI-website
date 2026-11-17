@@ -1003,6 +1003,8 @@ export interface ServiceCapabilityItem extends Struct.ComponentSchema {
     description: Schema.Attribute.Text;
     icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\u2699'>;
     isDark: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    more: Schema.Attribute.String;
+    tag: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }

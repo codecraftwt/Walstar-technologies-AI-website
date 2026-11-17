@@ -796,3 +796,6 @@ export function SvcCtaBlock({ section }: { section: SvcCtaSection }) {
     </section>
   );
 }
+
+export { CapabilitiesBlock, WWD_CARDS } from '@/components/CapabilitiesSection';
+

@@ -120,6 +120,16 @@ export function WwdIcon10() {
   );
 }
 
+export function WwdIcon11() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M4 4h16l1.2 5.5a3 3 0 01-2.9 3.5 3 3 0 01-2.6-1.5A3 3 0 0113 13a3 3 0 01-2-1A3 3 0 018.3 13a3 3 0 01-2.6-1.5 3 3 0 01-2.9-3.5L4 4z" fill="currentColor" />
+      <path d="M5 14v5.5a1.5 1.5 0 001.5 1.5h11a1.5 1.5 0 001.5-1.5V14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M10 17.5h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </svg>
+  );
+}
+
 /* ─── Flexible Icon Rendering Helper ────────────────────────────────── */
 export function renderCardIcon(card: WwdCardItem): React.ReactNode {
   // 1. If a custom icon image was uploaded in Strapi CMS (/uploads/ or http)
@@ -401,7 +411,7 @@ export const WWD_CARDS: WwdCardItem[] = [
   },
   {
     slug: 'white-label-development-dedicated-teams',
-    isWide: true,
+    isWide: false,
     colorClass: 'c-lav',
     tag: 'Build together',
     iconImage: '/images/capabilities/dedicated-teams.png',
@@ -413,12 +423,37 @@ export const WWD_CARDS: WwdCardItem[] = [
     ),
     description: (
       <>
-        Extend your team without the hiring burden. Work with us as a confidential
-        <br className="d" /> delivery partner, or add dedicated developers to your own workflow.
+        Extend your team without the hiring
+        <br className="d" /> burden. Work with us as a
+        <br className="d" /> confidential delivery partner,
+        <br className="d" /> or add dedicated developers.
       </>
     ),
     moreLabel: 'Explore team partnerships',
     href: '/contact',
+  },
+  {
+    slug: 'amazon-ebc-brand-content',
+    isWide: false,
+    colorClass: 'c-peach',
+    tag: 'Make your brand stand out',
+    iconImage: '/images/capabilities/ecommerce.png',
+    icon: <WwdIcon11 />,
+    title: (
+      <>
+        Amazon EBC &amp;<br />Brand Content
+      </>
+    ),
+    description: (
+      <>
+        Enhance your Amazon listings with
+        <br className="d" /> compelling A+ Content, engaging
+        <br className="d" /> Brand Stories, and professional Brand
+        <br className="d" /> Stores that drive conversions.
+      </>
+    ),
+    moreLabel: 'Explore Amazon EBC Services',
+    href: '/services/amazon-ebc-brand-content',
   },
 ];
 
@@ -438,6 +473,7 @@ export function formatCardTitle(title?: string | React.ReactNode, slug?: string)
     'cybersecurity-managed-it': ['Cybersecurity &', 'Managed IT'],
     'ui-ux-product-design': ['UI/UX & Product', 'Design'],
     'white-label-development-dedicated-teams': ['White-Label Development &', 'Dedicated Teams'],
+    'amazon-ebc-brand-content': ['Amazon EBC &', 'Brand Content'],
   };
 
   if (slug && WRAPS[slug]) {
@@ -528,11 +564,12 @@ export function CapabilitiesBlock({
       : null;
 
     const href =
-      matchingService.slug === 'ai-solutions-business-automation' || matchingService.slug === 'ai-solutions'
+      matchingService.moreHref ||
+      (matchingService.slug === 'ai-solutions-business-automation' || matchingService.slug === 'ai-solutions'
         ? '/service-1'
         : matchingService.slug
         ? `/services/${matchingService.slug}`
-        : defaultCard.href;
+        : defaultCard.href);
 
     const formattedTitle = matchingService.title
       ? formatCardTitle(matchingService.title, defaultCard.slug)
@@ -540,8 +577,12 @@ export function CapabilitiesBlock({
 
     return {
       ...defaultCard,
+      tag: matchingService.tag || defaultCard.tag,
       title: formattedTitle || defaultCard.title,
-      description: defaultCard.description,
+      description: matchingService.description || defaultCard.description,
+      moreLabel: matchingService.more || matchingService.moreLabel || defaultCard.moreLabel,
+      colorClass: defaultCard.colorClass,
+      isWide: typeof matchingService.isWide === 'boolean' ? matchingService.isWide : defaultCard.isWide,
       iconImage: strapiIcon || defaultCard.iconImage,
       href,
     };
