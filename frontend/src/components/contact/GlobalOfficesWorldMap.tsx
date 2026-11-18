@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import type { GlobalOfficesSection } from '@/types/strapi';
-import { renderMultilineText } from '@/components/SectionPrimitives';
-import { WalstarButton } from '@/components/WalstarButton';
+import { renderMultilineText } from '@/components/common/SectionPrimitives';
+import { WalstarButton } from '@/components/common/WalstarButton';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 
 // Calibrated Robinson projection onto the 1024x465 realistic world map
@@ -948,9 +948,36 @@ function formatMarkerSummaryLabel(locations: OfficeSubLocation[], countryName: s
 export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSection }) {
   const [activePointId, setActivePointId] = useState<string | null>(null);
   const [activeSubIndices, setActiveSubIndices] = useState<Record<string, number>>({});
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'in' | 'us' | 'uk' | 'au'>('all');
+  const [selectedFilter, setSelectedFilter] = useState<'all' | CountryCode>('all');
   const [activeOfficeId, setActiveOfficeId] = useState<string | null>(null);
+  const [isCompactViewport, setIsCompactViewport] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const mqCompact = window.matchMedia('(max-width: 1024px)');
+    const mqMobile = window.matchMedia('(max-width: 767px)');
+    const syncViewport = () => {
+      setIsCompactViewport(mqCompact.matches);
+      setIsMobileViewport(mqMobile.matches);
+    };
+    syncViewport();
+
+    if (typeof mqCompact.addEventListener === 'function') {
+      mqCompact.addEventListener('change', syncViewport);
+      mqMobile.addEventListener('change', syncViewport);
+      return () => {
+        mqCompact.removeEventListener('change', syncViewport);
+        mqMobile.removeEventListener('change', syncViewport);
+      };
+    }
+    mqCompact.addListener(syncViewport);
+    mqMobile.addListener(syncViewport);
+    return () => {
+      mqCompact.removeListener(syncViewport);
+      mqMobile.removeListener(syncViewport);
+    };
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -961,6 +988,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
   }, []);
 
   const handlePointEnter = (id: string) => {
+    if (isCompactViewport) return;
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
       hoverTimeoutRef.current = null;
@@ -969,6 +997,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
   };
 
   const handlePointLeave = () => {
+    if (isCompactViewport) return;
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
@@ -976,6 +1005,20 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
       setActivePointId(null);
       setActiveOfficeId(null);
     }, 180);
+  };
+
+  const handleMarkerToggle = (marker: RealisticMapMarker) => {
+    if (activePointId === marker.id) {
+      setActivePointId(null);
+      setActiveOfficeId(null);
+      return;
+    }
+    setActivePointId(marker.id);
+    if (marker.locations.length === 1) {
+      setActiveOfficeId(marker.locations[0].id);
+    } else {
+      setActiveOfficeId(null);
+    }
   };
 
   const offices = section.offices ?? [];
@@ -1120,80 +1163,13 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
     return markers.filter((m) => m.countryCode === selectedFilter);
   }, [markers, selectedFilter]);
 
+  const activeMarker = useMemo(
+    () => markers.find((m) => m.id === activePointId) ?? null,
+    [markers, activePointId]
+  );
+
   return (
     <div className="walstar-realistic-map-wrapper">
-      {/* Country Filter Navigation Bar */}
-      {/* <div className="realistic-filter-bar" role="tablist" aria-label="Filter locations by country">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={selectedFilter === 'all'}
-          className={`realistic-filter-pill ${selectedFilter === 'all' ? 'is-active' : ''}`}
-          onClick={() => {
-            setSelectedFilter('all');
-            setActivePointId(null);
-          }}
-        >
-          <span>🌍 All Global Locations</span>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected={selectedFilter === 'in'}
-          className={`realistic-filter-pill ${selectedFilter === 'in' ? 'is-active' : ''}`}
-          onClick={() => {
-            setSelectedFilter('in');
-            const inPt = markers.find((m) => m.countryCode === 'in');
-            if (inPt) setActivePointId(inPt.id);
-          }}
-        >
-          <span>🇮🇳 India (HQ)</span>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected={selectedFilter === 'us'}
-          className={`realistic-filter-pill ${selectedFilter === 'us' ? 'is-active' : ''}`}
-          onClick={() => {
-            setSelectedFilter('us');
-            const usPt = markers.find((m) => m.countryCode === 'us');
-            if (usPt) setActivePointId(usPt.id);
-          }}
-        >
-          <span>🇺🇸 USA</span>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected={selectedFilter === 'uk'}
-          className={`realistic-filter-pill ${selectedFilter === 'uk' ? 'is-active' : ''}`}
-          onClick={() => {
-            setSelectedFilter('uk');
-            const ukPt = markers.find((m) => m.countryCode === 'uk');
-            if (ukPt) setActivePointId(ukPt.id);
-          }}
-        >
-          <span>🇬🇧 United Kingdom</span>
-        </button>
-
-        <button
-          type="button"
-          role="tab"
-          aria-selected={selectedFilter === 'au'}
-          className={`realistic-filter-pill ${selectedFilter === 'au' ? 'is-active' : ''}`}
-          onClick={() => {
-            setSelectedFilter('au');
-            const auPt = markers.find((m) => m.countryCode === 'au');
-            if (auPt) setActivePointId(auPt.id);
-          }}
-        >
-          <span>🇦🇺 Australia</span>
-        </button>
-      </div> */}
-
       {/* Realistic World Map Canvas */}
       <div className="realistic-map-canvas-box">
         {/* Authentic Realistic World Map Image (1024x465) */}
@@ -1240,6 +1216,50 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
               linePathD = `M ${marker.dotX} ${marker.dotY} L ${marker.dotX} ${bracketY + 10} Q ${marker.dotX} ${bracketY} ${marker.dotX - 12} ${bracketY} L ${cardLeft} ${bracketY} M ${marker.dotX} ${bracketY + 10} Q ${marker.dotX} ${bracketY} ${marker.dotX + 12} ${bracketY} L ${cardRight} ${bracketY}`;
             }
 
+            const dotRadius = isMobileViewport
+              ? isActive
+                ? 15
+                : isHq
+                ? 13
+                : 12
+              : isCompactViewport
+              ? isActive
+                ? 11
+                : isHq
+                ? 9.5
+                : 8.5
+              : isActive
+              ? isHq
+                ? 8
+                : 7
+              : isHq
+              ? 6.5
+              : 5.5;
+
+            const haloRadius = isMobileViewport
+              ? isActive
+                ? 26
+                : 20
+              : isCompactViewport
+              ? isActive
+                ? 19
+                : 15
+              : isActive
+              ? 14
+              : 11;
+
+            const dotStrokeWidth = isMobileViewport
+              ? isActive
+                ? 4.2
+                : 3.6
+              : isCompactViewport
+              ? isActive
+                ? 3.4
+                : 2.8
+              : isActive
+              ? 2.8
+              : 2.2;
+
             return (
               <g
                 key={`svg-marker-${marker.id}`}
@@ -1261,10 +1281,10 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                 <circle
                   cx={marker.dotX}
                   cy={marker.dotY}
-                  r="6"
+                  r={isMobileViewport ? 12 : 6}
                   fill="none"
                   stroke={marker.themeColor}
-                  strokeWidth="1.5"
+                  strokeWidth={isMobileViewport ? 2.8 : 1.8}
                   className="realistic-beacon-pulse-1"
                 />
 
@@ -1272,33 +1292,44 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                 <circle
                   cx={marker.dotX}
                   cy={marker.dotY}
-                  r="12"
+                  r={isMobileViewport ? 18 : 12}
                   fill="none"
                   stroke={marker.themeColor}
-                  strokeWidth="1.2"
+                  strokeWidth={isMobileViewport ? 2.2 : 1.4}
                   className="realistic-beacon-pulse-2"
+                />
+
+                {/* Soft Outer Visibility Halo */}
+                <circle
+                  cx={marker.dotX}
+                  cy={marker.dotY}
+                  r={haloRadius}
+                  fill={marker.themeColor}
+                  fillOpacity={isActive ? 0.28 : 0.18}
+                  className="realistic-beacon-halo"
                 />
 
                 {/* Solid Core Dot at Location */}
                 <circle
                   cx={marker.dotX}
                   cy={marker.dotY}
-                  r={isActive ? (isHq ? 6.5 : 5.5) : (isHq ? 5.5 : 4.5)}
+                  r={dotRadius}
                   fill={marker.themeColor}
                   stroke="#ffffff"
-                  strokeWidth={isActive ? 2.5 : 2}
+                  strokeWidth={dotStrokeWidth}
                   className="realistic-beacon-core"
                 />
 
-                {/* Generous stable invisible hit target (36px wide) to prevent jitter/glitches */}
+                {/* Generous stable invisible hit target (larger on touchscreens) */}
                 <circle
                   cx={marker.dotX}
                   cy={marker.dotY}
-                  r="18"
+                  r={isMobileViewport ? 36 : isCompactViewport ? 28 : 18}
                   fill="transparent"
                   stroke="transparent"
                   className="realistic-hit-target"
                   onMouseEnter={() => {
+                    if (isCompactViewport) return;
                     handlePointEnter(marker.id);
                     if (marker.locations.length === 1) {
                       setActiveOfficeId(marker.locations[0].id);
@@ -1307,7 +1338,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                     }
                   }}
                   onMouseLeave={handlePointLeave}
-                  onClick={() => setActivePointId(isActive ? null : marker.id)}
+                  onClick={() => handleMarkerToggle(marker)}
                 />
               </g>
             );
@@ -1320,6 +1351,12 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
             const isActive = activePointId === marker.id;
             const leftPct = (marker.cardX / 1024) * 100;
             const topPct = (marker.cardY / 465) * 100;
+            const tooltipAlignClass =
+              leftPct < 30
+                ? 'tooltip-align-left'
+                : leftPct > 65
+                ? 'tooltip-align-right'
+                : 'tooltip-align-center';
 
             return (
               <div
@@ -1331,6 +1368,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                   borderBottomColor: marker.themeColor,
                 }}
                 onMouseEnter={() => {
+                  if (isCompactViewport) return;
                   handlePointEnter(marker.id);
                   if (marker.locations.length === 1) {
                     setActiveOfficeId(marker.locations[0].id);
@@ -1339,7 +1377,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                   }
                 }}
                 onMouseLeave={handlePointLeave}
-                onClick={() => setActivePointId(isActive ? null : marker.id)}
+                onClick={() => handleMarkerToggle(marker)}
               >
                 <div className="callout-card-inner">
                   <div className="flag-circle-box">
@@ -1353,107 +1391,10 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                   ) : null}
                 </div>
 
-                {/* =========================================================================
-                    [DESIGN 1 - TABBED SUB-LOCATION POPUP] (Commented out for later evaluation)
-                    ========================================================================= */}
-                {/*
-                {isActive ? (() => {
-                  const currentSubIndex = activeSubIndices[marker.id] || 0;
-                  const activeLocation = marker.locations[currentSubIndex] || marker.locations[0];
-
-                  return (
-                    <div className="realistic-detail-tooltip" onClick={(e) => e.stopPropagation()}>
-                      <div className="tooltip-top-row">
-                        <div className="tooltip-title-col">
-                          <span className="tooltip-country">{marker.countryName}</span>
-                          {marker.locations.length > 1 ? (
-                            <span className="tooltip-hub-count">
-                              {marker.locations.length} Strategic Locations
-                            </span>
-                          ) : null}
-                        </div>
-                        {marker.isHeadquarters ? (
-                          <span className="tooltip-hq-tag">HQ</span>
-                        ) : null}
-                      </div>
-
-                      {marker.locations.length > 1 ? (
-                        <div className="tooltip-subloc-tabs">
-                          {marker.locations.map((loc, idx) => {
-                            const isSubActive = currentSubIndex === idx;
-                            return (
-                              <button
-                                key={`subtab-${loc.id || idx}`}
-                                type="button"
-                                className={`tooltip-subloc-tab ${isSubActive ? 'is-active' : ''}`}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setActiveSubIndices((prev) => ({ ...prev, [marker.id]: idx }));
-                                }}
-                                onMouseEnter={() => {
-                                  setActiveSubIndices((prev) => ({ ...prev, [marker.id]: idx }));
-                                }}
-                              >
-                                <span>{loc.city}</span>
-                                {loc.isHeadquarters ? <em className="subloc-hq-badge">HQ</em> : null}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      ) : null}
-
-                      {activeLocation ? (
-                        <div className="tooltip-subloc-content">
-                          {activeLocation.title &&
-                          activeLocation.title.toLowerCase() !== marker.countryName.toLowerCase() &&
-                          activeLocation.title.toLowerCase() !== activeLocation.city.toLowerCase() ? (
-                            <h5 className="tooltip-office-title">
-                              {activeLocation.title}
-                              {activeLocation.city ? (
-                                <span className="tooltip-office-city">
-                                  {' '}— {activeLocation.city}{activeLocation.state ? `, ${activeLocation.state}` : ''}
-                                </span>
-                              ) : null}
-                            </h5>
-                          ) : null}
-
-                          <div className="tooltip-coords-row">
-                            <span className="tooltip-gps-pill">
-                              📍 {Math.abs(activeLocation.latitude).toFixed(4)}° {activeLocation.latitude >= 0 ? 'N' : 'S'},{' '}
-                              {Math.abs(activeLocation.longitude).toFixed(4)}° {activeLocation.longitude >= 0 ? 'E' : 'W'}
-                            </span>
-                          </div>
-
-                          {activeLocation.address ? (
-                            <p className="tooltip-address">{activeLocation.address}</p>
-                          ) : null}
-
-                          <a
-                            href={
-                              activeLocation.mapUrl ||
-                              `https://maps.google.com/?q=${encodeURIComponent(
-                                activeLocation.address || `${activeLocation.title}, ${activeLocation.city}`
-                              )}`
-                            }
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="tooltip-map-link"
-                          >
-                            View On Google Maps ↗
-                          </a>
-                        </div>
-                      ) : null}
-                    </div>
-                  );
-                })() : null}
-                */}
-
-                {/* =========================================================================
-                    [DESIGN 2 - BROADER ALL-AT-ONCE VIEW WITH DIVIDER LINES] (Active)
-                    ========================================================================= */}
-                {isActive ? (
+                {/* Desktop broader all-at-once view with divider lines */}
+                {isActive && !isCompactViewport ? (
                   <div
-                    className="realistic-detail-tooltip-broader"
+                    className={`realistic-detail-tooltip-broader ${tooltipAlignClass}`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     {/* Header Row */}
@@ -1550,6 +1491,150 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
         </div>
       </div>
 
+      {/* Tablet & Mobile Country Selector Tabs (<= 1024px) */}
+      {markers.length > 0 ? (
+        <div
+          className="realistic-mobile-tabs"
+          role="tablist"
+          aria-label="Select global office location"
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={!activePointId && selectedFilter === 'all'}
+            className={`realistic-mobile-tab ${!activePointId && selectedFilter === 'all' ? 'is-active' : ''}`}
+            onClick={() => {
+              setSelectedFilter('all');
+              setActivePointId(null);
+              setActiveOfficeId(null);
+            }}
+          >
+            <span className="mobile-tab-label">All Locations</span>
+          </button>
+
+          {markers.map((marker) => {
+            const isTabActive = activePointId === marker.id;
+            return (
+              <button
+                key={`mobile-tab-${marker.id}`}
+                type="button"
+                role="tab"
+                aria-selected={isTabActive}
+                className={`realistic-mobile-tab ${isTabActive ? 'is-active' : ''}`}
+                style={
+                  isTabActive
+                    ? { borderColor: marker.themeColor, boxShadow: `0 4px 12px ${marker.themeColor}26` }
+                    : undefined
+                }
+                onClick={() => {
+                  setSelectedFilter('all');
+                  handleMarkerToggle(marker);
+                }}
+              >
+                <span className="mobile-tab-flag">
+                  <CircularFlag countryCode={marker.countryCode} />
+                </span>
+                <span className="mobile-tab-label">{marker.countryName}</span>
+                {marker.locations.length > 1 ? (
+                  <span className="mobile-tab-count">{marker.locations.length}</span>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
+      {/* Tablet & Mobile Docked Full-Width Office Detail Panel (<= 1024px) */}
+      {activeMarker ? (
+        <div
+          className="realistic-docked-detail-panel"
+          style={{ borderTopColor: activeMarker.themeColor }}
+          role="region"
+          aria-label={`${activeMarker.countryName} office details`}
+        >
+          <div className="docked-panel-header">
+            <div className="docked-panel-country">
+              <span className="docked-panel-flag">
+                <CircularFlag countryCode={activeMarker.countryCode} />
+              </span>
+              <span className="broader-country-name">{activeMarker.countryName}</span>
+              {activeMarker.locations.length > 1 ? (
+                <span className="broader-count-pill">
+                  {activeMarker.locations.length} Locations
+                </span>
+              ) : null}
+              {activeMarker.isHeadquarters ? (
+                <span className="tooltip-hq-tag">HQ</span>
+              ) : null}
+            </div>
+            <button
+              type="button"
+              className="docked-panel-close"
+              aria-label="Close office details"
+              onClick={() => {
+                setActivePointId(null);
+                setActiveOfficeId(null);
+              }}
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="docked-offices-grid">
+            {activeMarker.locations.map((loc, idx) => {
+              const mapLink =
+                loc.mapUrl ||
+                `https://maps.google.com/?q=${encodeURIComponent(
+                  loc.address || `${loc.title}, ${loc.city}`
+                )}`;
+
+              return (
+                <div key={`docked-loc-${loc.id || idx}`} className="docked-office-item">
+                  <div className="broader-office-top">
+                    <div className="broader-office-title-wrap">
+                      <h5 className="broader-office-name">{loc.title}</h5>
+                      {loc.city ? (
+                        <span className="broader-office-region">
+                          {loc.city}
+                          {loc.state ? `, ${loc.state}` : ''}
+                        </span>
+                      ) : null}
+                    </div>
+                    {loc.isHeadquarters ? (
+                      <span className="subloc-hq-badge">HQ</span>
+                    ) : null}
+                  </div>
+
+                  <div className="broader-coords-row">
+                    <span className="broader-gps-tag">
+                      📍 {Math.abs(loc.latitude).toFixed(4)}°{' '}
+                      {loc.latitude >= 0 ? 'N' : 'S'},{' '}
+                      {Math.abs(loc.longitude).toFixed(4)}°{' '}
+                      {loc.longitude >= 0 ? 'E' : 'W'}
+                    </span>
+                  </div>
+
+                  {loc.address ? (
+                    <p className="broader-address-text">{loc.address}</p>
+                  ) : null}
+
+                  <div className="broader-actions-row">
+                    <a
+                      href={mapLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="broader-map-btn"
+                    >
+                      View On Google Maps ↗
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+
     
 
       {/* Synchronized Office Location Cards Grid */}
@@ -1578,6 +1663,7 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                 key={`${office.title}-${office.id ?? idx}`}
                 className={`of ${office.isHeadquarters ? 'hq' : ''} ${isSelected ? 'is-card-highlighted' : ''}`}
                 onMouseEnter={() => {
+                  if (isCompactViewport) return;
                   setActiveOfficeId(officeId);
                   const match = markers.find((m) => m.countryCode === geo.countryCode);
                   if (match) {
@@ -1594,21 +1680,22 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                   }
                 }}
                 onMouseLeave={() => {
+                  if (isCompactViewport) return;
                   setActiveOfficeId(null);
                   handlePointLeave();
                 }}
                 style={{ cursor: 'pointer', transition: 'all 0.25s ease' }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                  <em>{office.regionLabel}</em>
-                  <span style={{ fontSize: '12px', opacity: 0.85, fontWeight: 600 }}>
+                <div className="office-card-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <em className="office-card-region">{office.regionLabel}</em>
+                  <span className="office-card-coords" style={{ fontSize: '12px', opacity: 0.85, fontWeight: 600 }}>
                     📍 {geo.lat.toFixed(2)}°, {geo.lng.toFixed(2)}°
                   </span>
                 </div>
 
-                <h4>{office.title}</h4>
-                {office.cityRegion ? <small>{office.cityRegion}</small> : null}
-                <p>{renderMultilineText(office.address)}</p>
+                <h4 className="office-card-title">{office.title}</h4>
+                {office.cityRegion ? <small className="office-card-city">{office.cityRegion}</small> : null}
+                <p className="office-card-address">{renderMultilineText(office.address)}</p>
 
                 <div style={{ marginTop: 'auto', paddingTop: '12px', width: '100%' }}>
                   <WalstarButton

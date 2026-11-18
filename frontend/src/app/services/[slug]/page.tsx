@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { DetailShell } from '@/components/DetailShell';
-import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton';
-import { WalstarButton } from '@/components/WalstarButton';
-import { PageSectionsRenderer } from '@/components/PageSectionsRenderer';
+import { DetailShell } from '@/components/common/DetailShell';
+import { PageLoadingSkeleton } from '@/components/common/PageLoadingSkeleton';
+import { WalstarButton } from '@/components/common/WalstarButton';
+import { PageSectionsRenderer } from '@/components/page-renderer/PageSectionsRenderer';
 import { getResolvedPageBySlug, getServiceBySlug, getStrapiMediaUrl } from '@/lib/strapi';
 
 async function ServiceContent({
@@ -15,12 +15,14 @@ async function ServiceContent({
   const { slug } = await params;
   const decodedSlug = decodeURIComponent(slug);
 
-  // If this service has full Page Dynamic Zone sections (e.g. service-1, service-2 / custom-software-development), render PageSectionsRenderer
+  // If this service has full Page Dynamic Zone sections (e.g. service-1, service-2, service-3 / digital-marketing-performance-growth), render PageSectionsRenderer
   const pageLookupSlug =
     decodedSlug === 'ai-solutions-business-automation' || decodedSlug === 'service-1'
       ? 'service-1'
       : decodedSlug === 'custom-software-development' || decodedSlug === 'service-2'
       ? 'service-2'
+      : decodedSlug === 'digital-marketing-performance-growth' || decodedSlug === 'service-3'
+      ? 'service-3'
       : decodedSlug;
 
   const { data: pageData, source } = await getResolvedPageBySlug(pageLookupSlug);
@@ -32,6 +34,8 @@ async function ServiceContent({
       decodedSlug === 'service-1' ||
       decodedSlug === 'custom-software-development' ||
       decodedSlug === 'service-2' ||
+      decodedSlug === 'digital-marketing-performance-growth' ||
+      decodedSlug === 'service-3' ||
       pageData.page.pageType === 'service')
   ) {
     return <PageSectionsRenderer data={pageData} source={source} />;

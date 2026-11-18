@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { WalstarButton, WalstarButtonArrow } from './WalstarButton';
+import { WalstarButton, WalstarButtonArrow } from '@/components/common/WalstarButton';
 import {
   AboutBlock,
   GlobalOfficesBlock,
@@ -11,12 +11,12 @@ import {
   VisionMissionBlock,
   WhoWeAreBlock,
   WhyChooseBlock,
-} from '@/components/AboutSections';
-import { BeforeAfterSlider } from '@/components/BeforeAfterSlider';
+} from '@/components/about/AboutSections';
+import { BeforeAfterSlider } from '@/components/common/BeforeAfterSlider';
 import {
   ContactInterestBlock,
   ContactSectionView,
-} from '@/components/ContactSections';
+} from '@/components/contact/ContactSections';
 import {
   SvcIntroBlock,
   SvcChallengesBlock,
@@ -25,18 +25,18 @@ import {
   SvcProcessBlock,
   SvcApproachBlock,
   SvcCtaBlock,
-} from '@/components/ServiceSections';
-import { CapabilitiesBlock } from '@/components/CapabilitiesSection';
+} from '@/components/services/ServiceSections';
+import { CapabilitiesBlock } from '@/components/home/CapabilitiesSection';
 
-import { HeroBackgroundVideo } from '@/components/HeroBackgroundVideo';
-import { renderHeadingParts, renderMultilineText } from '@/components/SectionPrimitives';
-import { TestimonialsCarousel } from '@/components/TestimonialsCarousel';
+import { HeroBackgroundVideo } from '@/components/home/HeroBackgroundVideo';
+import { renderHeadingParts, renderMultilineText } from '@/components/common/SectionPrimitives';
+import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
 import {
   WalstarCompactHeader,
   WalstarHeaderNav,
   WalstarTopbar,
-} from '@/components/WalstarBranding';
-import { WalstarCtaBand, WalstarFooter } from '@/components/WalstarFooter';
+} from '@/components/common/WalstarBranding';
+import { WalstarCtaBand, WalstarFooter } from '@/components/layout/WalstarFooter';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
   BeforeAfterSection,
@@ -142,6 +142,9 @@ function formatHeroHeadingPrefix(prefix?: string | null): string | null | undefi
   const trimmed = prefix.trim();
   if (trimmed === 'Transform Your Business With') {
     return 'Transform Your Business\nWith';
+  }
+  if (trimmed === 'Custom Software Built') {
+    return 'Custom Software Built\n';
   }
   return prefix;
 }
@@ -250,7 +253,7 @@ function HeroBlock({
         }
       >
         {heroChip ? <span className="chip">{heroChip}</span> : null}
-        <h1>
+        <h1 className="hero-heading">
           {renderHeadingParts(
             heroHeadlinePrefix,
             heroHeadlineSerif,
@@ -258,7 +261,7 @@ function HeroBlock({
           )}
         </h1>
         {section.description ? (
-          <p>{renderMultilineText(formatHeroDescription(section.description))}</p>
+          <p className="hero-description">{renderMultilineText(formatHeroDescription(section.description))}</p>
         ) : null}
         {!(isContactLikePage && isCompact) &&
         (section.primaryCtaLabel || section.secondaryCtaLabel) ? (
@@ -418,7 +421,7 @@ function renderServiceFallbackIcon(service: ServiceItem) {
     );
   }
 
-  return <span>{service.icon}</span>;
+  return <span className="cap-icon-text">{service.icon}</span>;
 }
 
 
@@ -442,29 +445,29 @@ function ProductsShowcaseBlock({
   );
 
   return (
-    <section className="prod" id="prod">
+    <section className="prod products-showcase-section" id="prod">
       <div className="wrap">
-        <div className="head center">
+        <div className="head center products-showcase-head">
           {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
-          <h2>
+          <h2 className="prod-heading">
             {section.headingPrefix}{' '}
             {section.headingSerif ? (
               <span className="serif">{section.headingSerif}</span>
             ) : null}
           </h2>
-          {section.subtitle ? <p>{section.subtitle}</p> : null}
+          {section.subtitle ? <p className="prod-subtitle">{section.subtitle}</p> : null}
         </div>
 
-        <div className="pgrid">
+        <div className="pgrid products-showcase-grid">
           {featuredProduct ? (
             (() => {
               const featuredImgUrl =
                 getStrapiMediaUrl(featuredProduct.image?.url) ||
                 getProductFallbackImage(featuredProduct.slug || featuredProduct.name);
               return (
-                <article className="feat">
+                <article className="feat product-featured-card">
                   <div
-                    className="img relative"
+                    className="img relative product-featured-image-wrapper"
                     style={
                       featuredProduct.accentGradient
                         ? { background: featuredProduct.accentGradient }
@@ -483,15 +486,15 @@ function ProductsShowcaseBlock({
                       />
                     ) : null}
                   </div>
-                  <div className="txt">
-                    <h4>{featuredProduct.name}</h4>
+                  <div className="txt product-featured-content">
+                    <h4 className="feat-title">{featuredProduct.name}</h4>
                     {featuredProduct.tagline ? (
-                      <small>{featuredProduct.tagline}</small>
+                      <small className="feat-tagline">{featuredProduct.tagline}</small>
                     ) : null}
-                    <p>{featuredProduct.description}</p>
+                    <p className="feat-desc">{featuredProduct.description}</p>
                     <WalstarButton
                       variant="compact-blue"
-                      className="bt"
+                      className="bt product-featured-cta-btn"
                       arrowWidth={14}
                       arrowHeight={12}
                       arrowViewBox="1.5 2.5 13 11"
@@ -505,7 +508,7 @@ function ProductsShowcaseBlock({
             })()
           ) : null}
 
-          <div className="plist">
+          <div className="plist products-secondary-list">
             {secondaryProducts.map((product) => {
               const mediaUrl =
                 getStrapiMediaUrl(product.image?.url) ||
@@ -513,10 +516,10 @@ function ProductsShowcaseBlock({
               return (
                 <article
                   key={product.documentId || product.slug}
-                  className="pi"
+                  className="pi product-item-card"
                 >
                   <div
-                    className="im relative"
+                    className="im relative product-item-image-wrapper"
                     style={
                       product.accentGradient
                         ? { background: product.accentGradient }
@@ -533,7 +536,7 @@ function ProductsShowcaseBlock({
                       />
                     ) : null}
                   </div>
-                  <div className="pi-body">
+                  <div className="pi-body product-item-body">
                     <h4 className="pi-heading">{product.name}</h4>
                     {product.tagline ? (
                       <small className="pi-subheading">{product.tagline}</small>
@@ -541,7 +544,7 @@ function ProductsShowcaseBlock({
                     <p className="pi-description">{product.description}</p>
                     <WalstarButton
                       variant="compact-blue"
-                      className="bt"
+                      className="bt product-item-cta-btn"
                       arrowWidth={14}
                       arrowHeight={12}
                       arrowViewBox="1.5 2.5 13 11"
@@ -661,9 +664,9 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
     section.bottomRowDirection || 'right';
 
   return (
-    <section className="trust">
+    <section className="trust trust-banner-section">
       {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
-      <h2>
+      <h2 className="trust-heading">
         {renderHeadingParts(
           section.headingPrefix,
           section.headingSerif,
@@ -713,10 +716,10 @@ function CaseStudiesBlock({
   );
 
   return (
-    <section className="case" id="case">
-      <div className="wrap center head">
+    <section className="case case-studies-section" id="case">
+      <div className="wrap center head case-studies-head">
         {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
-        <h2>
+        <h2 className="case-heading">
           {section.headingPrefix}{' '}
           {section.headingSerif ? (
             <span className="serif">{section.headingSerif}</span>
@@ -725,7 +728,7 @@ function CaseStudiesBlock({
         {section.subtitle ? <p className="case-sub">{section.subtitle}</p> : null}
       </div>
 
-      <div className="wrap cgrid">
+      <div className="wrap cgrid case-studies-grid">
         {caseStudies.map((cs, idx) => {
           const coverUrl =
             getStrapiMediaUrl(cs.coverImage?.url) ||
@@ -747,7 +750,7 @@ function CaseStudiesBlock({
             <Link
               key={cs.documentId || cs.slug || idx}
               href={`/case-studies/${encodeURIComponent(cs.slug)}`}
-              className={`cs ${isWideCard ? 'cs-wide' : 'cs-narrow'} ${cs.themeVariant || (isWideCard ? 'a' : 'b')}`}
+              className={`cs ${isWideCard ? 'cs-wide' : 'cs-narrow'} ${cs.themeVariant || (isWideCard ? 'a' : 'b')} case-study-card${isWideCard ? ' case-study-card--wide' : ' case-study-card--narrow'}`}
             >
               {coverUrl ? (
                 <Image
@@ -759,13 +762,13 @@ function CaseStudiesBlock({
                 />
               ) : null}
               {cs.category ? <span className="cs-pill">{cs.category}</span> : null}
-              <h3>{formattedTitle}</h3>
+              <h3 className="cs-title">{formattedTitle}</h3>
 
               {isWideCard ? (
-                <div className="meta">
-                  <div className="meta-item">
+                <div className="meta case-study-meta-grid">
+                  <div className="meta-item case-study-meta-item">
                     <svg
-                      className="meta-ic"
+                      className="meta-ic case-study-meta-icon"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -775,15 +778,15 @@ function CaseStudiesBlock({
                       <circle cx="12" cy="7" r="4" />
                       <path d="M5 21v-2a7 7 0 0 1 14 0v2" strokeLinecap="round" />
                     </svg>
-                    <span className="meta-text">
-                      <span className="meta-label">{clientLabel}</span>
-                      <b className="meta-value">{clientValue}</b>
+                    <span className="meta-text case-study-meta-text">
+                      <span className="meta-label case-study-meta-label">{clientLabel}</span>
+                      <b className="meta-value case-study-meta-value">{clientValue}</b>
                     </span>
                   </div>
 
-                  <div className="meta-item">
+                  <div className="meta-item case-study-meta-item">
                     <svg
-                      className="meta-ic"
+                      className="meta-ic case-study-meta-icon"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -796,15 +799,15 @@ function CaseStudiesBlock({
                       />
                       <circle cx="12" cy="10" r="2.5" />
                     </svg>
-                    <span className="meta-text">
-                      <span className="meta-label">{regionLabel}</span>
-                      <b className="meta-value">{regionValue}</b>
+                    <span className="meta-text case-study-meta-text">
+                      <span className="meta-label case-study-meta-label">{regionLabel}</span>
+                      <b className="meta-value case-study-meta-value">{regionValue}</b>
                     </span>
                   </div>
 
-                  <div className="meta-item">
+                  <div className="meta-item case-study-meta-item">
                     <svg
-                      className="meta-ic"
+                      className="meta-ic case-study-meta-icon"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -814,9 +817,9 @@ function CaseStudiesBlock({
                       <circle cx="12" cy="12" r="9" />
                       <path d="M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18M3 12h18" strokeLinecap="round" />
                     </svg>
-                    <span className="meta-text">
-                      <span className="meta-label">{projectTypeLabel}</span>
-                      <b className="meta-value">{projectTypeValue}</b>
+                    <span className="meta-text case-study-meta-text">
+                      <span className="meta-label case-study-meta-label">{projectTypeLabel}</span>
+                      <b className="meta-value case-study-meta-value">{projectTypeValue}</b>
                     </span>
                   </div>
                 </div>
@@ -827,7 +830,7 @@ function CaseStudiesBlock({
       </div>
 
       {section.ctaLabel ? (
-        <div className="more">
+        <div className="more case-studies-more-cta">
           <WalstarButton variant="orange" href={section.ctaHref || '#cta'}>
             {section.ctaLabel}
           </WalstarButton>
@@ -872,7 +875,7 @@ function RichContentBlock({ section }: { section: RichContentSection }) {
         <div className="rich-box">
           {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
           {section.headingPrefix || section.headingSerif ? (
-            <h2>
+            <h2 className="rich-heading">
               {section.headingPrefix}{' '}
               {section.headingSerif ? (
                 <span className="serif">{section.headingSerif}</span>

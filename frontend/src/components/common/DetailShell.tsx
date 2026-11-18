@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Suspense, type ReactNode } from 'react';
-import { Navbar } from '@/components/Navbar';
-import { WalstarFooter } from '@/components/WalstarFooter';
+import { Navbar } from '@/components/layout/Navbar';
+import { WalstarFooter } from '@/components/layout/WalstarFooter';
 import { DEFAULT_FOOTER, DEFAULT_NAVBAR } from '@/lib/default-landing';
 import { getActiveFooterResult, getActiveNavbar } from '@/lib/strapi';
 

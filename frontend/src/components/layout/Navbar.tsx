@@ -12,7 +12,7 @@ import {
   useSyncExternalStore,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { WalstarButton } from '@/components/WalstarButton';
+import { WalstarButton } from '@/components/common/WalstarButton';
 import { resolveCmsRoute } from '@/lib/cms-routes';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type { NavItem, NavbarData } from '@/types/strapi';
@@ -459,7 +459,7 @@ export function Navbar({
                               className={`mobile-nav-link ${active ? 'is-active' : ''}`}
                               onClick={() => setMobileOpen(false)}
                             >
-                              <span>{item.label}</span>
+                              <span className="mobile-nav-label">{item.label}</span>
                               {item.isHighlighted ? (
                                 <span className="mobile-highlight-dot" />
                               ) : null}

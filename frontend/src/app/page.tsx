@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { WalstarLanding } from '@/components/WalstarLanding';
+import { WalstarLanding } from '@/components/home/WalstarLanding';
 import { DEFAULT_LANDING_DATA } from '@/lib/default-landing';
 import { getLandingData } from '@/lib/strapi';
 

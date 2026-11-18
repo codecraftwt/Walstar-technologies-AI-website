@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { DetailShell } from '@/components/DetailShell';
-import { WalstarButton } from '@/components/WalstarButton';
+import { DetailShell } from '@/components/common/DetailShell';
+import { WalstarButton } from '@/components/common/WalstarButton';
 import { getCaseStudyBySlug, getStrapiMediaUrl } from '@/lib/strapi';
 
 async function CaseStudyContent({

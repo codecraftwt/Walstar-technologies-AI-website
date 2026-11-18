@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
+  cleanPill,
   renderHeadingParts,
   renderMultilineText,
-} from '@/components/SectionPrimitives';
-import { WalstarButton, WalstarButtonArrow } from '@/components/WalstarButton';
-import { GlobalOfficesWorldMap } from '@/components/GlobalOfficesWorldMap';
+} from '@/components/common/SectionPrimitives';
+import { WalstarButton, WalstarButtonArrow } from '@/components/common/WalstarButton';
+import { GlobalOfficesWorldMap } from '@/components/contact/GlobalOfficesWorldMap';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
   AboutSection,
@@ -44,9 +45,15 @@ function TeamMemberCard({
   variant: 'executive' | 'avatar';
 }) {
   const photoUrl = getStrapiMediaUrl(member.photo?.url);
-  const baseClass = variant === 'executive' ? 'pp' : 'av';
-  const stateClass = photoUrl ? baseClass : `${baseClass} ${baseClass}--placeholder`;
+  const baseClass = variant === 'executive' ? 'pp executive-member-card' : 'av advisory-member-card';
+  const stateClass = photoUrl ? baseClass : `${baseClass} ${variant === 'executive' ? 'pp--placeholder' : 'av--placeholder'}`;
   const linkedinHref = member.linkedinUrl?.trim();
+
+  const linkedinIcon = (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6.94 8.5H3.56V19.5H6.94V8.5ZM5.25 3.5C4.14 3.5 3.25 4.39 3.25 5.5C3.25 6.6 4.14 7.5 5.25 7.5C6.35 7.5 7.25 6.6 7.25 5.5C7.25 4.39 6.35 3.5 5.25 3.5ZM20.44 13.02C20.44 9.88 18.76 8.22 16.22 8.22C14.43 8.22 13.45 9.2 12.97 9.95V8.5H9.61C9.65 9.48 9.61 19.5 9.61 19.5H12.97V13.36C12.97 13.03 13 12.7 13.1 12.46C13.36 11.8 13.95 11.12 14.95 11.12C16.25 11.12 17.06 12.06 17.06 13.48V19.5H20.44V13.02Z" />
+    </svg>
+  );
 
   return (
     <div
@@ -59,17 +66,19 @@ function TeamMemberCard({
           src={photoUrl}
           alt={member.photo?.alternativeText || member.name || member.role || 'Team member'}
           fill
-          sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw"
-          className="object-cover"
+          sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 24vw"
+          className="team-member-photo"
         />
       ) : null}
 
       {member.name ? (
         <div className="chip2 team-member-info">
-          <b className="team-member-name">{member.name}</b>
-          {member.role ? (
-            <span className="team-member-role">{renderMultilineText(member.role)}</span>
-          ) : null}
+          <div className="team-member-meta">
+            <b className="team-member-name">{member.name}</b>
+            {member.role ? (
+              <span className="team-member-role">{renderMultilineText(member.role)}</span>
+            ) : null}
+          </div>
           {linkedinHref ? (
             isExternalHref(linkedinHref) ? (
               <a
@@ -79,11 +88,15 @@ function TeamMemberCard({
                 className="team-member-linkedin"
                 aria-label={`${member.name} LinkedIn profile`}
               >
-                in
+                {linkedinIcon}
               </a>
             ) : (
-              <Link href={linkedinHref} className="team-member-linkedin" aria-label={`${member.name} profile`}>
-                in
+              <Link
+                href={linkedinHref}
+                className="team-member-linkedin"
+                aria-label={`${member.name} profile`}
+              >
+                {linkedinIcon}
               </Link>
             )
           ) : null}
@@ -91,11 +104,6 @@ function TeamMemberCard({
       ) : null}
     </div>
   );
-}
-
-export function cleanPill(text?: string | null): string {
-  if (!text) return '';
-  return text.replace(/^[●•\s\u25CF\u2022]+/, '').trim();
 }
 
 function formatAboutDescription(desc?: string | null): string | null | undefined {
@@ -168,7 +176,7 @@ export function AboutBlock({ section }: { section: AboutSection }) {
           ) : null}
           {section.highlightTitle ? (
             <div className="mini">
-              <i>
+              <i className="about-mini-icon">
                 {highlightIconUrl ? (
                   <Image
                     src={highlightIconUrl}
@@ -267,7 +275,7 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
                 .map((para) => para.trim())
                 .filter(Boolean)
                 .map((para, idx) => (
-                  <p key={idx} style={{ margin: '0 0 14px' }}>
+                  <p key={idx} className="who-desc-p">
                     {para}
                   </p>
                 ))}
@@ -437,35 +445,40 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
       ? section.speedSeconds
       : 30;
 
+  // Normalize heading prefix to prevent duplicate "built to"
+  const rawPrefix = section.headingPrefix?.trim() || 'Digital solutions';
+  const cleanPrefix = rawPrefix.replace(/\s*built\s+to\s*$/i, '').trim() || 'Digital solutions';
+  const rawSerif = section.headingSerif?.trim() || 'Scale';
+  const serifWord = rawSerif.charAt(0).toUpperCase() + rawSerif.slice(1);
+
+  // Wrap subtitle text exactly to match reference spec
+  const subtitleText = section.subtitle
+    ? section.subtitle.replace(/(strategists,\s+and)\s+/i, '$1\n')
+    : null;
+
   // 3 duplicate cycles create a smooth infinite seamless marquee loop
   const marqueeItems = [...incomingItems, ...incomingItems, ...incomingItems];
 
   return (
-    <section className={section.hasTopOverlap !== false ? 'sec sol sol-marquee-sec' : 'sec sol-marquee-sec'} id="solutions-grid">
+    <section className={section.hasTopOverlap !== false ? 'sec sol sol-marquee-sec about-solutions-marquee-section' : 'sec sol-marquee-sec about-solutions-marquee-section'} id="solutions-grid">
       <div className="wrap">
         <div className="hd2 sol-hd2" style={{ textAlign: 'center', marginBottom: 28 }}>
           <span className="pill sol-pill">{pillText}</span>
           <h2 className="about-heading sol-heading" style={{ textAlign: 'center' }}>
-            {section.headingPrefix ? (
-              <span className="about-heading-row sol-heading-row sol-heading-row--prefix">
-                <span className="sol-heading-text">{renderMultilineText(section.headingPrefix.replace(/\n+$/, ''))}</span>
-              </span>
-            ) : (
-              <span className="about-heading-row sol-heading-row sol-heading-row--prefix">
-                <span className="sol-heading-text">Digital solutions</span>
-              </span>
-            )}
+            <span className="about-heading-row sol-heading-row sol-heading-row--prefix">
+              <span className="sol-heading-text">{cleanPrefix}</span>
+            </span>
             <span className="about-heading-row sol-heading-row sol-heading-row--suffix">
               <span className="sol-heading-text">built to </span>
-              <span className="serif sol-heading-serif">{section.headingSerif || 'scale'}</span>
+              <span className="serif sol-heading-serif">{serifWord}</span>
               {section.headingSuffix ? (
                 <span className="sol-heading-suffix">{` ${section.headingSuffix}`}</span>
               ) : null}
             </span>
           </h2>
-          {section.subtitle ? (
-            <p className="about-lead-desc sol-desc" style={{ maxWidth: 680, margin: '14px auto 0', textAlign: 'center' }}>
-              {renderMultilineText(section.subtitle)}
+          {subtitleText ? (
+            <p className="about-lead-desc sol-desc" style={{ maxWidth: 620, margin: '14px auto 0', textAlign: 'center' }}>
+              {renderMultilineText(subtitleText)}
             </p>
           ) : null}
         </div>
@@ -481,34 +494,19 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
             const key = `sol-${item.number}-${idx}`;
             const numVal = parseInt(item.number.replace(/\D/g, ''), 10) || (idx + 1);
             const isOrange = numVal % 2 === 0;
-            const cardClass = `sc ${isOrange ? 'sol-card--orange' : 'sol-card--blue'}`;
+            const cardClass = `sc solution-marquee-card ${isOrange ? 'sol-card--orange solution-marquee-card--orange' : 'sol-card--blue solution-marquee-card--blue'}`;
 
             const cardBody = (
               <>
-                <div className="n">
-                  <span className="n-num sol-card-num">{item.number}</span>
-                  <i aria-hidden="true" className="n-arrow">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M3.5 12.5L12.5 3.5M12.5 3.5H5.75M12.5 3.5V10.25"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                <div className="n sc-header">
+                  <span className="sc-number n-num sol-card-num">{item.number}</span>
+                  <i aria-hidden="true" className="sc-arrow n-arrow">
+                    <WalstarButtonArrow className="sc-arrow-icon" width={18} height={18} strokeWidth={1.5} />
                   </i>
                 </div>
-                <h4>{item.title}</h4>
-                <div className="sol-card-divider" />
-                {item.category ? <small className="sol-card-category">{item.category}</small> : null}
+                <h4 className="sc-heading">{item.title}</h4>
+                <div className="sc-divider sol-card-divider" aria-hidden="true" />
+                {item.category ? <small className="sc-desc sol-card-category">{item.category}</small> : null}
               </>
             );
 
@@ -717,7 +715,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
   return (
     <section className="sec vm-sec" id="vision-mission">
       <div className="wrap">
-        <div className="hd2 vm-hd2" style={{ textAlign: 'center', marginBottom: 40 }}>
+        <div className="hd2 vm-hd2 vision-mission-header-block" style={{ textAlign: 'center', marginBottom: 40 }}>
           <span className="pill vm-pill">{pillText}</span>
           <h2 className="about-heading vm-heading" style={{ textAlign: 'center' }}>
             <span className="about-heading-row vm-heading-row vm-heading-row--prefix">
@@ -730,9 +728,9 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
           </h2>
         </div>
 
-        <div className={`vm ${hoveredCard ? `has-hovered-${hoveredCard}` : ''}`}>
+        <div className={`vm vision-mission-grid ${hoveredCard ? `has-hovered-${hoveredCard}` : ''}`}>
           <div
-            className={`v ${hoveredCard === 'v' ? 'is-active is-expanded' : hoveredCard === 'm' ? 'is-shrunk' : ''}`}
+            className={`v vision-card ${hoveredCard === 'v' ? 'is-active is-expanded' : hoveredCard === 'm' ? 'is-shrunk' : ''}`}
             onMouseEnter={() => setHoveredCard('v')}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -746,7 +744,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
               />
             </div>
 
-            <div className="ico" aria-hidden="true">
+            <div className="ico vision-mission-icon-box" aria-hidden="true">
               <Image
                 src="/images/about/vision-icon-orange.png"
                 alt="Our Vision"
@@ -764,7 +762,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
                 priority
               />
             </div>
-            <h3>{section.visionTitle || 'Our Vision'}</h3>
+            <h3 className="vm-card-title">{section.visionTitle || 'Our Vision'}</h3>
             {section.visionDescription ? (
               <p className="about-lead-desc">{renderMultilineText(section.visionDescription)}</p>
             ) : null}
@@ -776,7 +774,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
           </div>
 
           <div
-            className={`m ${hoveredCard === 'm' ? 'is-active is-expanded' : hoveredCard === 'v' ? 'is-shrunk' : ''}`}
+            className={`m mission-card ${hoveredCard === 'm' ? 'is-active is-expanded' : hoveredCard === 'v' ? 'is-shrunk' : ''}`}
             onMouseEnter={() => setHoveredCard('m')}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -790,7 +788,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
               />
             </div>
 
-            <div className="ico" aria-hidden="true">
+            <div className="ico vision-mission-icon-box" aria-hidden="true">
               <Image
                 src="/images/about/mission-icon-orange.png"
                 alt="Our Mission"
@@ -808,7 +806,7 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
                 priority
               />
             </div>
-            <h3>{section.missionTitle || 'Our Mission'}</h3>
+            <h3 className="vm-card-title">{section.missionTitle || 'Our Mission'}</h3>
             {section.missionDescription ? (
               <p className="about-lead-desc">{renderMultilineText(section.missionDescription)}</p>
             ) : null}
@@ -841,15 +839,22 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
           </h2>
         </div>
 
-        <div className="ex">
-          <div className="q">
-            <h5>{section.executiveLabel || 'Executive Team'}</h5>
-            <b aria-hidden="true">❝</b>
+        <div className="ex executive-team-grid">
+          <div className="q executive-quote-card">
+            <h5 className="team-quote-label">{section.executiveLabel || 'Executive Team'}</h5>
+            <b className="team-quote-mark" aria-hidden="true">
+              <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M0 15.2C0 7.4 4.7 2.2 12.6 0L14.8 4.4C10.5 5.9 8.4 8.6 8 12.6H14.5V28H0V15.2ZM20.5 15.2C20.5 7.4 25.2 2.2 33.1 0L35.3 4.4C31 5.9 28.9 8.6 28.5 12.6H35V28H20.5V15.2Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </b>
             {section.executiveQuote ? (
-              <em>{renderMultilineText(section.executiveQuote)}</em>
+              <em className="team-quote-text">{renderMultilineText(section.executiveQuote)}</em>
             ) : null}
             {section.executiveQuoteAuthor ? (
-              <small>{section.executiveQuoteAuthor}</small>
+              <small className="team-quote-author">{section.executiveQuoteAuthor}</small>
             ) : null}
           </div>
 
@@ -865,7 +870,7 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
         {advisoryMembers.length > 0 ? (
           <>
             {section.advisoryTitle ? <h3 className="sub">{section.advisoryTitle}</h3> : null}
-            <div className="g3">
+            <div className="g3 advisory-team-grid">
               {advisoryMembers.map((member, idx) => (
                 <TeamMemberCard
                   key={`adv-${member.id ?? idx}`}
@@ -880,7 +885,7 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
         {salesMembers.length > 0 ? (
           <>
             {section.salesTitle ? <h3 className="sub">{section.salesTitle}</h3> : null}
-            <div className="g4b">
+            <div className="g4b sales-team-grid">
               {salesMembers.map((member, idx) => (
                 <TeamMemberCard
                   key={`sales-${member.id ?? idx}`}

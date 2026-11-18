@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { DetailShell } from '@/components/DetailShell';
-import { PageSectionsRenderer } from '@/components/PageSectionsRenderer';
+import { DetailShell } from '@/components/common/DetailShell';
+import { PageSectionsRenderer } from '@/components/page-renderer/PageSectionsRenderer';
 import { getResolvedPageBySlug } from '@/lib/strapi';
 
 export async function ResolvedPageView({

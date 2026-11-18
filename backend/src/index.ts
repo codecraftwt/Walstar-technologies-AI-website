@@ -126,13 +126,20 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
         (section) => section.__component === 'sections.svc-capabilities'
       );
 
+    const isLegacyService3Seed =
+      item.slug === 'service-3' &&
+      !existingSections.some(
+        (section) => section.__component === 'sections.svc-capabilities'
+      );
+
     if (
       existingSections.length === 0 ||
       isUntouchedLegacyAboutSeed ||
       isLegacyContactSeed ||
       needsAboutSync ||
       isLegacyServiceSeed ||
-      isLegacyService2Seed
+      isLegacyService2Seed ||
+      isLegacyService3Seed
     ) {
       await pageDoc.update({
         documentId: existing.documentId,

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { ContactSelect } from '@/components/ContactSelect';
-import { WalstarButton } from '@/components/WalstarButton';
+import { ContactSelect } from '@/components/contact/ContactSelect';
+import { WalstarButton } from '@/components/common/WalstarButton';
 
 interface ConsultationFormProps {
   title: string;
@@ -160,7 +160,7 @@ export function ConsultationForm({
   if (variant === 'contact') {
     return (
       <div id={anchorId} className="contact-card-form contact-card-form--figma">
-        <h3>{title}</h3>
+        <h3 className="contact-card-title">{title}</h3>
         <p className="contact-card-sub">{subtitle}</p>
         <form onSubmit={handleSubmit} className="contact-form-grid contact-form-grid--figma">
           <div className="contact-form-row">
@@ -228,7 +228,7 @@ export function ConsultationForm({
             onChange={setService}
           />
           <label className="contact-field contact-field--area">
-            <span>Project details*</span>
+            <span className="contact-field-label">Project details*</span>
             <textarea
               rows={5}
               value={message}
@@ -265,12 +265,12 @@ export function ConsultationForm({
   if (variant === 'card') {
     return (
       <div id={anchorId} className="contact-card-form">
-        <h3>{title}</h3>
+        <h3 className="contact-card-title">{title}</h3>
         <p className="contact-card-sub">{subtitle}</p>
         <form onSubmit={handleSubmit} className="contact-form-grid">
           <div className="contact-form-row">
-            <label>
-              <span>Your Name</span>
+            <label className="contact-field">
+              <span className="contact-field-label">Your Name</span>
               <input
                 type="text"
                 value={name}
@@ -278,8 +278,8 @@ export function ConsultationForm({
                 placeholder="Jane Doe"
               />
             </label>
-            <label>
-              <span>Company</span>
+            <label className="contact-field">
+              <span className="contact-field-label">Company</span>
               <input
                 type="text"
                 value={company}
@@ -288,8 +288,8 @@ export function ConsultationForm({
               />
             </label>
           </div>
-          <label>
-            <span>Work Email *</span>
+          <label className="contact-field">
+            <span className="contact-field-label">Work Email *</span>
             <input
               type="email"
               value={email}
@@ -298,8 +298,8 @@ export function ConsultationForm({
               required
             />
           </label>
-          <label>
-            <span>Project Details</span>
+          <label className="contact-field">
+            <span className="contact-field-label">Project Details</span>
             <textarea
               rows={4}
               value={message}
@@ -332,13 +332,13 @@ export function ConsultationForm({
   }
 
   return (
-    <div id={anchorId}>
-      <form className="fnews" onSubmit={handleSubmit}>
-        <div className="fnews-label">
+    <div id={anchorId} className="footer-newsletter-wrapper">
+      <form className="fnews footer-newsletter-form" onSubmit={handleSubmit}>
+        <div className="fnews-label footer-newsletter-label">
           {title}
-          <small>{subtitle}</small>
+          <small className="fnews-subtitle footer-newsletter-subtitle">{subtitle}</small>
         </div>
-        <div className="nf">
+        <div className="nf footer-newsletter-input-group">
           <input
             type="email"
             value={email}

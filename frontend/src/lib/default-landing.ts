@@ -957,8 +957,8 @@ export const DEFAULT_PAGES: PageItem[] = [
       {
         __component: 'sections.solutions-grid',
         pill: '● What we do',
-        headingPrefix: 'Digital solutions\nbuilt to',
-        headingSerif: 'scale',
+        headingPrefix: 'Digital solutions',
+        headingSerif: 'Scale',
         subtitle:
           'Our multi-disciplinary team of designers, developers, strategists, and digital marketers works collaboratively to deliver meaningful outcomes.',
         hasTopOverlap: true,
@@ -1621,53 +1621,53 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingSerif: 'Business Management',
         headingSuffix: '',
         description:
-          'Every business has its own processes, challenges, and operational requirements. Off-the-shelf software may not always provide the flexibility or functionality you need.\nOur custom software development services help businesses build applications that fit their workflows, connect their systems, and support their long-term goals.',
+          'Every business has its own processes, challenges, and operational requirements. Off-the-<br class="d">shelf software may not always provide the flexibility or functionality you need.<br class="d"> Our custom software development services help businesses build applications that fit their<br class="d"> workflows, connect their systems, and support their long-term goals.',
         capabilityItems: [
           {
             icon: 'layers',
-            title: 'Custom ERP Software\nDevelopment',
+            title: 'Custom ERP Software<br class="d"> Development',
             description:
               'Manage finance, sales, inventory, purchasing, and employees with customized ERP solutions that streamline business operations and reporting.',
           },
           {
             icon: 'users',
-            title: 'CRM Software\nDevelopment',
+            title: 'CRM Software<br class="d"> Development',
             description:
               'Build stronger customer relationships with custom CRM solutions for managing leads, sales, communication, follow-ups, and business opportunities.',
           },
           {
             icon: 'box',
-            title: 'Inventory & Stock\nManagement Systems',
+            title: 'Inventory & Stock<br class="d"> Management Systems',
             description:
               'Gain inventory control with stock tracking, purchase orders, warehouse management, supplier coordination, and real-time reporting.',
           },
           {
             icon: 'flow',
-            title: 'Business Process &\nWorkflow Automation',
+            title: 'Business Process &<br class="d"> Workflow Automation',
             description:
               'Automate approvals, notifications, data entry, and task assignments to reduce manual work and improve operational efficiency.',
           },
           {
             icon: 'grid',
-            title: 'Custom Business\nApplications',
+            title: 'Custom Business<br class="d"> Applications',
             description:
               'Build custom web applications tailored to business needs, streamlining internal management, operations, and specialized workflows.',
           },
           {
             icon: 'plug',
-            title: 'Enterprise Application\nIntegration',
+            title: 'Enterprise Application<br class="d"> Integration',
             description:
               'Connect software, databases, and business applications for seamless data sharing and smoother, more efficient workflows.',
           },
           {
             icon: 'bars',
-            title: 'Reporting & Business\nIntelligence Solutions',
+            title: 'Reporting & Business<br class="d"> Intelligence Solutions',
             description:
               'Gain business insights through customized dashboards, reports, and data visualizations that support smarter decision-making.',
           },
           {
             icon: 'bolt',
-            title: 'Ready to Build\nSoftware Around Your\nBusiness?',
+            title: 'Ready to Build<br class="d"> Software Around Your<br class="d"> Business?',
             description: '',
             isDark: true,
             ctaLabel: 'Discuss Your Project ↗',
@@ -1683,42 +1683,42 @@ export const DEFAULT_PAGES: PageItem[] = [
         benefitItems: [
           {
             icon: 'target',
-            title: 'Reach More Relevant\nCustomers',
+            title: 'Reach More Relevant<br class="d"> Customers',
             description:
               'Improve your visibility where potential customers search for products, services, and solutions like yours.',
             isDark: false,
           },
           {
             icon: 'sliders',
-            title: 'Simplify Daily\nOperations',
+            title: 'Simplify Daily<br class="d"> Operations',
             description:
               'Bring important business processes into organized systems and reduce the complexity of managing multiple tools.',
             isDark: false,
           },
           {
             icon: 'bolt',
-            title: 'Improve\nProductivity',
+            title: 'Improve<br class="d"> Productivity',
             description:
               'Automate repetitive activities and give your team more time to focus on important business tasks.',
             isDark: false,
           },
           {
             icon: 'db',
-            title: 'Centralize Business\nInformation',
+            title: 'Centralize Business<br class="d"> Information',
             description:
               'Manage customer, inventory, sales, and operational information through connected systems.',
             isDark: false,
           },
           {
             icon: 'bars',
-            title: 'Improve Business\nVisibility',
+            title: 'Improve Business<br class="d"> Visibility',
             description:
               'Use dashboards and reports to understand performance, identify issues, and make informed decisions.',
             isDark: false,
           },
           {
             icon: 'sliders',
-            title: 'Adapt to Your\nBusiness Needs',
+            title: 'Adapt to Your<br class="d"> Business Needs',
             description:
               'Build software around your processes, with the flexibility to introduce new features as your business evolves.',
             isDark: false,
@@ -1727,7 +1727,7 @@ export const DEFAULT_PAGES: PageItem[] = [
             icon: 'net',
             title: 'Connect Your Existing Systems',
             description:
-              'Integrate business applications and reduce unnecessary manual data transfers between platforms.',
+              'Integrate business applications and reduce unnecessary manual data<br class="d"> transfers between platforms.',
             isDark: true,
           },
         ],
@@ -1740,39 +1740,39 @@ export const DEFAULT_PAGES: PageItem[] = [
         steps: [
           {
             number: '01',
-            title: 'Requirement Analysis\n& Discovery',
+            title: 'Requirement Analysis<br class="d"> & Discovery',
             description:
-              'We understand your operations, challenges, objectives, users, and functional requirements to define the right software solution.',
+              'We understand your operations, challenges,<br class="d"> objectives, users, and functional requirements<br class="d"> to define the right software solution.',
           },
           {
             number: '02',
-            title: 'Planning & Solution\nArchitecture',
+            title: 'Planning & Solution<br class="d"> Architecture',
             description:
-              'We identify the required features, application structure, technology stack, integrations, and development roadmap.',
+              'We identify the required features, application<br class="d"> structure, technology stack, integrations, and<br class="d"> development roadmap.',
           },
           {
             number: '03',
-            title: 'UI/UX Design &\nPrototyping',
+            title: 'UI/UX Design &<br class="d"> Prototyping',
             description:
-              'We design intuitive user interfaces and application workflows that make your software easier to use and manage.',
+              'We design intuitive user interfaces and<br class="d"> application workflows that make your<br class="d"> software easier to use and manage.',
           },
           {
             number: '04',
-            title: 'Development &\nIntegration',
+            title: 'Development &<br class="d"> Integration',
             description:
-              'Our development team builds the application, implements required functionality, and connects it with relevant business systems.',
+              'Our development team builds the application,<br class="d"> implements required functionality, and<br class="d"> connects it with relevant business systems.',
           },
           {
             number: '05',
-            title: 'Testing & Quality\nAssurance',
+            title: 'Testing & Quality<br class="d"> Assurance',
             description:
-              'We test application functionality, performance, usability, and integrations to identify and resolve issues before deployment.',
+              'We test application functionality,<br class="d"> performance, usability, and integrations to<br class="d"> identify and resolve issues before deployment.',
           },
           {
             number: '06',
-            title: 'Deployment &\nOngoing Support',
+            title: 'Deployment &<br class="d"> Ongoing Support',
             description:
-              'We help launch your software and provide maintenance, technical support, and enhancements based on your requirements.',
+              'We help launch your software and provide<br class="d"> maintenance, technical support, and<br class="d"> enhancements based on your requirements.',
           },
         ],
       },
@@ -1782,7 +1782,7 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingPrefix: 'Software Designed Around\n',
         headingSerif: 'Your Business Requirements',
         bodyOne:
-          'We believe business software should solve real operational challenges rather than force your team to change the way everything works.\nOur approach focuses on understanding your requirements and building solutions that are practical, reliable, and adaptable.',
+          'We believe business software should solve real operational challenges rather<br class="d"> than force your team to change the way everything works.<br class="d"> Our approach focuses on understanding your requirements and building<br class="d"> solutions that are practical, reliable, and adaptable.',
         getBoxItems: [
           { label: 'Customized features and business workflows', icon: 'target' },
           { label: 'User-friendly interfaces and application experiences', icon: 'monitor' },
@@ -1799,7 +1799,7 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingPrefix: 'Ready to Build Software\n',
         headingSerif: 'Around Your Business?',
         bodyOne:
-          "Let's discuss your business challenges, understand your requirements, and explore how custom software can simplify your operations and support your growth.",
+          "Let's discuss your business challenges, understand your requirements, and explore<br class=\"d\"> how custom software can simplify your operations and support your growth.",
         ctaLabel: 'Discuss Your Software Project ↗',
         ctaHref: '#cta',
       },
@@ -1810,6 +1810,236 @@ export const DEFAULT_PAGES: PageItem[] = [
         subheading: 'Have a project in mind?',
         buttonLabel: 'Connect With Us ↗',
         buttonHref: '#cta',
+      },
+    ],
+  },
+  {
+    documentId: 'seed-page-service-3',
+    title: 'Digital Marketing & Performance Growth',
+    slug: 'service-3',
+    isHomepage: false,
+    pageType: 'service',
+    order: 6,
+    summary:
+      'SEO, AI search visibility and performance marketing services from Walstar Technologies.',
+    sections: [
+      {
+        __component: 'sections.hero',
+        variant: 'compact',
+        chip: '● Services',
+        headlinePrefix: 'Digital Marketing &',
+        headlineSerif: 'Performance Growth',
+        headlineSuffix: '',
+        description: null,
+      },
+      {
+        __component: 'sections.svc-intro',
+        pill: '● Growth & Visibility',
+        headingPrefix: 'SEO, AI Search Visibility &',
+        headingSerif: 'Performance Marketing',
+        headingSuffix: '',
+        description:
+          'From business management systems to workflow automation, we\ndevelop scalable software solutions designed to simplify operations and\nimprove productivity.',
+        image: {
+          url: '/images/services/digital-marketing.png',
+          alternativeText: 'Marketing team reviewing performance dashboards',
+        },
+        ctaLabel: 'Free AI & SEO Audit ↗',
+        ctaHref: '#contact',
+      },
+      {
+        __component: 'sections.svc-capabilities',
+        pill: '● What we do',
+        headingPrefix: 'Digital Strategies Designed to\n',
+        headingSerif: 'Drive Business Growth',
+        headingSuffix: '',
+        capabilityItems: [
+          {
+            icon: 'search',
+            title: 'Search Engine\nOptimization (SEO)',
+            description:
+              'Technical fixes, keyword research,\non-page optimization and link\nbuilding that lift your rankings for the\nsearches your buyers actually make.',
+          },
+          {
+            icon: 'robot',
+            title: 'AI-Search\nOptimization',
+            description:
+              'Clear, well-structured, expert\ncontent with schema markup, so\nChatGPT, Gemini and Google AI\nOverviews can find, understand and\ncite your business.',
+          },
+          {
+            icon: 'location-pin',
+            title: 'Local SEO and Listing\nOptimization',
+            description:
+              'Google Business Profile setup,\nconsistent listings and location-\nfocused content that put you in front\nof nearby customers.',
+          },
+          {
+            icon: 'document-list',
+            title: 'Content Marketing and\nStrategy',
+            description:
+              'Articles, guides and pages built\naround real buyer questions,\ndesigned to earn trust, rank in search\nand support the sales process.',
+          },
+          {
+            icon: 'megaphone',
+            title: 'Paid Advertising\nand PPC',
+            description:
+              'Build custom web applications\ntailored to business needs,\nstreamlining internal management,\noperations, and specialized\nworkflows.',
+          },
+          {
+            icon: 'share',
+            title: 'Social Media\nMarketing',
+            description:
+              'A consistent, platform-specific\ncontent plan that builds\nawareness and engages the right\naudience, with performance\ntracked.',
+          },
+          {
+            icon: 'email',
+            title: 'Email Marketing and\nAutomation',
+            description:
+              'Targeted email and follow-up\nsequences that nurture leads and\nturn subscribers into customers.',
+          },
+          {
+            icon: 'funnel',
+            title: 'Lead Generation and\nConversion\nOptimization',
+            description:
+              'Gain business insights through\ncustomized dashboards, reports,\nand data visualizations that support\nsmarter decision-making.',
+          },
+          {
+            icon: 'shopping-cart',
+            title: 'eCommerce\nMarketing',
+            description:
+              'Product page SEO, shopping and\nretargeting campaigns, and\nretention marketing to grow online\nstore sales.',
+          },
+          {
+            icon: 'analytics-bars',
+            title: 'Analytics and\nPerformance\nTracking',
+            description:
+              'GA4, conversion tracking and CRM\nconnection, with reports that show\nwhich channels bring real leads\nand revenue.',
+          },
+          {
+            icon: 'bolt',
+            title: 'Ready to Accelerate Your Digital Growth?',
+            description:
+              "Let's grow your online presence and generate more qualified leads.",
+            isDark: true,
+            ctaLabel: 'Get Started ↗',
+            ctaHref: '#contact',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-benefits',
+        pill: '● Benefits',
+        headingPrefix: 'How Digital Marketing Helps\nYour Business ',
+        headingSerif: 'Grow',
+        benefitItems: [
+          {
+            icon: 'users-group',
+            title: 'Reach More\nRelevant Customers',
+            description:
+              'Improve your visibility\nwhere potential customers\nsearch for products,\nservices, and solutions like\nyours.',
+            isDark: false,
+          },
+          {
+            icon: 'target',
+            title: 'Generate Better-\nQualified Leads',
+            description:
+              'Align your content,\ntargeting, and landing\npages with the needs and\nintent of your ideal\ncustomers.',
+            isDark: true,
+          },
+          {
+            icon: 'growth-chart',
+            title: 'Improve Marketing\nEfficiency',
+            description:
+              'Use data to identify\nunderperforming\ncampaigns, refine targeting,\nand make informed\nmarketing decisions.',
+            isDark: false,
+          },
+          {
+            icon: 'cursor-click',
+            title: 'Turn More Visitors\nInto Inquiries',
+            description:
+              'Reduce friction in the\ncustomer journey with\nclearer messaging, better\nlanding pages, and\nstronger calls to action.',
+            isDark: false,
+          },
+          {
+            icon: 'growth-chart',
+            title: 'Build Long-Term\nOnline Visibility',
+            description:
+              'Develop a sustainable\ndigital presence through\nuseful content, sound SEO\npractices, and consistent\noptimization.',
+            isDark: false,
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-process',
+        pill: '● How we work',
+        headingPrefix: 'Our Digital Marketing\n',
+        headingSerif: 'Process',
+        steps: [
+          {
+            number: '01',
+            title: 'Discovery & Goal\nSetting',
+            description:
+              'Understand your business,\ntarget audience,\ncompetitors, current digital\npresence, and growth\nobjectives.',
+          },
+          {
+            number: '02',
+            title: 'Research &\nStrategy',
+            description:
+              'Identify relevant search\nopportunities, audience needs,\ncontent priorities, suitable\nmarketing channels, and\nperformance indicators.',
+          },
+          {
+            number: '03',
+            title: 'Implementation &\nCampaign Launch',
+            description:
+              'Execute the agreed strategy\nacross SEO, content, paid\ncampaigns, conversion\noptimization, and other\nselected channels.',
+          },
+          {
+            number: '04',
+            title: 'Measurement &\nAnalysis',
+            description:
+              'Review available analytics and\ncampaign data to understand\naudience behavior, lead\nquality, conversions, and\nmarketing performance.',
+          },
+          {
+            number: '05',
+            title: 'Optimization &\nGrowth',
+            description:
+              'Refine campaigns, content,\ntargeting, and website\nexperiences based on\nperformance insights and\nchanging business priorities.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-approach',
+        pill: '● Your goals first',
+        headingPrefix: 'Digital Growth Strategies\nTailored to ',
+        headingSerif: 'Your Business',
+        bodyOne:
+          'Every business has different audiences, competition, budgets, and growth\nobjectives. We develop digital marketing strategies around your specific\nneeds rather than applying the same approach to every business.',
+        bodyTwo:
+          'Whether you want to improve organic search rankings, increase qualified\ninquiries, strengthen AI-search visibility, or get more value from paid\ncampaigns, we help identify practical opportunities and build a strategy\naligned with your goals.\n\nOur approach emphasizes useful content, sound technical foundations,\nrelevant audience targeting, transparent reporting, and continuous\nimprovement.',
+        getBoxItems: [
+          { label: 'Useful Content', icon: 'document-text' },
+          { label: 'Sound Technical Foundations', icon: 'gear' },
+          { label: 'Relevant Audience Targeting', icon: 'target-arrow' },
+          { label: 'Transparent Reporting', icon: 'growth-chart' },
+          { label: 'Continuous Improvement', icon: 'trending-up' },
+        ],
+      },
+      {
+        __component: 'sections.svc-cta',
+        pill: '● Let’s talk',
+        headingPrefix: 'Ready to Turn Your Digital\nPresence Into ',
+        headingSerif: 'Business Growth?',
+        bodyOne:
+          "Let's identify the right opportunities to improve your online visibility, reach your\ntarget audience, and generate more meaningful business inquiries.",
+        ctaLabel: 'Discuss Your Growth Strategy ↗',
+        ctaHref: '#contact',
+      },
+      {
+        ...SHARED_CTA_BAND,
+        pill: '● CTA',
+        heading: 'For Instant Support, Please Contact Us',
+        subheading: 'Have a project in mind?',
+        buttonLabel: 'Connect With Us ↗',
+        buttonHref: '#contact',
       },
     ],
   },
@@ -2005,6 +2235,13 @@ export const DEFAULT_FOOTER: FooterData = {
 
 export function getDefaultPageBySlug(slug: string): PageItem | null {
   if (slug === 'home') return DEFAULT_HOMEPAGE_PAGE;
+  if (slug === 'service-3' || slug === 'digital-marketing-performance-growth') {
+    return (
+      DEFAULT_PAGES.find(
+        (page) => page.slug === 'service-3' || page.slug === 'digital-marketing-performance-growth'
+      ) ?? null
+    );
+  }
   if (slug === 'service-2' || slug === 'custom-software-development') {
     return (
       DEFAULT_PAGES.find(

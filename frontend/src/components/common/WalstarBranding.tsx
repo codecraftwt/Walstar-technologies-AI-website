@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '@/components/layout/Navbar';
 import { DEFAULT_NAVBAR } from '@/lib/default-landing';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
@@ -13,7 +13,7 @@ import type {
 export function BrandWordmark({ subtext }: { subtext: string }) {
   return (
     <Link className="logo" href="/">
-      WALST<b>★</b>R<small>{subtext}</small>
+      WALST<b className="logo-star">★</b>R<small className="logo-subtext">{subtext}</small>
     </Link>
   );
 }
@@ -149,7 +149,7 @@ export function SocialIconContent({ social }: { social: SocialLink }) {
     );
   }
 
-  return <span>{social.platform[0]}</span>;
+  return <span className="soc-fallback-letter">{social.platform[0]}</span>;
 }
 
 export function WalstarTopbar({ siteSetting }: { siteSetting: SiteSetting }) {
@@ -163,13 +163,13 @@ export function WalstarTopbar({ siteSetting }: { siteSetting: SiteSetting }) {
           {email ? (
             <a href={`mailto:${email}`} className="topbar-item">
               <ContactGlyph kind="email" media={siteSetting.topbarEmailIcon} />
-              <span>{email}</span>
+              <span className="topbar-contact-label">{email}</span>
             </a>
           ) : null}
           {phone ? (
             <a href={`tel:${phone.replace(/\s+/g, '')}`} className="topbar-item">
               <ContactGlyph kind="phone" media={siteSetting.topbarPhoneIcon} />
-              <span>{phone}</span>
+              <span className="topbar-contact-label">{phone}</span>
             </a>
           ) : null}
         </div>
@@ -260,8 +260,8 @@ export function WalstarCompactHeader({
       />
       {title ? (
         <div className="subpage-hero">
-          <h1>{title}</h1>
-          {summary ? <p>{summary}</p> : null}
+          <h1 className="subpage-hero-title">{title}</h1>
+          {summary ? <p className="subpage-hero-summary">{summary}</p> : null}
         </div>
       ) : null}
     </header>

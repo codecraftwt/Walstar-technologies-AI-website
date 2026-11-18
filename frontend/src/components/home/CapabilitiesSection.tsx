@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type { CapabilitiesSection, ServiceItem, ProcessStep } from '@/types/strapi';
 import { DEFAULT_PROCESS_STEPS } from '@/lib/default-landing';
-import { WalstarButtonArrow } from '@/components/WalstarButton';
+import { WalstarButtonArrow } from '@/components/common/WalstarButton';
 
 /* ─── Vector SVG Icons Matching Provided HTML ──────────────────────── */
 export function WwdArrowIcon() {
@@ -506,7 +506,7 @@ export function formatCardTitle(title?: string | React.ReactNode, slug?: string)
     return (
       <>
         {parts.map((p, i) => (
-          <span key={i}>
+          <span key={i} className="multiline-title-part">
             {p}
             {i < parts.length - 1 && <br />}
           </span>
@@ -525,7 +525,7 @@ export function renderMultilineTitle(title?: string | null): React.ReactNode {
     return (
       <>
         {parts.map((p, i) => (
-          <span key={i}>
+          <span key={i} className="multiline-title-part">
             {p}
             {i < parts.length - 1 && <br />}
           </span>
@@ -627,29 +627,29 @@ export function CapabilitiesBlock({
 
   return (
     <>
-      <section className="wwd" id="cap" aria-labelledby="wwd-title">
-        <div className="wwd-inner">
-          <div className="head">
+      <section className="wwd homepage-capabilities-section" id="cap" aria-labelledby="wwd-title">
+        <div className="wwd-inner homepage-capabilities-container">
+          <div className="head capabilities-header">
             <span className="pill">{pill}</span>
-            <h2 id="wwd-title">
+            <h2 id="wwd-title" className="wwd-heading capabilities-title">
               {prefix} <span className="serif">{serif}</span>
             </h2>
-            <p>{subtitle}</p>
+            <p className="wwd-subtitle capabilities-subtitle">{subtitle}</p>
           </div>
 
-          <div className="grid">
+          <div className="grid capabilities-grid">
             {cardsToRender.map((card, idx) => (
               <article
                 key={`${card.tag}-${idx}`}
-                className={`wwd-card card ${card.isWide ? 'w2 ' : ''}${card.colorClass}`}
+                className={`wwd-card card capabilities-card ${card.isWide ? 'w2 capabilities-card--wide ' : ''}${card.colorClass}`}
               >
-                <span className="tag">{card.tag}</span>
-                <span className="ic" aria-hidden="true">
+                <span className="tag capabilities-card-tag">{card.tag}</span>
+                <span className="ic capabilities-card-icon" aria-hidden="true">
                   {renderCardIcon(card)}
                 </span>
-                <h3>{card.title}</h3>
-                <p>{card.description}</p>
-                <Link className="more" href={card.href}>
+                <h3 className="wwd-card-title capabilities-card-title">{card.title}</h3>
+                <p className="wwd-card-desc capabilities-card-desc">{card.description}</p>
+                <Link className="more capabilities-card-more" href={card.href}>
                   {card.moreLabel} <WwdArrowIcon />
                 </Link>
               </article>
@@ -659,11 +659,11 @@ export function CapabilitiesBlock({
       </section>
 
       {showProcess && sortedSteps.length > 0 ? (
-        <section className="cap cap-proc-section" id="process" aria-label="Process">
-          <div className="proc">
-            <div className="hd">
+        <section className="cap cap-proc-section process-timeline-section" id="process" aria-label="Process">
+          <div className="proc process-timeline-container">
+            <div className="hd process-timeline-header">
               {processPill ? <span className="pill">{processPill}</span> : null}
-              <h2 className="proc-heading">
+              <h2 className="proc-heading process-timeline-heading">
                 <span className="proc-heading-text">{processHeadingPrefix}</span>{' '}
                 {processHeadingSerif ? (
                   <span className="proc-heading-accent">{processHeadingSerif}</span>
@@ -674,45 +674,45 @@ export function CapabilitiesBlock({
             </div>
 
             {stepThree ? (
-              <div className={stepThree.isHighlighted ? 'pc up3 pc-top pc-step-3' : 'pc pc-top pc-step-3'}>
-                <h4>{renderMultilineTitle(stepThree.title)}</h4>
-                <p>{stepThree.description}</p>
+              <div className={stepThree.isHighlighted ? 'pc up3 pc-top pc-step-3 process-step-card process-step-card--accent process-step-card--top process-step-card--step-3' : 'pc pc-top pc-step-3 process-step-card process-step-card--top process-step-card--step-3'}>
+                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepThree.title)}</h4>
+                <p className="proc-card-desc process-step-desc">{stepThree.description}</p>
               </div>
             ) : null}
 
             {stepFour ? (
-              <div className="pc pc-top pc-step-4">
-                <h4>{renderMultilineTitle(stepFour.title)}</h4>
-                <p>{stepFour.description}</p>
+              <div className="pc pc-top pc-step-4 process-step-card process-step-card--top process-step-card--step-4">
+                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepFour.title)}</h4>
+                <p className="proc-card-desc process-step-desc">{stepFour.description}</p>
               </div>
             ) : null}
 
-            <div className="tl" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
+            <div className="tl process-timeline-track" aria-hidden="true">
+              <i className="tl-dot process-timeline-dot" />
+              <i className="tl-dot process-timeline-dot" />
+              <i className="tl-dot process-timeline-dot" />
+              <i className="tl-dot process-timeline-dot" />
             </div>
 
             {stepOne ? (
-              <div className="pc pc-bottom pc-step-1">
-                <h4>{renderMultilineTitle(stepOne.title)}</h4>
-                <p>{stepOne.description}</p>
+              <div className="pc pc-bottom pc-step-1 process-step-card process-step-card--bottom process-step-card--step-1">
+                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepOne.title)}</h4>
+                <p className="proc-card-desc process-step-desc">{stepOne.description}</p>
               </div>
             ) : null}
 
             {stepTwo ? (
-              <div className="pc pc-bottom pc-step-2">
-                <h4>{renderMultilineTitle(stepTwo.title)}</h4>
-                <p>{stepTwo.description}</p>
+              <div className="pc pc-bottom pc-step-2 process-step-card process-step-card--bottom process-step-card--step-2">
+                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepTwo.title)}</h4>
+                <p className="proc-card-desc process-step-desc">{stepTwo.description}</p>
               </div>
             ) : null}
 
-            <div className="pnote">
-              {processNote ? <p>{processNote}</p> : null}
+            <div className="pnote process-footer-note">
+              {processNote ? <p className="pnote-text process-footer-note-text">{processNote}</p> : null}
               {processVideoLabel ? (
-                <Link className="vid" href={processVideoUrl}>
-                  <i className="vid-icon" aria-hidden="true">
+                <Link className="vid process-video-link" href={processVideoUrl}>
+                  <i className="vid-icon process-video-icon" aria-hidden="true">
                     <WalstarButtonArrow
                       className="vid-arrow"
                       width={22.85}
@@ -721,7 +721,7 @@ export function CapabilitiesBlock({
                       strokeWidth={1.5}
                     />
                   </i>
-                  <span className="vid-label">{processVideoLabel}</span>
+                  <span className="vid-label process-video-label">{processVideoLabel}</span>
                 </Link>
               ) : null}
             </div>

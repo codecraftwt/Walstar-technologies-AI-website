@@ -172,7 +172,11 @@ function resolvePageSections(
     );
 
   const isLegacyService =
-    (page.pageType === 'service' || page.slug === 'service-1') &&
+    (page.pageType === 'service' ||
+      page.slug === 'service-1' ||
+      page.slug === 'service-2' ||
+      page.slug === 'service-3' ||
+      page.slug === 'digital-marketing-performance-growth') &&
     !incoming.some(
       (section) => section.__component === 'sections.svc-intro'
     ) &&

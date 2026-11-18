@@ -1,12 +1,17 @@
 import type { CSSProperties, ReactNode } from 'react';
 
+export function cleanPill(text?: string | null): string {
+  if (!text) return '';
+  return text.replace(/^[●•\s\u25CF\u2022]+/, '').trim();
+}
+
 export function renderMultilineText(text?: string | null): ReactNode {
   if (!text) return null;
   const lines = text.split('\n');
   if (lines.length === 1) return text;
 
   return lines.map((line, index) => (
-    <span key={index}>
+    <span key={index} className="multiline-text-line">
       {index > 0 ? <br /> : null}
       {line}
     </span>
@@ -64,8 +69,8 @@ export function WalstarSectionHeader({
   return (
     <div className={className} style={style}>
       {pill ? <span className="pill">{pill}</span> : null}
-      <h2>{renderHeadingParts(headingPrefix, headingSerif, headingSuffix)}</h2>
-      {subtitle ? <p>{renderMultilineText(subtitle)}</p> : null}
+      <h2 className="section-header-heading">{renderHeadingParts(headingPrefix, headingSerif, headingSuffix)}</h2>
+      {subtitle ? <p className="section-header-subtitle">{renderMultilineText(subtitle)}</p> : null}
     </div>
   );
 }

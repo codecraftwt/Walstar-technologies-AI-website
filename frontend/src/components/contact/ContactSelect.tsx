@@ -95,7 +95,7 @@ export function ContactSelect({
           {options.map((option) => {
             const selected = option === value;
             return (
-              <li key={option} role="presentation">
+              <li key={option} role="presentation" className="contact-select-item">
                 <button
                   type="button"
                   role="option"

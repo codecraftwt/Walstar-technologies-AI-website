@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import { CmsStatusPanel } from '@/components/CmsStatusPanel';
-import { DetailShell } from '@/components/DetailShell';
+import { CmsStatusPanel } from '@/components/common/CmsStatusPanel';
+import { DetailShell } from '@/components/common/DetailShell';
 
 function LoadingFallback() {
   return (

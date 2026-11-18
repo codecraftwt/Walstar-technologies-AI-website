@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ConsultationForm } from '@/components/ConsultationForm';
-import { WalstarButton } from '@/components/WalstarButton';
+import { ConsultationForm } from '@/components/contact/ConsultationForm';
+import { WalstarButton } from '@/components/common/WalstarButton';
 import {
   BrandWordmark,
   SocialIconContent,
-} from '@/components/WalstarBranding';
+} from '@/components/common/WalstarBranding';
 import { resolveCmsRoute } from '@/lib/cms-routes';
 import { DEFAULT_FOOTER, DEFAULT_SITE_SETTING } from '@/lib/default-landing';
 import { getStrapiMediaUrl } from '@/lib/strapi';
@@ -32,8 +32,8 @@ export function WalstarCtaBand({
     >
       <div className="cta-band-copy">
         {section.pill ? <span className="pill">{section.pill}</span> : null}
-        <h3>{section.heading}</h3>
-        {section.subheading ? <p>{section.subheading}</p> : null}
+        <h3 className="cta-band-heading">{section.heading}</h3>
+        {section.subheading ? <p className="cta-band-subheading">{section.subheading}</p> : null}
       </div>
       {section.buttonLabel ? (
         <div className="cta-band-action">
@@ -309,7 +309,7 @@ export function WalstarFooter({
                     {(column.links ?? []).map((link, linkIdx) => {
                       const href = resolveCmsRoute(link.route, link.page);
                       return (
-                        <li key={`${link.label}-${href}-${link.id ?? linkIdx}`}>
+                        <li key={`${link.label}-${href}-${link.id ?? linkIdx}`} className="fl-item">
                           <Link
                             href={href}
                             target={link.openInNewTab ? '_blank' : undefined}
@@ -336,7 +336,7 @@ export function WalstarFooter({
                   <circle cx="12" cy="10" r="2.5" />
                 </svg>
               </span>
-              <span>{resolved.officeAddress}</span>
+              <span className="fc-address">{resolved.officeAddress}</span>
             </div>
             <div>
               <span className="fc-icon" aria-hidden="true">
@@ -363,7 +363,7 @@ export function WalstarFooter({
         </div>
 
         <div className="copy">
-          <span>{resolved.copyrightText}</span>
+          <span className="copy-text">{resolved.copyrightText}</span>
           <div className="copy-right">
             <span className="soc2" aria-label="Social links">
               {(() => {

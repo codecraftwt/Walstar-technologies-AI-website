@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { ConsultationForm } from '@/components/ConsultationForm';
+import { ConsultationForm } from '@/components/contact/ConsultationForm';
 import {
   renderHeadingParts,
   renderMultilineText,
-} from '@/components/SectionPrimitives';
+} from '@/components/common/SectionPrimitives';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type {
   ContactInterestSection,
@@ -114,7 +114,7 @@ export function ContactInterestBlock({
 
         <div className="contact-interest-copy">
           {section.tag ? <span className="pill">{section.tag}</span> : null}
-          <h2>
+          <h2 className="contact-interest-heading">
             {section.headingPrefix
               ? renderMultilineText(section.headingPrefix.replace(/\n+$/, ''))
               : null}
@@ -126,7 +126,7 @@ export function ContactInterestBlock({
             ) : null}
             {section.headingSuffix ? <> {section.headingSuffix}</> : null}
           </h2>
-          {section.subtitle ? <p>{renderMultilineText(section.subtitle)}</p> : null}
+          {section.subtitle ? <p className="contact-interest-desc">{renderMultilineText(section.subtitle)}</p> : null}
 
           {options.length > 0 ? (
             <div className="contact-chip-grid" role="group" aria-label="Areas of interest">
@@ -190,14 +190,14 @@ export function ContactSectionView({
         <div className="contact-panel">
           <div className="contact-info-col">
             {section.tag ? <span className="pill">{section.tag}</span> : null}
-            <h2>
+            <h2 className="contact-panel-heading">
               {renderHeadingParts(
                 section.headingPrefix,
                 section.headingSerif
               )}
             </h2>
             {section.subtitle ? (
-              <p className="lead">{renderMultilineText(section.subtitle)}</p>
+              <p className="lead contact-panel-lead">{renderMultilineText(section.subtitle)}</p>
             ) : null}
 
             {section.showOfficeDetails !== false ? (
@@ -208,11 +208,11 @@ export function ContactSectionView({
                       <div className="contact-detail-icon" aria-hidden="true">
                         <PhoneIcon />
                       </div>
-                      <h3>{section.callLabel || 'Call Us :'}</h3>
+                      <h3 className="contact-detail-title">{section.callLabel || 'Call Us :'}</h3>
                     </div>
-                    <ul>
+                    <ul className="contact-detail-list">
                       {phones.map((phone) => (
-                        <li key={phone}>
+                        <li key={phone} className="contact-detail-item">
                           <a href={`tel:${phone.replace(/\s+/g, '')}`}>
                             {phone}
                           </a>
@@ -228,11 +228,11 @@ export function ContactSectionView({
                       <div className="contact-detail-icon" aria-hidden="true">
                         <EmailIcon />
                       </div>
-                      <h3>{section.emailLabel || 'Email Us :'}</h3>
+                      <h3 className="contact-detail-title">{section.emailLabel || 'Email Us :'}</h3>
                     </div>
-                    <ul>
+                    <ul className="contact-detail-list">
                       {emails.map((email) => (
-                        <li key={email}>
+                        <li key={email} className="contact-detail-item">
                           <a href={`mailto:${email}`}>{email}</a>
                         </li>
                       ))}

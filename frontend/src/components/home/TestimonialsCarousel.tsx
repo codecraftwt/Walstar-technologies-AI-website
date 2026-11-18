@@ -115,12 +115,12 @@ function TestimonialCard({
       <QuoteMarkSvg />
 
       <div className="t-body">
-        <p>{item.quote}</p>
+        <p className="t-quote">{item.quote}</p>
       </div>
 
       <div className="t-meta">
         <span className="t-divider" aria-hidden="true" />
-        <h5>{item.authorName}</h5>
+        <h5 className="t-author">{item.authorName}</h5>
         {item.companyName ? <div className="co">{item.companyName}</div> : null}
         <StarRating rating={item.rating || 5} />
       </div>
@@ -340,7 +340,7 @@ export function TestimonialsCarousel({
       <section className="tm">
         <div className="head">
           {tag ? <span className="pill">{tag}</span> : null}
-          <h2>
+          <h2 className="tm-heading">
             {headingPrefix} <span className="serif">{headingSerif}</span>
           </h2>
         </div>
@@ -357,7 +357,7 @@ export function TestimonialsCarousel({
     <section className="tm">
       <div className="head">
         {tag ? <span className="pill">{tag}</span> : null}
-        <h2>
+        <h2 className="tm-heading">
           {headingPrefix} <span className="serif">{headingSerif}</span>
         </h2>
       </div>
