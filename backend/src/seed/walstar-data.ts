@@ -270,7 +270,7 @@ export const INITIAL_SERVICES = [
     more: 'Explore AI solutions',
     isWide: true,
     description:
-      'We build AI chatbots, process automation, and intelligent digital solutions that streamline operations, boost efficiency, and deliver smarter, modern experiences.',
+      'Build AI-powered applications, intelligent agents, chatbots, and automated workflows that reduce repetitive work and improve business efficiency.',
     icon: '✦',
     image: {
       url: 'https://res.cloudinary.com/dwwykeft2/image/upload/v1794897929/Collaborative_AI_in_a_Modern_Office_1_59e5ed1401.png',
@@ -286,7 +286,7 @@ export const INITIAL_SERVICES = [
     more: 'Explore digital growth',
     isWide: false,
     description:
-      'Improve AI-search visibility, attract relevant visitors, generate qualified leads, and optimize digital campaigns using measurable performance data.',
+      'Get discovered, attract the right visitors, and turn measurable campaign performance into qualified leads.',
     icon: '◀',
     themeVariant: 'b' as const,
     order: 2,
@@ -298,7 +298,7 @@ export const INITIAL_SERVICES = [
     more: 'Explore business software',
     isWide: false,
     description:
-      'Simplify business operations with custom ERP systems, CRM platforms, inventory management, automated workflows, and connected business applications.',
+      'Make complex operations feel simple with custom ERP, CRM, inventory, and connected business systems.',
     icon: '▣',
     themeVariant: 'c' as const,
     order: 3,
@@ -310,7 +310,7 @@ export const INITIAL_SERVICES = [
     more: 'Web & SaaS development',
     isWide: false,
     description:
-      'Fast, secure, search-friendly websites and scalable SaaS platforms, built on modern technology with performance and SEO included from day one.',
+      'Launch fast, secure websites and scalable SaaS products, with visibility and performance built in from day one.',
     icon: '◉',
     themeVariant: 'd' as const,
     order: 4,
@@ -330,7 +330,7 @@ export const INITIAL_SERVICES = [
   {
     title: 'ECommerce & Shopify Solutions',
     slug: 'ecommerce-shopify-solutions',
-    tag: 'Sell with impact',
+    tag: 'Sell seamlessly',
     more: 'Explore eCommerce',
     isWide: false,
     description:
@@ -342,7 +342,7 @@ export const INITIAL_SERVICES = [
   {
     title: 'Cloud, DevOps & Platform Engineering',
     slug: 'cloud-devops-platform-engineering',
-    tag: 'Engineered to last',
+    tag: 'Scale confidently',
     more: 'Explore cloud solutions',
     isWide: false,
     description:
@@ -354,8 +354,8 @@ export const INITIAL_SERVICES = [
   {
     title: 'Cybersecurity & Managed IT',
     slug: 'cybersecurity-managed-it',
-    tag: 'Built to defend',
-    more: 'Explore security',
+    tag: 'Stay protected',
+    more: 'Explore security & support',
     isWide: false,
     description:
       'Protect your systems and keep applications healthy, secure, and reliable with responsive ongoing technical support.',
@@ -366,7 +366,7 @@ export const INITIAL_SERVICES = [
   {
     title: 'UI/UX & Product Design',
     slug: 'ui-ux-product-design',
-    tag: 'Design that connects',
+    tag: 'Design that works',
     more: 'Explore product design',
     isWide: false,
     description:
@@ -701,9 +701,9 @@ export const INITIAL_PAGES = [
         headingPrefix: 'Trusted by 10k+',
         headingSerif: 'fast-growing',
         headingSuffix: 'businesses',
-        topRowDurationSeconds: 28,
+        topRowDurationSeconds: 70,
         topRowDirection: 'left' as const,
-        bottomRowDurationSeconds: 42,
+        bottomRowDurationSeconds: 140,
         bottomRowDirection: 'right' as const,
         logos: SHARED_TRUSTED_LOGOS,
       },

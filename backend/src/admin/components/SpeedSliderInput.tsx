@@ -108,7 +108,7 @@ const NumberBox = styled.input`
 `;
 
 const DEFAULT_MIN = 4;
-const DEFAULT_MAX = 120;
+const DEFAULT_MAX = 180;
 const DEFAULT_VALUE = 24;
 
 function parseBound(raw: unknown, fallback: number): number {

@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getStrapiMediaUrl } from '@/lib/strapi';
-import type { CapabilitiesSection, ServiceItem } from '@/types/strapi';
+import type { CapabilitiesSection, ServiceItem, ProcessStep } from '@/types/strapi';
+import { DEFAULT_PROCESS_STEPS } from '@/lib/default-landing';
+import { WalstarButtonArrow } from '@/components/WalstarButton';
 
 /* ─── Vector SVG Icons Matching Provided HTML ──────────────────────── */
 export function WwdArrowIcon() {
@@ -423,10 +425,8 @@ export const WWD_CARDS: WwdCardItem[] = [
     ),
     description: (
       <>
-        Extend your team without the hiring
-        <br className="d" /> burden. Work with us as a
-        <br className="d" /> confidential delivery partner,
-        <br className="d" /> or add dedicated developers.
+        Extend your team without the hiring burden. Work with us as a confidential
+        <br className="d" /> delivery partner, or add dedicated developers to your own workflow.
       </>
     ),
     moreLabel: 'Explore team partnerships',
@@ -518,6 +518,24 @@ export function formatCardTitle(title?: string | React.ReactNode, slug?: string)
   return title;
 }
 
+export function renderMultilineTitle(title?: string | null): React.ReactNode {
+  if (!title) return null;
+  if (title.includes('\n')) {
+    const parts = title.split('\n');
+    return (
+      <>
+        {parts.map((p, i) => (
+          <span key={i}>
+            {p}
+            {i < parts.length - 1 && <br />}
+          </span>
+        ))}
+      </>
+    );
+  }
+  return title;
+}
+
 /* ─── Capabilities Block Matching Exact HTML ────────────────────────── */
 export function CapabilitiesBlock({
   section,
@@ -532,6 +550,25 @@ export function CapabilitiesBlock({
   const subtitle =
     section.subtitle ||
     'End-to-end AI services engineered for performance, data security';
+
+  // Process ("From idea to production") configuration
+  const showProcess = section.showProcess !== false;
+  const processPill = (section.processPill || 'What we do').replace(/^[●•\s]+/, '');
+  const processHeadingPrefix = section.processHeadingPrefix || 'From';
+  const processHeadingSerif = section.processHeadingSerif || 'idea';
+  const processHeadingSuffix = section.processHeadingSuffix || 'to production';
+  const processNote =
+    section.processNote ||
+    'Attaining the best, yet through a certain measure of time, it comes about with great labor and pain. Indeed, even to the slightest degree.';
+  const processVideoLabel = section.processVideoLabel || 'Video Presentation';
+  const processVideoUrl = section.processVideoUrl || '#cta';
+
+  const stepsToUse: ProcessStep[] =
+    section.processSteps && section.processSteps.length > 0
+      ? section.processSteps
+      : DEFAULT_PROCESS_STEPS;
+  const sortedSteps = [...stepsToUse].sort((a, b) => a.stepNumber - b.stepNumber);
+  const [stepOne, stepTwo, stepThree, stepFour] = sortedSteps;
 
   // Pool all available services from Strapi (section-level or global fallback)
   const incomingServices =
@@ -589,35 +626,108 @@ export function CapabilitiesBlock({
   });
 
   return (
-    <section className="wwd" id="cap" aria-labelledby="wwd-title">
-      <div className="wwd-inner">
-        <div className="head">
-          <span className="pill">{pill}</span>
-          <h2 id="wwd-title">
-            {prefix} <span className="serif">{serif}</span>
-          </h2>
-          <p>{subtitle}</p>
-        </div>
+    <>
+      <section className="wwd" id="cap" aria-labelledby="wwd-title">
+        <div className="wwd-inner">
+          <div className="head">
+            <span className="pill">{pill}</span>
+            <h2 id="wwd-title">
+              {prefix} <span className="serif">{serif}</span>
+            </h2>
+            <p>{subtitle}</p>
+          </div>
 
-        <div className="grid">
-          {cardsToRender.map((card, idx) => (
-            <article
-              key={`${card.tag}-${idx}`}
-              className={`wwd-card card ${card.isWide ? 'w2 ' : ''}${card.colorClass}`}
-            >
-              <span className="tag">{card.tag}</span>
-              <span className="ic" aria-hidden="true">
-                {renderCardIcon(card)}
-              </span>
-              <h3>{card.title}</h3>
-              <p>{card.description}</p>
-              <Link className="more" href={card.href}>
-                {card.moreLabel} <WwdArrowIcon />
-              </Link>
-            </article>
-          ))}
+          <div className="grid">
+            {cardsToRender.map((card, idx) => (
+              <article
+                key={`${card.tag}-${idx}`}
+                className={`wwd-card card ${card.isWide ? 'w2 ' : ''}${card.colorClass}`}
+              >
+                <span className="tag">{card.tag}</span>
+                <span className="ic" aria-hidden="true">
+                  {renderCardIcon(card)}
+                </span>
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+                <Link className="more" href={card.href}>
+                  {card.moreLabel} <WwdArrowIcon />
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {showProcess && sortedSteps.length > 0 ? (
+        <section className="cap cap-proc-section" id="process" aria-label="Process">
+          <div className="proc">
+            <div className="hd">
+              {processPill ? <span className="pill">{processPill}</span> : null}
+              <h2 className="proc-heading">
+                <span className="proc-heading-text">{processHeadingPrefix}</span>{' '}
+                {processHeadingSerif ? (
+                  <span className="proc-heading-accent">{processHeadingSerif}</span>
+                ) : null}
+                <br />
+                <span className="proc-heading-text">{processHeadingSuffix}</span>
+              </h2>
+            </div>
+
+            {stepThree ? (
+              <div className={stepThree.isHighlighted ? 'pc up3 pc-top pc-step-3' : 'pc pc-top pc-step-3'}>
+                <h4>{renderMultilineTitle(stepThree.title)}</h4>
+                <p>{stepThree.description}</p>
+              </div>
+            ) : null}
+
+            {stepFour ? (
+              <div className="pc pc-top pc-step-4">
+                <h4>{renderMultilineTitle(stepFour.title)}</h4>
+                <p>{stepFour.description}</p>
+              </div>
+            ) : null}
+
+            <div className="tl" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+              <i />
+            </div>
+
+            {stepOne ? (
+              <div className="pc pc-bottom pc-step-1">
+                <h4>{renderMultilineTitle(stepOne.title)}</h4>
+                <p>{stepOne.description}</p>
+              </div>
+            ) : null}
+
+            {stepTwo ? (
+              <div className="pc pc-bottom pc-step-2">
+                <h4>{renderMultilineTitle(stepTwo.title)}</h4>
+                <p>{stepTwo.description}</p>
+              </div>
+            ) : null}
+
+            <div className="pnote">
+              {processNote ? <p>{processNote}</p> : null}
+              {processVideoLabel ? (
+                <Link className="vid" href={processVideoUrl}>
+                  <i className="vid-icon" aria-hidden="true">
+                    <WalstarButtonArrow
+                      className="vid-arrow"
+                      width={22.85}
+                      height={19.06}
+                      viewBox="1.5 2.5 13 11"
+                      strokeWidth={1.5}
+                    />
+                  </i>
+                  <span className="vid-label">{processVideoLabel}</span>
+                </Link>
+              ) : null}
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </>
   );
 }

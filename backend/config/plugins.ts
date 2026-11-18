@@ -55,6 +55,9 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
               },
             }
           : {}),
+        sharp: {
+          limitInputPixels: false,
+        },
         security: {
           allowedTypes: allowedMediaTypes,
           deniedTypes,

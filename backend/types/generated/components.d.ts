@@ -868,7 +868,7 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
         },
         number
       > &
-      Schema.Attribute.DefaultTo<32>;
+      Schema.Attribute.DefaultTo<90>;
     bottomRowDirection: Schema.Attribute.Enumeration<['left', 'right']> &
       Schema.Attribute.DefaultTo<'right'>;
     bottomRowDurationSeconds: Schema.Attribute.Integer &
@@ -880,7 +880,7 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
         },
         number
       > &
-      Schema.Attribute.DefaultTo<42>;
+      Schema.Attribute.DefaultTo<120>;
     bottomRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Trusted by'>;
@@ -903,7 +903,7 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
         },
         number
       > &
-      Schema.Attribute.DefaultTo<28>;
+      Schema.Attribute.DefaultTo<90>;
     topRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
   };
 }

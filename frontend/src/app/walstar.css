@@ -3,7 +3,7 @@
   --navy2: #0e0f3a;
   --blue: #41A3FF;
   --sky: #DDEFFF;
-  --orange: #f4691f;
+  --orange: #E96D01;
   --ink: #12123a;
   --mute: #5d6280;
   --line: #e3e8f2;
@@ -164,18 +164,21 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: clamp(48px, 3.021vw, 58px);
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
+  min-width: clamp(190px, 14.583vw, 280px);
+  max-width: 100%;
+  min-height: clamp(46px, 3.4375vw, 66px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   border-radius: 30px;
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 500;
-  font-size: clamp(13px, 0.781vw, 15px);
+  font-size: clamp(13px, 0.833vw, 16px);
   line-height: 1;
   border: 0;
   cursor: pointer;
   box-sizing: border-box;
   text-decoration: none;
   opacity: 1;
+  transform: rotate(0deg);
   transition:
     transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.28s ease,
@@ -217,15 +220,31 @@
 }
 
 .btn-or {
-  background: var(--orange);
+  background: #E96D01;
   color: #fff;
+}
+
+.walstar-btn.btn.btn-or .walstar-btn-label {
+  font-family: var(--font-poppins, 'Poppins', ui-sans-serif, system-ui, sans-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(14px, 1.0417vw, 20px);
+  line-height: 100%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.walstar-btn.btn.btn-or.nav-cta-btn .walstar-btn-label,
+.nf .walstar-btn.btn.btn-or .walstar-btn-label,
+.sc2.dk .walstar-btn.btn.btn-or .walstar-btn-label {
+  font-size: inherit;
 }
 
 .btn-or:hover,
 .btn-or:focus-visible {
-  background: #eb6118;
+  background: #d46201;
   box-shadow:
-    0 5px 14px rgba(244, 105, 31, 0.28),
+    0 5px 14px rgba(233, 109, 1, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -264,12 +283,13 @@
 
 .more .btn,
 .more .walstar-btn {
-  min-width: clamp(200px, 14.786vw, 283.9px);
-  min-height: clamp(48px, 3.021vw, 58px);
+  min-width: clamp(190px, 14.583vw, 280px);
+  max-width: 100%;
+  min-height: clamp(46px, 3.4375vw, 66px);
   border-radius: 30px;
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   gap: 6px;
-  font-size: clamp(13px, 0.781vw, 15px);
+  font-size: clamp(13px, 0.833vw, 16px);
 }
 
 .walstar-page h2 {
@@ -326,7 +346,7 @@
 
 /* topbar */
 .topbar {
-  background: var(--white);
+  background: #F3F4F6;
   color: var(--ink);
   font-size: 13.5px;
   font-weight: 500;
@@ -1006,6 +1026,16 @@ html.walstar-scroll-locked {
   box-sizing: border-box;
 }
 
+.hero .chip::before {
+  content: "";
+  display: inline-block;
+  width: clamp(7px, 0.521vw, 9px);
+  height: clamp(7px, 0.521vw, 9px);
+  border-radius: 50%;
+  background: #41A3FF;
+  flex-shrink: 0;
+}
+
 .hero h1 {
   font-family: Urbanist, Poppins, system-ui, sans-serif;
   font-size: clamp(28px, 4.3vw, 80px);
@@ -1053,11 +1083,11 @@ html.walstar-scroll-locked {
 }
 
 .hero .cta .btn {
-  width: clamp(200px, 14.786vw, 283.9px);
-  min-height: clamp(48px, 3.021vw, 58px);
+  width: clamp(190px, 14.583vw, 280px);
+  min-height: clamp(46px, 3.4375vw, 66px);
   border-radius: 30px;
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
-  font-size: clamp(13px, 0.781vw, 15px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
+  font-size: clamp(13px, 0.833vw, 16px);
   font-weight: 500;
   gap: 6px;
   border-width: 1px;
@@ -1574,11 +1604,29 @@ html.walstar-scroll-locked {
   margin-top: 44px;
 }
 
+.cap.cap-proc-section {
+  position: relative;
+  z-index: 1;
+  background: #DDEFFF;
+  border-radius: 0;
+  margin: calc(-1 * clamp(200px, 34vw, 650px)) 0 0;
+  padding: calc(clamp(200px, 34vw, 650px) + clamp(52px, 4.5vw, 84px)) 0 clamp(68px, 5.4vw, 100px);
+  overflow: visible;
+}
+
+.cap.cap-proc-section .proc {
+  width: min(1606px, 83.44vw);
+  max-width: 1606px;
+  margin-inline: auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .proc {
   padding: 80px 8.5% 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: clamp(14px, 1.25vw, 24px);
 }
 
 .proc .hd {
@@ -1586,24 +1634,57 @@ html.walstar-scroll-locked {
   align-self: start;
 }
 
-.proc h2 {
-  margin-top: clamp(6px, 0.6vw, 10px);
-  line-height: 1.18;
+.walstar-page .proc h2.proc-heading,
+.proc .proc-heading {
+  font-family: var(--font-urbanist, 'Urbanist', system-ui, sans-serif);
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(32px, 4.1667vw, 80px);
+  line-height: clamp(36px, 4.1667vw, 80px);
+  letter-spacing: 0;
+  color: #001930;
+  margin-top: clamp(10px, 0.833vw, 16px);
+  margin-bottom: 0;
+}
+
+.walstar-page .proc h2.proc-heading .proc-heading-text,
+.proc .proc-heading .proc-heading-text {
+  font-family: var(--font-urbanist, 'Urbanist', system-ui, sans-serif);
+  font-weight: 600;
+  font-style: normal;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  color: #001930;
+}
+
+.walstar-page .proc h2.proc-heading .proc-heading-accent,
+.proc .proc-heading .proc-heading-accent {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  color: #41A3FF;
 }
 
 .pc {
   background: #fff;
   width: 100%;
-  min-height: clamp(160px, 11.458vw, 220px);
-  padding: clamp(18px, 1.979vw, 38px) clamp(10px, 0.99vw, 19px);
+  max-width: 381px;
+  min-height: clamp(175px, 12.588vw, 241.7px);
+  padding: clamp(20px, 1.979vw, 38px) clamp(14px, 1.15vw, 22px);
   text-align: center;
   box-shadow: 0 4px 14px rgba(30, 70, 140, 0.06);
   position: relative;
   opacity: 1;
+  transform: rotate(0deg);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-self: center;
   box-sizing: border-box;
   transition:
     transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1634,12 +1715,11 @@ html.walstar-scroll-locked {
   font-weight: 400;
   line-height: clamp(19px, 1.458vw, 28px);
   letter-spacing: 0;
-  text-align: left;
+  text-align: center;
   color: #666666;
   margin: 0;
   width: 100%;
   max-width: 344px;
-  text-align: center;
 }
 
 .pc::after {
@@ -1678,7 +1758,7 @@ html.walstar-scroll-locked {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: clamp(14px, 1.25vw, 24px);
   height: 34px;
   align-items: center;
   justify-items: center;
@@ -1733,45 +1813,132 @@ html.walstar-scroll-locked {
 .vid {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  margin-top: 24px;
-  font-size: 13px;
-  font-weight: 500;
+  gap: clamp(10px, 0.833vw, 16px);
+  margin-top: clamp(18px, 1.458vw, 28px);
+  font-family: var(--font-poppins, 'Poppins', ui-sans-serif, system-ui, sans-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(14px, 1.0417vw, 20px);
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #343434;
   transition: transform 0.2s ease;
+}
+
+.vid .vid-label {
+  font-family: var(--font-poppins, 'Poppins', ui-sans-serif, system-ui, sans-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(14px, 1.0417vw, 20px);
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #343434;
 }
 
 .vid:hover {
   transform: translateX(3px);
 }
 
-.vid i {
-  width: 52px;
-  height: 52px;
+.vid i,
+.vid .vid-icon {
+  position: relative;
+  width: clamp(44px, 3.125vw, 60px);
+  height: clamp(44px, 3.125vw, 60px);
   border-radius: 50%;
   background: var(--orange);
   color: #fff;
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   font-style: normal;
   transition: box-shadow 0.28s ease, background-color 0.24s ease;
 }
 
 .vid .vid-arrow {
-  width: 22px;
-  height: 22px;
+  width: clamp(16px, 1.19vw, 22.85px);
+  height: clamp(13.5px, 0.993vw, 19.06px);
+  opacity: 1;
+  display: block;
+  flex-shrink: 0;
+  color: #fff;
 }
 
 .vid:hover i,
-.vid:focus-visible i {
-  background: #eb6118;
+.vid:focus-visible i,
+.vid:hover .vid-icon,
+.vid:focus-visible .vid-icon {
+  background: #d46201;
   box-shadow:
-    0 5px 14px rgba(244, 105, 31, 0.28),
+    0 5px 14px rgba(233, 109, 1, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .vid:hover .walstar-btn-arrow,
-.vid:focus-visible .walstar-btn-arrow {
+.vid:focus-visible .walstar-btn-arrow,
+.vid:hover .vid-arrow,
+.vid:focus-visible .vid-arrow {
   transform: rotate(0deg) translateX(3px);
+}
+
+@media (max-width: 1440px) {
+  .walstar-page .proc h2.proc-heading,
+  .proc .proc-heading {
+    font-size: clamp(36px, 4.1667vw, 60px);
+    line-height: clamp(40px, 4.3vw, 62px);
+  }
+
+  .pc {
+    min-height: clamp(175px, 12.588vw, 195px);
+    padding: clamp(18px, 1.8vw, 28px) clamp(12px, 1.1vw, 18px);
+  }
+
+  .pnote {
+    padding-left: clamp(20px, 3.5vw, 56px);
+  }
+
+  .vid,
+  .vid .vid-label {
+    font-size: clamp(14px, 1.0417vw, 16px);
+  }
+
+  .vid i,
+  .vid .vid-icon {
+    width: clamp(44px, 3.125vw, 48px);
+    height: clamp(44px, 3.125vw, 48px);
+  }
+
+  .vid .vid-arrow {
+    width: clamp(16px, 1.19vw, 18px);
+    height: clamp(13.5px, 0.993vw, 15px);
+  }
+}
+
+@media (max-width: 1180px) {
+  .walstar-page .proc h2.proc-heading,
+  .proc .proc-heading {
+    font-size: clamp(32px, 3.8vw, 48px);
+    line-height: 1.08;
+  }
+
+  .pc {
+    min-height: clamp(160px, 14vw, 185px);
+    padding: 18px 12px;
+  }
+
+  .pc h4 {
+    font-size: clamp(15px, 1.45vw, 19px);
+    line-height: 1.3;
+  }
+
+  .pc p {
+    font-size: clamp(12px, 1.05vw, 14px);
+    line-height: 1.45;
+  }
+
+  .pnote {
+    padding-left: clamp(14px, 2.4vw, 32px);
+  }
 }
 
 /* products */
@@ -1835,7 +2002,7 @@ html.walstar-scroll-locked {
   line-height: clamp(21px, 1.5625vw, 30px);
   letter-spacing: 0;
   color: #001930;
-  margin: 0;
+  margin: 0 0 clamp(4px, 0.3125vw, 6px);
 }
 
 .feat .txt small {
@@ -1847,8 +2014,12 @@ html.walstar-scroll-locked {
   line-height: 1.25;
   letter-spacing: 0;
   color: #666666;
-  margin-top: clamp(4px, 0.3125vw, 6px);
-  margin-bottom: clamp(6px, 0.4167vw, 8px);
+  margin-top: 0;
+  margin-bottom: clamp(10px, 0.73vw, 16px);
+}
+
+.feat h4 + p {
+  margin-top: clamp(10px, 0.73vw, 16px);
 }
 
 .feat p {
@@ -1908,41 +2079,69 @@ html.walstar-scroll-locked {
   justify-content: center;
   align-items: flex-start;
   min-width: 0;
-  padding: clamp(2px, 0.2vw, 4px) clamp(2px, 0.25vw, 4px);
+  padding: clamp(6px, 0.45vw, 10px) clamp(4px, 0.3vw, 8px);
 }
 
-.pi h4 {
+.pi h4,
+.pi-body .pi-heading {
   font-family: var(--font-poppins, 'Poppins', sans-serif);
   font-weight: 500;
   font-style: normal;
-  font-size: clamp(17px, 1.5625vw, 30px);
-  line-height: clamp(20px, 1.5625vw, 30px);
+  font-size: clamp(18px, 1.5625vw, 30px);
+  line-height: 100%;
   letter-spacing: 0;
   color: #001930;
-  margin: 0;
+  margin: 0 0 clamp(10px, 0.729vw, 14px);
 }
 
-.pi small {
+.pi small,
+.pi-body .pi-subheading {
   display: block;
   font-family: var(--font-poppins, 'Poppins', sans-serif);
   font-weight: 400;
   font-style: normal;
-  font-size: clamp(11.5px, 0.9375vw, 18px);
-  line-height: 1.25;
+  font-size: clamp(12px, 0.9375vw, 18px);
+  line-height: 100%;
   letter-spacing: 0;
   color: #666666;
-  margin: clamp(3px, 0.25vw, 5px) 0 clamp(4px, 0.3125vw, 6px);
+  margin: 0 0 clamp(16px, 1.146vw, 22px);
 }
 
-.pi p {
+.pi h4 + p,
+.pi-body .pi-heading + .pi-description {
+  margin-top: clamp(14px, 1.042vw, 20px);
+}
+
+.pi p,
+.pi-body .pi-description {
   font-family: var(--font-poppins, 'Poppins', sans-serif);
   font-weight: 400;
   font-style: normal;
-  font-size: clamp(12.5px, 1.0417vw, 20px);
-  line-height: clamp(17px, 1.354vw, 26px);
+  font-size: clamp(13.5px, 1.0417vw, 20px);
+  line-height: 100%;
   letter-spacing: 0;
   color: #343434;
-  margin: 0 0 clamp(8px, 0.625vw, 12px);
+  margin: 0 0 clamp(18px, 1.354vw, 26px);
+}
+
+@media (max-width: 1440px) {
+  .pi h4,
+  .pi-body .pi-heading {
+    font-size: clamp(18px, 1.5625vw, 24px);
+    line-height: 1.15;
+  }
+
+  .pi small,
+  .pi-body .pi-subheading {
+    font-size: clamp(12.5px, 0.9375vw, 15px);
+    line-height: 1.2;
+  }
+
+  .pi p,
+  .pi-body .pi-description {
+    font-size: clamp(13.5px, 1.0417vw, 16px);
+    line-height: 1.3;
+  }
 }
 
 .pi .rm {
@@ -1979,6 +2178,48 @@ html.walstar-scroll-locked {
     inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
+.prod .bt,
+.prod .rm,
+.prod .walstar-btn {
+  font-family: var(--font-poppins, 'Poppins', sans-serif) !important;
+  font-size: clamp(14px, 0.95vw, 16px) !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  padding: clamp(10px, 0.7vw, 13px) clamp(22px, 1.35vw, 28px) !important;
+  min-height: clamp(42px, 2.7vw, 48px) !important;
+  color: #001930 !important;
+  gap: 8px !important;
+}
+
+.prod .bt span,
+.prod .rm span,
+.prod .walstar-btn span {
+  color: #001930 !important;
+}
+
+.prod .walstar-btn-arrow,
+.prod .bt .walstar-btn-arrow,
+.prod .rm .walstar-btn-arrow {
+  color: #001930 !important;
+  stroke: #001930 !important;
+  flex-shrink: 0 !important;
+}
+
+.prod .walstar-btn-arrow path,
+.prod .bt .walstar-btn-arrow path,
+.prod .rm .walstar-btn-arrow path {
+  stroke: #001930 !important;
+}
+
+.prod .bt:hover,
+.prod .bt:focus-visible,
+.prod .rm:hover,
+.prod .rm:focus-visible,
+.prod .walstar-btn:hover,
+.prod .walstar-btn:focus-visible {
+  color: #001930 !important;
+}
+
 /* trusted */
 .trust {
   background: #2B92F3;
@@ -1988,6 +2229,11 @@ html.walstar-scroll-locked {
   color: var(--ink);
   text-align: center;
   overflow: hidden;
+}
+
+.trust .pill,
+.trust .tag {
+  background: #FFFFFFA6 !important;
 }
 
 .trust h2 {
@@ -2000,7 +2246,7 @@ html.walstar-scroll-locked {
 
 .trust-logos {
   --trust-marquee-gap: 48px;
-  --trust-marquee-duration: 48s;
+  --trust-marquee-duration: 90s;
   width: 100%;
   max-width: 1100px;
   margin: 38px auto 0;
@@ -2036,7 +2282,7 @@ html.walstar-scroll-locked {
   width: max-content;
   will-change: transform;
   animation-name: partner-scroll-left;
-  animation-duration: var(--trust-marquee-duration, 48s);
+  animation-duration: var(--trust-marquee-duration, 90s);
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
@@ -2834,13 +3080,13 @@ html.walstar-scroll-locked {
 }
 
 .cta-band-action .btn {
-  width: clamp(200px, 14.786vw, 283.9px);
-  min-width: clamp(200px, 14.786vw, 283.9px);
-  min-height: clamp(48px, 3.021vw, 58px);
+  width: clamp(190px, 14.583vw, 280px);
+  min-width: clamp(190px, 14.583vw, 280px);
+  min-height: clamp(46px, 3.4375vw, 66px);
   border-radius: 30px;
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   gap: 6px;
-  font-size: clamp(13px, 0.781vw, 15px);
+  font-size: clamp(13px, 0.833vw, 16px);
   font-weight: 500;
   box-sizing: border-box;
   white-space: nowrap;
@@ -3057,6 +3303,7 @@ html.walstar-scroll-locked {
 
 .nf .btn,
 .nf button {
+  min-width: unset;
   padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   font-size: clamp(12px, 0.75vw, 14px);
   white-space: nowrap;
@@ -3152,13 +3399,13 @@ html.walstar-scroll-locked {
 
 .footer-contact-btn,
 .f2-lead .btn {
-  width: clamp(200px, 14.786vw, 283.9px);
-  min-width: clamp(200px, 14.786vw, 283.9px);
-  max-width: 283.9px;
-  height: clamp(48px, 3.021vw, 58px);
-  min-height: clamp(48px, 3.021vw, 58px);
+  width: clamp(190px, 14.583vw, 280px);
+  min-width: clamp(190px, 14.583vw, 280px);
+  max-width: 280px;
+  height: clamp(46px, 3.4375vw, 66px);
+  min-height: clamp(46px, 3.4375vw, 66px);
   border-radius: 30px;
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   gap: 6px;
   opacity: 1;
   transform: rotate(0deg);
@@ -3169,7 +3416,7 @@ html.walstar-scroll-locked {
   box-sizing: border-box;
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 500;
-  font-size: clamp(13px, 0.781vw, 15px);
+  font-size: clamp(13px, 0.833vw, 16px);
   line-height: 1;
 }
 
@@ -3604,6 +3851,27 @@ html.walstar-scroll-locked {
     gap: 18px;
     padding: 14px;
   }
+  .pi h4,
+  .pi-body .pi-heading {
+    font-size: clamp(20px, 2.8vw, 24px);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .pi small,
+  .pi-body .pi-subheading {
+    font-size: clamp(13px, 1.8vw, 15px);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .pi p,
+  .pi-body .pi-description {
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.35;
+    margin-bottom: 20px;
+  }
+  .walstar-btn.btn.btn-or .walstar-btn-label {
+    font-size: clamp(14px, 2vw, 16px);
+  }
   .photos {
     margin: 0 auto;
   }
@@ -3639,8 +3907,31 @@ html.walstar-scroll-locked {
     height: auto;
     min-height: 430px;
   }
+  .cap.cap-proc-section {
+    margin-top: calc(-1 * clamp(160px, 24vw, 240px));
+    padding-top: calc(clamp(160px, 24vw, 240px) + 44px);
+    padding-bottom: 56px;
+  }
+  .cap.cap-proc-section .proc {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--page-px);
+    box-sizing: border-box;
+  }
   .proc {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .walstar-page .proc h2.proc-heading,
+  .proc .proc-heading {
+    font-size: clamp(34px, 5.4vw, 48px);
+    line-height: 1.08;
+  }
+  .pc {
+    max-width: 100%;
+    min-height: clamp(165px, 22vw, 205px);
+    padding: 24px 18px;
   }
   .proc .hd,
   .pnote,
@@ -3650,6 +3941,19 @@ html.walstar-scroll-locked {
   .pnote {
     padding-left: 0;
     margin-top: clamp(24px, 4vw, 42px);
+  }
+  .vid,
+  .vid .vid-label {
+    font-size: clamp(14.5px, 2vw, 16px);
+  }
+  .vid i,
+  .vid .vid-icon {
+    width: 46px;
+    height: 46px;
+  }
+  .vid .vid-arrow {
+    width: 17px;
+    height: 14px;
   }
   .tl {
     display: none;
@@ -3724,8 +4028,8 @@ html.walstar-scroll-locked {
   }
   .footer-contact-btn,
   .f2-lead .btn {
-    width: min(283.9px, 100%);
-    max-width: 283.9px;
+    width: min(280px, 100%);
+    max-width: 280px;
     height: 54px;
     min-height: 48px;
     border-radius: 30px;
@@ -3938,8 +4242,37 @@ html.walstar-scroll-locked {
     height: auto;
     min-height: 410px;
   }
+  .cap.cap-proc-section {
+    margin-top: -120px;
+    padding-top: 160px;
+    padding-bottom: 48px;
+  }
   .proc {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .walstar-page .proc h2.proc-heading,
+  .proc .proc-heading {
+    font-size: clamp(28px, 8.2vw, 38px);
+    line-height: 1.1;
+  }
+  .pc {
+    max-width: 100%;
+    min-height: auto;
+    padding: 22px 18px;
+  }
+  .vid,
+  .vid .vid-label {
+    font-size: 14px;
+  }
+  .vid i,
+  .vid .vid-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .vid .vid-arrow {
+    width: 15.5px;
+    height: 13px;
   }
   .pi {
     grid-template-columns: 1fr;
@@ -3957,6 +4290,32 @@ html.walstar-scroll-locked {
   .pi-body {
     padding: 0 4px 4px;
     align-items: flex-start;
+  }
+  .pi h4,
+  .pi-body .pi-heading {
+    font-size: clamp(18px, 5vw, 22px);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .pi small,
+  .pi-body .pi-subheading {
+    font-size: clamp(12.5px, 3.4vw, 14px);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .pi p,
+  .pi-body .pi-description {
+    font-size: clamp(13.5px, 3.8vw, 15px);
+    line-height: 1.4;
+    margin-bottom: 18px;
+  }
+  .walstar-btn.btn.btn-or:not(.nav-cta-btn) {
+    min-width: min(210px, 100%);
+    min-height: 48px;
+    padding: 12px 20px;
+  }
+  .walstar-btn.btn.btn-or:not(.nav-cta-btn) .walstar-btn-label {
+    font-size: 14px;
   }
   .topbar {
     font-size: 12px;
@@ -5057,13 +5416,13 @@ html.walstar-scroll-locked {
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: clamp(13px, 0.781vw, 15px);
+  font-size: clamp(13px, 0.833vw, 16px);
   line-height: 100%;
   letter-spacing: 0;
   vertical-align: middle;
-  min-width: clamp(200px, 14.786vw, 283.9px);
-  min-height: clamp(48px, 3.021vw, 58px);
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
+  min-width: clamp(190px, 14.583vw, 280px);
+  min-height: clamp(46px, 3.4375vw, 66px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   border-radius: 30px;
   gap: 6px;
   box-sizing: border-box;
@@ -6472,12 +6831,12 @@ html.walstar-scroll-locked {
   margin-top: 24px;
   background: #0073de;
   color: #ffffff;
-  min-width: clamp(200px, 14.786vw, 283.9px);
-  min-height: clamp(48px, 3.021vw, 58px);
+  min-width: clamp(190px, 14.583vw, 280px);
+  min-height: clamp(46px, 3.4375vw, 66px);
   border-radius: 30px;
-  padding: clamp(12px, 0.729vw, 14px) clamp(20px, 1.354vw, 26px);
+  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
   gap: 6px;
-  font-size: clamp(13px, 0.781vw, 15px);
+  font-size: clamp(13px, 0.833vw, 16px);
   font-weight: 500;
   display: inline-flex;
   align-items: center;
@@ -7586,12 +7945,16 @@ html.walstar-scroll-locked {
 }
 
 /* ── Layout & Wrapper Standards ───────────────────────────────────────── */
+.sec.intro.svc-intro,
+.sec.svc-intro,
+.sec.svc-chal,
+.sec.intro,
 .svc-intro,
 .svc-chal,
 .svc-benefits,
 .svc-appr {
   padding: clamp(54px, 4.8vw, 84px) 0;
-  background: #FFFFFF;
+  background: #F3F4F6 !important;
 }
 
 .svc-intro-grid,
@@ -7711,7 +8074,7 @@ html.walstar-scroll-locked {
 
 /* ── Section 3: Service Capabilities Grid ─────────────────────────────── */
 .svc-cap {
-  background: #E8F3FD;
+  background: #F3F4F6;
   border-radius: 44px;
   margin: clamp(20px, 2vw, 36px) var(--page-px);
   padding: clamp(56px, 4.6875vw, 84px) clamp(20px, 3.5vw, 56px);
@@ -8848,7 +9211,6 @@ html.walstar-scroll-locked {
   }
 }
 
-/* Connectivity Banner */
 .map-connectivity-banner {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -8949,6 +9311,8 @@ html.walstar-scroll-locked {
   --blue: #2F80FF;
   --tag: #0a6fd8;
   --line: rgba(0, 25, 48, 0.1);
+  position: relative;
+  z-index: 2;
   max-width: none !important;
   width: auto !important;
   margin: clamp(28px, 3vw, 48px) var(--page-px) !important;
@@ -8957,6 +9321,10 @@ html.walstar-scroll-locked {
   padding: clamp(52px, 4.5vw, 84px) clamp(20px, 2.4vw, 44px) !important;
   color: #fff !important;
   box-sizing: border-box !important;
+}
+
+.wwd:has(+ .cap.cap-proc-section) {
+  margin-bottom: 0 !important;
 }
 
 .wwd-inner {
@@ -9596,11 +9964,12 @@ html.walstar-scroll-locked {
 .sc2.dk .walstar-btn,
 .sc2.dk .btn {
   align-self: flex-start;
+  min-width: unset;
+  min-height: 44px;
   padding: 11px 18px;
   font-size: 13px;
 }
 
-/* ── Section 3: Benefits (ben) ────────────────────────────────────────── */
 .ben {
   padding: clamp(54px, 4.8vw, 84px) 0;
   background: #ffffff;

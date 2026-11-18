@@ -491,6 +491,10 @@ function ProductsShowcaseBlock({
                     <p>{featuredProduct.description}</p>
                     <WalstarButton
                       variant="compact-blue"
+                      className="bt"
+                      arrowWidth={14}
+                      arrowHeight={12}
+                      arrowViewBox="1.5 2.5 13 11"
                       href={`/products/${encodeURIComponent(featuredProduct.slug)}`}
                     >
                       {featuredProduct.ctaLabel || 'Read More'}
@@ -530,11 +534,17 @@ function ProductsShowcaseBlock({
                     ) : null}
                   </div>
                   <div className="pi-body">
-                    <h4>{product.name}</h4>
-                    {product.tagline ? <small>{product.tagline}</small> : null}
-                    <p>{product.description}</p>
+                    <h4 className="pi-heading">{product.name}</h4>
+                    {product.tagline ? (
+                      <small className="pi-subheading">{product.tagline}</small>
+                    ) : null}
+                    <p className="pi-description">{product.description}</p>
                     <WalstarButton
                       variant="compact-blue"
+                      className="bt"
+                      arrowWidth={14}
+                      arrowHeight={12}
+                      arrowViewBox="1.5 2.5 13 11"
                       href={`/products/${encodeURIComponent(product.slug)}`}
                     >
                       {product.ctaLabel || 'Read More'}
@@ -636,23 +646,23 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
   const hasAnyLogos = topRowLogos.length > 0 || bottomRowLogos.length > 0;
 
   const topDuration =
-    section.topRowDurationSeconds || section.animationDurationSeconds || 28;
+    section.topRowDurationSeconds || section.animationDurationSeconds || 70;
   const topDirection =
     section.topRowDirection || (section.scrollDirection === 'right' ? 'right' : 'left');
 
   const bottomDuration =
     section.bottomRowDurationSeconds ||
     (typeof section.topRowDurationSeconds === 'number'
-      ? Math.round(section.topRowDurationSeconds * 1.5)
+      ? Math.min(180, Math.round(section.topRowDurationSeconds * 1.555))
       : typeof section.animationDurationSeconds === 'number'
-        ? Math.round(section.animationDurationSeconds * 1.5)
-        : 42);
+        ? Math.min(180, Math.round(section.animationDurationSeconds * 1.555))
+        : 140);
   const bottomDirection =
     section.bottomRowDirection || 'right';
 
   return (
     <section className="trust">
-      {section.tag ? <span className="pill">{cleanPillTag(section.tag)}</span> : null}
+      {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
       <h2>
         {renderHeadingParts(
           section.headingPrefix,

@@ -41,9 +41,9 @@
     "topRowDurationSeconds": {
       "type": "customField",
       "customField": "global::speed-slider",
-      "default": 28,
+      "default": 70,
       "min": 4,
-      "max": 120
+      "max": 180
     },
     "topRowDirection": {
       "type": "enumeration",
@@ -53,9 +53,9 @@
     "bottomRowDurationSeconds": {
       "type": "customField",
       "customField": "global::speed-slider",
-      "default": 42,
+      "default": 140,
       "min": 4,
-      "max": 120
+      "max": 180
     },
     "bottomRowDirection": {
       "type": "enumeration",
@@ -65,9 +65,9 @@
     "animationDurationSeconds": {
       "type": "customField",
       "customField": "global::speed-slider",
-      "default": 32,
+      "default": 90,
       "min": 4,
-      "max": 120
+      "max": 180
     },
     "scrollDirection": {
       "type": "enumeration",

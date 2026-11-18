@@ -16,6 +16,10 @@ interface WalstarButtonProps {
   rel?: string;
   className?: string;
   showArrow?: boolean;
+  arrowWidth?: number | string;
+  arrowHeight?: number | string;
+  arrowViewBox?: string;
+  arrowStrokeWidth?: number | string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   ariaLabel?: string;
@@ -39,19 +43,23 @@ function stripTrailingArrow(label: ReactNode): ReactNode {
 
 export function WalstarButtonArrow({
   className = '',
-  width = 14,
-  height = 14,
+  width = 18,
+  height = 22,
+  viewBox = '0 0 16 16',
+  strokeWidth = 1.5,
 }: {
   className?: string;
   width?: number | string;
   height?: number | string;
+  viewBox?: string;
+  strokeWidth?: number | string;
 }) {
   return (
     <svg
       className={className ? `walstar-btn-arrow ${className}` : 'walstar-btn-arrow'}
       width={width}
       height={height}
-      viewBox="0 0 16 16"
+      viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
@@ -59,7 +67,7 @@ export function WalstarButtonArrow({
       <path
         d="M2.5 8H13.2M13.2 8L8.8 3.6M13.2 8L8.8 12.4"
         stroke="currentColor"
-        strokeWidth="1.75"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -75,6 +83,10 @@ export function WalstarButton({
   rel,
   className = '',
   showArrow = true,
+  arrowWidth,
+  arrowHeight,
+  arrowViewBox,
+  arrowStrokeWidth,
   type = 'button',
   disabled = false,
   ariaLabel,
@@ -86,8 +98,15 @@ export function WalstarButton({
     .join(' ');
   const content = (
     <>
-      <span>{stripTrailingArrow(children)}</span>
-      {showArrow ? <WalstarButtonArrow /> : null}
+      <span className="walstar-btn-label">{stripTrailingArrow(children)}</span>
+      {showArrow ? (
+        <WalstarButtonArrow
+          width={arrowWidth}
+          height={arrowHeight}
+          viewBox={arrowViewBox}
+          strokeWidth={arrowStrokeWidth}
+        />
+      ) : null}
     </>
   );
 
