@@ -3198,9 +3198,9 @@ html.walstar-scroll-locked {
 }
 
 .fabout-badge-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   display: block;
 }
 

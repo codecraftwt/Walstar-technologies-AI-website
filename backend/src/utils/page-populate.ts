@@ -1,4 +1,5 @@
 import type { Core } from '@strapi/strapi';
+import { getOrComputeCached } from './response-cache';
 
 export const NAVBAR_POPULATE = {
   logoImage: true,
@@ -216,49 +217,51 @@ export async function fetchDefaultFooter(strapi: Core.Strapi) {
 }
 
 export async function fetchSiteContext(strapi: Core.Strapi) {
-  const [navbar, footer, siteSetting, services, products, caseStudies, testimonials, pages] =
-    await Promise.all([
-      fetchDefaultNavbar(strapi),
-      fetchDefaultFooter(strapi),
-      strapi.documents('api::site-setting.site-setting').findFirst({
-        status: 'published',
-        populate: SITE_SETTING_POPULATE as never,
-      }),
-      strapi.documents('api::service.service').findMany({
-        status: 'published',
-        sort: { order: 'asc' },
-        populate: ['image', 'iconImage'],
-      }),
-      strapi.documents('api::product.product').findMany({
-        status: 'published',
-        sort: { order: 'asc' },
-        populate: ['image'],
-      }),
-      strapi.documents('api::case-study.case-study').findMany({
-        status: 'published',
-        sort: { order: 'asc' },
-        populate: ['coverImage'],
-      }),
-      strapi.documents('api::testimonial.testimonial').findMany({
-        status: 'published',
-        sort: { order: 'asc' },
-        populate: ['avatar'],
-      }),
-      strapi.documents('api::page.page').findMany({
-        status: 'published',
-        fields: ['title', 'slug', 'pageType', 'isHomepage', 'order'],
-        sort: { order: 'asc' },
-      }),
-    ]);
+  return getOrComputeCached('site-context', async () => {
+    const [navbar, footer, siteSetting, services, products, caseStudies, testimonials, pages] =
+      await Promise.all([
+        fetchDefaultNavbar(strapi),
+        fetchDefaultFooter(strapi),
+        strapi.documents('api::site-setting.site-setting').findFirst({
+          status: 'published',
+          populate: SITE_SETTING_POPULATE as never,
+        }),
+        strapi.documents('api::service.service').findMany({
+          status: 'published',
+          sort: { order: 'asc' },
+          populate: ['image', 'iconImage'],
+        }),
+        strapi.documents('api::product.product').findMany({
+          status: 'published',
+          sort: { order: 'asc' },
+          populate: ['image'],
+        }),
+        strapi.documents('api::case-study.case-study').findMany({
+          status: 'published',
+          sort: { order: 'asc' },
+          populate: ['coverImage'],
+        }),
+        strapi.documents('api::testimonial.testimonial').findMany({
+          status: 'published',
+          sort: { order: 'asc' },
+          populate: ['avatar'],
+        }),
+        strapi.documents('api::page.page').findMany({
+          status: 'published',
+          fields: ['title', 'slug', 'pageType', 'isHomepage', 'order'],
+          sort: { order: 'asc' },
+        }),
+      ]);
 
-  return {
-    navbar,
-    footer,
-    siteSetting,
-    services,
-    products,
-    caseStudies,
-    testimonials,
-    pages,
-  };
+    return {
+      navbar,
+      footer,
+      siteSetting,
+      services,
+      products,
+      caseStudies,
+      testimonials,
+      pages,
+    };
+  });
 }

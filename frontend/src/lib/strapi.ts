@@ -86,9 +86,18 @@ export class StrapiHttpError extends Error {
   }
 }
 
+const STRAPI_REVALIDATE_SECONDS = 30;
+
+type StrapiFetchInit = RequestInit & {
+  next?: {
+    revalidate?: number | false;
+    tags?: string[];
+  };
+};
+
 export async function fetchStrapi<T>(
   path: string,
-  init: RequestInit = {}
+  init: StrapiFetchInit = {}
 ): Promise<T> {
   const baseUrl = getStrapiBaseUrl();
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
@@ -223,7 +232,7 @@ export async function getLandingData(): Promise<{
     const res = await fetchStrapi<StrapiResponse<Partial<LandingPayload>>>(
       '/api/landing',
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -247,7 +256,7 @@ export async function getActiveNavbar(slug?: string): Promise<NavbarData> {
     const res = await fetchStrapi<StrapiResponse<NavbarData | null>>(
       `/api/navbars/active${query}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -269,7 +278,7 @@ export async function getActiveFooterResult(slug?: string): Promise<{
     const res = await fetchStrapi<StrapiResponse<FooterData | null>>(
       `/api/footers/active${query}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -299,7 +308,7 @@ export async function getResolvedPageBySlug(slug: string): Promise<{
     const res = await fetchStrapi<StrapiResponse<Partial<LandingPayload>>>(
       `/api/pages/resolve/${encodeURIComponent(normalizedSlug)}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -385,7 +394,7 @@ export async function getSiteSetting(): Promise<{
 }> {
   try {
     const res = await fetchStrapi<StrapiResponse<SiteSetting | null>>('/api/site-setting', {
-      cache: 'no-store',
+      next: { revalidate: STRAPI_REVALIDATE_SECONDS },
       signal: AbortSignal.timeout(getStrapiTimeoutMs()),
     });
     return { data: res.data ?? null };
@@ -405,7 +414,7 @@ export async function getPages(): Promise<{
     const res = await fetchStrapi<StrapiResponse<PageItem[]>>(
       '/api/pages?sort=order:asc,createdAt:asc',
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -429,7 +438,7 @@ export async function getPageBySlug(slug: string): Promise<{
     const res = await fetchStrapi<StrapiResponse<PageItem[]>>(
       `/api/pages?${params.toString()}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -451,7 +460,7 @@ export async function getProductBySlug(slug: string): Promise<ProductItem | null
     const res = await fetchStrapi<StrapiResponse<ProductItem[]>>(
       `/api/products?${params.toString()}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -471,7 +480,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudyItem | 
     const res = await fetchStrapi<StrapiResponse<CaseStudyItem[]>>(
       `/api/case-studies?${params.toString()}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
@@ -492,7 +501,7 @@ export async function getServiceBySlug(slug: string): Promise<ServiceItem | null
     const res = await fetchStrapi<StrapiResponse<ServiceItem[]>>(
       `/api/services?${params.toString()}`,
       {
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
         signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );

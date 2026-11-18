@@ -863,7 +863,7 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
       Schema.Attribute.CustomField<'global::speed-slider'> &
       Schema.Attribute.SetMinMax<
         {
-          max: 120;
+          max: 180;
           min: 4;
         },
         number
@@ -875,12 +875,12 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
       Schema.Attribute.CustomField<'global::speed-slider'> &
       Schema.Attribute.SetMinMax<
         {
-          max: 120;
+          max: 180;
           min: 4;
         },
         number
       > &
-      Schema.Attribute.DefaultTo<120>;
+      Schema.Attribute.DefaultTo<140>;
     bottomRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Trusted by'>;
@@ -898,12 +898,12 @@ export interface SectionsTrustBanner extends Struct.ComponentSchema {
       Schema.Attribute.CustomField<'global::speed-slider'> &
       Schema.Attribute.SetMinMax<
         {
-          max: 120;
+          max: 180;
           min: 4;
         },
         number
       > &
-      Schema.Attribute.DefaultTo<90>;
+      Schema.Attribute.DefaultTo<70>;
     topRowLogos: Schema.Attribute.Component<'shared.partner-logo', true>;
   };
 }

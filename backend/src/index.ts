@@ -1,4 +1,5 @@
 import type { Core } from '@strapi/strapi';
+import { clearResponseCache } from './utils/response-cache';
 import {
   INITIAL_CASE_STUDIES,
   INITIAL_FOOTER,
@@ -497,5 +498,38 @@ export default {
         error
       );
     }
+
+    // Clear API response cache immediately whenever CMS content or media is modified/published
+    strapi.db.lifecycles.subscribe({
+      models: [
+        'api::page.page',
+        'api::navbar.navbar',
+        'api::footer.footer',
+        'api::site-setting.site-setting',
+        'api::service.service',
+        'api::product.product',
+        'api::case-study.case-study',
+        'api::testimonial.testimonial',
+        'plugin::upload.file',
+      ],
+      afterCreate() {
+        clearResponseCache();
+      },
+      afterUpdate() {
+        clearResponseCache();
+      },
+      afterDelete() {
+        clearResponseCache();
+      },
+      afterCreateMany() {
+        clearResponseCache();
+      },
+      afterUpdateMany() {
+        clearResponseCache();
+      },
+      afterDeleteMany() {
+        clearResponseCache();
+      },
+    });
   },
 };

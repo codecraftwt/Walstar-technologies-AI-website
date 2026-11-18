@@ -245,13 +245,13 @@ export function WalstarFooter({
                         ? resolved.aboutLogo.alternativeText
                         : 'About Walstar'
                     }
-                    width={44}
-                    height={44}
+                    width={32}
+                    height={32}
                     className="fabout-badge-img"
                     style={{
                       display: 'block',
-                      width: 44,
-                      height: 44,
+                      width: 32,
+                      height: 32,
                       objectFit: 'contain',
                     }}
                   />

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { DetailShell } from '@/components/DetailShell';
+import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton';
 import { WalstarButton } from '@/components/WalstarButton';
 import { PageSectionsRenderer } from '@/components/PageSectionsRenderer';
 import { getResolvedPageBySlug, getServiceBySlug, getStrapiMediaUrl } from '@/lib/strapi';
@@ -93,7 +94,7 @@ export default function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   return (
-    <Suspense fallback={<div className="h-72 animate-pulse rounded-2xl bg-zinc-200" />}>
+    <Suspense fallback={<PageLoadingSkeleton />}>
       <ServiceContent params={params} />
     </Suspense>
   );
