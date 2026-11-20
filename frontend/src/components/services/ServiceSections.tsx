@@ -5,7 +5,7 @@ import {
   renderHeadingParts,
   renderMultilineText,
 } from '@/components/common/SectionPrimitives';
-import { getStrapiMediaUrl } from '@/lib/strapi';
+import { getStrapiMediaUrl, STRAPI_IMAGE_PLACEHOLDER } from '@/lib/strapi';
 import type {
   SvcIntroSection,
   SvcChallengesSection,
@@ -156,6 +156,66 @@ export function SvgHeadsetIcon() {
       <rect x="3" y="13" width="4" height="6" rx="1.5" />
       <rect x="17" y="13" width="4" height="6" rx="1.5" />
       <path d="M19 19c0 2-3 2-7 2" />
+    </svg>
+  );
+}
+
+/* ─── Service 1 & 2 Vector Icons ───────────────────────────────────── */
+export function SvgClipboardIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <rect x="8" y="2" width="8" height="4" rx="1" />
+      <path d="M9 12h6M9 16h6" />
+    </svg>
+  );
+}
+
+export function SvgBrainCircuitIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9.5 3a4.5 4.5 0 0 0-4.5 4.5c0 .64.14 1.25.38 1.8A4.5 4.5 0 0 0 4 13.5c0 1.63.87 3.06 2.18 3.84A4.5 4.5 0 0 0 10.5 21" />
+      <path d="M10.5 3v18" />
+      <circle cx="15" cy="6" r="1.5" />
+      <circle cx="19" cy="10" r="1.5" />
+      <circle cx="16" cy="15" r="1.5" />
+      <circle cx="18" cy="19" r="1.5" />
+      <path d="M10.5 6h3M10.5 10h7M10.5 15h4M10.5 19h6" />
+    </svg>
+  );
+}
+
+export function SvgChatDotsIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+      <circle cx="9" cy="12" r="1" fill="currentColor" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" />
+      <circle cx="15" cy="12" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function SvgSparklesIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3l1.8 4.5L18 9.5l-4.2 2L12 16l-1.8-4.5L6 9.5l4.2-2z" />
+      <path d="M19 15l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z" />
+      <path d="M5 16l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" />
+    </svg>
+  );
+}
+
+export function SvgWorkflowIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+      <path d="M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" />
+      <circle cx="12" cy="3.5" r="1.5" />
+      <circle cx="12" cy="20.5" r="1.5" />
+      <circle cx="3.5" cy="12" r="1.5" />
+      <circle cx="20.5" cy="12" r="1.5" />
     </svg>
   );
 }
@@ -333,41 +393,44 @@ export function SvgTrendingUpIcon({ className = 'icon' }: { className?: string }
   );
 }
 
-export function renderNamedSvgIcon(name?: string | null, index = 0): React.ReactNode {
-  const key = name?.toLowerCase().trim() || '';
-  if (key === 'search' || key.includes('seo') || key.includes('search engine')) return <SvgSearchIcon />;
-  if (key === 'robot' || key.includes('ai-search') || key.includes('ai search')) return <SvgRobotIcon />;
-  if (key === 'location-pin' || key.includes('location') || key.includes('local seo')) return <SvgLocationPinIcon />;
-  if (key === 'document-list' || key.includes('content marketing')) return <SvgDocumentListIcon />;
-  if (key === 'megaphone' || key.includes('paid advertising') || key.includes('ppc')) return <SvgMegaphoneIcon />;
-  if (key === 'share' || key.includes('social media')) return <SvgShareIcon />;
-  if (key === 'email' || key.includes('email marketing')) return <SvgEmailIcon />;
-  if (key === 'funnel' || key.includes('lead generation') || key.includes('conversion')) return <SvgFunnelIcon />;
-  if (key === 'shopping-cart' || key.includes('ecommerce')) return <SvgShoppingCartIcon />;
-  if (key === 'analytics-bars' || key.includes('analytics') || key.includes('performance tracking')) return <SvgAnalyticsBarsIcon />;
-  if (key === 'users-group' || key.includes('relevant customers') || key.includes('reach more')) return <SvgUsersGroupIcon />;
-  if (key === 'target-aim' || key === 'target-arrow') return <SvgTargetArrowIcon />;
-  if (key === 'target') return <SvgTargetAimIcon />;
-  if (key === 'growth-chart' || key.includes('efficiency') || key.includes('visibility') || key.includes('reporting')) return <SvgGrowthChartIcon />;
-  if (key === 'cursor-click' || key.includes('turn more') || key.includes('inquiries')) return <SvgCursorClickIcon />;
-  if (key === 'document-text' || key.includes('useful content')) return <SvgDocumentTextIcon />;
-  if (key === 'gear' || key.includes('technical foundations') || key.includes('sound technical')) return <SvgGearIcon />;
-  if (key === 'trending-up' || key.includes('continuous improvement')) return <SvgTrendingUpIcon />;
-
-  if (key === 'layers' || key.includes('erp') || (index === 0 && !name)) return <SvgLayersIcon />;
-  if (key === 'users' || key.includes('crm') || index === 1) return <SvgUsersIcon />;
-  if (key === 'box' || key.includes('inventory') || index === 2) return <SvgBoxIcon />;
-  if (key === 'flow' || key.includes('workflow') || index === 3) return <SvgFlowIcon />;
-  if (key === 'grid' || key.includes('application') || index === 4) return <SvgGridIcon />;
-  if (key === 'plug' || key.includes('integration') || index === 5) return <SvgPlugIcon />;
+export function renderNamedSvgIcon(name?: string | null, index = 0, title?: string | null): React.ReactNode {
+  const key = `${name || ''} ${title || ''}`.toLowerCase().trim();
+  if (key.includes('search engine') || key === 'search') return <SvgSearchIcon />;
+  if (key.includes('ai-search') || key.includes('ai search') || key === 'robot' || key.includes('chatbot') || key.includes('virtual assistant')) return <SvgRobotIcon />;
+  if (key.includes('location') || key.includes('local seo') || key === 'location-pin') return <SvgLocationPinIcon />;
+  if (key.includes('content marketing') || key === 'document-list' || key.includes('document')) return <SvgDocumentListIcon />;
+  if (key.includes('paid advertising') || key.includes('ppc') || key === 'megaphone') return <SvgMegaphoneIcon />;
+  if (key.includes('social media') || key === 'share') return <SvgShareIcon />;
+  if (key.includes('email marketing') || key.includes('email') || key === 'email') return <SvgEmailIcon />;
+  if (key.includes('lead generation') || key.includes('conversion') || key === 'funnel') return <SvgFunnelIcon />;
+  if (key.includes('ecommerce') || key.includes('shopping') || key === 'shopping-cart') return <SvgShoppingCartIcon />;
+  if (key.includes('analytics and performance') || key.includes('analytics') || key === 'analytics-bars') return <SvgAnalyticsBarsIcon />;
+  if (key.includes('clipboard') || key.includes('routine business') || key.includes('process automation')) return <SvgClipboardIcon />;
+  if (key.includes('ai workflow') || key.includes('workflow automation') || key.includes('workflow integration') || key === 'flow') return <SvgWorkflowIcon />;
+  if (key.includes('custom ai') || key.includes('brain')) return <SvgBrainCircuitIcon />;
+  if (key.includes('data processing') || key.includes('intelligent analytics') || key.includes('reporting & business intelligence') || key.includes('growth-chart') || key.includes('reporting')) return <SvgGrowthChartIcon />;
+  if (key.includes('whatsapp') || key.includes('chat')) return <SvgChatDotsIcon />;
+  if (key.includes('generative ai') || key.includes('business assistants') || key.includes('sparkles')) return <SvgSparklesIcon />;
+  if (key.includes('existing software') || key.includes('enterprise application') || key.includes('integration') || key === 'plug') return <SvgPlugIcon />;
+  if (key.includes('erp') || key.includes('layers') || (index === 0 && !name)) return <SvgLayersIcon />;
+  if (key.includes('crm') || key.includes('users') || index === 1) return <SvgUsersIcon />;
+  if (key.includes('inventory') || key.includes('stock') || key.includes('box') || index === 2) return <SvgBoxIcon />;
+  if (key.includes('grid') || key.includes('business applications') || index === 4) return <SvgGridIcon />;
+  if (key.includes('users-group') || key.includes('relevant customers') || key.includes('reach more')) return <SvgUsersGroupIcon />;
+  if (key.includes('target-aim') || key === 'target-arrow') return <SvgTargetArrowIcon />;
+  if (key.includes('target')) return <SvgTargetAimIcon />;
+  if (key.includes('cursor-click') || key.includes('turn more') || key.includes('inquiries')) return <SvgCursorClickIcon />;
+  if (key.includes('document-text') || key.includes('useful content')) return <SvgDocumentTextIcon />;
+  if (key.includes('gear') || key.includes('technical foundations') || key.includes('sound technical')) return <SvgGearIcon />;
+  if (key.includes('trending-up') || key.includes('continuous improvement')) return <SvgTrendingUpIcon />;
   if (key === 'bars') return <SvgBarsIcon />;
-  if (key === 'sliders' || key.includes('operation')) return <SvgSlidersIcon />;
-  if (key === 'bolt' || key.includes('productiv')) return <SvgBoltIcon />;
-  if (key === 'db' || key.includes('database') || key.includes('centralize')) return <SvgDbIcon />;
-  if (key === 'net' || key.includes('network') || key.includes('connect') || key.includes('architecture')) return <SvgNetIcon />;
-  if (key === 'shield' || key.includes('security') || key.includes('access')) return <SvgShieldIcon />;
-  if (key === 'monitor' || key.includes('interface') || key.includes('ui')) return <SvgMonitorIcon />;
-  if (key === 'head' || key.includes('support') || key.includes('maintenance')) return <SvgHeadsetIcon />;
+  if (key.includes('sliders') || key.includes('operation')) return <SvgSlidersIcon />;
+  if (key.includes('bolt') || key.includes('productiv')) return <SvgBoltIcon />;
+  if (key.includes('db') || key.includes('database') || key.includes('centralize')) return <SvgDbIcon />;
+  if (key.includes('net') || key.includes('network') || key.includes('connect') || key.includes('architecture')) return <SvgNetIcon />;
+  if (key.includes('shield') || key.includes('security') || key.includes('access')) return <SvgShieldIcon />;
+  if (key.includes('monitor') || key.includes('interface') || key.includes('ui')) return <SvgMonitorIcon />;
+  if (key.includes('head') || key.includes('support') || key.includes('maintenance')) return <SvgHeadsetIcon />;
   return <SvgSearchIcon />;
 }
 
@@ -461,7 +524,7 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
     Boolean(section.pill?.includes('Growth & Visibility'));
 
   if (isDigitalMarketing) {
-    const dmImage = strapiUrl || '/images/services/digital-marketing.png';
+    const dmImage = strapiUrl || STRAPI_IMAGE_PLACEHOLDER;
     return (
       <section className="introduction-section sec intro svc-intro" aria-labelledby="introduction-title">
         <div className="page-container introduction-section__layout wrap">
@@ -482,11 +545,16 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
           <div className="introduction-section__content svc-intro-copy">
             <span className="section-badge pill">{cleanPill(section.pill) || 'Growth & Visibility'}</span>
             <h2 className="introduction-section__title svc-heading" id="introduction-title">
-              SEO, AI Search Visibility &amp;<br className="desktop-line-break" />
-              <span className="accent-text serif">Performance Marketing</span>
+              {renderHeadingParts(
+                prefix || 'SEO, AI Search Visibility &',
+                serif || 'Performance Marketing',
+                suffix
+              )}
             </h2>
             <p className="introduction-section__text lead svc-lead-desc">
-              From business management systems to workflow automation, we<br className="desktop-line-break" /> develop scalable software solutions designed to simplify operations and<br className="desktop-line-break" /> improve productivity.
+              {section.description
+                ? renderTextWithBreaks(section.description)
+                : 'From business management systems to workflow automation, we develop scalable software solutions designed to simplify operations and improve productivity.'}
             </p>
             <WalstarButton variant="orange" href={section.ctaHref || '#contact'} className="button button--primary">
               {section.ctaLabel || 'Free AI & SEO Audit ↗'}
@@ -502,9 +570,7 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
     prefix.includes('Custom Software') ||
     suffix.includes('Business Works');
 
-  const defaultImage = isCustomSoftware
-    ? '/images/placeholder.png'
-    : '/images/service-team-ai.png';
+  const defaultImage = STRAPI_IMAGE_PLACEHOLDER;
 
   const imageUrl = strapiUrl || defaultImage;
 
@@ -532,7 +598,11 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
               {cleanPill(section.pill) || 'Designed to Scale'}
             </span>
             <h2>
-              Build <span className="serif">Custom Software</span> That<br className="d" /> Works the Way Your Business<br className="d" /> Works
+              {renderHeadingParts(
+                prefix || 'Build',
+                serif || 'Custom Software',
+                suffix || 'That Works the Way Your Business Works'
+              )}
             </h2>
             <p>
               {section.description
@@ -547,11 +617,6 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
       </section>
     );
   }
-
-  // Check if standard copy matches reference image to guarantee exact multi-row wrapping
-  const isService1ReferenceCopy =
-    prefix === 'AI Agents and Automation that cut' &&
-    serif === 'Manual Work';
 
   return (
     <section className="sec intro svc-intro service-intro-section">
@@ -576,19 +641,13 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
             {cleanPill(section.pill) || 'AI Solutions & Business Automation'}
           </span>
 
-          {isService1ReferenceCopy ? (
-            <h2 className="svc-heading">
-              <span className="svc-heading-row">AI Agents and Automation that cut</span>
-              <span className="svc-heading-row">
-                <span className="serif">Manual Work</span> and bring in
-              </span>
-              <span className="svc-heading-row">more Leads</span>
-            </h2>
-          ) : (
-            <h2 className="svc-heading">
-              {renderHeadingParts(prefix, serif, suffix)}
-            </h2>
-          )}
+          <h2 className="svc-heading">
+            {renderHeadingParts(
+              prefix || 'AI Agents and Automation that cut',
+              serif || 'Manual Work',
+              suffix || 'and bring in more Leads'
+            )}
+          </h2>
 
           {section.description ? (
             <p className="lead svc-lead-desc">{renderMultilineText(section.description)}</p>
@@ -614,27 +673,14 @@ export function SvcChallengesBlock({ section }: { section: SvcChallengesSection 
   const serif = section.headingSerif?.trim() || 'Intelligent Solutions';
   const suffix = section.headingSuffix?.trim();
 
-  const isReferenceCopy =
-    prefix.includes('Turn everyday Business challenges') &&
-    serif.includes('Intelligent Solutions');
-
   return (
     <section className="sec svc-chal service-challenges-section">
       <div className="wrap svc-chal-grid service-challenges-grid">
         <div className="svc-chal-copy service-challenges-copy">
           <span className="pill">{pillText}</span>
-          {isReferenceCopy ? (
-            <h2 className="svc-heading">
-              <span className="svc-heading-row">Turn everyday Business challenges</span>
-              <span className="svc-heading-row">
-                into <span className="serif">Intelligent Solutions</span>
-              </span>
-            </h2>
-          ) : (
-            <h2 className="svc-heading">
-              {renderHeadingParts(prefix, serif, suffix)}
-            </h2>
-          )}
+          <h2 className="svc-heading">
+            {renderHeadingParts(prefix || 'Turn everyday Business challenges', serif || 'Intelligent Solutions', suffix)}
+          </h2>
           {section.bodyOne ? (
             <p className="svc-lead-desc">{renderMultilineText(section.bodyOne)}</p>
           ) : null}
@@ -670,97 +716,71 @@ export function SvcChallengesBlock({ section }: { section: SvcChallengesSection 
 /* ─── Service Capabilities ───────────────────────────────────────────── */
 export function SvcCapabilitiesBlock({ section }: { section: SvcCapabilitiesSection }) {
   const incomingItems = section.capabilityItems ?? [];
-  const rawPill = section.pill || 'Services';
-  const pillText = cleanPill(rawPill) || 'Services';
-  const prefix = section.headingPrefix?.trim() || 'Custom Software Solutions for';
-  const serif = section.headingSerif?.trim() || 'Business Management';
+  const rawPill = section.pill || 'Capabilities';
+  const pillText = cleanPill(rawPill) || 'Capabilities';
+  const prefix = section.headingPrefix?.trim() || 'What we';
+  const serif = section.headingSerif?.trim() || 'Build';
+  const suffix = section.headingSuffix?.trim() || '';
 
-  const isDigitalMarketing =
-    serif.includes('Drive Business Growth') ||
-    prefix.includes('Digital Strategies') ||
-    incomingItems.length === 11 ||
-    incomingItems.some((it) => it.title.includes('Search Engine'));
-
-  if (isDigitalMarketing) {
-    return (
-      <section className="digital-strategies-section svc-cap-strategies" aria-labelledby="digital-strategies-title">
-        <div className="section-heading hd2">
-          <span className="section-badge pill">{pillText || 'What we do'}</span>
-          <h2 className="section-heading__title svc-heading" id="digital-strategies-title">
-            Digital Strategies Designed to<br className="desktop-line-break" />
-            <span className="accent-text serif">Drive Business Growth</span>
+  return (
+    <section className="wwd svc-capabilities-wwd" aria-label={pillText}>
+      <div className="wwd-inner">
+        <div className="head capabilities-header">
+          <span className="pill">{pillText}</span>
+          <h2 className="wwd-heading">
+            {renderHeadingParts(prefix, serif, suffix)}
           </h2>
+          {section.description ? (
+            <p className="wwd-subtitle">
+              {renderTextWithBreaks(section.description)}
+            </p>
+          ) : null}
         </div>
-        <ul className="strategy-card-grid">
+
+        <div className="wrap svc-capabilities-grid service-capabilities-grid">
           {incomingItems.map((item, idx) => {
-            if (item.isDark) {
+            const hasCta = Boolean(item.ctaLabel || item.isDark);
+            const isWideCta =
+              hasCta &&
+              (incomingItems.length === 11 ||
+                item.title.toLowerCase().includes('accelerate your digital growth'));
+
+            if (isWideCta) {
               return (
-                <li key={`${item.title}-${item.id ?? idx}`} className="strategy-card strategy-card--call-to-action">
-                  <h3 className="strategy-card__title">{renderTextWithBreaks(item.title)}</h3>
+                <article
+                  key={`${item.title}-${item.id ?? idx}`}
+                  className="svc-cap-card svc-cap-card--cta-wide"
+                >
+                  <h3 className="svc-cap-card__title">{renderTextWithBreaks(item.title)}</h3>
                   {item.description ? (
-                    <p className="strategy-card__description">{renderTextWithBreaks(item.description)}</p>
+                    <p className="svc-cap-card__subtitle">{renderTextWithBreaks(item.description)}</p>
                   ) : null}
-                  <WalstarButton variant="orange" href={item.ctaHref || '#contact'} className="button button--primary">
+                  <WalstarButton
+                    variant="orange"
+                    href={item.ctaHref || '#contact-form'}
+                  >
                     {item.ctaLabel || 'Get Started ↗'}
                   </WalstarButton>
-                </li>
+                </article>
               );
             }
 
-            return (
-              <li key={`${item.title}-${item.id ?? idx}`} className="strategy-card">
-                <span className="strategy-card__icon">
-                  {renderNamedSvgIcon(item.icon, idx)}
-                </span>
-                <h3 className="strategy-card__title">{renderTextWithBreaks(item.title)}</h3>
-                {item.description ? (
-                  <p className="strategy-card__description">{renderTextWithBreaks(item.description)}</p>
-                ) : null}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-    );
-  }
-
-  const isCustomSoftware =
-    serif.includes('Business Management') ||
-    incomingItems.some((it) => it.isDark || it.icon === 'layers') ||
-    Boolean(section.description);
-
-  if (isCustomSoftware) {
-    return (
-      <section className="sol2">
-        <div className="hd2">
-          <span className="pill">{pillText}</span>
-          <h2>
-            Custom Software Solutions for<br className="d" /> Better <span className="serif">Business Management</span>
-          </h2>
-          <p>
-            {section.description ? (
-              renderTextWithBreaks(section.description)
-            ) : (
-              <>
-                Every business has its own processes, challenges, and operational requirements. Off-the-<br className="d" />shelf software may not always provide the flexibility or functionality you need.<br className="d" /> Our custom software development services help businesses build applications that fit their<br className="d" /> workflows, connect their systems, and support their long-term goals.
-              </>
-            )}
-          </p>
-        </div>
-
-        <div className="g8">
-          {incomingItems.map((item, idx) => {
-            if (item.isDark) {
+            if (hasCta) {
               return (
-                <article key={`${item.title}-${item.id ?? idx}`} className="sc2 dk">
-                  <h4>
-                    {renderTextWithBreaks(item.title) || (
-                      <>
-                        Ready to Build<br className="d" /> Software Around Your<br className="d" /> Business?
-                      </>
-                    )}
-                  </h4>
-                  <WalstarButton variant="orange" href={item.ctaHref || '#cta'}>
+                <article
+                  key={`${item.title}-${item.id ?? idx}`}
+                  className="svc-cap-card svc-cap-card--cta"
+                >
+                  <h3 className="svc-cap-card__title">{renderTextWithBreaks(item.title)}</h3>
+                  {item.description ? (
+                    <p className="svc-cap-card__desc" style={{ marginBottom: 20 }}>
+                      {renderTextWithBreaks(item.description)}
+                    </p>
+                  ) : null}
+                  <WalstarButton
+                    variant="orange"
+                    href={item.ctaHref || '#contact-form'}
+                  >
                     {item.ctaLabel || 'Discuss Your Project ↗'}
                   </WalstarButton>
                 </article>
@@ -768,41 +788,20 @@ export function SvcCapabilitiesBlock({ section }: { section: SvcCapabilitiesSect
             }
 
             return (
-              <article key={`${item.title}-${item.id ?? idx}`} className="sc2">
-                <i>{renderNamedSvgIcon(item.icon, idx)}</i>
-                <h4>{renderTextWithBreaks(item.title)}</h4>
-                {item.description ? <p>{renderTextWithBreaks(item.description)}</p> : null}
+              <article
+                key={`${item.title}-${item.id ?? idx}`}
+                className="svc-cap-card"
+              >
+                <span className="svc-cap-card__icon" aria-hidden="true">
+                  {renderNamedSvgIcon(item.icon, idx, item.title)}
+                </span>
+                <h3 className="svc-cap-card__title">{renderTextWithBreaks(item.title)}</h3>
+                {item.description ? (
+                  <p className="svc-cap-card__desc">{renderTextWithBreaks(item.description)}</p>
+                ) : null}
               </article>
             );
           })}
-        </div>
-      </section>
-    );
-  }
-
-  // Fallback to Service 1 Capabilities layout
-  return (
-    <section className="svc-cap service-capabilities-section">
-      <div className="wrap">
-        <div className="hd2 service-heading-block" style={{ textAlign: 'center', marginBottom: 40 }}>
-          <span className="pill">{pillText}</span>
-          <h2 className="svc-heading" style={{ textAlign: 'center' }}>
-            <span className="svc-heading-row">
-              What we <span className="serif">Build</span>
-            </span>
-          </h2>
-        </div>
-
-        <div className="svc-c4 service-capabilities-grid-4">
-          {incomingItems.map((item, idx) => (
-            <article key={`${item.title}-${item.id ?? idx}`} className="svc-cc service-capability-card">
-              <i className="svc-cc-icon" aria-hidden="true">{renderNamedSvgIcon(item.icon, idx)}</i>
-              <h4 className="svc-cc-title">{item.title}</h4>
-              {item.description ? (
-                <p className="svc-cc-desc">{renderMultilineText(item.description)}</p>
-              ) : null}
-            </article>
-          ))}
         </div>
       </div>
     </section>
@@ -829,7 +828,11 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
           <div className="section-heading hd2">
             <span className="section-badge pill">{pillText || 'Benefits'}</span>
             <h2 className="section-heading__title svc-heading" id="benefits-title">
-              How Digital Marketing Helps<br className="desktop-line-break" /> Your Business <span className="accent-text serif">Grow</span>
+              {renderHeadingParts(
+                prefix || 'How Digital Marketing Helps Your Business',
+                serif || 'Grow',
+                section.headingSuffix
+              )}
             </h2>
           </div>
           <ul className="benefit-card-list">
@@ -871,7 +874,11 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
           <div>
             <span className="pill">{pillText}</span>
             <h2>
-              How Custom Software<br /><span className="serif">Helps Your Business</span>
+              {renderHeadingParts(
+                prefix || 'How Custom Software',
+                serif || 'Helps Your Business',
+                section.headingSuffix
+              )}
             </h2>
           </div>
 
@@ -908,10 +915,11 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
         <div className="hd2 service-heading-block" style={{ textAlign: 'center', marginBottom: 40 }}>
           <span className="pill">{pillText}</span>
           <h2 className="svc-heading" style={{ textAlign: 'center' }}>
-            <span className="svc-heading-row">What an AI Automation do</span>
-            <span className="svc-heading-row">
-              <span className="serif">for Your Business?</span>
-            </span>
+            {renderHeadingParts(
+              prefix || 'What an AI Automation do',
+              serif || 'for Your Business?',
+              section.headingSuffix
+            )}
           </h2>
         </div>
 
@@ -955,8 +963,11 @@ export function SvcProcessBlock({ section }: { section: SvcProcessSection }) {
           <div className="section-heading hd2">
             <span className="section-badge pill">{pillText || 'How we work'}</span>
             <h2 className="section-heading__title svc-heading" id="process-title">
-              Our Digital Marketing<br className="desktop-line-break" />
-              <span className="accent-text serif">Process</span>
+              {renderHeadingParts(
+                prefix || 'Our Digital Marketing',
+                serif || 'Process',
+                section.headingSuffix
+              )}
             </h2>
           </div>
           <ol className="process-timeline">
@@ -988,7 +999,11 @@ export function SvcProcessBlock({ section }: { section: SvcProcessSection }) {
         <div className="hd2" style={{ margin: 0 }}>
           <span className="pill">{pillText}</span>
           <h2>
-            Our Custom Software<br /><span className="serif">Development Process</span>
+            {renderHeadingParts(
+              prefix || 'Our Custom Software',
+              serif || 'Development Process',
+              section.headingSuffix
+            )}
           </h2>
         </div>
 
@@ -1012,10 +1027,11 @@ export function SvcProcessBlock({ section }: { section: SvcProcessSection }) {
         <div className="hd2 service-heading-block" style={{ textAlign: 'center', marginBottom: 40 }}>
           <span className="pill">{pillText}</span>
           <h2 className="svc-heading" style={{ textAlign: 'center' }}>
-            <span className="svc-heading-row">Our AI Development &</span>
-            <span className="svc-heading-row">
-              <span className="serif">Automation Process</span>
-            </span>
+            {renderHeadingParts(
+              prefix || 'Our AI Development &',
+              serif || 'Automation Process',
+              section.headingSuffix
+            )}
           </h2>
         </div>
 
@@ -1058,17 +1074,34 @@ export function SvcApproachBlock({ section }: { section: SvcApproachSection }) {
           <div className="growth-strategy-section__content">
             <span className="section-badge pill">{pillText || 'Your goals first'}</span>
             <h2 className="split-heading__title svc-heading" id="growth-strategy-title">
-              Digital Growth Strategies<br className="desktop-line-break" /> Tailored to <span className="accent-text serif">Your Business</span>
+              {renderHeadingParts(
+                prefix || 'Digital Growth Strategies Tailored to',
+                serif || 'Your Business',
+                section.headingSuffix
+              )}
             </h2>
-            <p className="growth-strategy-section__paragraph">
-              Every business has different audiences, competition, budgets, and growth<br className="desktop-line-break" /> objectives. We develop digital marketing strategies around your specific<br className="desktop-line-break" /> needs rather than applying the same approach to every business.
-            </p>
-            <p className="growth-strategy-section__paragraph">
-              Whether you want to improve organic search rankings, increase qualified<br className="desktop-line-break" /> inquiries, strengthen AI-search visibility, or get more value from paid<br className="desktop-line-break" /> campaigns, we help identify practical opportunities and build a strategy<br className="desktop-line-break" /> aligned with your goals.
-            </p>
-            <p className="growth-strategy-section__paragraph">
-              Our approach emphasizes useful content, sound technical foundations,<br className="desktop-line-break" /> relevant audience targeting, transparent reporting, and continuous<br className="desktop-line-break" /> improvement.
-            </p>
+            {section.bodyOne ? (
+              <p className="growth-strategy-section__paragraph">
+                {renderTextWithBreaks(section.bodyOne)}
+              </p>
+            ) : (
+              <>
+                <p className="growth-strategy-section__paragraph">
+                  Every business has different audiences, competition, budgets, and growth<br className="desktop-line-break" /> objectives. We develop digital marketing strategies around your specific<br className="desktop-line-break" /> needs rather than applying the same approach to every business.
+                </p>
+                <p className="growth-strategy-section__paragraph">
+                  Whether you want to improve organic search rankings, increase qualified<br className="desktop-line-break" /> inquiries, strengthen AI-search visibility, or get more value from paid<br className="desktop-line-break" /> campaigns, we help identify practical opportunities and build a strategy<br className="desktop-line-break" /> aligned with your goals.
+                </p>
+                <p className="growth-strategy-section__paragraph">
+                  Our approach emphasizes useful content, sound technical foundations,<br className="desktop-line-break" /> relevant audience targeting, transparent reporting, and continuous<br className="desktop-line-break" /> improvement.
+                </p>
+              </>
+            )}
+            {section.bodyTwo ? (
+              <p className="growth-strategy-section__paragraph" style={{ marginTop: 16 }}>
+                {renderTextWithBreaks(section.bodyTwo)}
+              </p>
+            ) : null}
           </div>
           <ul className="growth-principle-list">
             {getItems.map((item, idx) => (
@@ -1104,7 +1137,11 @@ export function SvcApproachBlock({ section }: { section: SvcApproachSection }) {
             <div>
               <span className="pill">{pillText}</span>
               <h2>
-                Software Designed Around<br /><span className="serif">Your Business Requirements</span>
+                {renderHeadingParts(
+                  prefix || 'Software Designed Around',
+                  serif || 'Your Business Requirements',
+                  section.headingSuffix
+                )}
               </h2>
             </div>
             <p>
@@ -1148,10 +1185,11 @@ export function SvcApproachBlock({ section }: { section: SvcApproachSection }) {
         <div className="svc-appr-copy service-approach-copy">
           <span className="pill">{pillText}</span>
           <h2 className="svc-heading">
-            <span className="svc-heading-row">AI Solutions Built Around</span>
-            <span className="svc-heading-row">
-              <span className="serif">Your Business</span>
-            </span>
+            {renderHeadingParts(
+              prefix || 'AI Solutions Built Around',
+              serif || 'Your Business',
+              section.headingSuffix
+            )}
           </h2>
           {section.bodyOne ? (
             <p className="svc-lead-desc">{renderMultilineText(section.bodyOne)}</p>
@@ -1200,7 +1238,11 @@ export function SvcCtaBlock({ section }: { section: SvcCtaSection }) {
           {pillText || 'Let’s talk'}
         </span>
         <h2 className="final-call-to-action-section__title svc-heading" id="final-call-to-action-title">
-          Ready to Turn Your Digital<br className="desktop-line-break" /> Presence Into <span className="accent-text serif">Business Growth?</span>
+          {renderHeadingParts(
+            prefix || 'Ready to Turn Your Digital Presence Into',
+            serif || 'Business Growth?',
+            suffix
+          )}
         </h2>
         <p className="final-call-to-action-section__text">
           {section.bodyOne
@@ -1223,7 +1265,11 @@ export function SvcCtaBlock({ section }: { section: SvcCtaSection }) {
       <section className="rd" id="cta">
         <span className="pill">{pillText}</span>
         <h2>
-          Ready to Build Software<br /><span className="serif">Around Your Business?</span>
+          {renderHeadingParts(
+            prefix || 'Ready to Build Software',
+            serif || 'Around Your Business?',
+            suffix
+          )}
         </h2>
         <p>
           {section.bodyOne ? (

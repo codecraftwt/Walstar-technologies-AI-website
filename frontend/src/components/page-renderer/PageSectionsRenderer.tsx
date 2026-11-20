@@ -37,7 +37,7 @@ import {
   WalstarTopbar,
 } from '@/components/common/WalstarBranding';
 import { WalstarCtaBand, WalstarFooter } from '@/components/layout/WalstarFooter';
-import { getStrapiMediaUrl } from '@/lib/strapi';
+import { getStrapiMediaUrl, STRAPI_IMAGE_PLACEHOLDER } from '@/lib/strapi';
 import type {
   BeforeAfterSection,
   CapabilitiesSection,
@@ -78,11 +78,11 @@ export function getPartnerLogoFallback(name?: string | null): string | null {
 }
 
 export function getProductFallbackImage(_slugOrName?: string | null): string {
-  return '/images/placeholder.png';
+  return STRAPI_IMAGE_PLACEHOLDER;
 }
 
 export function getCaseStudyFallbackImage(_slugOrTitle?: string | null): string {
-  return '/images/placeholder.png';
+  return STRAPI_IMAGE_PLACEHOLDER;
 }
 
 function PartnerLogoContent({
@@ -200,11 +200,9 @@ function HeroBlock({
         .join(' ')
     : 'subpage-header';
 
-  const rawHeroChip = isServicePage && (!section.chip || section.chip === 'Services')
-    ? 'Services'
-    : isAboutPage && (!section.chip || section.chip.includes('About Walstar'))
-    ? 'About Us'
-    : section.chip;
+  const rawHeroChip =
+    section.chip?.trim() ||
+    (isServicePage ? 'Services' : isAboutPage ? 'About Walstar Technologies' : isContactPage ? 'Contact Walstar' : null);
   const heroChip = rawHeroChip ? rawHeroChip.replace(/^[●•\s\u25CF\u2022]+/, '').trim() : null;
 
   const heroHeadlinePrefix = section.headlinePrefix
@@ -229,7 +227,7 @@ function HeroBlock({
           {/* Plain img so Figma multiply/offset styles are not overridden by next/image fill */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={bgImageUrl || '/images/contact-hero-building.jpg'}
+            src={bgImageUrl || STRAPI_IMAGE_PLACEHOLDER}
             alt=""
             className="hero-bg-photo"
           />
@@ -263,12 +261,12 @@ function HeroBlock({
         {section.description ? (
           <p className="hero-description">{renderMultilineText(formatHeroDescription(section.description))}</p>
         ) : null}
-        {!(isContactLikePage && isCompact) &&
-        (section.primaryCtaLabel || section.secondaryCtaLabel) ? (
+        {!isCompact && !isContactLikePage && (section.primaryCtaLabel || section.secondaryCtaLabel) ? (
           <div className="cta">
             {section.primaryCtaLabel ? (
               <WalstarButton
                 variant="blue"
+                className="hero-btn-primary"
                 href={section.primaryCtaHref || '#cap'}
               >
                 {section.primaryCtaLabel}
@@ -277,6 +275,7 @@ function HeroBlock({
             {section.secondaryCtaLabel ? (
               <WalstarButton
                 variant="ghost"
+                className="hero-btn-secondary"
                 href={section.secondaryCtaHref || '#case'}
               >
                 {section.secondaryCtaLabel}
@@ -1008,14 +1007,19 @@ function renderDynamicSection(
 export function PageSectionsRenderer({
   data,
   source,
+  currentPath: currentPathProp,
 }: {
   data: LandingPayload;
   source: 'strapi' | 'fallback';
+  currentPath?: string;
 }) {
   const currentPath =
-    data.page.isHomepage || data.page.slug === 'home'
+    currentPathProp ||
+    (data.page.isHomepage || data.page.slug === 'home'
       ? '/'
-      : `/${encodeURIComponent(data.page.slug)}`;
+      : data.page.pageType === 'service'
+        ? `/services/${encodeURIComponent(data.page.slug)}`
+        : `/${encodeURIComponent(data.page.slug)}`);
   const sections = data.page.sections ?? [];
   const hasHeroFirst = sections[0]?.__component === 'sections.hero';
   const lastSection = sections[sections.length - 1];

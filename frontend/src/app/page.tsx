@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
+import { PageLoadingSkeleton } from '@/components/common/PageLoadingSkeleton';
 import { WalstarLanding } from '@/components/home/WalstarLanding';
-import { DEFAULT_LANDING_DATA } from '@/lib/default-landing';
 import { getLandingData } from '@/lib/strapi';
 
 async function LandingContent() {
@@ -10,7 +10,7 @@ async function LandingContent() {
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<WalstarLanding data={DEFAULT_LANDING_DATA} source="fallback" />}>
+    <Suspense fallback={<PageLoadingSkeleton />}>
       <LandingContent />
     </Suspense>
   );

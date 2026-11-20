@@ -12,7 +12,7 @@ export const INITIAL_SITE_SETTING = {
   ],
   navLinks: [
     { label: 'Home', href: '/', hasDropdown: false },
-    { label: 'Services', href: '/service-1', hasDropdown: true },
+    { label: 'Services', href: '/services/ai-solutions-business-automation', hasDropdown: true },
     { label: 'Industries', href: '/#prod', hasDropdown: false },
     { label: 'Our Work', href: '/#case', hasDropdown: false },
     { label: 'About Us', href: '/about-us', hasDropdown: false },
@@ -42,7 +42,7 @@ export const INITIAL_SITE_SETTING = {
     { label: 'Portfolio', href: '/#case', hasDropdown: false },
   ],
   footerSecondaryLinks: [
-    { label: 'Services', href: '/service-1', hasDropdown: false },
+    { label: 'Services', href: '/services/ai-solutions-business-automation', hasDropdown: false },
     { label: 'Career', href: '/about-us', hasDropdown: false },
     { label: 'Contact', href: '/contact', hasDropdown: false },
     { label: 'Events & Programs', href: '/#prod', hasDropdown: false },
@@ -674,7 +674,7 @@ export const INITIAL_PAGES = [
         subtitle:
           'End-to-end AI services engineered for performance, data security',
         ctaLabel: 'View Services ↗',
-        ctaHref: '/service-1',
+        ctaHref: '/services/ai-solutions-business-automation',
         showAllServices: true,
         showProcess: true,
         processPill: 'What we do',
@@ -766,7 +766,7 @@ export const INITIAL_PAGES = [
           'We focus on performance, security, scalability, and user-centric design to maximize engagement and conversions.',
         ].join('\n'),
         ctaLabel: 'See what we do',
-        ctaHref: '/service-1',
+        ctaHref: '/services/ai-solutions-business-automation',
       },
       {
         __component: 'sections.journey-stats' as const,
@@ -1169,7 +1169,7 @@ export const INITIAL_PAGES = [
   },
   {
     title: 'AI Solutions & Business Automation',
-    slug: 'service-1',
+    slug: 'ai-solutions-business-automation',
     isHomepage: false,
     pageType: 'service' as const,
     order: 4,
@@ -1247,49 +1247,49 @@ export const INITIAL_PAGES = [
         headingSerif: 'Build',
         capabilityItems: [
           {
-            icon: '⚙',
+            icon: 'robot',
             title: 'AI Chatbots & Virtual Assistants',
             description:
               'Deliver faster, more consistent customer support with AI-powered assistants that answer common questions, guide users, qualify leads, and help customers find the information they need.',
           },
           {
-            icon: '⚙',
+            icon: 'clipboard',
             title: 'Business Process Automation',
             description:
               'Reduce repetitive manual work by automating routine business tasks, approvals, notifications, data entry, and other workflows.',
           },
           {
-            icon: '⚙',
+            icon: 'flow',
             title: 'AI Workflow Automation & Integration',
             description:
               'Connect your business applications and automate processes across CRM systems, ERP platforms, websites, eCommerce stores, and third-party tools.',
           },
           {
-            icon: '⚙',
+            icon: 'brain',
             title: 'Custom AI Development',
             description:
               'Build AI-powered applications, intelligent features, and tailored solutions designed around your business requirements, data, and operational challenges.',
           },
           {
-            icon: '⚙',
+            icon: 'chart',
             title: 'AI Data Processing & Intelligent Analytics',
             description:
               'Turn business data into useful insights with automated data processing, intelligent reporting, pattern analysis, and decision-support tools.',
           },
           {
-            icon: '⚙',
+            icon: 'chat',
             title: 'WhatsApp Business Automation',
             description:
               'Streamline customer communication through automated replies, lead qualification, inquiry management, notifications, and conversational workflows on WhatsApp.',
           },
           {
-            icon: '⚙',
+            icon: 'sparkles',
             title: 'Generative AI & Business Assistants',
             description:
               'Explore AI-powered assistants that help teams find information, summarize documents, generate content, and work with business knowledge more efficiently.',
           },
           {
-            icon: '⚙',
+            icon: 'plug',
             title: 'AI Integration for Existing Software',
             description:
               'Enhance your current websites, mobile apps, and business software with AI capabilities without necessarily rebuilding your entire technology platform.',
@@ -1419,7 +1419,7 @@ export const INITIAL_PAGES = [
   },
   {
     title: 'Custom Software Development',
-    slug: 'service-2',
+    slug: 'custom-software-development',
     isHomepage: false,
     pageType: 'service' as const,
     order: 5,
@@ -1460,7 +1460,7 @@ export const INITIAL_PAGES = [
       {
         __component: 'sections.svc-capabilities' as const,
         pill: '● Services',
-        headingPrefix: 'Custom Software Solutions for\nBetter ',
+        headingPrefix: 'Custom Software Solutions for\nBetter',
         headingSerif: 'Business Management',
         headingSuffix: '',
         description:
@@ -1468,53 +1468,53 @@ export const INITIAL_PAGES = [
         capabilityItems: [
           {
             icon: 'layers',
-            title: 'Custom ERP Software<br class="d"> Development',
+            title: 'Custom ERP Software Development',
             description:
               'Manage finance, sales, inventory, purchasing, and employees with customized ERP solutions that streamline business operations and reporting.',
           },
           {
             icon: 'users',
-            title: 'CRM Software<br class="d"> Development',
+            title: 'CRM Software Development',
             description:
               'Build stronger customer relationships with custom CRM solutions for managing leads, sales, communication, follow-ups, and business opportunities.',
           },
           {
             icon: 'box',
-            title: 'Inventory & Stock<br class="d"> Management Systems',
+            title: 'Inventory & Stock Management Systems',
             description:
               'Gain inventory control with stock tracking, purchase orders, warehouse management, supplier coordination, and real-time reporting.',
           },
           {
             icon: 'flow',
-            title: 'Business Process &<br class="d"> Workflow Automation',
+            title: 'Business Process & Workflow Automation',
             description:
               'Automate approvals, notifications, data entry, and task assignments to reduce manual work and improve operational efficiency.',
           },
           {
             icon: 'grid',
-            title: 'Custom Business<br class="d"> Applications',
+            title: 'Custom Business Applications',
             description:
               'Build custom web applications tailored to business needs, streamlining internal management, operations, and specialized workflows.',
           },
           {
             icon: 'plug',
-            title: 'Enterprise Application<br class="d"> Integration',
+            title: 'Enterprise Application Integration',
             description:
               'Connect software, databases, and business applications for seamless data sharing and smoother, more efficient workflows.',
           },
           {
-            icon: 'bars',
-            title: 'Reporting & Business<br class="d"> Intelligence Solutions',
+            icon: 'chart',
+            title: 'Reporting & Business Intelligence Solutions',
             description:
               'Gain business insights through customized dashboards, reports, and data visualizations that support smarter decision-making.',
           },
           {
             icon: 'bolt',
-            title: 'Ready to Build<br class="d"> Software Around Your<br class="d"> Business?',
+            title: 'Ready to Build Software Around Your Business?',
             description: '',
             isDark: true,
             ctaLabel: 'Discuss Your Project ↗',
-            ctaHref: '#cta',
+            ctaHref: '#contact-form',
           },
         ],
       },
@@ -1696,12 +1696,17 @@ export const INITIAL_PAGES = [
   },
   {
     title: 'Digital Marketing & Performance Growth',
-    slug: 'service-3',
+    slug: 'digital-marketing-performance-growth',
     isHomepage: false,
     pageType: 'service' as const,
     order: 6,
     summary:
       'SEO, AI search visibility and performance marketing services from Walstar Technologies.',
+    seo: {
+      metaTitle: 'Digital Marketing & Performance Growth | Walstar Technologies',
+      metaDescription:
+        'SEO, AI search visibility and performance marketing services from Walstar Technologies.',
+    },
     sections: [
       {
         __component: 'sections.hero',
@@ -1736,61 +1741,61 @@ export const INITIAL_PAGES = [
         capabilityItems: [
           {
             icon: 'search',
-            title: 'Search Engine\nOptimization (SEO)',
+            title: 'Search Engine Optimization (SEO)',
             description:
               'Technical fixes, keyword research,\non-page optimization and link\nbuilding that lift your rankings for the\nsearches your buyers actually make.',
           },
           {
             icon: 'robot',
-            title: 'AI-Search\nOptimization',
+            title: 'AI-Search Optimization',
             description:
               'Clear, well-structured, expert\ncontent with schema markup, so\nChatGPT, Gemini and Google AI\nOverviews can find, understand and\ncite your business.',
           },
           {
             icon: 'location-pin',
-            title: 'Local SEO and Listing\nOptimization',
+            title: 'Local SEO and Listing Optimization',
             description:
               'Google Business Profile setup,\nconsistent listings and location-\nfocused content that put you in front\nof nearby customers.',
           },
           {
             icon: 'document-list',
-            title: 'Content Marketing and\nStrategy',
+            title: 'Content Marketing and Strategy',
             description:
               'Articles, guides and pages built\naround real buyer questions,\ndesigned to earn trust, rank in search\nand support the sales process.',
           },
           {
             icon: 'megaphone',
-            title: 'Paid Advertising\nand PPC',
+            title: 'Paid Advertising and PPC',
             description:
               'Build custom web applications\ntailored to business needs,\nstreamlining internal management,\noperations, and specialized\nworkflows.',
           },
           {
             icon: 'share',
-            title: 'Social Media\nMarketing',
+            title: 'Social Media Marketing',
             description:
               'A consistent, platform-specific\ncontent plan that builds\nawareness and engages the right\naudience, with performance\ntracked.',
           },
           {
             icon: 'email',
-            title: 'Email Marketing and\nAutomation',
+            title: 'Email Marketing and Automation',
             description:
               'Targeted email and follow-up\nsequences that nurture leads and\nturn subscribers into customers.',
           },
           {
             icon: 'funnel',
-            title: 'Lead Generation and\nConversion\nOptimization',
+            title: 'Lead Generation and Conversion Optimization',
             description:
               'Gain business insights through\ncustomized dashboards, reports,\nand data visualizations that support\nsmarter decision-making.',
           },
           {
             icon: 'shopping-cart',
-            title: 'eCommerce\nMarketing',
+            title: 'eCommerce Marketing',
             description:
               'Product page SEO, shopping and\nretargeting campaigns, and\nretention marketing to grow online\nstore sales.',
           },
           {
             icon: 'analytics-bars',
-            title: 'Analytics and\nPerformance\nTracking',
+            title: 'Analytics and Performance Tracking',
             description:
               'GA4, conversion tracking and CRM\nconnection, with reports that show\nwhich channels bring real leads\nand revenue.',
           },
@@ -1801,7 +1806,7 @@ export const INITIAL_PAGES = [
               "Let's grow your online presence and generate more qualified leads.",
             isDark: true,
             ctaLabel: 'Get Started ↗',
-            ctaHref: '#contact',
+            ctaHref: '#contact-form',
           },
         ],
       },
@@ -1937,7 +1942,7 @@ export const INITIAL_NAVBAR = {
     },
     {
       label: 'Services',
-      route: '/service-1',
+      route: '/services/ai-solutions-business-automation',
       hasDropdown: true,
       isHighlighted: false,
       openInNewTab: false,
@@ -1945,7 +1950,7 @@ export const INITIAL_NAVBAR = {
         {
           label: 'AI Solutions & Automation',
           description: 'AI agents, chatbots & workflow automation',
-          route: '/service-1',
+          route: '/services/ai-solutions-business-automation',
           badge: 'Service 1',
           openInNewTab: false,
         },
@@ -2038,7 +2043,7 @@ export const INITIAL_FOOTER = {
     {
       title: 'Explore',
       links: [
-        { label: 'Services', route: '/service-1', openInNewTab: false },
+        { label: 'Services', route: '/services/ai-solutions-business-automation', openInNewTab: false },
         { label: 'Career', route: '/about-us', openInNewTab: false },
         { label: 'Contact', route: '/contact', openInNewTab: false },
         { label: 'Events & Programs', route: '/#prod', openInNewTab: false },

@@ -95,14 +95,14 @@ function buildFallbackLinkColumns(siteSetting?: SiteSetting): FooterColumn[] {
   const source = siteSetting ?? DEFAULT_SITE_SETTING;
   return [
     {
-      title: 'Company',
+      title: null,
       links: source.footerPrimaryLinks.map((link) => ({
         label: link.label,
         route: link.href,
       })),
     },
     {
-      title: 'Explore',
+      title: null,
       links: source.footerSecondaryLinks.map((link) => ({
         label: link.label,
         route: link.href,
@@ -277,11 +277,67 @@ export function WalstarFooter({
         <div className="f2">
           <div className="f2-lead">
             <div className="fbig">
-              {resolved.headlinePrefix}{' '}
-              <span className="serif">
-                {resolved.headlineSerif}
-              </span>{' '}
-              {resolved.headlineSuffix}
+              {(() => {
+                const prefix = resolved.headlinePrefix?.trim() || 'Build';
+                const serif = resolved.headlineSerif?.trim() || 'AI Products';
+                const rawSuffix = (resolved.headlineSuffix || 'that actually Ships.').trim();
+
+                // Format: line 1 "Build AI Products that", line 2 "actually Ships."
+                const match = rawSuffix.match(/^(that\s+)?(actually\s+ships\.?)$/i);
+                if (match) {
+                  const thatPart = match[1] ? match[1].trim() : '';
+                  const shipsPart = match[2];
+                  return (
+                    <>
+                      <span className="fbig-line1">
+                        {prefix ? `${prefix} ` : ''}
+                        <span className="serif">{serif}</span>
+                        {thatPart ? ` ${thatPart}` : ''}
+                      </span>
+                      <span className="fbig-line2">{shipsPart}</span>
+                    </>
+                  );
+                }
+
+                if (rawSuffix.includes('\n')) {
+                  const [l1, ...rest] = rawSuffix.split('\n');
+                  return (
+                    <>
+                      <span className="fbig-line1">
+                        {prefix ? `${prefix} ` : ''}
+                        <span className="serif">{serif}</span>
+                        {l1 ? ` ${l1.trim()}` : ''}
+                      </span>
+                      <span className="fbig-line2">{rest.join(' ').trim()}</span>
+                    </>
+                  );
+                }
+
+                // If suffix starts with "that" followed by more words
+                const thatMatch = rawSuffix.match(/^that\s+(.+)$/i);
+                if (thatMatch) {
+                  return (
+                    <>
+                      <span className="fbig-line1">
+                        {prefix ? `${prefix} ` : ''}
+                        <span className="serif">{serif}</span>
+                        {' that'}
+                      </span>
+                      <span className="fbig-line2">{thatMatch[1]}</span>
+                    </>
+                  );
+                }
+
+                return (
+                  <>
+                    <span className="fbig-line1">
+                      {prefix ? `${prefix} ` : ''}
+                      <span className="serif">{serif}</span>
+                    </span>
+                    <span className="fbig-line2">{rawSuffix}</span>
+                  </>
+                );
+              })()}
             </div>
             <WalstarButton
               variant="orange"
@@ -296,7 +352,13 @@ export function WalstarFooter({
 
           <div className="f2-links">
             {resolved.linkColumns.map((column, colIdx) => {
-              const columnTitle = column.title;
+              const rawTitle = column.title?.trim();
+              const isFilteredTitle =
+                !rawTitle ||
+                rawTitle.toLowerCase() === 'company' ||
+                rawTitle.toLowerCase() === 'explore';
+              const columnTitle = isFilteredTitle ? null : rawTitle;
+
               return (
                 <div
                   className="fl-col"

@@ -602,9 +602,7 @@ export function CapabilitiesBlock({
 
     const href =
       matchingService.moreHref ||
-      (matchingService.slug === 'ai-solutions-business-automation' || matchingService.slug === 'ai-solutions'
-        ? '/service-1'
-        : matchingService.slug
+      (matchingService.slug
         ? `/services/${matchingService.slug}`
         : defaultCard.href);
 

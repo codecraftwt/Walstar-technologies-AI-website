@@ -115,22 +115,34 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
         ));
 
     const isLegacyServiceSeed =
-      item.slug === 'service-1' &&
+      (item.slug === 'service-1' || item.slug === 'ai-solutions-business-automation') &&
       !existingSections.some(
         (section) => section.__component === 'sections.svc-intro'
       );
 
     const isLegacyService2Seed =
-      item.slug === 'service-2' &&
+      (item.slug === 'service-2' || item.slug === 'custom-software-development') &&
       !existingSections.some(
         (section) => section.__component === 'sections.svc-capabilities'
       );
 
     const isLegacyService3Seed =
-      item.slug === 'service-3' &&
+      (item.slug === 'service-3' || item.slug === 'digital-marketing-performance-growth') &&
       !existingSections.some(
         (section) => section.__component === 'sections.svc-capabilities'
       );
+
+    const needsServiceCapabilitiesSync =
+      ((item.slug === 'service-1' || item.slug === 'ai-solutions-business-automation') || (item.slug === 'service-2' || item.slug === 'custom-software-development') || (item.slug === 'service-3' || item.slug === 'digital-marketing-performance-growth')) &&
+      (!existingSections.some((s) => s.__component === 'sections.svc-capabilities') ||
+        (() => {
+          const existingCap = existingSections.find((s) => s.__component === 'sections.svc-capabilities') as Record<string, unknown> | undefined;
+          const seedCap = item.sections?.find((s: any) => s.__component === 'sections.svc-capabilities') as Record<string, unknown> | undefined;
+          if (!existingCap || !seedCap) return true;
+          const existingItems = Array.isArray(existingCap.capabilityItems) ? existingCap.capabilityItems : [];
+          const seedItems = Array.isArray(seedCap.capabilityItems) ? seedCap.capabilityItems : [];
+          return existingItems.length !== seedItems.length;
+        })());
 
     if (
       existingSections.length === 0 ||
@@ -139,7 +151,8 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
       needsAboutSync ||
       isLegacyServiceSeed ||
       isLegacyService2Seed ||
-      isLegacyService3Seed
+      isLegacyService3Seed ||
+      needsServiceCapabilitiesSync
     ) {
       await pageDoc.update({
         documentId: existing.documentId,
@@ -464,8 +477,85 @@ async function ensureServiceMedia(strapi: Core.Strapi): Promise<void> {
         }
       }
     }
+async function ensureContactMedia(strapi: Core.Strapi): Promise<void> {
+  try {
+    const knex = strapi.db.connection;
+    const hasFilesTable = await knex.schema.hasTable('files');
+    const hasMphTable = await knex.schema.hasTable('files_related_mph');
+    const hasHeroTable = await knex.schema.hasTable('components_sections_heroes');
+    const hasContactInterestTable = await knex.schema.hasTable('components_sections_contact_interests');
+    if (!hasFilesTable || !hasMphTable) {
+      return;
+    }
+
+    let heroFile = await knex('files')
+      .where('id', 58)
+      .orWhere('url', 'like', '%Layer_2_cef307f72a%')
+      .orWhere('name', 'Layer 2.png')
+      .first();
+
+    if (heroFile?.id && hasHeroTable) {
+      const contactPageCmps = await knex('pages_cmps')
+        .join('pages', 'pages.id', 'pages_cmps.entity_id')
+        .where('pages.slug', 'contact')
+        .where('pages_cmps.component_type', 'sections.hero')
+        .select('pages_cmps.cmp_id');
+
+      for (const row of contactPageCmps) {
+        const existingLink = await knex('files_related_mph')
+          .where({
+            related_type: 'sections.hero',
+            field: 'backgroundImage',
+            related_id: row.cmp_id,
+          })
+          .first();
+
+        if (!existingLink) {
+          await knex('files_related_mph').insert({
+            file_id: heroFile.id,
+            related_id: row.cmp_id,
+            order: 1,
+            related_type: 'sections.hero',
+            field: 'backgroundImage',
+          });
+        }
+      }
+    }
+
+    let kbFile = await knex('files')
+      .where('name', 'like', '%contact-keyboard%')
+      .orWhere('url', 'like', '%contact_keyboard%')
+      .first();
+
+    if (kbFile?.id && hasContactInterestTable) {
+      const contactInterestCmps = await knex('pages_cmps')
+        .join('pages', 'pages.id', 'pages_cmps.entity_id')
+        .where('pages.slug', 'contact')
+        .where('pages_cmps.component_type', 'sections.contact-interest')
+        .select('pages_cmps.cmp_id');
+
+      for (const row of contactInterestCmps) {
+        const existingLink = await knex('files_related_mph')
+          .where({
+            related_type: 'sections.contact-interest',
+            field: 'image',
+            related_id: row.cmp_id,
+          })
+          .first();
+
+        if (!existingLink) {
+          await knex('files_related_mph').insert({
+            file_id: kbFile.id,
+            related_id: row.cmp_id,
+            order: 1,
+            related_type: 'sections.contact-interest',
+            field: 'image',
+          });
+        }
+      }
+    }
   } catch (error) {
-    strapi.log.warn('Could not auto-link service media during bootstrap:', error);
+    strapi.log.warn('Could not auto-link contact media during bootstrap:', error);
   }
 }
 
@@ -499,6 +589,7 @@ export default {
       await seedCollections(strapi);
       await ensureTickerAndWhyChooseIcons(strapi);
       await ensureServiceMedia(strapi);
+      await ensureContactMedia(strapi);
     } catch (error) {
       strapi.log.error(
         'Initial starter bootstrap skipped or encountered an error:',

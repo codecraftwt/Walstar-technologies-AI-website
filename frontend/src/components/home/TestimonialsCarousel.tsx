@@ -8,7 +8,7 @@ import {
   useState,
   type TransitionEvent,
 } from 'react';
-import { getStrapiMediaUrl } from '@/lib/strapi';
+import { getStrapiMediaUrl, STRAPI_IMAGE_PLACEHOLDER } from '@/lib/strapi';
 import type { TestimonialItem } from '@/types/strapi';
 
 interface TestimonialsCarouselProps {
@@ -94,7 +94,7 @@ function TestimonialCard({
   item: TestimonialItem;
   isCenter: boolean;
 }) {
-  const avatarUrl = getStrapiMediaUrl(item.avatar?.url) || getTestimonialFallbackAvatar(item.authorName);
+  const avatarUrl = getStrapiMediaUrl(item.avatar?.url) || STRAPI_IMAGE_PLACEHOLDER;
 
   return (
     <article className={isCenter ? 't mid' : 't'}>

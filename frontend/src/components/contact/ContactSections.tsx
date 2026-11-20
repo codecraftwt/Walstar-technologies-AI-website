@@ -4,10 +4,11 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { ConsultationForm } from '@/components/contact/ConsultationForm';
 import {
+  cleanPill,
   renderHeadingParts,
   renderMultilineText,
 } from '@/components/common/SectionPrimitives';
-import { getStrapiMediaUrl } from '@/lib/strapi';
+import { getStrapiMediaUrl, STRAPI_IMAGE_PLACEHOLDER } from '@/lib/strapi';
 import type {
   ContactInterestSection,
   ContactSectionBlock,
@@ -79,10 +80,21 @@ export function ContactInterestBlock({
   section: ContactInterestSection;
 }) {
   const imageUrl =
-    getStrapiMediaUrl(section.image?.url) || '/images/contact-keyboard.jpg';
+    getStrapiMediaUrl(section.image?.url) || STRAPI_IMAGE_PLACEHOLDER;
+  const rawPill = section.tag || 'Areas of Interest';
+  const pillText = cleanPill(rawPill);
+  const prefix = section.headingPrefix?.trim();
+  const serif = section.headingSerif?.trim();
+  const suffix = section.headingSuffix?.trim();
+
   const options =
     section.options?.map((item) => item.label).filter(Boolean) ??
     DEFAULT_INTEREST_OPTIONS;
+
+  const optionRows: string[][] = [];
+  for (let i = 0; i < options.length; i += 3) {
+    optionRows.push(options.slice(i, i + 3));
+  }
 
   const [selected, setSelected] = useState<string[]>(() => readStoredInterests());
 
@@ -97,55 +109,78 @@ export function ContactInterestBlock({
   }
 
   return (
-    <section className="sec contact-interest">
+    <section className="sec who contact-interest" id="contact-interest">
       <div className="wrap contact-interest-grid">
-        <div className="contact-interest-media relative overflow-hidden">
-          <Image
-            src={imageUrl}
-            alt={
-              section.image?.alternativeText ||
-              'Hands typing on a laptop keyboard'
-            }
-            fill
-            sizes="(max-width: 900px) 100vw, 44vw"
-            className="object-cover"
-          />
+        <div
+          className={imageUrl ? 'ph relative overflow-hidden contact-interest-media' : 'ph contact-interest-media'}
+          role={imageUrl ? undefined : 'img'}
+          aria-label={imageUrl ? undefined : pillText || 'Contact interest'}
+        >
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={
+                section.image?.alternativeText ||
+                pillText ||
+                'Hands typing on a laptop keyboard'
+              }
+              fill
+              sizes="(max-width: 900px) 100vw, (max-width: 1920px) 655px, 655px"
+              priority
+              className="object-cover"
+            />
+          ) : null}
         </div>
 
         <div className="contact-interest-copy">
-          {section.tag ? <span className="pill">{section.tag}</span> : null}
-          <h2 className="contact-interest-heading">
-            {section.headingPrefix
-              ? renderMultilineText(section.headingPrefix.replace(/\n+$/, ''))
-              : null}
-            {section.headingSerif ? (
-              <>
-                <br />
-                <span className="serif">{section.headingSerif}</span>
-              </>
+          {pillText ? <span className="pill who-pill contact-interest-pill">{pillText}</span> : null}
+          <h2 className="about-heading who-heading contact-interest-heading">
+            {prefix ? (
+              <span className="about-heading-row who-heading-row who-heading-row--prefix">
+                <span className="who-heading-text">{renderMultilineText(prefix)}</span>
+              </span>
             ) : null}
-            {section.headingSuffix ? <> {section.headingSuffix}</> : null}
+            {serif || suffix ? (
+              <span className="about-heading-row who-heading-row who-heading-row--serif">
+                {serif ? <span className="serif who-heading-serif">{serif}</span> : null}
+                {suffix ? (
+                  <span className="who-heading-suffix">{` ${suffix}`}</span>
+                ) : null}
+              </span>
+            ) : null}
           </h2>
-          {section.subtitle ? <p className="contact-interest-desc">{renderMultilineText(section.subtitle)}</p> : null}
+          {section.subtitle ? (
+            <div className="about-lead-desc who-desc contact-interest-desc" style={{ marginTop: 14 }}>
+              {splitLines(section.subtitle).map((para, idx) => (
+                <p key={idx} className="who-desc-p">
+                  {para}
+                </p>
+              ))}
+            </div>
+          ) : null}
 
-          {options.length > 0 ? (
+          {optionRows.length > 0 ? (
             <div className="contact-chip-grid" role="group" aria-label="Areas of interest">
-              {options.map((label) => {
-                const isActive = selected.includes(label);
-                return (
-                  <button
-                    key={label}
-                    type="button"
-                    className={
-                      isActive ? 'contact-chip is-active' : 'contact-chip'
-                    }
-                    aria-pressed={isActive}
-                    onClick={() => toggleOption(label)}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+              {optionRows.map((row, rowIdx) => (
+                <div key={rowIdx} className="contact-chip-row">
+                  {row.map((label) => {
+                    const isActive = selected.includes(label);
+                    return (
+                      <button
+                        key={label}
+                        type="button"
+                        className={
+                          isActive ? 'contact-chip is-active' : 'contact-chip'
+                        }
+                        aria-pressed={isActive}
+                        onClick={() => toggleOption(label)}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
             </div>
           ) : null}
         </div>
@@ -161,6 +196,11 @@ export function ContactSectionView({
   section: ContactSectionBlock;
   siteSetting: SiteSetting;
 }) {
+  const rawPill = section.tag || 'Contact Walstar';
+  const pillText = cleanPill(rawPill);
+  const prefix = section.headingPrefix?.trim();
+  const serif = section.headingSerif?.trim();
+
   const phones = splitLines(
     section.callPhones || siteSetting.officePhones
   );
@@ -185,19 +225,30 @@ export function ContactSectionView({
     DEFAULT_INTEREST_OPTIONS;
 
   return (
-    <section className="contact-sec" id="contact-form">
-      <div className="wrap">
-        <div className="contact-panel">
-          <div className="contact-info-col">
-            {section.tag ? <span className="pill">{section.tag}</span> : null}
-            <h2 className="contact-panel-heading">
-              {renderHeadingParts(
-                section.headingPrefix,
-                section.headingSerif
-              )}
+    <section className="sec contact-sec" id="contact-form">
+      <div className="contact-panel">
+        <div className="contact-info-col">
+            {pillText ? <span className="pill who-pill contact-info-pill">{pillText}</span> : null}
+            <h2 className="about-heading who-heading contact-panel-heading">
+              {prefix ? (
+                <span className="about-heading-row who-heading-row who-heading-row--prefix">
+                  <span className="who-heading-text">{renderMultilineText(prefix)}</span>
+                </span>
+              ) : null}
+              {serif ? (
+                <span className="about-heading-row who-heading-row who-heading-row--serif">
+                  <span className="serif who-heading-serif">{serif}</span>
+                </span>
+              ) : null}
             </h2>
             {section.subtitle ? (
-              <p className="lead contact-panel-lead">{renderMultilineText(section.subtitle)}</p>
+              <div className="about-lead-desc who-desc contact-panel-lead" style={{ marginTop: 14 }}>
+                {splitLines(section.subtitle).map((para, idx) => (
+                  <p key={idx} className="who-desc-p">
+                    {para}
+                  </p>
+                ))}
+              </div>
             ) : null}
 
             {section.showOfficeDetails !== false ? (
@@ -257,7 +308,6 @@ export function ContactSectionView({
             serviceOptions={serviceOptions}
           />
         </div>
-      </div>
     </section>
   );
 }

@@ -43,6 +43,35 @@ export default factories.createCoreController(
         }
 
         if (!page) {
+          const aliases: Record<string, string[]> = {
+            'service-1': ['ai-solutions-business-automation'],
+            'ai-solutions-automation': ['ai-solutions-business-automation'],
+            'ai-solutions-and-automation': ['ai-solutions-business-automation'],
+            'ai-solutions': ['ai-solutions-business-automation'],
+            'ai-solutions-business-automation': ['service-1'],
+            'service-2': ['custom-software-development'],
+            'custom-software': ['custom-software-development'],
+            'custom-software-development': ['service-2'],
+            'service-3': ['digital-marketing-performance-growth'],
+            'digital-marketing': ['digital-marketing-performance-growth'],
+            'digital-marketing-performance-growth': ['service-3'],
+            'about': ['about-us'],
+            'about-us': ['about'],
+            'contact-us': ['contact'],
+            'contact': ['contact-us'],
+          };
+
+          for (const alias of aliases[rawSlug] ?? []) {
+            page = await pageDoc.findFirst({
+              filters: { slug: alias },
+              status: 'published',
+              populate: PAGE_POPULATE as never,
+            });
+            if (page) break;
+          }
+        }
+
+        if (!page) {
           return null;
         }
 

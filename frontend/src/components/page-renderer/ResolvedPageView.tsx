@@ -1,7 +1,21 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { DetailShell } from '@/components/common/DetailShell';
 import { PageSectionsRenderer } from '@/components/page-renderer/PageSectionsRenderer';
 import { getResolvedPageBySlug } from '@/lib/strapi';
+
+const SERVICE_CANONICAL_SLUGS: Record<string, string> = {
+  'service-1': 'ai-solutions-business-automation',
+  'ai-solutions-automation': 'ai-solutions-business-automation',
+  'ai-solutions-and-automation': 'ai-solutions-business-automation',
+  'ai-solutions': 'ai-solutions-business-automation',
+  'ai-solutions-business-automation': 'ai-solutions-business-automation',
+  'service-2': 'custom-software-development',
+  'custom-software': 'custom-software-development',
+  'custom-software-development': 'custom-software-development',
+  'service-3': 'digital-marketing-performance-growth',
+  'digital-marketing': 'digital-marketing-performance-growth',
+  'digital-marketing-performance-growth': 'digital-marketing-performance-growth',
+};
 
 export async function ResolvedPageView({
   params,
@@ -9,7 +23,13 @@ export async function ResolvedPageView({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const decodedSlug = decodeURIComponent(slug);
+  const decodedSlug = decodeURIComponent(slug).trim();
+
+  // If a service page is requested at root /[slug], redirect cleanly to /services/[slug]
+  if (SERVICE_CANONICAL_SLUGS[decodedSlug]) {
+    redirect(`/services/${encodeURIComponent(SERVICE_CANONICAL_SLUGS[decodedSlug])}`);
+  }
+
   const { data, source, error } = await getResolvedPageBySlug(decodedSlug);
 
   if (error) {
@@ -27,5 +47,16 @@ export async function ResolvedPageView({
     notFound();
   }
 
-  return <PageSectionsRenderer data={data} source={source} />;
+  // If the resolved page is a service page, route to /services/[slug]
+  if (data.page.pageType === 'service') {
+    redirect(`/services/${encodeURIComponent(data.page.slug)}`);
+  }
+
+  return (
+    <PageSectionsRenderer
+      data={data}
+      source={source}
+      currentPath={`/${encodeURIComponent(decodedSlug)}`}
+    />
+  );
 }

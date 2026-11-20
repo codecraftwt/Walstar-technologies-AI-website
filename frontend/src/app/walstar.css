@@ -49,8 +49,8 @@
 
 .section,
 .wrap.section {
-  width: min(1606px, 83.44vw);
-  max-width: 1606px;
+  width: min(1602px, min(83.4375vw, calc(100vw - (var(--page-px) * 2))));
+  max-width: 1602px;
   margin-inline: auto;
   box-sizing: border-box;
 }
@@ -80,7 +80,7 @@
   letter-spacing: 0;
   text-transform: uppercase;
   color: var(--mute);
-  margin-bottom: clamp(10px, 1vw, 16px);
+  /* margin-bottom: clamp(10px, 1vw, 16px); */
   box-shadow: 0 2px 10px rgba(20, 21, 74, 0.05);
   border: 1px solid rgba(20, 21, 74, 0.08);
   width: fit-content;
@@ -1083,34 +1083,100 @@ html.walstar-scroll-locked {
 }
 
 .hero .cta .btn {
-  width: clamp(190px, 14.583vw, 280px);
-  min-height: clamp(46px, 3.4375vw, 66px);
-  border-radius: 30px;
-  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
-  font-size: clamp(13px, 0.833vw, 16px);
-  font-weight: 500;
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(14px, 1.0417vw, 20px);
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  border-radius: 50px;
   gap: 6px;
   border-width: 1px;
   border-style: solid;
-  border-color: transparent;
   white-space: nowrap;
   box-sizing: border-box;
+  opacity: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transform: rotate(0deg);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    background-color 0.24s ease,
+    border-color 0.24s ease;
 }
 
+.hero .cta .btn .walstar-btn-label {
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* First Button (Explore AI Solutions) */
+.hero .cta .btn-bl,
+.hero .cta .hero-btn-primary,
+.hero .cta .btn:first-child {
+  width: clamp(210px, 14.63vw, 280.9px);
+  min-height: clamp(50px, 3.4375vw, 66px);
+  padding: clamp(12px, 0.9375vw, 18px) clamp(18px, 1.5625vw, 30px);
+  background: #41A3FF;
+  border-color: transparent;
+  color: #00101F;
+}
+
+.hero .cta .btn-bl .walstar-btn-arrow,
+.hero .cta .hero-btn-primary .walstar-btn-arrow,
+.hero .cta .btn:first-child .walstar-btn-arrow {
+  color: #00101F;
+  stroke: #00101F;
+}
+
+.hero .cta .btn-bl:hover,
+.hero .cta .btn-bl:focus-visible,
+.hero .cta .hero-btn-primary:hover,
+.hero .cta .hero-btn-primary:focus-visible,
+.hero .cta .btn:first-child:hover,
+.hero .cta .btn:first-child:focus-visible {
+  background: #2b97ff;
+  color: #00101F;
+  box-shadow:
+    0 6px 20px rgba(65, 163, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Second Button (Discover your Project) */
 .hero .cta .btn-gh,
+.hero .cta .hero-btn-secondary,
 .hero .cta .btn:nth-child(2) {
+  width: clamp(210px, 15.41vw, 295.9px);
+  min-height: clamp(50px, 3.5416vw, 68px);
+  padding: clamp(12px, 0.9375vw, 18px) clamp(18px, 1.5625vw, 30px);
   background: #41A3FF4F;
-  border: 1px solid rgba(65, 163, 255, 0.55);
-  color: #ffffff;
+  border: 1px solid #55ADFF73;
+  color: #FFFFFF;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero .cta .btn-gh .walstar-btn-arrow,
+.hero .cta .hero-btn-secondary .walstar-btn-arrow,
+.hero .cta .btn:nth-child(2) .walstar-btn-arrow {
+  color: #FFFFFF;
+  stroke: #FFFFFF;
 }
 
 .hero .cta .btn-gh:hover,
 .hero .cta .btn-gh:focus-visible,
+.hero .cta .hero-btn-secondary:hover,
+.hero .cta .hero-btn-secondary:focus-visible,
 .hero .cta .btn:nth-child(2):hover,
 .hero .cta .btn:nth-child(2):focus-visible {
   background: rgba(65, 163, 255, 0.45);
-  border-color: rgba(65, 163, 255, 0.85);
+  border-color: rgba(85, 173, 255, 0.75);
+  color: #FFFFFF;
   box-shadow:
     0 6px 20px rgba(65, 163, 255, 0.32),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
@@ -1278,7 +1344,9 @@ html.walstar-scroll-locked {
 .why .hd2 h2,
 .vm-sec .hd2 h2,
 .team .hd2 h2,
-.offices .hd2 h2 {
+.offices .hd2 h2,
+.contact-interest-heading,
+.contact-panel-heading {
   margin: 12px 0 16px;
   line-height: 1.18;
   font-family: Urbanist, Poppins, system-ui, -apple-system, sans-serif !important;
@@ -1301,7 +1369,9 @@ html.walstar-scroll-locked {
 .why .hd2 h2 .serif,
 .vm-sec .hd2 h2 .serif,
 .team .hd2 h2 .serif,
-.offices .hd2 h2 .serif {
+.offices .hd2 h2 .serif,
+.contact-interest-heading .serif,
+.contact-panel-heading .serif {
   color: #2F80FF !important;
   font-family: Georgia, "Instrument Serif", serif !important;
   font-weight: 400 !important;
@@ -1321,7 +1391,11 @@ html.walstar-scroll-locked {
 .why .about-lead-desc,
 .vm-sec .about-lead-desc,
 .team .about-lead-desc,
-.offices .about-lead-desc {
+.offices .about-lead-desc,
+.contact-interest-desc,
+.contact-interest-desc p,
+.contact-panel-lead,
+.contact-panel-lead p {
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif !important;
   font-weight: 400 !important;
   font-size: clamp(14px, 0.95vw, 16px) !important;
@@ -1990,7 +2064,7 @@ html.walstar-scroll-locked {
 
 .feat .img {
   height: clamp(280px, 20vw, 360px);
-  background: linear-gradient(135deg, #0d1230, #1a2b6b 60%, #2f80ff);
+  background: #001930 url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
   overflow: hidden;
   position: relative;
 }
@@ -2118,13 +2192,14 @@ html.walstar-scroll-locked {
 }
 
 .pi p,
-.pi-body .pi-description {
-  font-family: var(--font-poppins, 'Poppins', sans-serif);
+.pi-body .pi-description,
+.pi-description {
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: clamp(13.5px, 1.0417vw, 20px);
-  line-height: 100%;
-  letter-spacing: 0;
+  line-height: clamp(20px, 1.45vw, 28px);
+  letter-spacing: 0.025em;
   color: #343434;
   margin: 0 0 clamp(18px, 1.354vw, 26px);
 }
@@ -2398,16 +2473,11 @@ html.walstar-scroll-locked {
   transform: translateY(-2px);
 }
 
-.cs.a {
-  background:
-    linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.85)),
-    linear-gradient(120deg, #c98a5a, #e9c7a4 50%, #7a5a45);
-}
-
+.cs.a,
 .cs.b {
   background:
     linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.85)),
-    linear-gradient(120deg, #324a8f, #9fb6e8 55%, #e0cfc4);
+    url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
 }
 
 .cs-pill,
@@ -2834,7 +2904,7 @@ html.walstar-scroll-locked {
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: pan-y;
+  touch-action: none !important;
   cursor: ew-resize;
   background: #0d1024;
 }
@@ -2882,6 +2952,7 @@ html.walstar-scroll-locked {
 }
 
 .ba-overlay {
+  --ba-pad: clamp(20px, 3.4vw, 40px);
   position: absolute;
   inset: 0;
   z-index: 4;
@@ -2889,25 +2960,47 @@ html.walstar-scroll-locked {
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
-  padding: clamp(20px, 3vw, 34px) clamp(20px, 3.4vw, 40px);
+  padding: clamp(20px, 3vw, 34px) var(--ba-pad);
   pointer-events: none;
   color: #fff;
+  overflow: hidden;
 }
 
 .ba-copy {
   display: flex;
   flex-direction: column;
-  max-width: 44%;
+  min-width: 0;
+  overflow: hidden;
+  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: max-width, opacity, transform;
 }
 
 .ba-copy--before {
   align-items: flex-start;
   text-align: left;
+  /* Constrained by slider position from left: as slider moves left & touches the text div, max-width shrinks & text wraps */
+  max-width: min(460px, calc(var(--ba-pos, 50%) - var(--ba-pad, 40px) - 18px));
+}
+
+.ba-copy--before.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-14px) scale(0.96);
 }
 
 .ba-copy--after {
   align-items: flex-end;
   text-align: right;
+  margin-left: auto;
+  /* Constrained by slider position from right: as slider moves right & touches the text div, max-width shrinks & text wraps */
+  max-width: min(460px, calc(100% - var(--ba-pos, 50%) - var(--ba-pad, 40px) - 18px));
+}
+
+.ba-copy--after.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(14px) scale(0.96);
 }
 
 .ba-pill {
@@ -2922,20 +3015,52 @@ html.walstar-scroll-locked {
   text-transform: uppercase;
   line-height: 1.2;
   margin-bottom: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ba-pill--before {
+/* Inactive pill state (subtle translucent border pill) */
+.ba-pill,
+.ba-pill--inactive,
+.ba-pill:not(.is-active) {
   border: 1px solid rgba(255, 255, 255, 0.58);
-  background: rgba(12, 14, 24, 0.42);
+  background: rgba(12, 14, 24, 0.46);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #fff;
+  font-weight: 500;
+  box-shadow: none;
 }
 
-.ba-pill--after {
-  border: 1px solid var(--orange);
-  background: var(--orange);
+/* Active pill state: Orange background on whichever side has more width */
+.ba-pill.is-active,
+.ba-pill--active,
+.ba-stage[data-active-side="before"] .ba-pill--before,
+.ba-stage[data-active-side="after"] .ba-pill--after {
+  border: 1px solid var(--orange, #E96D01);
+  background: var(--orange, #E96D01);
   color: #fff;
   font-weight: 600;
+  box-shadow: 0 2px 14px rgba(233, 109, 1, 0.45);
+}
+
+/* Ensure inactive side remains default translucent pill */
+.ba-stage[data-active-side="before"] .ba-pill--after {
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  background: rgba(12, 14, 24, 0.46);
+  color: #fff;
+  box-shadow: none;
+}
+
+.ba-stage[data-active-side="after"] .ba-pill--before {
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  background: rgba(12, 14, 24, 0.46);
+  color: #fff;
+  box-shadow: none;
 }
 
 .ba-sub {
@@ -2944,7 +3069,9 @@ html.walstar-scroll-locked {
   font-weight: 400;
   line-height: 1.35;
   color: rgba(255, 255, 255, 0.86);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .ba-title {
@@ -2953,6 +3080,9 @@ html.walstar-scroll-locked {
   font-weight: 500;
   line-height: 1.25;
   color: #fff;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .ba-divider {
@@ -2965,6 +3095,7 @@ html.walstar-scroll-locked {
   background: rgba(255, 255, 255, 0.92);
   z-index: 5;
   outline: none;
+  touch-action: none !important;
 }
 
 .ba-divider:focus-visible .ba-knob {
@@ -3382,17 +3513,32 @@ html.walstar-scroll-locked {
 }
 
 .fbig {
-  width: min(clamp(240px, 17.656vw, 339px), 100%);
-  max-width: 339px;
+  width: auto;
+  max-width: 100%;
   min-height: auto;
   font-family: Urbanist, system-ui, sans-serif;
   font-weight: 600;
   font-style: normal;
   font-size: clamp(22px, 1.667vw, 32px);
-  line-height: 1.18;
+  line-height: 1.25;
   letter-spacing: 0;
   margin-bottom: clamp(16px, 1.25vw, 24px);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.fbig-line1,
+.fbig-line2 {
+  display: block;
+}
+
+@media (min-width: 481px) {
+  .fbig-line1,
+  .fbig-line2 {
+    white-space: nowrap;
+  }
 }
 
 .fbig .serif {
@@ -3404,13 +3550,13 @@ html.walstar-scroll-locked {
 
 .footer-contact-btn,
 .f2-lead .btn {
-  width: clamp(190px, 14.583vw, 280px);
-  min-width: clamp(190px, 14.583vw, 280px);
-  max-width: 280px;
-  height: clamp(46px, 3.4375vw, 66px);
-  min-height: clamp(46px, 3.4375vw, 66px);
-  border-radius: 30px;
-  padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
+  width: clamp(170px, 10.703vw, 205.5px);
+  min-width: clamp(170px, 10.703vw, 205.5px);
+  max-width: 205.5px;
+  height: clamp(46px, 2.865vw, 55px);
+  min-height: clamp(46px, 2.865vw, 55px);
+  border-radius: 32px;
+  padding: clamp(10px, 0.729vw, 14px) clamp(20px, 1.458vw, 28px);
   gap: 6px;
   opacity: 1;
   transform: rotate(0deg);
@@ -3421,8 +3567,25 @@ html.walstar-scroll-locked {
   box-sizing: border-box;
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 500;
-  font-size: clamp(13px, 0.833vw, 16px);
+  font-size: clamp(14px, 0.885vw, 16.5px);
   line-height: 1;
+  background: #E96D01;
+  color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.footer-contact-btn:hover,
+.f2-lead .btn:hover {
+  background: #d66300;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(233, 109, 1, 0.35);
+}
+
+.footer-contact-btn:hover .walstar-btn-arrow,
+.footer-contact-btn:focus-visible .walstar-btn-arrow,
+.f2-lead .btn:hover .walstar-btn-arrow,
+.f2-lead .btn:focus-visible .walstar-btn-arrow {
+  transform: rotate(0deg) translateX(3px) !important;
 }
 
 .f2-links {
@@ -3430,6 +3593,7 @@ html.walstar-scroll-locked {
   grid-template-columns: 1fr 1fr;
   gap: clamp(24px, 3.5vw, 56px);
   align-items: start;
+  align-self: center;
   min-width: 0;
 }
 
@@ -3457,20 +3621,24 @@ html.walstar-scroll-locked {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 0.9vw, 16px);
+  gap: clamp(14px, 1.25vw, 22px);
 }
 
 .fl li {
-  font-family: Poppins, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: clamp(13px, 0.8vw, 14.5px);
-  line-height: 1.35;
-  letter-spacing: 0;
   margin: 0;
+  padding: 0;
+  line-height: 100%;
 }
 
-.fl li a {
+.fl li a,
+.fl-item a {
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(13.5px, 0.8333vw, 16px) !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  text-transform: uppercase !important;
   color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
   display: inline-block;
@@ -3478,9 +3646,10 @@ html.walstar-scroll-locked {
   word-break: break-word;
 }
 
-.fl li a:hover {
-  color: var(--orange);
-  transform: translateX(2px);
+.fl li a:hover,
+.fl-item a:hover {
+  color: var(--orange, #E96D01);
+  transform: translateX(3px);
 }
 
 .fc {
@@ -3672,6 +3841,7 @@ html.walstar-scroll-locked {
   }
   .f2-links {
     gap: clamp(16px, 2.2vw, 32px);
+    align-self: center;
   }
   .fbig {
     font-size: clamp(20px, 1.8vw, 26px);
@@ -3686,7 +3856,7 @@ html.walstar-scroll-locked {
     margin-bottom: 14px;
   }
   .fl {
-    gap: 12px;
+    gap: 16px;
   }
   .fl li {
     font-size: 13px;
@@ -4033,12 +4203,12 @@ html.walstar-scroll-locked {
   }
   .footer-contact-btn,
   .f2-lead .btn {
-    width: min(280px, 100%);
-    max-width: 280px;
-    height: 54px;
+    width: clamp(170px, 10.703vw, 205.5px);
+    max-width: 205.5px;
+    height: 55px;
     min-height: 48px;
-    border-radius: 30px;
-    padding: 13px 26px;
+    border-radius: 32px;
+    padding: 14px 28px;
     gap: 6px;
   }
   .f2-links {
@@ -4054,7 +4224,7 @@ html.walstar-scroll-locked {
     font-weight: 600;
   }
   .fl {
-    gap: 12px;
+    gap: 16px;
   }
   .fc {
     width: 100%;
@@ -4096,10 +4266,10 @@ html.walstar-scroll-locked {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-    height: 54px;
+    height: 55px;
     min-height: 48px;
-    border-radius: 30px;
-    padding: 14px 26px;
+    border-radius: 32px;
+    padding: 14px 28px;
     gap: 6px;
     display: flex !important;
     align-items: center;
@@ -4219,16 +4389,17 @@ html.walstar-scroll-locked {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    max-width: 290px;
+    max-width: 295.9px;
     margin: 0 auto;
-    gap: 10px;
+    gap: 12px;
   }
   .hero .cta .btn {
     width: 100%;
-    min-height: 48px;
+    min-height: 52px;
     justify-content: center;
-    padding: 12px 20px;
-    font-size: 13px;
+    padding: 14px 24px;
+    font-size: 15px;
+    border-radius: 50px;
   }
   .hero-nav .btn-or,
   .hero-nav .nav-cta-btn {
@@ -4496,7 +4667,7 @@ html.walstar-scroll-locked {
     min-width: 100% !important;
     height: 52px;
     min-height: 48px;
-    border-radius: 30px;
+    border-radius: 32px;
     padding: 13px 24px;
     gap: 6px;
     display: flex !important;
@@ -4519,7 +4690,7 @@ html.walstar-scroll-locked {
     font-weight: 600;
   }
   .fl {
-    gap: 10px;
+    gap: 14px;
   }
   .fl li {
     font-size: 13px;
@@ -4571,11 +4742,18 @@ html.walstar-scroll-locked {
     height: 300px;
   }
   .ba-overlay {
+    --ba-pad: 16px;
     padding: 16px;
     gap: 10px;
   }
   .ba-copy {
-    max-width: 48%;
+    max-width: none;
+  }
+  .ba-copy--before {
+    max-width: min(320px, calc(var(--ba-pos, 50%) - 16px - 14px));
+  }
+  .ba-copy--after {
+    max-width: min(320px, calc(100% - var(--ba-pos, 50%) - 16px - 14px));
   }
   .ba-pill {
     padding: 5px 12px;
@@ -4614,7 +4792,7 @@ html.walstar-scroll-locked {
     margin-bottom: 10px;
   }
   .fl {
-    gap: 8px;
+    gap: 12px;
   }
   .fl li {
     font-size: 12px;
@@ -4678,10 +4856,7 @@ html.walstar-scroll-locked {
   position: relative;
   z-index: 15;
   color: #fff;
-  background:
-    linear-gradient(180deg, rgba(14, 15, 58, 0.58), rgba(14, 15, 58, 0.9)),
-    radial-gradient(circle at 75% 25%, #3a5bd9 0, transparent 48%),
-    linear-gradient(135deg, #1c2a6b, #0b0d33 70%);
+  background: #001930 url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
 }
 
 .subpage-hero {
@@ -4790,40 +4965,42 @@ html.walstar-scroll-locked {
   padding-bottom: 32px;
 }
 
-.contact-interest > .wrap {
-  max-width: 1300px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-inline: var(--page-px);
-  box-sizing: border-box;
-}
-
+.sec.contact-interest > .wrap,
+.contact-interest > .wrap,
+.sec.contact-sec > .wrap,
+.contact-sec > .wrap,
 .sec.offices > .wrap {
-  width: min(1606px, 83.44vw);
-  max-width: 1606px;
+  width: min(1602px, min(83.4375vw, calc(100vw - (var(--page-px) * 2))));
+  max-width: 1602px;
   margin-inline: auto;
   box-sizing: border-box;
 }
 
-.walstar-page--contact .sec.offices > .wrap {
-  max-width: 1300px;
-}
-
 .contact-interest-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
-  gap: 64px;
+  grid-template-columns: minmax(0, clamp(320px, 34.115vw, 655px)) minmax(0, 1fr);
+  gap: clamp(36px, 4.583vw, 88px);
   align-items: center;
+  box-sizing: border-box;
+  opacity: 1;
+  transform: rotate(0deg);
 }
 
-.contact-interest-media {
+.contact-interest-media,
+.who.contact-interest .ph,
+.contact-interest .ph {
+  position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  max-width: 655px;
   height: auto;
-  min-height: 0;
-  border-radius: 28px;
-  background: linear-gradient(160deg, #1a1f2c, #4c5568 45%, #c9b7a4);
+  aspect-ratio: 655 / 617;
+  max-height: 617px;
+  min-height: clamp(260px, 24vw, 480px);
+  border-radius: clamp(16px, 1.25vw, 24px);
+  overflow: hidden;
+  opacity: 1;
+  transform: rotate(0deg);
+  background: #f0f4f8 url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
 }
 
 .contact-interest-copy {
@@ -4831,101 +5008,101 @@ html.walstar-scroll-locked {
 }
 
 .contact-interest-copy .pill {
+  display: inline-flex;
+  align-items: center;
   width: fit-content;
   margin-bottom: 18px;
   border: 0;
   box-shadow: none;
-  padding: 12px 16px;
-  gap: 10px;
+  padding: 8px 16px;
+  gap: 8px;
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-style: normal;
   font-size: 13px;
   line-height: 100%;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #343434;
   white-space: nowrap;
+  background: #ffffff;
+  border-radius: 999px;
 }
 
 .contact-interest-copy .pill::before {
-  width: 8px;
-  height: 8px;
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #007bff;
+  flex-shrink: 0;
 }
 
-.contact-interest-copy h2 {
-  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(36px, 4.6vw, 52px);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  margin: 0 0 18px;
-  color: #12131a;
-  max-width: 680px;
+.contact-interest-copy h2,
+.contact-interest-heading {
+  margin: 12px 0 16px;
+  line-height: 1.18;
 }
 
-.contact-interest-copy h2 .serif {
-  font-family: Georgia, "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: clamp(36px, 4.6vw, 54px);
-  line-height: 100%;
-  letter-spacing: 0;
-  color: #5ba8e8;
-}
-
-.contact-interest-copy p {
-  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  color: #6b7280;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.55;
-  max-width: 680px;
+.contact-interest-copy p,
+.contact-interest-desc {
   margin: 0;
 }
 
 .contact-chip-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px 14px;
-  margin-top: 32px;
-  max-width: 680px;
+  flex-direction: column;
+  gap: clamp(10px, 0.729vw, 14px);
+  margin-top: clamp(24px, 1.8vw, 36px);
   width: 100%;
+}
+
+.contact-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(8px, 0.625vw, 12px);
+  align-items: center;
 }
 
 .contact-chip {
   appearance: none;
   width: auto;
   flex: 0 0 auto;
-  border: 1.5px solid #41a3ff;
-  color: #666666;
+  background: #ffffff;
+  border: 1.5px solid #70B4FF;
+  color: #555555;
   border-radius: 999px;
-  padding: 12px 20px;
+  padding: clamp(9px, 0.625vw, 12px) clamp(16px, 1.042vw, 22px);
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 15px;
+  font-size: clamp(12.5px, 0.78125vw, 15px);
   line-height: 100%;
   letter-spacing: 0;
   text-align: center;
   white-space: nowrap;
   cursor: pointer;
+  box-sizing: border-box;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .contact-chip:hover {
-  border-color: #41a3ff;
+  border-color: #3b9eff;
+  background: rgba(112, 180, 255, 0.08);
+  color: #1f6fb8;
   transform: translateY(-1px);
 }
 
 .contact-chip.is-active,
 .contact-chip[aria-pressed='true'] {
   background: rgba(65, 163, 255, 0.12);
-  border-color: #41a3ff;
+  border-color: #3b9eff;
   color: #1f6fb8;
 }
 
@@ -4934,18 +5111,26 @@ html.walstar-scroll-locked {
   outline-offset: 2px;
 }
 
+.sec.contact-sec,
 .contact-sec {
-  padding: 40px 0 70px;
+  padding: clamp(32px, 3.2vw, 56px) 0 clamp(48px, 5vw, 80px);
 }
 
 .contact-panel {
   display: grid;
-  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.35fr);
-  gap: 40px;
+  grid-template-columns: minmax(320px, clamp(360px, 26vw, 480px)) minmax(0, 1fr);
+  gap: clamp(32px, 4.583vw, 88px);
   align-items: stretch;
-  background: #ddefff;
-  border-radius: 40px;
-  padding: clamp(48px, 5.5vw, 88px);
+  background: var(--sky);
+  border-radius: clamp(20px, 1.5625vw, 30px);
+  padding: clamp(36px, 3.75vw, 64px) clamp(32px, 4.167vw, 76px);
+  width: auto;
+  max-width: none;
+  margin: 0 var(--page-px);
+  min-height: clamp(540px, 35.78125vw, 687px);
+  box-sizing: border-box;
+  opacity: 1;
+  transform: rotate(0deg);
 }
 
 .contact-info-col {
@@ -4981,39 +5166,15 @@ html.walstar-scroll-locked {
   height: 8px;
 }
 
-.contact-info-col h2 {
-  font-family: Urbanist, Poppins, sans-serif;
-  font-weight: 600;
-  font-style: normal;
-  font-size: clamp(30px, 3.6vw, 46px);
-  line-height: 100%;
-  letter-spacing: 0;
-  margin: 0 0 14px;
-  color: #000000;
-  white-space: nowrap;
+.contact-info-col h2,
+.contact-panel-heading {
+  margin: 12px 0 16px;
+  line-height: 1.18;
 }
 
-.contact-info-col h2 .serif {
-  font-family: Georgia, "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: clamp(30px, 3.6vw, 46px);
-  line-height: 100%;
-  letter-spacing: 0;
-  color: #41a3ff;
-}
-
-.contact-info-col p.lead {
-  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 17px;
-  line-height: 100%;
-  letter-spacing: 0;
-  color: #666666;
+.contact-info-col p.lead,
+.contact-panel-lead {
   margin: 0;
-  max-width: none;
-  white-space: nowrap;
 }
 
 .contact-detail-cards {
@@ -5555,10 +5716,17 @@ html.walstar-scroll-locked {
     gap: 24px;
   }
 
-  .contact-interest-media {
-    max-width: min(100%, 360px);
-    margin: 0 auto;
-    border-radius: 22px;
+  .contact-interest-media,
+  .who.contact-interest .ph,
+  .contact-interest .ph {
+    width: 100%;
+    max-width: 655px;
+    aspect-ratio: 655 / 617;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    border-radius: clamp(16px, 2.5vw, 24px);
+    margin-inline: auto;
   }
 
   .contact-interest-copy {
@@ -5575,18 +5743,29 @@ html.walstar-scroll-locked {
     padding: 10px 14px;
   }
 
-  .contact-interest-copy h2 {
-    font-size: clamp(28px, 8vw, 36px);
+  .contact-interest-copy h2,
+  .contact-panel-heading,
+  .contact-info-col h2 {
+    font-size: clamp(26px, 7vw, 36px) !important;
+    line-height: 1.18;
+    margin: 8px 0 12px;
   }
 
-  .contact-interest-copy h2 .serif {
-    font-size: clamp(28px, 8vw, 38px);
+  .contact-interest-copy h2 .serif,
+  .contact-panel-heading .serif,
+  .contact-info-col h2 .serif {
+    font-size: inherit !important;
+    line-height: inherit !important;
   }
 
-  .contact-interest-copy p {
-    font-size: 15px;
-    line-height: 1.5;
+  .contact-interest-copy p,
+  .contact-interest-desc,
+  .contact-panel-lead,
+  .contact-info-col p.lead {
+    font-size: clamp(14px, 3.8vw, 16px) !important;
+    line-height: 1.55 !important;
     max-width: 100%;
+    margin: 0;
   }
 
   .contact-chip-grid {
@@ -5601,34 +5780,25 @@ html.walstar-scroll-locked {
     white-space: normal;
   }
 
+  .sec.contact-sec,
   .contact-sec {
     padding: 24px 0 40px;
   }
 
   .contact-panel {
-    gap: 24px;
-    padding: 24px 16px;
-    border-radius: 24px;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: clamp(24px, 4vw, 36px) clamp(16px, 3vw, 28px);
+    border-radius: 20px;
+    margin: 0 var(--page-px);
+    width: auto;
+    max-width: none;
+    min-height: auto !important;
+    height: auto !important;
   }
 
   .contact-info-col {
     padding: 0;
-  }
-
-  .contact-info-col h2 {
-    font-size: clamp(26px, 7vw, 32px);
-    white-space: normal;
-    line-height: 1.15;
-  }
-
-  .contact-info-col h2 .serif {
-    font-size: clamp(26px, 7vw, 32px);
-  }
-
-  .contact-info-col p.lead {
-    white-space: normal;
-    font-size: 14px;
-    line-height: 1.45;
   }
 
   .contact-detail-cards,
@@ -5718,18 +5888,21 @@ html.walstar-scroll-locked {
 
   .walstar-page--contact .oc,
   .sec.offices .oc {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
   }
 
   .walstar-page--contact .of,
   .walstar-page--contact .of.hq,
   .sec.offices .of,
   .sec.offices .of.hq {
-    padding: 22px 18px;
-    border-radius: 22px;
-    gap: 10px;
-    min-width: 0;
+    padding: clamp(22px, 2.5vw, 32px);
+    border-radius: clamp(20px, 2.5vw, 32px);
+    gap: 12px;
+    min-height: auto;
+    width: 100%;
+    max-width: 100%;
   }
 
   .sec.offices .of em {
@@ -5839,7 +6012,12 @@ html.walstar-scroll-locked {
 
   .contact-panel {
     padding: 20px 14px;
-    border-radius: 20px;
+    border-radius: 18px;
+    margin: 0 var(--page-px);
+    width: auto;
+    max-width: none;
+    min-height: auto !important;
+    height: auto !important;
   }
 
   .contact-card-form {
@@ -5847,8 +6025,12 @@ html.walstar-scroll-locked {
     border-radius: 20px;
   }
 
-  .contact-interest-media {
+  .contact-interest-media,
+  .who.contact-interest .ph,
+  .contact-interest .ph {
     max-width: 100%;
+    aspect-ratio: 655 / 617;
+    border-radius: 16px;
   }
 
   .contact-chip {
@@ -5881,10 +6063,7 @@ html.walstar-scroll-locked {
 /* Compact Hero Banner & About Us Sections */
 .hero-box--compact {
   min-height: 400px;
-  background:
-    linear-gradient(180deg, rgba(10, 16, 40, 0.55), rgba(10, 16, 40, 0.78)),
-    radial-gradient(circle at 45% 30%, #3d5a73, transparent 40%),
-    linear-gradient(120deg, #1b3a2a, #101c2e 55%, #14301f);
+  background: #001930 url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
 }
 
 .hero-box--compact.hero-box--contact {
@@ -6027,7 +6206,7 @@ html.walstar-scroll-locked {
 }
 
 .sec {
-  padding: 60px 0;
+  padding: 30px 0;
 }
 
 .sec h2,
@@ -6069,10 +6248,10 @@ html.walstar-scroll-locked {
 .who .wrap {
   display: grid;
   grid-template-columns: minmax(0, clamp(340px, 36.25vw, 696px)) minmax(0, 1fr);
-  width: min(1602px, calc(100vw - (var(--page-px) * 2)));
+  width: min(1602px, min(83.4375vw, calc(100vw - (var(--page-px) * 2))));
   max-width: 1602px;
   margin-inline: auto;
-  gap: clamp(36px, 3.8vw, 72px);
+  gap: clamp(36px, 4.583vw, 88px);
   align-items: center;
   box-sizing: border-box;
 }
@@ -6089,7 +6268,7 @@ html.walstar-scroll-locked {
   overflow: hidden;
   opacity: 1;
   transform: rotate(0deg);
-  background: linear-gradient(160deg, #fff 0, #e9eef5 30%, #6a7b92 60%, #d6c3b0);
+  background: #f0f4f8 url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
 }
 
 .who h2 {
@@ -6108,15 +6287,19 @@ html.walstar-scroll-locked {
   align-items: center;
   gap: 12px;
   margin-top: 22px;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(14px, 1.0417vw, 20px);
+  line-height: 100%;
+  letter-spacing: 0;
   transition: transform 0.2s ease;
 }
 
 .go span,
 .go .go-text {
   display: inline-block;
-  line-height: 1.2;
+  line-height: 100%;
 }
 
 .go:hover {
@@ -6124,8 +6307,8 @@ html.walstar-scroll-locked {
 }
 
 .go i {
-  width: 42px;
-  height: 42px;
+  width: clamp(48px, 2.9vw, 56px);
+  height: clamp(48px, 2.9vw, 56px);
   border-radius: 50%;
   background: var(--orange);
   color: #fff;
@@ -6133,6 +6316,12 @@ html.walstar-scroll-locked {
   place-items: center;
   font-style: normal;
   transition: box-shadow 0.28s ease, background-color 0.24s ease;
+}
+
+.go i .walstar-btn-arrow {
+  width: clamp(24px, 1.5vw, 30px);
+  height: clamp(24px, 1.5vw, 30px);
+  flex-shrink: 0;
 }
 
 .go:hover i,
@@ -6182,10 +6371,10 @@ html.walstar-scroll-locked {
 }
 
 .tlv {
-  --tlv-gap: 38px;
+  --tlv-gap: clamp(48px, 3vw, 60px);
   --tlv-dot-center: -32px;
   position: relative;
-  padding-left: 40px;
+  padding-left: 42px;
   display: grid;
   gap: var(--tlv-gap);
 }
@@ -6202,8 +6391,8 @@ html.walstar-scroll-locked {
   content: "";
   position: absolute;
   left: calc(var(--tlv-dot-center, -32px) - 1px);
-  top: 18px;
-  height: calc(100% + var(--tlv-gap, 38px) - 16px);
+  top: 20px;
+  height: calc(100% + var(--tlv-gap, 52px) - 16px);
   border-left: 2px dotted #257CE6;
   opacity: 1;
   pointer-events: none;
@@ -6230,25 +6419,43 @@ html.walstar-scroll-locked {
   top: -1px;
 }
 
-.tlv small {
-  font-size: 13px;
-  color: #3b9eff;
+.tlv small,
+.tlv-era {
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(14px, 0.833vw, 16px);
+  font-weight: 600;
+  color: #257CE6;
   display: block;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  margin: 0;
+  margin-bottom: clamp(10px, 0.625vw, 14px);
 }
 
-.tlv .now small {
-  color: var(--orange);
+.tlv .now small,
+.tlv-item.now .tlv-era,
+.tlv-item.now small {
+  color: var(--orange, #F4691F);
 }
 
-.tlv h4 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 2px 0 4px;
-  color: var(--ink);
+.tlv h4,
+.tlv-title {
+  font-family: Urbanist, Poppins, sans-serif;
+  font-size: clamp(22px, 1.35vw, 26px);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 clamp(12px, 0.73vw, 16px);
+  color: var(--ink, #001930);
+  letter-spacing: -0.015em;
 }
 
-.tlv p {
-  font-size: 13.5px;
+.tlv p,
+.tlv-desc {
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(15.5px, 0.94vw, 18px);
+  line-height: 1.6;
+  color: #444444;
+  margin: 0;
 }
 
 .stats {
@@ -6269,7 +6476,7 @@ html.walstar-scroll-locked {
   align-items: center;
   gap: clamp(24px, 8.8vw, 169px);
   padding: clamp(20px, 2.135vw, 41px) clamp(24px, 5.833vw, 112px);
-  box-shadow: 0 18px 40px rgba(0, 25, 48, 0.28);
+  /* box-shadow: 0 18px 40px rgba(0, 25, 48, 0.28); */
 }
 
 .stats > div,
@@ -6313,21 +6520,14 @@ html.walstar-scroll-locked {
 
 /* Solutions Grid (What we do) */
 .sec.sol {
-  padding-top: clamp(60px, 5vw, 88px);
+  padding-top: clamp(88px, 6.8vw, 130px);
 }
 
 .sol .wrap,
-.sec.sol .wrap {
-  width: min(1606px, 83.44vw);
-  max-width: 1606px;
-  margin-inline: auto;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+.sec.sol .wrap,
 .sec .wrap {
-  width: min(1606px, 83.44vw);
-  max-width: 1606px;
+  width: min(1602px, min(83.4375vw, calc(100vw - (var(--page-px) * 2))));
+  max-width: 1602px;
   margin-inline: auto;
   box-sizing: border-box;
 }
@@ -6553,26 +6753,35 @@ html.walstar-scroll-locked {
 
 .why {
   background: var(--sky);
-  border-radius: clamp(20px, 1.8vw, 32px);
-  margin: clamp(24px, 2.5vw, 40px) var(--page-px) 36px;
-  padding: clamp(52px, 4.6875vw, 76px) clamp(24px, 3.8vw, 72px) clamp(44px, 3.8vw, 60px);
+  border-radius: clamp(20px, 1.5625vw, 30px);
+  width: auto;
+  max-width: none;
+  min-height: clamp(540px, 34.896vw, 670px);
+  margin: clamp(28px, 2.8vw, 48px) var(--page-px) 36px;
+  padding: clamp(56px, 4.375vw, 84px) clamp(32px, 4.427vw, 85px);
+  gap: clamp(24px, 1.927vw, 37px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
   z-index: 1;
   box-shadow: 0 10px 30px rgba(0, 25, 48, 0.05);
   box-sizing: border-box;
+  opacity: 1;
+  transform: rotate(0deg);
 }
 
 .why .hd2 {
-  width: min(1606px, 100%);
-  max-width: 1606px;
-  margin-inline: auto;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
 }
 
 .why .rows {
   border-top: 1px solid rgba(11, 29, 54, 0.12);
-  margin: clamp(24px, 2.5vw, 40px) auto 0;
-  width: min(1606px, 100%);
-  max-width: 1606px;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -6893,13 +7102,29 @@ html.walstar-scroll-locked {
   min-height: clamp(46px, 3.4375vw, 66px);
   border-radius: 30px;
   padding: clamp(10px, 0.729vw, 14px) clamp(18px, 1.354vw, 26px);
-  gap: 6px;
-  font-size: clamp(13px, 0.833vw, 16px);
-  font-weight: 500;
+  gap: 10px;
+  font-family: Poppins, sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(15px, 0.9375vw, 18px) !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+}
+
+.vm .btn .vm-btn-arrow,
+.vm-btn-arrow {
+  width: 20.62px;
+  height: 15px;
+  transform: rotate(-35.53deg);
+  opacity: 1;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .vm > div:hover .btn,
@@ -6907,6 +7132,15 @@ html.walstar-scroll-locked {
   background: #41A3FF;
   color: #001930;
   box-shadow: 0 6px 18px rgba(65, 163, 255, 0.35);
+}
+
+.vm > div:hover .btn .vm-btn-arrow,
+.vm > div.is-active .btn .vm-btn-arrow,
+.vm .btn:hover .vm-btn-arrow,
+.vm .btn:focus-visible .vm-btn-arrow,
+.vm-btn:hover .vm-btn-arrow,
+.vm-btn:focus-visible .vm-btn-arrow {
+  transform: rotate(0deg) translateX(4px) !important;
 }
 
 /* Team Showcase */
@@ -6966,7 +7200,7 @@ html.walstar-scroll-locked {
 .team .ex .q {
   background: #001930;
   color: #ffffff;
-  padding: clamp(22px, 1.8vw, 32px) clamp(20px, 1.5vw, 28px);
+  padding: clamp(24px, 2.083vw, 40px) clamp(22px, 1.823vw, 35px);
   border: 0;
   display: flex;
   flex-direction: column;
@@ -6975,15 +7209,25 @@ html.walstar-scroll-locked {
   gap: clamp(10px, 0.9vw, 16px);
 }
 
-.team .ex .q h5 {
-  font-family: Poppins, sans-serif;
-  font-weight: 400;
-  font-size: clamp(14px, 0.95vw, 17px);
-  line-height: 1.3;
-  border-bottom: 1.5px solid #E96D01;
-  display: inline-block;
-  padding-bottom: 6px;
-  margin: 0;
+.team .ex .q h5,
+.team-quote-label {
+  font-family: Poppins, sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(16px, 1.15vw, 22px) !important;
+  line-height: 100% !important;
+  color: #ffffff !important;
+  width: clamp(160px, 10.677vw, 205px) !important;
+  min-height: clamp(42px, 2.86vw, 55px) !important;
+  box-sizing: border-box !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid #E96D01 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  opacity: 1 !important;
 }
 
 .team .ex .q b,
@@ -6992,32 +7236,40 @@ html.walstar-scroll-locked {
   align-items: center;
   color: #41A3FF;
   line-height: 1;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .team .ex .q .team-quote-mark svg {
-  width: clamp(26px, 1.9vw, 34px);
+  width: clamp(28px, 1.875vw, 36px);
   height: auto;
   display: block;
 }
 
-.team .ex .q em {
-  font-family: Poppins, sans-serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(13.5px, 0.95vw, 17px);
-  line-height: 1.5;
-  display: block;
-  margin: 0;
+.team .ex .q em,
+.team-quote-text {
+  font-family: Poppins, sans-serif !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  font-size: clamp(18px, 1.354vw, 26px) !important;
+  line-height: clamp(26px, 1.77vw, 34px) !important;
+  letter-spacing: 0% !important;
+  text-transform: capitalize !important;
+  color: #FFFFFF !important;
+  display: block !important;
+  margin: 0 !important;
 }
 
-.team .ex .q small {
-  font-family: Poppins, sans-serif;
-  color: #E96D01;
-  display: block;
-  margin-top: auto;
-  font-size: clamp(11.5px, 0.72vw, 13px);
-  font-weight: 400;
+.team .ex .q small,
+.team-quote-author {
+  font-family: Poppins, sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: clamp(15px, 1.042vw, 20px) !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  color: #E96D01 !important;
+  display: block !important;
+  margin-top: auto !important;
 }
 
 .team .pp--placeholder::before {
@@ -7118,9 +7370,9 @@ html.walstar-scroll-locked {
   justify-content: space-between;
   gap: clamp(8px, 0.7vw, 12px);
   background: #ffffff;
-  border-radius: clamp(10px, 0.75vw, 14px);
+  border-radius: clamp(12px, 0.833vw, 16px);
   border: 1px solid rgba(0, 25, 48, 0.06);
-  padding: clamp(9px, 0.75vw, 13px) clamp(12px, 0.95vw, 16px);
+  padding: clamp(10px, 0.78125vw, 15px) clamp(14px, 1.042vw, 20px);
   box-shadow: 0 6px 18px rgba(0, 25, 48, 0.10);
   color: #343434;
   box-sizing: border-box;
@@ -7129,31 +7381,33 @@ html.walstar-scroll-locked {
 .team .team-member-meta {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
   flex: 1 1 auto;
 }
 
 .team .chip2 b,
-.team .team-member-name {
+.team .team-member-name,
+.team .g4b .team-member-name {
   display: block;
-  font-family: Poppins, sans-serif;
-  color: #41A3FF;
-  font-weight: 500;
-  font-size: clamp(12.5px, 0.85vw, 15.5px);
-  line-height: 1.25;
-  margin: 0;
+  font-family: Poppins, sans-serif !important;
+  color: #41A3FF !important;
+  font-weight: 600 !important;
+  font-size: clamp(14px, 0.9375vw, 18px) !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
   overflow-wrap: break-word;
 }
 
-.team .team-member-role {
+.team .team-member-role,
+.team .g4b .team-member-role {
   display: block;
-  font-family: Poppins, sans-serif;
-  color: #343434;
-  font-weight: 400;
-  font-size: clamp(11px, 0.7vw, 13px);
-  line-height: 1.35;
-  margin: 0;
+  font-family: Poppins, sans-serif !important;
+  color: #343434 !important;
+  font-weight: 400 !important;
+  font-size: clamp(12px, 0.78125vw, 15px) !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
   overflow-wrap: break-word;
 }
 
@@ -7163,8 +7417,8 @@ html.walstar-scroll-locked {
   position: static;
   margin: 0;
   flex-shrink: 0;
-  width: clamp(26px, 1.75vw, 32px);
-  height: clamp(26px, 1.75vw, 32px);
+  width: clamp(28px, 1.77vw, 34px);
+  height: clamp(28px, 1.77vw, 34px);
   border-radius: 50%;
   background: #0A7BBF;
   color: #ffffff;
@@ -7192,15 +7446,8 @@ html.walstar-scroll-locked {
   left: clamp(8px, 0.85vw, 14px);
   right: clamp(8px, 0.85vw, 14px);
   bottom: clamp(8px, 0.85vw, 14px);
-  padding: clamp(8px, 0.65vw, 11px) clamp(10px, 0.8vw, 14px);
-}
-
-.team .g4b .team-member-name {
-  font-size: clamp(12px, 0.78vw, 14.5px);
-}
-
-.team .g4b .team-member-role {
-  font-size: clamp(10.5px, 0.65vw, 12.5px);
+  padding: clamp(10px, 0.78125vw, 15px) clamp(12px, 0.95vw, 18px);
+  border-radius: clamp(12px, 0.833vw, 16px);
 }
 
 /* Global Offices & Map */
@@ -7242,22 +7489,32 @@ html.walstar-scroll-locked {
   flex-shrink: 0;
 }
 
-.oc {
+.oc,
+.walstar-sync-office-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: clamp(16px, 1.25vw, 24px);
+  box-sizing: border-box;
 }
 
 .of {
   box-sizing: border-box;
   width: 100%;
-  min-height: 0;
+  max-width: 100%;
+  min-height: clamp(300px, 19.479vw, 374px);
   background: #ffffff;
   border: 1px solid #dfe6ef;
-  border-top: 2.5px solid #41a3ff;
-  border-radius: 35px;
-  padding: 36px 40px;
-  gap: 12px;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: #41a3ff;
+  border-radius: clamp(24px, 2.604vw, 50px);
+  padding: clamp(24px, 2.292vw, 44px);
+  gap: clamp(10px, 0.729vw, 14px);
+  opacity: 1;
+  transform: rotate(0deg);
   box-shadow: 0 4px 18px rgba(0, 25, 48, 0.04);
   display: flex;
   flex-direction: column;
@@ -7280,18 +7537,19 @@ html.walstar-scroll-locked {
   background: #001930;
   color: #ffffff;
   border-color: rgba(65, 163, 255, 0.45);
-  border-top: 2.5px solid #41a3ff !important;
+  border-top: 2px solid #41a3ff !important;
   transform: translateY(-6px);
   box-shadow: 0 20px 48px rgba(0, 25, 48, 0.32), 0 0 32px rgba(65, 163, 255, 0.16);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
-.of em {
+.of em,
+.office-card-region {
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-style: normal;
-  font-size: 17px;
+  font-size: clamp(13px, 0.885vw, 17px);
   line-height: 100%;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -7299,21 +7557,25 @@ html.walstar-scroll-locked {
   transition: color 0.3s ease;
 }
 
-.of.hq em {
+.of.hq em,
+.of.hq .office-card-region {
   color: #e96d01;
 }
 
 .of:hover em,
-.of.is-card-highlighted em {
+.of.is-card-highlighted em,
+.of:hover .office-card-region,
+.of.is-card-highlighted .office-card-region {
   color: #41a3ff;
 }
 
-.of h4 {
+.of h4,
+.office-card-title {
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: 22px;
-  line-height: 29px;
+  font-size: clamp(17px, 1.146vw, 22px);
+  line-height: clamp(23px, 1.51vw, 29px);
   letter-spacing: 0;
   text-transform: capitalize;
   margin: 0;
@@ -7322,35 +7584,41 @@ html.walstar-scroll-locked {
 }
 
 .of:hover h4,
-.of.is-card-highlighted h4 {
+.of.is-card-highlighted h4,
+.of:hover .office-card-title,
+.of.is-card-highlighted .office-card-title {
   color: #ffffff;
 }
 
-.of small {
+.of small,
+.office-card-city {
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-size: 15px;
+  font-size: clamp(12.5px, 0.781vw, 15px);
   font-weight: 400;
   line-height: 1.3;
   display: block;
   width: 100%;
   border-bottom: 1px solid #d5d5d5;
-  padding-bottom: 14px;
+  padding-bottom: clamp(10px, 0.729vw, 14px);
   margin: 0;
   color: #001930;
   transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .of:hover small,
-.of.is-card-highlighted small {
+.of.is-card-highlighted small,
+.of:hover .office-card-city,
+.of.is-card-highlighted .office-card-city {
   border-color: rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.85);
 }
 
-.of p {
+.of p,
+.office-card-address {
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-size: 15px;
+  font-size: clamp(12.5px, 0.781vw, 15px);
   font-weight: 400;
-  line-height: 1.45;
+  line-height: clamp(18px, 1.146vw, 22px);
   color: #666666;
   min-height: 0;
   margin: 0;
@@ -7359,7 +7627,9 @@ html.walstar-scroll-locked {
 }
 
 .of:hover p,
-.of.is-card-highlighted p {
+.of.is-card-highlighted p,
+.of:hover .office-card-address,
+.of.is-card-highlighted .office-card-address {
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -7518,8 +7788,9 @@ html.walstar-scroll-locked {
     margin-inline: auto;
   }
   .oc {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
   }
   .sc {
     width: clamp(270px, 40vw, 320px);
@@ -7556,7 +7827,7 @@ html.walstar-scroll-locked {
     width: 100%;
   }
   .tlv {
-    --tlv-gap: 24px;
+    --tlv-gap: 32px;
     padding-left: 36px;
     gap: var(--tlv-gap);
   }
@@ -7675,6 +7946,8 @@ html.walstar-scroll-locked {
   .of {
     padding: 26px 22px;
     border-radius: 24px;
+    min-height: auto;
+    max-width: 100%;
   }
   .map {
     height: auto;
@@ -7802,7 +8075,7 @@ html.walstar-scroll-locked {
     border-radius: 18px;
   }
   .tlv {
-    --tlv-gap: 20px;
+    --tlv-gap: 28px;
     --tlv-dot-center: -24px;
     padding-left: 32px;
     gap: var(--tlv-gap);
@@ -8032,6 +8305,8 @@ html.walstar-scroll-locked {
   .of {
     padding: 18px 14px;
     border-radius: 18px;
+    min-height: auto;
+    max-width: 100%;
     gap: 8px;
   }
   .of em {
@@ -8049,9 +8324,12 @@ html.walstar-scroll-locked {
     font-size: 12.5px;
     line-height: 1.45;
   }
-  .of .vb {
+  .of .vb,
+  .of .walstar-btn {
     padding: 8px 16px;
     font-size: 13px;
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -8177,7 +8455,9 @@ html.walstar-scroll-locked {
 .svc-intro-grid,
 .svc-chal-grid,
 .svc-appr-grid,
-.svc-benefits .wrap {
+.svc-benefits .wrap,
+.svc-capabilities-grid,
+.svc-capabilities-wwd {
   width: min(1606px, calc(100vw - (var(--page-px) * 2)));
   max-width: 1606px;
   margin-inline: auto;
@@ -8801,9 +9081,9 @@ html.walstar-scroll-locked {
 .walstar-realistic-map-wrapper {
   position: relative;
   width: 100%;
-  max-width: 1120px;
+  max-width: 100%;
   margin: 36px auto 44px;
-  }
+}
 
 /* Country Filter Tabs */
 .realistic-filter-bar {
@@ -8849,6 +9129,7 @@ html.walstar-scroll-locked {
 .realistic-map-canvas-box {
   position: relative;
   width: 100%;
+  max-width: 1120px;
   aspect-ratio: 1024 / 465;
   background: transparent;
   border-radius: 20px;
@@ -10111,10 +10392,11 @@ html.walstar-scroll-locked {
 @media (max-width: 1679px) and (min-width: 1001px) {
   /* Why Choose Walstar - Refined 1440px Proportions */
   .why {
-    max-width: 1360px;
-    margin: 24px auto 32px;
-    padding: 44px 38px 36px;
-    border-radius: 24px;
+    width: auto;
+    max-width: none;
+    margin: 24px var(--page-px) 32px;
+    padding: 30px 90px;
+    border-radius: clamp(20px, 1.5625vw, 30px);
   }
   .why .hd2 {
     max-width: 100%;
@@ -11482,3 +11764,222 @@ html.walstar-scroll-locked {
 }
 
 
+
+
+/* ─── Services Capabilities Dark Section (Matching Homepage Capabilities Visuals) ─── */
+.svc-capabilities-wwd {
+  position: relative !important;
+  z-index: 2 !important;
+  width: min(1606px, calc(100vw - (var(--page-px) * 2))) !important;
+  max-width: 1606px !important;
+  margin: clamp(28px, 3vw, 48px) auto !important;
+  background: #001930 !important;
+  border-radius: clamp(18px, 1.8vw, 28px) !important;
+  padding: clamp(52px, 4.5vw, 84px) clamp(20px, 2.4vw, 44px) !important;
+  color: #fff !important;
+  box-sizing: border-box !important;
+}
+
+.svc-capabilities-wwd .wwd-inner {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+.svc-capabilities-wwd .head {
+  text-align: center !important;
+  margin-bottom: clamp(34px, 2.8vw, 48px) !important;
+}
+
+.svc-capabilities-wwd .head .pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  height: 27px !important;
+  padding: 0 17px !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #001930 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-family: Poppins, system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-bottom: 16px !important;
+  width: auto !important;
+  white-space: nowrap !important;
+}
+
+.svc-capabilities-wwd .head .pill::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #0a6fd8 !important;
+  flex-shrink: 0 !important;
+}
+
+.svc-capabilities-wwd .head h2,
+.svc-capabilities-wwd .wwd-heading {
+  font-family: Urbanist, Poppins, system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(28px, 2.7vw, 44px) !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.015em !important;
+  margin: 0 0 16px !important;
+  color: #ffffff !important;
+  text-align: center !important;
+}
+
+.svc-capabilities-wwd .head h2 .serif,
+.svc-capabilities-wwd .wwd-heading .serif {
+  color: #2F80FF !important;
+  font-family: Georgia, "Instrument Serif", serif !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+.svc-capabilities-wwd .head p,
+.svc-capabilities-wwd .wwd-subtitle {
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif !important;
+  font-weight: 400 !important;
+  font-size: clamp(13px, 0.9vw, 15px) !important;
+  line-height: 1.65 !important;
+  color: #CAD7E6 !important;
+  max-width: min(840px, 94vw) !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.svc-capabilities-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: clamp(16px, 1.4vw, 24px) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: auto !important;
+  margin-top: clamp(24px, 2vw, 36px) !important;
+  box-sizing: border-box !important;
+}
+
+.svc-cap-card {
+  background: #E8F2FC !important;
+  border-radius: clamp(18px, 1.3vw, 24px) !important;
+  padding: clamp(26px, 1.8vw, 34px) clamp(22px, 1.4vw, 28px) clamp(28px, 2vw, 36px) !important;
+  min-height: clamp(250px, 18.5vw, 290px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  box-sizing: border-box !important;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  will-change: transform;
+  color: #001930 !important;
+}
+
+.svc-cap-card:hover,
+.svc-cap-card:focus-within {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16) !important;
+}
+
+.svc-cap-card__icon {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  background: #001930 !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: clamp(18px, 1.5vw, 24px) !important;
+  flex-shrink: 0 !important;
+}
+
+.svc-cap-card__icon svg,
+.svc-cap-card__icon .icon {
+  width: 22px !important;
+  height: 22px !important;
+  stroke: #ffffff !important;
+  display: block !important;
+  margin: auto !important;
+}
+
+.svc-cap-card__title {
+  font-family: Urbanist, Poppins, system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(18px, 1.2vw, 20.5px) !important;
+  line-height: 1.28 !important;
+  letter-spacing: -0.01em !important;
+  color: #001930 !important;
+  margin: 0 0 clamp(10px, 0.8vw, 14px) 0 !important;
+}
+
+.svc-cap-card__desc {
+  font-family: Poppins, system-ui, sans-serif !important;
+  font-size: clamp(12.5px, 0.82vw, 13.5px) !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  color: #495B70 !important;
+  margin: 0 !important;
+}
+
+/* Service 2 CTA Card */
+.svc-cap-card--cta {
+  justify-content: center !important;
+  align-items: flex-start !important;
+}
+
+.svc-cap-card--cta .svc-cap-card__title {
+  font-size: clamp(20px, 1.35vw, 23px) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-bottom: clamp(20px, 1.6vw, 28px) !important;
+}
+
+/* Service 3 Wide CTA Card */
+.svc-cap-card--cta-wide {
+  grid-column: span 2 !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+}
+
+.svc-cap-card--cta-wide .svc-cap-card__title {
+  font-size: clamp(21px, 1.45vw, 25px) !important;
+  font-weight: 600 !important;
+  line-height: 1.28 !important;
+  margin-bottom: 8px !important;
+}
+
+.svc-cap-card--cta-wide .svc-cap-card__subtitle {
+  font-family: Poppins, system-ui, sans-serif !important;
+  font-size: clamp(13px, 0.85vw, 14px) !important;
+  line-height: 1.5 !important;
+  color: #495B70 !important;
+  margin: 0 0 clamp(20px, 1.6vw, 28px) 0 !important;
+}
+
+@media (max-width: 1024px) {
+  .svc-capabilities-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .svc-cap-card--cta-wide {
+    grid-column: span 2 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .svc-capabilities-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .svc-cap-card--cta-wide {
+    grid-column: span 1 !important;
+  }
+}

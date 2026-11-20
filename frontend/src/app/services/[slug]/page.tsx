@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { DetailShell } from '@/components/common/DetailShell';
 import { PageLoadingSkeleton } from '@/components/common/PageLoadingSkeleton';
@@ -7,40 +7,51 @@ import { WalstarButton } from '@/components/common/WalstarButton';
 import { PageSectionsRenderer } from '@/components/page-renderer/PageSectionsRenderer';
 import { getResolvedPageBySlug, getServiceBySlug, getStrapiMediaUrl } from '@/lib/strapi';
 
+const SERVICE_CANONICAL_SLUGS: Record<string, string> = {
+  'service-1': 'ai-solutions-business-automation',
+  'ai-solutions-automation': 'ai-solutions-business-automation',
+  'ai-solutions-and-automation': 'ai-solutions-business-automation',
+  'ai-solutions': 'ai-solutions-business-automation',
+  'service-2': 'custom-software-development',
+  'custom-software': 'custom-software-development',
+  'service-3': 'digital-marketing-performance-growth',
+  'digital-marketing': 'digital-marketing-performance-growth',
+};
+
 async function ServiceContent({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const decodedSlug = decodeURIComponent(slug);
+  const decodedSlug = decodeURIComponent(slug).trim();
 
-  // If this service has full Page Dynamic Zone sections (e.g. service-1, service-2, service-3 / digital-marketing-performance-growth), render PageSectionsRenderer
-  const pageLookupSlug =
-    decodedSlug === 'ai-solutions-business-automation' || decodedSlug === 'service-1'
-      ? 'service-1'
-      : decodedSlug === 'custom-software-development' || decodedSlug === 'service-2'
-      ? 'service-2'
-      : decodedSlug === 'digital-marketing-performance-growth' || decodedSlug === 'service-3'
-      ? 'service-3'
-      : decodedSlug;
+  const canonicalSlug = SERVICE_CANONICAL_SLUGS[decodedSlug];
+  if (canonicalSlug && canonicalSlug !== decodedSlug) {
+    redirect(`/services/${encodeURIComponent(canonicalSlug)}`);
+  }
 
-  const { data: pageData, source } = await getResolvedPageBySlug(pageLookupSlug);
+  // Dynamically resolve full Page Dynamic Zone sections matching the exact slug stored in Strapi
+  const { data: pageData, source } = await getResolvedPageBySlug(decodedSlug);
   if (
     pageData &&
     pageData.page?.sections &&
     pageData.page.sections.length > 0 &&
-    (decodedSlug === 'ai-solutions-business-automation' ||
-      decodedSlug === 'service-1' ||
+    (pageData.page.pageType === 'service' ||
+      decodedSlug === 'ai-solutions-business-automation' ||
       decodedSlug === 'custom-software-development' ||
-      decodedSlug === 'service-2' ||
-      decodedSlug === 'digital-marketing-performance-growth' ||
-      decodedSlug === 'service-3' ||
-      pageData.page.pageType === 'service')
+      decodedSlug === 'digital-marketing-performance-growth')
   ) {
-    return <PageSectionsRenderer data={pageData} source={source} />;
+    return (
+      <PageSectionsRenderer
+        data={pageData}
+        source={source}
+        currentPath={`/services/${encodeURIComponent(decodedSlug)}`}
+      />
+    );
   }
 
+  // Otherwise, load from individual services collection
   const service = await getServiceBySlug(decodedSlug);
 
   if (!service) {

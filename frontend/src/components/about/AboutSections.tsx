@@ -10,7 +10,7 @@ import {
 } from '@/components/common/SectionPrimitives';
 import { WalstarButton, WalstarButtonArrow } from '@/components/common/WalstarButton';
 import { GlobalOfficesWorldMap } from '@/components/contact/GlobalOfficesWorldMap';
-import { getStrapiMediaUrl } from '@/lib/strapi';
+import { getStrapiMediaUrl, STRAPI_IMAGE_PLACEHOLDER } from '@/lib/strapi';
 import type {
   AboutSection,
   GlobalOfficesSection,
@@ -44,7 +44,7 @@ function TeamMemberCard({
   member: TeamMemberItem;
   variant: 'executive' | 'avatar';
 }) {
-  const photoUrl = getStrapiMediaUrl(member.photo?.url);
+  const photoUrl = getStrapiMediaUrl(member.photo?.url) || STRAPI_IMAGE_PLACEHOLDER;
   const baseClass = variant === 'executive' ? 'pp executive-member-card' : 'av advisory-member-card';
   const stateClass = photoUrl ? baseClass : `${baseClass} ${variant === 'executive' ? 'pp--placeholder' : 'av--placeholder'}`;
   const linkedinHref = member.linkedinUrl?.trim();
@@ -123,8 +123,8 @@ function formatAboutDescription(desc?: string | null): string | null | undefined
 }
 
 export function AboutBlock({ section }: { section: AboutSection }) {
-  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url) || '/images/about/about-primary.png';
-  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url) || '/images/about/about-secondary.png';
+  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url) || STRAPI_IMAGE_PLACEHOLDER;
+  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url) || STRAPI_IMAGE_PLACEHOLDER;
   const highlightIconUrl = getStrapiMediaUrl(section.highlightIcon?.url) || '/images/about/about-highlight-icon.png';
 
   return (
@@ -229,7 +229,7 @@ export function AboutBlock({ section }: { section: AboutSection }) {
 }
 
 export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
-  const imageUrl = getStrapiMediaUrl(section.image?.url) || '/images/about/who-we-are.jpg';
+  const imageUrl = getStrapiMediaUrl(section.image?.url) || STRAPI_IMAGE_PLACEHOLDER;
   const rawPill = section.pill || 'Who we are';
   const pillText = cleanPill(rawPill) || 'Who we are';
   const prefix = section.headingPrefix?.trim() || 'A trusted partner for';
@@ -301,10 +301,15 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
   const rawPill = section.pill || 'The Walstar Way';
   const pillText = cleanPill(rawPill) || 'The Walstar Way';
 
-  const isDefaultWayHeading =
-    !section.headingPrefix ||
-    section.headingPrefix.includes('first idea') ||
-    section.headingSerif?.includes('lasting');
+  const wayPrefix = section.headingPrefix?.trim() || 'From first idea to';
+  const waySerif = section.headingSerif?.trim() || 'lasting';
+  const rawSuffix = section.headingSuffix?.trim();
+  const waySuffix =
+    rawSuffix &&
+    rawSuffix.toLowerCase() !== waySerif.toLowerCase() &&
+    !waySerif.toLowerCase().endsWith(rawSuffix.toLowerCase())
+      ? rawSuffix
+      : null;
 
   return (
     <section className="way" id="journey-stats">
@@ -312,23 +317,15 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
         <div>
           <span className="pill way-pill">{pillText}</span>
           <h2 className="about-heading way-heading">
-            {isDefaultWayHeading ? (
-              <>
-                <span className="about-heading-row way-heading-row way-heading-row--prefix">
-                  <span className="way-heading-text">From first idea to </span>
-                  <span className="serif way-heading-serif">lasting</span>
-                </span>
-                <span className="about-heading-row way-heading-row way-heading-row--suffix">
-                  <span className="serif way-heading-serif">impact</span>
-                </span>
-              </>
-            ) : (
-              renderHeadingParts(
-                section.headingPrefix,
-                section.headingSerif,
-                section.headingSuffix
-              )
-            )}
+            <span className="about-heading-row way-heading-row way-heading-row--prefix">
+              <span className="way-heading-text">{wayPrefix} </span>
+              <span className="serif way-heading-serif">{waySerif}</span>
+            </span>
+            {waySuffix ? (
+              <span className="about-heading-row way-heading-row way-heading-row--suffix">
+                <span className="serif way-heading-serif">{waySuffix}</span>
+              </span>
+            ) : null}
           </h2>
           {section.description ? (
             <p className="about-lead-desc way-desc" style={{ marginTop: 14 }}>
@@ -445,9 +442,28 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
       ? section.speedSeconds
       : 30;
 
-  // Normalize heading prefix to prevent duplicate "built to"
-  const rawPrefix = section.headingPrefix?.trim() || 'Digital solutions';
-  const cleanPrefix = rawPrefix.replace(/\s*built\s+to\s*$/i, '').trim() || 'Digital solutions';
+  // Support dynamic prefix from Strapi (single-line or multi-line)
+  let line1 = 'Digital solutions';
+  let line2Prefix = '';
+
+  if (section.headingPrefix) {
+    if (section.headingPrefix.includes('\n')) {
+      const parts = section.headingPrefix.split('\n');
+      line1 = parts[0].trim();
+      line2Prefix = parts.slice(1).join(' ').trim() ? `${parts.slice(1).join(' ').trim()} ` : '';
+    } else if (/built\s+to/i.test(section.headingPrefix)) {
+      const parts = section.headingPrefix.split(/built\s+to/i);
+      line1 = parts[0].trim() || 'Digital solutions';
+      line2Prefix = 'built to ';
+    } else {
+      line1 = section.headingPrefix.trim();
+      line2Prefix = (!section.headingSerif || section.headingSerif.trim().toLowerCase() === 'scale') ? 'built to ' : '';
+    }
+  } else {
+    line1 = 'Digital solutions';
+    line2Prefix = 'built to ';
+  }
+
   const rawSerif = section.headingSerif?.trim() || 'Scale';
   const serifWord = rawSerif.charAt(0).toUpperCase() + rawSerif.slice(1);
 
@@ -466,10 +482,10 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
           <span className="pill sol-pill">{pillText}</span>
           <h2 className="about-heading sol-heading" style={{ textAlign: 'center' }}>
             <span className="about-heading-row sol-heading-row sol-heading-row--prefix">
-              <span className="sol-heading-text">{cleanPrefix}</span>
+              <span className="sol-heading-text">{line1}</span>
             </span>
             <span className="about-heading-row sol-heading-row sol-heading-row--suffix">
-              <span className="sol-heading-text">built to </span>
+              {line2Prefix ? <span className="sol-heading-text">{line2Prefix}</span> : null}
               <span className="serif sol-heading-serif">{serifWord}</span>
               {section.headingSuffix ? (
                 <span className="sol-heading-suffix">{` ${section.headingSuffix}`}</span>
@@ -627,6 +643,12 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
   const rawPill = section.pill || 'Why choose Walstar';
   const pillText = cleanPill(rawPill) || 'Why choose Walstar';
 
+  const whyPrefix = section.headingPrefix?.trim() || 'Built different.';
+  const whySerif = section.headingSerif?.trim() || 'Built\nfor impact.';
+  const serifLines = whySerif.split('\n');
+  const firstSerifLine = serifLines[0];
+  const remainingSerifLines = serifLines.slice(1).join(' ');
+
   return (
     <div className="whyw" id="why-choose">
       <section className="why">
@@ -634,12 +656,15 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
           <span className="pill why-pill">{pillText}</span>
           <h2 className="about-heading why-heading" style={{ textAlign: 'center' }}>
             <span className="about-heading-row why-heading-row why-heading-row--prefix">
-              <span className="why-heading-text">Built different. </span>
-              <span className="serif why-heading-serif">Built</span>
+              <span className="why-heading-text">{whyPrefix} </span>
+              {firstSerifLine ? <span className="serif why-heading-serif">{firstSerifLine}</span> : null}
             </span>
-            <span className="about-heading-row why-heading-row why-heading-row--suffix">
-              <span className="serif why-heading-serif">for impact.</span>
-            </span>
+            {remainingSerifLines || section.headingSuffix ? (
+              <span className="about-heading-row why-heading-row why-heading-row--suffix">
+                {remainingSerifLines ? <span className="serif why-heading-serif">{remainingSerifLines}</span> : null}
+                {section.headingSuffix ? <span className="why-heading-text">{` ${section.headingSuffix}`}</span> : null}
+              </span>
+            ) : null}
           </h2>
         </div>
 
@@ -709,8 +734,12 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
 
 export function VisionMissionBlock({ section }: { section: VisionMissionSection }) {
   const [hoveredCard, setHoveredCard] = useState<'v' | 'm' | null>(null);
-  const rawPill = section.pill === 'Walstar Group' ? 'Our Purpose' : section.pill || 'Our Purpose';
+  const rawPill = section.pill?.trim() || 'Our Purpose';
   const pillText = cleanPill(rawPill) || 'Our Purpose';
+
+  const vmPrefix = section.headingPrefix?.trim() || 'Shaping the';
+  const vmSerif = section.headingSerif?.trim() || 'future';
+  const vmSuffix = (section.headingSuffix || '\ntogether').trim();
 
   return (
     <section className="sec vm-sec" id="vision-mission">
@@ -719,12 +748,14 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
           <span className="pill vm-pill">{pillText}</span>
           <h2 className="about-heading vm-heading" style={{ textAlign: 'center' }}>
             <span className="about-heading-row vm-heading-row vm-heading-row--prefix">
-              <span className="vm-heading-text">Shaping the </span>
-              <span className="serif vm-heading-serif">future</span>
+              <span className="vm-heading-text">{vmPrefix} </span>
+              {vmSerif ? <span className="serif vm-heading-serif">{vmSerif}</span> : null}
             </span>
-            <span className="about-heading-row vm-heading-row vm-heading-row--suffix">
-              <span className="vm-heading-text">together</span>
-            </span>
+            {vmSuffix ? (
+              <span className="about-heading-row vm-heading-row vm-heading-row--suffix">
+                <span className="vm-heading-text">{vmSuffix}</span>
+              </span>
+            ) : null}
           </h2>
         </div>
 
@@ -768,7 +799,24 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
             ) : null}
             {section.visionCtaLabel ? (
               <Link className="btn" href={section.visionCtaHref || '/contact'}>
-                {section.visionCtaLabel}
+                <span>{section.visionCtaLabel.replace(/\s*[↗→?]\s*$/, '').trim()}</span>
+                <svg
+                  className="vm-btn-arrow"
+                  width="20.62"
+                  height="15"
+                  viewBox="0 0 21 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 7.5H19M19 7.5L12.5 1M19 7.5L12.5 14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </Link>
             ) : null}
           </div>
@@ -821,8 +869,12 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
   const executives = section.executives ?? [];
   const advisoryMembers = section.advisoryMembers ?? [];
   const salesMembers = section.salesMembers ?? [];
-  const rawPill = section.pill === 'Our Team' ? 'Our Leadership' : section.pill || 'Our Leadership';
+  const rawPill = section.pill?.trim() || 'Our Leadership';
   const pillText = cleanPill(rawPill) || 'Our Leadership';
+
+  const teamPrefix = section.headingPrefix?.trim() || 'We do things that';
+  const teamSerif = section.headingSerif?.trim() || 'matter';
+  const teamSuffix = section.headingSuffix?.trim();
 
   return (
     <section className="team" id="leadership">
@@ -831,10 +883,11 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
           <span className="pill team-pill">{pillText}</span>
           <h2 className="about-heading team-heading" style={{ textAlign: 'center' }}>
             <span className="about-heading-row team-heading-row team-heading-row--prefix">
-              <span className="team-heading-text">We do things that</span>
+              <span className="team-heading-text">{teamPrefix}</span>
             </span>
             <span className="about-heading-row team-heading-row team-heading-row--suffix">
-              <span className="serif team-heading-serif">matter</span>
+              <span className="serif team-heading-serif">{teamSerif}</span>
+              {teamSuffix ? <span className="team-heading-text">{` ${teamSuffix}`}</span> : null}
             </span>
           </h2>
         </div>
@@ -908,8 +961,12 @@ const DEFAULT_MAP_PINS: WorldMapPinItem[] = [
 ];
 
 export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection }) {
-  const rawPill = section.pill === 'Areas we serve' ? 'Global Reach' : section.pill || 'Global Reach';
+  const rawPill = section.pill?.trim() || 'Global Reach';
   const pillText = cleanPill(rawPill) || 'Global Reach';
+
+  const officesPrefix = section.headingPrefix?.trim() || 'Our global';
+  const officesSerif = section.headingSerif?.trim() || 'offices';
+  const officesSuffix = section.headingSuffix?.trim();
 
   return (
     <section className="sec offices" id="offices">
@@ -918,8 +975,9 @@ export function GlobalOfficesBlock({ section }: { section: GlobalOfficesSection 
           <span className="pill offices-pill">{pillText}</span>
           <h2 className="about-heading offices-heading" style={{ textAlign: 'center' }}>
             <span className="about-heading-row offices-heading-row">
-              <span className="offices-heading-text">Our global </span>
-              <span className="serif offices-heading-serif">offices</span>
+              <span className="offices-heading-text">{officesPrefix} </span>
+              <span className="serif offices-heading-serif">{officesSerif}</span>
+              {officesSuffix ? <span className="offices-heading-text">{` ${officesSuffix}`}</span> : null}
             </span>
           </h2>
         </div>

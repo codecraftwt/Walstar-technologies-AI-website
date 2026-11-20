@@ -17,8 +17,11 @@ import type {
   StrapiResponse,
 } from '@/types/strapi';
 
-const DEFAULT_PUBLIC_URL = 'http://localhost:1337';
-const DEFAULT_SERVER_URL = 'http://127.0.0.1:1337';
+const DEFAULT_PUBLIC_URL = 'https://walstar-technologies-ai-website.onrender.com';
+const DEFAULT_SERVER_URL = 'https://walstar-technologies-ai-website.onrender.com';
+
+export const STRAPI_IMAGE_PLACEHOLDER =
+  'https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png';
 
 export function getStrapiPublicUrl(): string {
   return (process.env.NEXT_PUBLIC_STRAPI_URL || DEFAULT_PUBLIC_URL).replace(/\/+$/, '');
@@ -156,44 +159,10 @@ function resolvePageSections(
   fallbackPage: PageItem
 ): PageItem['sections'] {
   const incoming = Array.isArray(page.sections) ? page.sections : null;
-  const fallbackSections = fallbackPage.sections ?? [];
-
-  if (!incoming || incoming.length === 0) {
-    return fallbackSections;
+  if (incoming && incoming.length > 0) {
+    return incoming;
   }
-
-  const isLegacyContact =
-    (page.pageType === 'contact' || page.slug === 'contact') &&
-    !incoming.some(
-      (section) => section.__component === 'sections.contact-interest'
-    ) &&
-    fallbackSections.some(
-      (section) => section.__component === 'sections.contact-interest'
-    );
-
-  const isLegacyService =
-    (page.pageType === 'service' ||
-      page.slug === 'service-1' ||
-      page.slug === 'service-2' ||
-      page.slug === 'service-3' ||
-      page.slug === 'digital-marketing-performance-growth') &&
-    !incoming.some(
-      (section) => section.__component === 'sections.svc-intro'
-    ) &&
-    fallbackSections.some(
-      (section) => section.__component === 'sections.svc-intro'
-    );
-
-  const isLegacyAbout =
-    (page.pageType === 'about' || page.slug === 'about-us') &&
-    !incoming.some(
-      (section) => section.__component === 'sections.hero'
-    ) &&
-    fallbackSections.some(
-      (section) => section.__component === 'sections.hero'
-    );
-
-  return isLegacyContact || isLegacyService || isLegacyAbout ? fallbackSections : incoming;
+  return fallbackPage.sections ?? [];
 }
 
 function normalizeLandingPayload(
@@ -236,8 +205,8 @@ export async function getLandingData(): Promise<{
     const res = await fetchStrapi<StrapiResponse<Partial<LandingPayload>>>(
       '/api/landing',
       {
-        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
-        signal: AbortSignal.timeout(getStrapiTimeoutMs()),
+        next: { revalidate: 0 },
+        cache: 'no-store',
       }
     );
 
@@ -249,7 +218,8 @@ export async function getLandingData(): Promise<{
       source: 'strapi',
       data: normalizeLandingPayload(res.data, DEFAULT_LANDING_DATA.page),
     };
-  } catch {
+  } catch (err) {
+    console.error('getLandingData fetch error:', err);
     return { data: DEFAULT_LANDING_DATA, source: 'fallback' };
   }
 }
@@ -260,8 +230,8 @@ export async function getActiveNavbar(slug?: string): Promise<NavbarData> {
     const res = await fetchStrapi<StrapiResponse<NavbarData | null>>(
       `/api/navbars/active${query}`,
       {
-        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
-        signal: AbortSignal.timeout(getStrapiTimeoutMs()),
+        next: { revalidate: 0 },
+        cache: 'no-store',
       }
     );
     if (res.data && Array.isArray(res.data.items)) {
@@ -282,8 +252,8 @@ export async function getActiveFooterResult(slug?: string): Promise<{
     const res = await fetchStrapi<StrapiResponse<FooterData | null>>(
       `/api/footers/active${query}`,
       {
-        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
-        signal: AbortSignal.timeout(getStrapiTimeoutMs()),
+        next: { revalidate: 0 },
+        cache: 'no-store',
       }
     );
     if (res.data) {
@@ -300,55 +270,97 @@ export async function getActiveFooter(slug?: string): Promise<FooterData> {
   return result.data;
 }
 
+const PAGE_SLUG_ALIASES: Record<string, string[]> = {
+  'service-1': ['ai-solutions-business-automation'],
+  'ai-solutions-automation': ['ai-solutions-business-automation'],
+  'ai-solutions-and-automation': ['ai-solutions-business-automation'],
+  'ai-solutions': ['ai-solutions-business-automation'],
+  'ai-solutions-business-automation': ['service-1'],
+  'service-2': ['custom-software-development'],
+  'custom-software': ['custom-software-development'],
+  'custom-software-development': ['service-2'],
+  'service-3': ['digital-marketing-performance-growth'],
+  'digital-marketing': ['digital-marketing-performance-growth'],
+  'digital-marketing-performance-growth': ['service-3'],
+  'about': ['about-us'],
+  'about-us': ['about'],
+  'contact-us': ['contact'],
+  'contact': ['contact-us'],
+};
+
 export async function getResolvedPageBySlug(slug: string): Promise<{
   data: LandingPayload | null;
   source: 'strapi' | 'fallback';
   error?: string;
 }> {
   const normalizedSlug = slug.trim();
-  const fallbackPage = getDefaultPageBySlug(normalizedSlug);
+  const candidateSlugs = [
+    normalizedSlug,
+    ...(PAGE_SLUG_ALIASES[normalizedSlug] ?? []),
+  ];
 
-  try {
-    const res = await fetchStrapi<StrapiResponse<Partial<LandingPayload>>>(
-      `/api/pages/resolve/${encodeURIComponent(normalizedSlug)}`,
-      {
-        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
-        signal: AbortSignal.timeout(getStrapiTimeoutMs()),
+  let fallbackPage = getDefaultPageBySlug(normalizedSlug);
+  if (!fallbackPage) {
+    for (const alt of PAGE_SLUG_ALIASES[normalizedSlug] ?? []) {
+      const match = getDefaultPageBySlug(alt);
+      if (match) {
+        fallbackPage = match;
+        break;
       }
-    );
-
-    if (!res.data?.page) {
-      return { data: null, source: 'strapi' };
     }
+  }
 
+  let lastError: unknown = null;
+
+  for (const candidate of candidateSlugs) {
+    try {
+      const res = await fetchStrapi<StrapiResponse<Partial<LandingPayload>>>(
+        `/api/pages/resolve/${encodeURIComponent(candidate)}`,
+        {
+          next: { revalidate: 0 },
+          cache: 'no-store',
+        }
+      );
+
+      if (res.data?.page) {
+        return {
+          source: 'strapi',
+          data: normalizeLandingPayload(
+            res.data,
+            fallbackPage ?? res.data.page
+          ),
+        };
+      }
+    } catch (err) {
+      lastError = err;
+      if (err instanceof StrapiHttpError && err.status === 404) {
+        // Continue trying next candidate alias
+        continue;
+      }
+      // Non-404 network or server errors shouldn't prevent checking fallback
+      break;
+    }
+  }
+
+  if (fallbackPage) {
     return {
-      source: 'strapi',
-      data: normalizeLandingPayload(
-        res.data,
-        fallbackPage ?? res.data.page
-      ),
-    };
-  } catch (err) {
-    if (err instanceof StrapiHttpError && err.status === 404) {
-      return { data: null, source: 'strapi' };
-    }
-
-    if (fallbackPage) {
-      return {
-        source: 'fallback',
-        data: {
-          ...DEFAULT_LANDING_DATA,
-          page: fallbackPage,
-        },
-      };
-    }
-
-    return {
-      data: null,
       source: 'fallback',
-      error: err instanceof Error ? err.message : 'Unable to reach Strapi CMS',
+      data: {
+        ...DEFAULT_LANDING_DATA,
+        page: fallbackPage,
+      },
     };
   }
+
+  if (lastError instanceof StrapiHttpError && lastError.status === 404) {
+    return { data: null, source: 'strapi' };
+  }
+
+  return {
+    data: null,
+    source: 'fallback',
+    error: lastError instanceof Error ? lastError.message : 'Unable to reach Strapi CMS',
+  };
 }
 
 export async function getStrapiHealth(): Promise<StrapiHealthStatus> {
