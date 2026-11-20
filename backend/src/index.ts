@@ -477,6 +477,11 @@ async function ensureServiceMedia(strapi: Core.Strapi): Promise<void> {
         }
       }
     }
+  } catch (error) {
+    strapi.log.warn('Could not auto-link service media during bootstrap:', error);
+  }
+}
+
 async function ensureContactMedia(strapi: Core.Strapi): Promise<void> {
   try {
     const knex = strapi.db.connection;
