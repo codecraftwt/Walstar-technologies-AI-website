@@ -305,36 +305,43 @@ function PartnerStripBlock({ section }: { section: PartnerStripSection }) {
   const groupLogos = Array.from({ length: repeatCount }, () => logos).flat();
 
   return (
-    <div className="logos" aria-label={section.ariaLabel || 'Partners'}>
-      <div
-        className={`partner-marquee-track ${directionClass}`}
-        style={
-          {
-            '--partner-marquee-duration': `${durationSeconds}s`,
-          } as CSSProperties
-        }
-      >
-        {[0, 1].map((copyIdx) => (
-          <div
-            key={copyIdx}
-            className="partner-marquee-group"
-            aria-hidden={copyIdx === 1 ? true : undefined}
-          >
-            {groupLogos.map((logo, idx) => (
-              <div
-                key={`${copyIdx}-${logo.id ?? logo.name}-${idx}`}
-                className="partner-logo-item"
-              >
-                <PartnerLogoContent
-                  logo={logo}
-                  imgClassName="partner-logo-img"
-                  textClassName="partner-logo-text"
-                />
-              </div>
-            ))}
-          </div>
-        ))}
+    <div className="partner-strip-wrapper">
+      <div className="logos" aria-label={section.ariaLabel || 'Partners'}>
+        <div
+          className={`partner-marquee-track ${directionClass}`}
+          style={
+            {
+              '--partner-marquee-duration': `${durationSeconds}s`,
+            } as CSSProperties
+          }
+        >
+          {[0, 1].map((copyIdx) => (
+            <div
+              key={copyIdx}
+              className="partner-marquee-group"
+              aria-hidden={copyIdx === 1 ? true : undefined}
+            >
+              {groupLogos.map((logo, idx) => (
+                <div
+                  key={`${copyIdx}-${logo.id ?? logo.name}-${idx}`}
+                  className="partner-logo-item"
+                >
+                  <PartnerLogoContent
+                    logo={logo}
+                    imgClassName="partner-logo-img"
+                    textClassName="partner-logo-text"
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
+      <div
+        className="homepage-hero-divider partner-strip-divider"
+        aria-hidden="true"
+        role="separator"
+      />
     </div>
   );
 }

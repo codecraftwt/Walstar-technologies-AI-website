@@ -7,6 +7,7 @@ import {
   BrandWordmark,
   SocialIconContent,
 } from '@/components/common/WalstarBranding';
+import { cleanPill } from '@/components/common/SectionPrimitives';
 import { resolveCmsRoute } from '@/lib/cms-routes';
 import { DEFAULT_FOOTER, DEFAULT_SITE_SETTING } from '@/lib/default-landing';
 import { getStrapiMediaUrl } from '@/lib/strapi';
@@ -28,10 +29,10 @@ export function WalstarCtaBand({
   return (
     <section
       className={inline ? 'cta-band cta-band--inline' : 'cta-band'}
-      aria-label={section.pill || 'Call to action'}
+      aria-label={cleanPill(section.pill) || 'Call to action'}
     >
       <div className="cta-band-copy">
-        {section.pill ? <span className="pill">{section.pill}</span> : null}
+        {section.pill ? <span className="pill">{cleanPill(section.pill)}</span> : null}
         <h3 className="cta-band-heading">{section.heading}</h3>
         {section.subheading ? <p className="cta-band-subheading">{section.subheading}</p> : null}
       </div>

@@ -960,9 +960,21 @@ export const INITIAL_PAGES = [
         executiveQuote: '“Quality Is Not Optional. It Is Our Foundation.”',
         executiveQuoteAuthor: '-Walstar Technologies',
         executives: [
-          { role: 'Executive' },
-          { role: 'Executive' },
-          { role: 'Executive' },
+          {
+            name: 'Pratap Patil',
+            role: 'CEO',
+            linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+          },
+          {
+            name: 'Pramod Gaikwad',
+            role: 'CTO',
+            linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+          },
+          {
+            name: 'Megha Patil',
+            role: 'Director',
+            linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+          },
         ],
         advisoryTitle: 'Global Advisory Panel',
         advisoryMembers: [

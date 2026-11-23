@@ -27,7 +27,7 @@ export function WwdArrowIcon() {
 
 export function WwdIcon1() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
       <path d="M9 3v3M12 3v3M15 3v3M9 18v3M12 18v3M15 18v3M3 9h3M3 12h3M3 15h3M18 9h3M18 12h3M18 15h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
       <text x="12" y="14.4" fontSize="5.6" fontWeight="700" textAnchor="middle" fill="#fff" fontFamily="Poppins,sans-serif">AI</text>
@@ -37,7 +37,7 @@ export function WwdIcon1() {
 
 export function WwdIcon2() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
       <path d="M3 10v4.5h3.2L13 19V5.5L6.2 10z" fill="currentColor" stroke="none" />
       <path d="M15.5 9.5c1.3.8 1.3 4.2 0 5M17.5 7l2-1.2M17.7 12h2.6M17.5 17l2 1.2" strokeWidth="1.6" />
     </svg>
@@ -46,7 +46,7 @@ export function WwdIcon2() {
 
 export function WwdIcon3() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <rect x="3" y="4" width="18" height="16" rx="2.5" fill="currentColor" />
       <path d="M3 8.5h18" stroke="#fff" strokeWidth="1.4" fill="none" />
       <path d="M10 11.5L7.8 13.7 10 16M14 11.5l2.2 2.2L14 16" stroke="#fff" fill="none" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -56,7 +56,7 @@ export function WwdIcon3() {
 
 export function WwdIcon4() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <rect x="3" y="3.5" width="18" height="13.5" rx="2" fill="currentColor" />
       <path d="M9 21h6M12 17v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
       <circle cx="8" cy="8.5" r="1.6" fill="#fff" />
@@ -67,7 +67,7 @@ export function WwdIcon4() {
 
 export function WwdIcon5() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
       <rect x="7" y="2.5" width="10" height="19" rx="2.2" />
       <path d="M10.5 18.8h3" strokeWidth="1.8" />
     </svg>
@@ -76,7 +76,7 @@ export function WwdIcon5() {
 
 export function WwdIcon6() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M4.5 8.5h15l.9 12.5H3.6z" fill="currentColor" />
       <path d="M8.5 11V7.5a3.5 3.5 0 017 0V11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
@@ -85,7 +85,7 @@ export function WwdIcon6() {
 
 export function WwdIcon7() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M7 19a5 5 0 01-.6-9.9A6.2 6.2 0 0118.2 10 4.5 4.5 0 0117.5 19z" fill="currentColor" />
       <path d="M12 11.2l3.2 1.3v2.4c0 1.8-1.4 2.8-3.2 3.5-1.8-.7-3.2-1.7-3.2-3.5v-2.4z" fill="#fff" />
     </svg>
@@ -94,7 +94,7 @@ export function WwdIcon7() {
 
 export function WwdIcon8() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M12 2l8 3v6.5c0 5-3.4 8.7-8 10.5-4.6-1.8-8-5.5-8-10.5V5z" fill="currentColor" />
       <path d="M8.3 12l2.7 2.7 4.8-5" stroke="#fff" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -103,7 +103,7 @@ export function WwdIcon8() {
 
 export function WwdIcon9() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <rect x="3" y="3" width="18" height="14" rx="2" fill="currentColor" />
       <path d="M8.5 21h7M12 17v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
       <path d="M12 6.5l3 6h-6z" fill="none" stroke="#fff" strokeWidth="1.3" strokeLinejoin="round" />
@@ -113,7 +113,7 @@ export function WwdIcon9() {
 
 export function WwdIcon10() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <circle cx="9" cy="8" r="3.4" fill="currentColor" />
       <path d="M2.5 19.5c0-3.6 2.8-5.6 6.5-5.6s6.5 2 6.5 5.6z" fill="currentColor" />
       <circle cx="17.2" cy="9" r="2.6" fill="currentColor" />
@@ -124,7 +124,7 @@ export function WwdIcon10() {
 
 export function WwdIcon11() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="33" height="33" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M4 4h16l1.2 5.5a3 3 0 01-2.9 3.5 3 3 0 01-2.6-1.5A3 3 0 0113 13a3 3 0 01-2-1A3 3 0 018.3 13a3 3 0 01-2.6-1.5 3 3 0 01-2.9-3.5L4 4z" fill="currentColor" />
       <path d="M5 14v5.5a1.5 1.5 0 001.5 1.5h11a1.5 1.5 0 001.5-1.5V14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       <path d="M10 17.5h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
@@ -149,8 +149,8 @@ export function renderCardIcon(card: WwdCardItem): React.ReactNode {
       <Image
         src={card.iconImage}
         alt=""
-        width={32}
-        height={32}
+        width={33}
+        height={33}
         unoptimized
         aria-hidden="true"
         className="wwd-ic-img"
@@ -173,8 +173,8 @@ export function renderCardIcon(card: WwdCardItem): React.ReactNode {
       <Image
         src={card.iconImage}
         alt=""
-        width={32}
-        height={32}
+        width={33}
+        height={33}
         unoptimized
         aria-hidden="true"
         className="wwd-ic-img"

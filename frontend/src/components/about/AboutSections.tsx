@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -33,21 +33,126 @@ const FLAG_BACKGROUNDS: Record<NonNullable<WorldMapPinItem['flagVariant']>, stri
   uk: 'linear-gradient(135deg, #012169 45%, #c8102e 45% 55%, #012169 55%)',
 };
 
-function isExternalHref(href: string): boolean {
-  return href.startsWith('http://') || href.startsWith('https://');
+function normalizeLinkedinUrl(url?: string | null): string {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (!trimmed || trimmed === '#' || trimmed.startsWith('#')) return '';
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
 }
+
+const DEFAULT_EXECUTIVES: TeamMemberItem[] = [
+  {
+    name: 'Pratap Patil',
+    role: 'CEO',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Pramod Gaikwad',
+    role: 'CTO',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Megha Patil',
+    role: 'Director',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+];
+
+const DEFAULT_ADVISORY: TeamMemberItem[] = [
+  {
+    name: 'Vasant Manwadkar',
+    role: 'Advisor',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Strategic Advisor',
+    role: 'Advisor',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Technology Advisor',
+    role: 'Advisor',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+];
+
+const DEFAULT_SALES: TeamMemberItem[] = [
+  {
+    name: 'James Turner',
+    role: 'Regional Sales\nManager (USA)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Sarah Jenkins',
+    role: 'Regional Sales\nManager (UK)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Michael Chen',
+    role: 'Regional Sales\nManager (APAC)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'David Miller',
+    role: 'Enterprise Sales\nManager (USA)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Emma Watson',
+    role: 'Strategic Accounts\nDirector (Global)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Robert Taylor',
+    role: 'Regional Accounts\nManager (USA)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Alexander White',
+    role: 'Technology Sales\nConsultant (Global)',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+  {
+    name: 'Sophia Clark',
+    role: 'International Business\nDevelopment',
+    linkedinUrl: 'https://www.linkedin.com/company/walstar-technologies-pvt-ltd/',
+  },
+];
 
 function TeamMemberCard({
   member,
   variant,
+  index = 0,
 }: {
   member: TeamMemberItem;
-  variant: 'executive' | 'avatar';
+  variant: 'executive' | 'advisory' | 'sales' | 'avatar';
+  index?: number;
 }) {
   const photoUrl = getStrapiMediaUrl(member.photo?.url) || STRAPI_IMAGE_PLACEHOLDER;
-  const baseClass = variant === 'executive' ? 'pp executive-member-card' : 'av advisory-member-card';
-  const stateClass = photoUrl ? baseClass : `${baseClass} ${variant === 'executive' ? 'pp--placeholder' : 'av--placeholder'}`;
-  const linkedinHref = member.linkedinUrl?.trim();
+  const isExec = variant === 'executive';
+  const variantClass = isExec
+    ? 'pp executive-member-card team-member-card'
+    : variant === 'sales'
+    ? 'av sales-member-card team-member-card'
+    : 'av advisory-member-card team-member-card';
+  const stateClass = photoUrl
+    ? variantClass
+    : `${variantClass} ${isExec ? 'pp--placeholder' : 'av--placeholder'}`;
+
+  const fallbackList = isExec
+    ? DEFAULT_EXECUTIVES
+    : variant === 'sales'
+    ? DEFAULT_SALES
+    : DEFAULT_ADVISORY;
+  const fallback = fallbackList[index % fallbackList.length];
+
+  const displayName = member.name?.trim() || fallback.name;
+  const trimmedRole = member.role?.trim();
+  const isGenericRole = !trimmedRole || trimmedRole.toLowerCase() === 'executive';
+  const displayRole = isGenericRole ? fallback.role : trimmedRole;
+  const rawLinkedinHref = member.linkedinUrl?.trim() || fallback.linkedinUrl;
+  const linkedinHref = normalizeLinkedinUrl(rawLinkedinHref);
 
   const linkedinIcon = (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -59,49 +164,41 @@ function TeamMemberCard({
     <div
       className={stateClass}
       role={photoUrl ? undefined : 'img'}
-      aria-label={photoUrl ? undefined : member.name || member.role || 'Team member'}
+      aria-label={photoUrl ? undefined : displayName || displayRole || 'Team member'}
+      tabIndex={0}
     >
       {photoUrl ? (
         <Image
           src={photoUrl}
-          alt={member.photo?.alternativeText || member.name || member.role || 'Team member'}
+          alt={member.photo?.alternativeText || displayName || displayRole || 'Team member'}
           fill
           sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 24vw"
           className="team-member-photo"
         />
       ) : null}
 
-      {member.name ? (
-        <div className="chip2 team-member-info">
-          <div className="team-member-meta">
-            <b className="team-member-name">{member.name}</b>
-            {member.role ? (
-              <span className="team-member-role">{renderMultilineText(member.role)}</span>
-            ) : null}
-          </div>
-          {linkedinHref ? (
-            isExternalHref(linkedinHref) ? (
-              <a
-                href={linkedinHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="team-member-linkedin"
-                aria-label={`${member.name} LinkedIn profile`}
-              >
-                {linkedinIcon}
-              </a>
-            ) : (
-              <Link
-                href={linkedinHref}
-                className="team-member-linkedin"
-                aria-label={`${member.name} profile`}
-              >
-                {linkedinIcon}
-              </Link>
-            )
+      <div className="chip2 team-member-info">
+        <div className="team-member-meta">
+          <span className="team-member-name">{displayName}</span>
+          {displayRole ? (
+            <span className="team-member-role">{renderMultilineText(displayRole)}</span>
           ) : null}
         </div>
-      ) : null}
+        {linkedinHref ? (
+          <a
+            href={linkedinHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="team-member-linkedin"
+            aria-label={`${displayName || 'Team member'} LinkedIn profile`}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {linkedinIcon}
+          </a>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -295,9 +392,169 @@ export function WhoWeAreBlock({ section }: { section: WhoWeAreSection }) {
   );
 }
 
+function parseStatTarget(value: string): {
+  prefix: string;
+  suffix: string;
+  targetNum: number;
+  isK: boolean;
+  isInfinity: boolean;
+} {
+  const clean = value.trim();
+  if (clean === '∞' || clean.includes('∞')) {
+    return { prefix: '', suffix: '', targetNum: 100, isK: false, isInfinity: true };
+  }
+
+  // Check for K: e.g. "1K+", "10K+", "1.5K+"
+  const kMatch = clean.match(/^(\D*)(\d+(?:\.\d+)?)\s*k(.*)$/i);
+  if (kMatch) {
+    return {
+      prefix: kMatch[1] || '',
+      suffix: `K${kMatch[3] || ''}`,
+      targetNum: parseFloat(kMatch[2]) * 1000,
+      isK: true,
+      isInfinity: false,
+    };
+  }
+
+  // Normal number: e.g. "12+", "5+", "99.9%"
+  const numMatch = clean.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+  if (numMatch) {
+    return {
+      prefix: numMatch[1] || '',
+      suffix: numMatch[3] || '',
+      targetNum: parseFloat(numMatch[2]),
+      isK: false,
+      isInfinity: false,
+    };
+  }
+
+  return { prefix: '', suffix: clean, targetNum: 0, isK: false, isInfinity: false };
+}
+
+function AnimatedStatValue({
+  value,
+  trigger,
+  index = 0,
+}: {
+  value: string;
+  trigger: boolean;
+  index?: number;
+}) {
+  const [displayValue, setDisplayValue] = useState(trigger ? value : '0');
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    if (!trigger) {
+      setDisplayValue('0');
+      setHasStarted(false);
+      return;
+    }
+
+    const { prefix, suffix, targetNum, isK, isInfinity } = parseStatTarget(value);
+
+    // Stagger start for each stat item
+    const delayTimer = setTimeout(() => {
+      setHasStarted(true);
+
+      if (isInfinity) {
+        // Numeric rolling sequence before resolving to infinity
+        const frames = ['0', '8', '88', '999', '∞'];
+        let frameIdx = 0;
+        const interval = setInterval(() => {
+          frameIdx++;
+          if (frameIdx < frames.length) {
+            setDisplayValue(frames[frameIdx]);
+          } else {
+            setDisplayValue('∞');
+            clearInterval(interval);
+          }
+        }, 300);
+        return () => clearInterval(interval);
+      }
+
+      let startTimestamp: number | null = null;
+      const duration = 2200; // 2.2s smooth visible count up
+      let rafId: number;
+
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const elapsed = timestamp - startTimestamp;
+        const progress = Math.min(elapsed / duration, 1);
+        // Quartic ease-out: 1 - (1 - progress)^4
+        const ease = 1 - Math.pow(1 - progress, 4);
+
+        if (isK) {
+          const currentCount = Math.round(targetNum * ease);
+          if (progress >= 0.98) {
+            setDisplayValue(value);
+          } else if (currentCount >= 1000) {
+            const kVal = (currentCount / 1000).toFixed(1).replace(/\.0$/, '');
+            setDisplayValue(`${prefix}${kVal}${suffix}`);
+          } else {
+            // Rapid rolling numbers before settling to 1K+
+            const rawSuffix = suffix.replace(/^K/i, '');
+            setDisplayValue(`${prefix}${currentCount}${rawSuffix}`);
+          }
+        } else {
+          const isInt = !value.includes('.');
+          const current = targetNum * ease;
+          const formattedNum = isInt ? Math.round(current) : current.toFixed(1);
+          setDisplayValue(`${prefix}${formattedNum}${suffix}`);
+        }
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setDisplayValue(value);
+        }
+      };
+
+      rafId = requestAnimationFrame(step);
+      return () => cancelAnimationFrame(rafId);
+    }, index * 160);
+
+    return () => clearTimeout(delayTimer);
+  }, [value, trigger, index]);
+
+  return (
+    <b
+      className={`stat-value ${hasStarted ? 'stat-value--active' : ''}`}
+      style={{
+        fontVariantNumeric: 'tabular-nums',
+        display: 'inline-block',
+      }}
+    >
+      {displayValue}
+    </b>
+  );
+}
+
 export function JourneyStatsBlock({ section }: { section: JourneyStatsSection }) {
   const milestones = section.milestones ?? [];
   const stats = section.stats ?? [];
+  const statsRef = useRef<HTMLDivElement | null>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHasAnimated(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const rawPill = section.pill || 'The Walstar Way';
   const pillText = cleanPill(rawPill) || 'The Walstar Way';
 
@@ -341,6 +598,11 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
                 key={`${milestone.era}-${milestone.id ?? idx}`}
                 className={milestone.isCurrent ? 'tlv-item now' : 'tlv-item'}
               >
+                <span className="tlv-node" aria-hidden="true">
+                  <span className="tlv-node-ring">
+                    <span className="tlv-node-dot" />
+                  </span>
+                </span>
                 <small className="tlv-era">{milestone.era}</small>
                 <h4 className="tlv-title">{milestone.title}</h4>
                 <p className="tlv-desc">{renderMultilineText(milestone.description)}</p>
@@ -351,10 +613,10 @@ export function JourneyStatsBlock({ section }: { section: JourneyStatsSection })
       </div>
 
       {stats.length > 0 ? (
-        <div className="stats">
+        <div className="stats" ref={statsRef}>
           {stats.map((stat, idx) => (
             <div key={`${stat.value}-${stat.id ?? idx}`} className="stat-item">
-              <b className="stat-value">{stat.value}</b>
+              <AnimatedStatValue value={stat.value} trigger={hasAnimated} index={idx} />
               <span className="stat-label">{renderMultilineText(stat.label)}</span>
             </div>
           ))}
@@ -500,49 +762,243 @@ export function SolutionsGridBlock({ section }: { section: SolutionsGridSection 
         </div>
       </div>
 
-      {/* Full-width continuous scrolling marquee row */}
-      <div className="sol-marquee-viewport">
-        <div
-          className={`sol-marquee-track ${direction === 'right' ? 'is-reverse' : ''}`}
-          style={{ animationDuration: `${speed}s` }}
-        >
-          {marqueeItems.map((item, idx) => {
-            const key = `sol-${item.number}-${idx}`;
-            const numVal = parseInt(item.number.replace(/\D/g, ''), 10) || (idx + 1);
-            const isOrange = numVal % 2 === 0;
-            const cardClass = `sc solution-marquee-card ${isOrange ? 'sol-card--orange solution-marquee-card--orange' : 'sol-card--blue solution-marquee-card--blue'}`;
-
-            const cardBody = (
-              <>
-                <div className="n sc-header">
-                  <span className="sc-number n-num sol-card-num">{item.number}</span>
-                  <i aria-hidden="true" className="sc-arrow n-arrow">
-                    <WalstarButtonArrow className="sc-arrow-icon" width={18} height={18} strokeWidth={1.5} />
-                  </i>
-                </div>
-                <h4 className="sc-heading">{item.title}</h4>
-                <div className="sc-divider sol-card-divider" aria-hidden="true" />
-                {item.category ? <small className="sc-desc sol-card-category">{item.category}</small> : null}
-              </>
-            );
-
-            if (item.href) {
-              return (
-                <Link key={key} href={item.href} className={cardClass}>
-                  {cardBody}
-                </Link>
-              );
-            }
-
-            return (
-              <article key={key} className={cardClass}>
-                {cardBody}
-              </article>
-            );
-          })}
-        </div>
-      </div>
+      {/* Interactive Drag & Auto-Scrolling Solutions Marquee */}
+      <InteractiveSolutionsMarquee items={incomingItems} speed={speed} direction={direction} />
     </section>
+  );
+}
+
+function InteractiveSolutionsMarquee({
+  items,
+  speed,
+  direction,
+}: {
+  items: Array<{ number: string; title: string; category?: string | null; href?: string | null }>;
+  speed: number;
+  direction: 'left' | 'right';
+}) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const posRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const isUserScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const startXRef = useRef(0);
+  const startPosRef = useRef(0);
+  const movedRef = useRef(false);
+  const lastTimeRef = useRef<number>(performance.now());
+  const rafRef = useRef<number | null>(null);
+  const [isGrabbing, setIsGrabbing] = useState(false);
+
+  // 3 duplicate cycles create a smooth infinite seamless marquee loop
+  const marqueeItems = useMemo(() => [...items, ...items, ...items], [items]);
+
+  useEffect(() => {
+    lastTimeRef.current = performance.now();
+
+    const loop = (now: number) => {
+      const dt = (now - lastTimeRef.current) / 1000;
+      lastTimeRef.current = now;
+
+      const track = trackRef.current;
+      if (track) {
+        const cycleWidth = track.scrollWidth / 3;
+
+        // Auto-scroll continuously unless actively dragging or wheel-scrolling
+        if (!isDraggingRef.current && !isUserScrollingRef.current && cycleWidth > 0) {
+          const pixelsPerSecond = cycleWidth / Math.max(8, speed);
+          const safeDt = Math.min(dt, 0.05);
+          const delta = pixelsPerSecond * safeDt * (direction === 'right' ? -1 : 1);
+
+          posRef.current += delta;
+
+          // Wrap around seamlessly
+          if (posRef.current >= cycleWidth) {
+            posRef.current -= cycleWidth;
+          } else if (posRef.current < 0) {
+            posRef.current += cycleWidth;
+          }
+
+          track.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
+        }
+      }
+
+      rafRef.current = requestAnimationFrame(loop);
+    };
+
+    rafRef.current = requestAnimationFrame(loop);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [speed, direction, marqueeItems]);
+
+  // Global window release ensures drag never gets stuck even if released outside window
+  useEffect(() => {
+    const handleGlobalRelease = () => {
+      if (isDraggingRef.current || isUserScrollingRef.current) {
+        isDraggingRef.current = false;
+        isUserScrollingRef.current = false;
+        setIsGrabbing(false);
+        lastTimeRef.current = performance.now();
+      }
+    };
+
+    window.addEventListener('pointerup', handleGlobalRelease);
+    window.addEventListener('pointercancel', handleGlobalRelease);
+    return () => {
+      window.removeEventListener('pointerup', handleGlobalRelease);
+      window.removeEventListener('pointercancel', handleGlobalRelease);
+    };
+  }, []);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    startPosRef.current = posRef.current;
+    movedRef.current = false;
+    setIsGrabbing(true);
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    const dx = e.clientX - startXRef.current;
+    if (Math.abs(dx) > 4) {
+      movedRef.current = true;
+    }
+    const track = trackRef.current;
+    if (!track) return;
+    const cycleWidth = track.scrollWidth / 3;
+
+    posRef.current = startPosRef.current - dx;
+
+    // Wrap seamlessly while dragging
+    if (cycleWidth > 0) {
+      posRef.current = ((posRef.current % cycleWidth) + cycleWidth) % cycleWidth;
+    }
+
+    track.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = false;
+    isUserScrollingRef.current = false;
+    setIsGrabbing(false);
+    lastTimeRef.current = performance.now();
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  // When mouse leaves the marquee div, instantly autostart scrolling smoothly
+  const handleLeave = () => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = null;
+    }
+    isUserScrollingRef.current = false;
+    isDraggingRef.current = false;
+    setIsGrabbing(false);
+    lastTimeRef.current = performance.now();
+  };
+
+  // Wheel scrubbing forward and backward
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cycleWidth = track.scrollWidth / 3;
+
+    // Use deltaX if available, or deltaY for standard vertical mouse wheel
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(delta) > 0) {
+      isUserScrollingRef.current = true;
+      posRef.current += delta;
+
+      if (cycleWidth > 0) {
+        posRef.current = ((posRef.current % cycleWidth) + cycleWidth) % cycleWidth;
+      }
+
+      track.style.transform = `translate3d(-${posRef.current}px, 0, 0)`;
+
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isUserScrollingRef.current = false;
+        lastTimeRef.current = performance.now();
+      }, 70);
+    }
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (movedRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  return (
+    <div
+      className={`sol-marquee-viewport sol-marquee-viewport--interactive ${isGrabbing ? 'is-grabbing' : ''}`}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      onPointerLeave={handleLeave}
+      onMouseLeave={handleLeave}
+      onWheel={handleWheel}
+      style={{
+        overflow: 'hidden',
+        cursor: isGrabbing ? 'grabbing' : 'grab',
+        touchAction: 'pan-y',
+      }}
+    >
+      <div
+        ref={trackRef}
+        className="sol-marquee-track sol-marquee-track--static"
+        style={{ willChange: 'transform' }}
+      >
+        {marqueeItems.map((item, idx) => {
+          const key = `sol-${item.number}-${idx}`;
+          const numVal = parseInt(item.number.replace(/\D/g, ''), 10) || (idx + 1);
+          const isOrange = numVal % 2 === 0;
+          const cardClass = `sc solution-marquee-card ${isOrange ? 'sol-card--orange solution-marquee-card--orange' : 'sol-card--blue solution-marquee-card--blue'}`;
+
+          const cardBody = (
+            <>
+              <div className="n sc-header">
+                <span className="sc-number n-num sol-card-num">{item.number}</span>
+                <i aria-hidden="true" className="sc-arrow n-arrow">
+                  <WalstarButtonArrow className="sc-arrow-icon" width={18} height={18} strokeWidth={1.5} />
+                </i>
+              </div>
+              <h4 className="sc-heading">{item.title}</h4>
+              <div className="sc-divider sol-card-divider" aria-hidden="true" />
+              {item.category ? <small className="sc-desc sol-card-category">{item.category}</small> : null}
+            </>
+          );
+
+          if (item.href) {
+            return (
+              <Link
+                key={key}
+                href={item.href}
+                className={cardClass}
+                onClick={handleCardClick}
+                draggable={false}
+              >
+                {cardBody}
+              </Link>
+            );
+          }
+
+          return (
+            <article key={key} className={cardClass}>
+              {cardBody}
+            </article>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -634,6 +1090,7 @@ function resolveTickerIcon(item: TickerLabelItem): string {
 }
 
 export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
+  const [activeRowIdx, setActiveRowIdx] = useState<number | null>(null);
   const reasons =
     section.reasons && section.reasons.length > 0 ? section.reasons : FALLBACK_WHY_REASONS;
   const tickerItems =
@@ -672,8 +1129,15 @@ export function WhyChooseBlock({ section }: { section: WhyChooseSection }) {
           <div className="rows">
             {reasons.map((reason, idx) => {
               const iconUrl = resolveWhyIcon(reason, idx);
+              const isRowActive = activeRowIdx === idx;
               return (
-                <div key={`${reason.title}-${reason.id ?? idx}`} className="row">
+                <div
+                  key={`${reason.title}-${reason.id ?? idx}`}
+                  className={`row ${isRowActive ? 'is-highlighted' : ''}`}
+                  onMouseEnter={() => setActiveRowIdx(idx)}
+                  onMouseLeave={() => setActiveRowIdx(null)}
+                  onClick={() => setActiveRowIdx((prev) => (prev === idx ? null : idx))}
+                >
                   <div className="why-icon-wrap" aria-hidden="true">
                     <Image
                       src={iconUrl}
@@ -865,6 +1329,18 @@ export function VisionMissionBlock({ section }: { section: VisionMissionSection 
   );
 }
 
+function formatExecutiveQuote(quote?: string | null): string | null | undefined {
+  if (!quote) return quote;
+  const trimmed = quote.trim();
+  if (
+    trimmed.toLowerCase().includes('quality is not') &&
+    trimmed.toLowerCase().includes('foundation')
+  ) {
+    return '“Quality Is Not\nOptional. It Is Our\nFoundation.”';
+  }
+  return quote;
+}
+
 export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection }) {
   const executives = section.executives ?? [];
   const advisoryMembers = section.advisoryMembers ?? [];
@@ -904,7 +1380,7 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
               </svg>
             </b>
             {section.executiveQuote ? (
-              <em className="team-quote-text">{renderMultilineText(section.executiveQuote)}</em>
+              <em className="team-quote-text">{renderMultilineText(formatExecutiveQuote(section.executiveQuote))}</em>
             ) : null}
             {section.executiveQuoteAuthor ? (
               <small className="team-quote-author">{section.executiveQuoteAuthor}</small>
@@ -916,6 +1392,7 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
               key={`exec-${member.id ?? idx}`}
               member={member}
               variant="executive"
+              index={idx}
             />
           ))}
         </div>
@@ -928,7 +1405,8 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
                 <TeamMemberCard
                   key={`adv-${member.id ?? idx}`}
                   member={member}
-                  variant="avatar"
+                  variant="advisory"
+                  index={idx}
                 />
               ))}
             </div>
@@ -943,7 +1421,8 @@ export function TeamShowcaseBlock({ section }: { section: TeamShowcaseSection })
                 <TeamMemberCard
                   key={`sales-${member.id ?? idx}`}
                   member={member}
-                  variant="avatar"
+                  variant="sales"
+                  index={idx}
                 />
               ))}
             </div>

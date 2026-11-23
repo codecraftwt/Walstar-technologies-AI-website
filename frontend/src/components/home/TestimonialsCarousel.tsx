@@ -9,6 +9,7 @@ import {
   type TransitionEvent,
 } from 'react';
 import { getStrapiMediaUrl, STRAPI_IMAGE_PLACEHOLDER } from '@/lib/strapi';
+import { cleanPill } from '@/components/common/SectionPrimitives';
 import type { TestimonialItem } from '@/types/strapi';
 
 interface TestimonialsCarouselProps {
@@ -339,7 +340,7 @@ export function TestimonialsCarousel({
     return (
       <section className="tm">
         <div className="head">
-          {tag ? <span className="pill">{tag}</span> : null}
+          {tag ? <span className="pill">{cleanPill(tag)}</span> : null}
           <h2 className="tm-heading">
             {headingPrefix} <span className="serif">{headingSerif}</span>
           </h2>
@@ -356,7 +357,7 @@ export function TestimonialsCarousel({
   return (
     <section className="tm">
       <div className="head">
-        {tag ? <span className="pill">{tag}</span> : null}
+        {tag ? <span className="pill">{cleanPill(tag)}</span> : null}
         <h2 className="tm-heading">
           {headingPrefix} <span className="serif">{headingSerif}</span>
         </h2>

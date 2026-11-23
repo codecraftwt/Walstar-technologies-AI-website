@@ -269,22 +269,27 @@ export function BeforeAfterSlider({ section }: { section: BeforeAfterSection }) 
 
         <div className="ba-scrim" aria-hidden="true" />
 
-        <div className="ba-overlay">
+        {/* BEFORE COPY OVERLAY: Clipped to [0, ba-pos], slides behind After image without wrapping */}
+        <div className="ba-overlay ba-overlay--before">
           {renderSideCopy(
             beforeEyebrow,
             beforeTitle,
             beforeCaption,
             'before',
             isBeforeActive,
-            isBeforeHidden
+            false
           )}
+        </div>
+
+        {/* AFTER COPY OVERLAY: Clipped to [ba-pos, 100%], slides behind Before image without wrapping */}
+        <div className="ba-overlay ba-overlay--after">
           {renderSideCopy(
             afterEyebrow,
             afterTitle,
             afterCaption,
             'after',
             isAfterActive,
-            isAfterHidden
+            false
           )}
         </div>
 

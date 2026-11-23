@@ -62,44 +62,73 @@
   color: var(--blue);
 }
 
-/* Section eyebrow chips (About Us, Capabilities, Our Products, Honest Clients, Case Studies, etc.) */
+/* =========================================================================
+   GLOBAL SECTION PILL / BADGE STYLES (MATCHING REFERENCE DESIGN)
+   Clean white capsule with crisp border, subtle elevation & electric blue dot
+   ========================================================================= */
 .pill,
-.tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(6px, 0.521vw, 10px);
-  background: #FFFFFF;
-  border-radius: 999px;
-  padding: clamp(6px, 0.521vw, 10px) clamp(12px, 1.042vw, 20px);
-  font-family: Poppins, system-ui, -apple-system, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: clamp(11.5px, 0.833vw, 16px);
-  line-height: 1;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  color: var(--mute);
-  /* margin-bottom: clamp(10px, 1vw, 16px); */
-  box-shadow: 0 2px 10px rgba(20, 21, 74, 0.05);
-  border: 1px solid rgba(20, 21, 74, 0.08);
-  width: fit-content;
-  max-width: 100%;
-  white-space: nowrap;
-  box-sizing: border-box;
+.tag,
+.section-badge,
+.contact-interest-pill,
+.contact-info-pill,
+.about-pill,
+.who-pill,
+.team-pill,
+.why-pill,
+.way-pill,
+.sol-pill,
+.vm-pill,
+.offices-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: #FFFFFF !important;
+  border-radius: 9999px !important;
+  padding: clamp(6px, 0.45vw, 8px) clamp(14px, 0.9vw, 18px) !important;
+  font-family: Poppins, system-ui, -apple-system, sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(11.5px, 0.73vw, 13.5px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #0A142F !important;
+  margin-top: 0 !important;
+  margin-bottom: clamp(12px, 0.9vw, 18px) !important;
+  box-shadow: 0 2px 8px rgba(20, 21, 74, 0.04) !important;
+  border: 1px solid rgba(20, 21, 74, 0.08) !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  opacity: 1 !important;
+  transform: rotate(0deg) !important;
 }
 
 .pill::before,
-.tag::before {
-  content: "";
-  display: inline-block;
-  width: clamp(7px, 0.521vw, 10px);
-  height: clamp(7px, 0.521vw, 10px);
-  border-radius: 50%;
-  background: #0073DE;
-  opacity: 1;
-  transform: rotate(0deg);
-  flex-shrink: 0;
+.tag::before,
+.section-badge::before,
+.contact-interest-pill::before,
+.contact-info-pill::before,
+.about-pill::before,
+.who-pill::before,
+.team-pill::before,
+.why-pill::before,
+.way-pill::before,
+.sol-pill::before,
+.vm-pill::before,
+.offices-pill::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: #2F80FF !important;
+  opacity: 1 !important;
+  transform: rotate(0deg) !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
 }
 
 .walstar-btn,
@@ -1273,6 +1302,33 @@ html.walstar-scroll-locked {
   }
 }
 
+/* Homepage divider below partner logos (Figma Line 4: width 1601px, 1px solid #34343433 at 1920px canvas, responsive) */
+.partner-strip-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.homepage-hero-divider,
+.partner-strip-divider {
+  display: block;
+  width: min(1601px, min(83.3854vw, calc(100vw - (var(--page-px) * 2))));
+  max-width: 1601px;
+  height: 0;
+  border: 0;
+  border-top: 1px solid rgba(52, 52, 52, 0.2);
+  border-top: 1px solid #34343433;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .homepage-hero-divider,
+  .partner-strip-divider {
+    width: calc(100vw - (var(--page-px) * 2));
+    max-width: calc(100% - (var(--page-px) * 2));
+  }
+}
+
 /* about */
 .about {
   background: #F3F4F6;
@@ -1339,14 +1395,35 @@ html.walstar-scroll-locked {
 .about h2,
 .about-heading,
 .who h2,
+.who-heading,
 .way h2,
+.way-heading,
 .sol .hd2 h2,
+.sol-heading,
 .why .hd2 h2,
+.why-heading,
 .vm-sec .hd2 h2,
+.vm-heading,
 .team .hd2 h2,
+.team-heading,
 .offices .hd2 h2,
+.offices-heading,
+.sec.offices h2,
 .contact-interest-heading,
-.contact-panel-heading {
+.contact-panel-heading,
+.wwd-heading,
+.capabilities-title,
+.proc-heading,
+.prod-heading,
+.trust-heading,
+.case-heading,
+.tm-heading,
+.svc-heading,
+.section-header-heading,
+.section-heading__title,
+.introduction-section__title,
+.split-heading__title,
+.final-call-to-action-section__title {
   margin: 12px 0 16px;
   line-height: 1.18;
   font-family: Urbanist, Poppins, system-ui, -apple-system, sans-serif !important;
@@ -1364,14 +1441,40 @@ html.walstar-scroll-locked {
 .about h2 .serif,
 .about-heading .serif,
 .who h2 .serif,
+.who-heading .serif,
 .way h2 .serif,
+.way-heading .serif,
 .sol .hd2 h2 .serif,
+.sol-heading .serif,
 .why .hd2 h2 .serif,
+.why-heading .serif,
 .vm-sec .hd2 h2 .serif,
+.vm-heading .serif,
 .team .hd2 h2 .serif,
+.team-heading .serif,
 .offices .hd2 h2 .serif,
+.offices-heading .serif,
+.sec.offices h2 .serif,
 .contact-interest-heading .serif,
-.contact-panel-heading .serif {
+.contact-panel-heading .serif,
+.wwd-heading .serif,
+.capabilities-title .serif,
+.proc-heading .serif,
+.proc-heading-accent,
+.prod-heading .serif,
+.trust-heading .serif,
+.case-heading .serif,
+.tm-heading .serif,
+.svc-heading .serif,
+.section-header-heading .serif,
+.section-heading__title .serif,
+.introduction-section__title .serif,
+.split-heading__title .serif,
+.final-call-to-action-section__title .serif,
+.about-heading-serif,
+.who-heading-serif,
+.way-heading-serif,
+.sol-heading-serif {
   color: #2F80FF !important;
   font-family: Georgia, "Instrument Serif", serif !important;
   font-weight: 400 !important;
@@ -2956,51 +3059,44 @@ html.walstar-scroll-locked {
   position: absolute;
   inset: 0;
   z-index: 4;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
-  padding: clamp(20px, 3vw, 34px) var(--ba-pad);
   pointer-events: none;
   color: #fff;
   overflow: hidden;
 }
 
+.ba-overlay--before {
+  clip-path: inset(0 calc(100% - var(--ba-pos, 50%)) 0 0);
+  -webkit-clip-path: inset(0 calc(100% - var(--ba-pos, 50%)) 0 0);
+}
+
+.ba-overlay--after {
+  clip-path: inset(0 0 0 var(--ba-pos, 50%));
+  -webkit-clip-path: inset(0 0 0 var(--ba-pos, 50%));
+}
+
 .ba-copy {
+  position: absolute;
+  bottom: clamp(20px, 3vw, 36px);
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
-  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: max-width, opacity, transform;
+  min-width: max-content;
+  max-width: none !important;
+  white-space: nowrap !important;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .ba-copy--before {
+  left: var(--ba-pad);
   align-items: flex-start;
   text-align: left;
-  /* Constrained by slider position from left: as slider moves left & touches the text div, max-width shrinks & text wraps */
-  max-width: min(460px, calc(var(--ba-pos, 50%) - var(--ba-pad, 40px) - 18px));
-}
-
-.ba-copy--before.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-14px) scale(0.96);
 }
 
 .ba-copy--after {
+  right: var(--ba-pad);
   align-items: flex-end;
   text-align: right;
-  margin-left: auto;
-  /* Constrained by slider position from right: as slider moves right & touches the text div, max-width shrinks & text wraps */
-  max-width: min(460px, calc(100% - var(--ba-pos, 50%) - var(--ba-pad, 40px) - 18px));
-}
-
-.ba-copy--after.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(14px) scale(0.96);
 }
 
 .ba-pill {
@@ -3008,14 +3104,15 @@ html.walstar-scroll-locked {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 6px 18px;
-  font-size: 11px;
-  font-weight: 500;
+  padding: clamp(6px, 0.45vw, 8px) clamp(16px, 1.1vw, 22px);
+  font-family: Poppins, system-ui, sans-serif;
+  font-size: clamp(11px, 0.73vw, 13px);
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1.2;
-  margin-bottom: 12px;
-  white-space: nowrap;
+  margin-bottom: clamp(10px, 0.75vw, 14px);
+  white-space: nowrap !important;
   flex-shrink: 0;
   transition: background-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
@@ -3036,7 +3133,8 @@ html.walstar-scroll-locked {
   box-shadow: none;
 }
 
-/* Active pill state: Orange background on whichever side has more width */
+/* Before pill & Active pill state: Orange background with glow matching reference image */
+.ba-pill--before,
 .ba-pill.is-active,
 .ba-pill--active,
 .ba-stage[data-active-side="before"] .ba-pill--before,
@@ -3045,7 +3143,7 @@ html.walstar-scroll-locked {
   background: var(--orange, #E96D01);
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 2px 14px rgba(233, 109, 1, 0.45);
+  box-shadow: 0 4px 18px rgba(233, 109, 1, 0.45);
 }
 
 /* Ensure inactive side remains default translucent pill */
@@ -3056,33 +3154,26 @@ html.walstar-scroll-locked {
   box-shadow: none;
 }
 
-.ba-stage[data-active-side="after"] .ba-pill--before {
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  background: rgba(12, 14, 24, 0.46);
-  color: #fff;
-  box-shadow: none;
-}
-
 .ba-sub {
   display: block;
-  font-size: 12px;
-  font-weight: 400;
+  font-family: Poppins, system-ui, sans-serif;
+  font-size: clamp(13px, 0.9vw, 16px);
+  font-weight: 500;
   line-height: 1.35;
-  color: rgba(255, 255, 255, 0.86);
-  margin-bottom: 4px;
-  white-space: normal;
-  overflow-wrap: break-word;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: clamp(4px, 0.35vw, 6px);
+  white-space: nowrap !important;
 }
 
 .ba-title {
   display: block;
-  font-size: clamp(16px, 1.8vw, 22px);
-  font-weight: 500;
+  font-family: Urbanist, Poppins, system-ui, sans-serif;
+  font-size: clamp(18px, 1.9vw, 30px);
+  font-weight: 600;
   line-height: 1.25;
+  letter-spacing: -0.01em;
   color: #fff;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: normal;
+  white-space: nowrap !important;
 }
 
 .ba-divider {
@@ -3229,7 +3320,7 @@ html.walstar-scroll-locked {
 }
 
 .walstar-footer {
-  background: #001930;
+  background: #161332;
   color: #fff;
   border-radius: clamp(24px, 2.2vw, 40px);
   margin-top: calc(-0.5 * clamp(160px, 11vw, 200px));
@@ -3389,21 +3480,37 @@ html.walstar-scroll-locked {
   opacity: 1;
 }
 
-.nf {
+.nf,
+.footer-newsletter-input-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #161332;
   border: 1px solid #FFFFFF3D;
   border-radius: clamp(24px, 2.031vw, 39px);
-  padding: clamp(6px, 0.521vw, 10px) clamp(6px, 0.469vw, 9px) clamp(6px, 0.521vw, 10px) clamp(14px, 1.406vw, 27px);
+  padding: clamp(8px, 0.521vw, 10px) clamp(8px, 0.469vw, 9px) clamp(8px, 0.521vw, 10px) clamp(16px, 1.406vw, 27px);
   width: min(587px, 100%);
   max-width: 587px;
-  min-height: clamp(48px, 3.49vw, 67px);
-  gap: clamp(12px, 2.5vw, 48px);
+  min-height: clamp(52px, 3.49vw, 67px);
+  gap: clamp(16px, 4.375vw, 84px);
   box-sizing: border-box;
   opacity: 1;
   transform: rotate(0deg);
+}
+
+@media (min-width: 1920px) {
+  .nf,
+  .footer-newsletter-input-group {
+    width: 587px !important;
+    height: 67px !important;
+    min-height: 67px !important;
+    padding: 10px 9px 10px 27px !important;
+    gap: 84px !important;
+    border-radius: 39px !important;
+    border: 1px solid #FFFFFF3D !important;
+    opacity: 1 !important;
+    transform: rotate(0deg) !important;
+  }
 }
 
 .nf:focus-within {
@@ -4743,28 +4850,32 @@ html.walstar-scroll-locked {
   }
   .ba-overlay {
     --ba-pad: 16px;
-    padding: 16px;
-    gap: 10px;
+    padding: 0;
   }
   .ba-copy {
-    max-width: none;
+    bottom: 16px;
+    max-width: none !important;
+    white-space: nowrap !important;
   }
   .ba-copy--before {
-    max-width: min(320px, calc(var(--ba-pos, 50%) - 16px - 14px));
+    left: 16px;
+    max-width: none !important;
   }
   .ba-copy--after {
-    max-width: min(320px, calc(100% - var(--ba-pos, 50%) - 16px - 14px));
+    right: 16px;
+    max-width: none !important;
   }
   .ba-pill {
     padding: 5px 12px;
     font-size: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .ba-sub {
     font-size: 11px;
+    margin-bottom: 2px;
   }
   .ba-title {
-    font-size: 14px;
+    font-size: clamp(14px, 4vw, 17px);
   }
   .ba-knob {
     width: 34px;
@@ -4912,35 +5023,13 @@ html.walstar-scroll-locked {
   padding-bottom: 8px;
 }
 
-.sec.offices .pill {
-  width: fit-content;
-  border: 0;
-  box-shadow: 0 2px 8px rgba(18, 18, 58, 0.08);
-  padding: 12px 16px;
-  gap: 10px;
-  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 13px;
-  line-height: 100%;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  color: #343434;
-  white-space: nowrap;
-}
-
-.sec.offices .pill::before {
-  width: 8px;
-  height: 8px;
-}
-
 .sec.offices h2 {
   font-family: Urbanist, Poppins, sans-serif;
   font-weight: 600;
   font-style: normal;
   font-size: clamp(32px, 4vw, 46px);
-  line-height: 100%;
-  letter-spacing: 0;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
   text-align: center;
   color: #001930;
 }
@@ -4949,11 +5038,11 @@ html.walstar-scroll-locked {
   font-family: Georgia, "Instrument Serif", serif;
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(32px, 4vw, 46px);
-  line-height: 100%;
+  font-size: inherit;
+  line-height: inherit;
   letter-spacing: 0;
   text-align: center;
-  color: #41a3ff;
+  color: #2F80FF;
 }
 
 .walstar-page--contact .sec.offices {
@@ -4970,8 +5059,8 @@ html.walstar-scroll-locked {
 .sec.contact-sec > .wrap,
 .contact-sec > .wrap,
 .sec.offices > .wrap {
-  width: min(1602px, min(83.4375vw, calc(100vw - (var(--page-px) * 2))));
-  max-width: 1602px;
+  width: min(1604px, min(83.5417vw, calc(100vw - (var(--page-px) * 2))));
+  max-width: 1604px;
   margin-inline: auto;
   box-sizing: border-box;
 }
@@ -4988,55 +5077,41 @@ html.walstar-scroll-locked {
 
 .contact-interest-media,
 .who.contact-interest .ph,
-.contact-interest .ph {
-  position: relative;
-  width: 100%;
-  max-width: 655px;
-  height: auto;
-  aspect-ratio: 655 / 617;
-  max-height: 617px;
-  min-height: clamp(260px, 24vw, 480px);
-  border-radius: clamp(16px, 1.25vw, 24px);
-  overflow: hidden;
-  opacity: 1;
-  transform: rotate(0deg);
+.contact-interest .ph,
+.contact-interest .contact-interest-media {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 655px !important;
+  height: auto !important;
+  aspect-ratio: 655 / 617 !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  border-radius: clamp(16px, 1.25vw, 24px) !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  transform: rotate(0deg) !important;
+  box-sizing: border-box !important;
   background: #f0f4f8 url('https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png') center / cover no-repeat;
+}
+
+@media (min-width: 1920px) {
+  .contact-interest-media,
+  .who.contact-interest .ph,
+  .contact-interest .ph,
+  .contact-interest .contact-interest-media {
+    width: 655px !important;
+    height: 617px !important;
+    border-radius: 24px !important;
+  }
+  .contact-chip {
+    font-size: 20px !important;
+    padding: 13px 24px !important;
+    line-height: 100% !important;
+  }
 }
 
 .contact-interest-copy {
   padding-top: 4px;
-}
-
-.contact-interest-copy .pill {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  margin-bottom: 18px;
-  border: 0;
-  box-shadow: none;
-  padding: 8px 16px;
-  gap: 8px;
-  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 500;
-  font-style: normal;
-  font-size: 13px;
-  line-height: 100%;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #343434;
-  white-space: nowrap;
-  background: #ffffff;
-  border-radius: 999px;
-}
-
-.contact-interest-copy .pill::before {
-  content: "";
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #007bff;
-  flex-shrink: 0;
 }
 
 .contact-interest-copy h2,
@@ -5071,13 +5146,13 @@ html.walstar-scroll-locked {
   flex: 0 0 auto;
   background: #ffffff;
   border: 1.5px solid #70B4FF;
-  color: #555555;
+  color: #666666;
   border-radius: 999px;
-  padding: clamp(9px, 0.625vw, 12px) clamp(16px, 1.042vw, 22px);
+  padding: clamp(9px, 0.65vw, 13px) clamp(14px, 1.15vw, 24px);
   font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: clamp(12.5px, 0.78125vw, 15px);
+  font-size: clamp(13px, 0.9vw + 2.7px, 20px);
   line-height: 100%;
   letter-spacing: 0;
   text-align: center;
@@ -5140,31 +5215,7 @@ html.walstar-scroll-locked {
   flex-direction: column;
 }
 
-.contact-info-col .pill {
-  width: fit-content;
-  max-width: 100%;
-  align-self: flex-start;
-  background: #fff;
-  margin-bottom: 18px;
-  border: 0;
-  box-shadow: 0 2px 8px rgba(18, 18, 58, 0.08);
-  font-family: Poppins, ui-sans-serif, system-ui, sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 13px;
-  line-height: 100%;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #343434;
-  white-space: nowrap;
-  gap: 10px;
-  padding: 12px 18px;
-}
 
-.contact-info-col .pill::before {
-  width: 8px;
-  height: 8px;
-}
 
 .contact-info-col h2,
 .contact-panel-heading {
@@ -5718,30 +5769,22 @@ html.walstar-scroll-locked {
 
   .contact-interest-media,
   .who.contact-interest .ph,
-  .contact-interest .ph {
-    width: 100%;
-    max-width: 655px;
-    aspect-ratio: 655 / 617;
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    border-radius: clamp(16px, 2.5vw, 24px);
-    margin-inline: auto;
+  .contact-interest .ph,
+  .contact-interest .contact-interest-media {
+    width: 100% !important;
+    max-width: min(100%, 655px) !important;
+    aspect-ratio: 655 / 617 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-radius: clamp(16px, 2.5vw, 24px) !important;
+    margin-inline: auto !important;
   }
 
   .contact-interest-copy {
     text-align: left;
   }
 
-  .contact-interest-copy .pill,
-  .contact-info-col .pill,
-  .sec.offices .pill {
-    max-width: 100%;
-    white-space: normal;
-    line-height: 1.3;
-    font-size: 11px;
-    padding: 10px 14px;
-  }
 
   .contact-interest-copy h2,
   .contact-panel-heading,
@@ -6027,10 +6070,11 @@ html.walstar-scroll-locked {
 
   .contact-interest-media,
   .who.contact-interest .ph,
-  .contact-interest .ph {
-    max-width: 100%;
-    aspect-ratio: 655 / 617;
-    border-radius: 16px;
+  .contact-interest .ph,
+  .contact-interest .contact-interest-media {
+    max-width: 100% !important;
+    aspect-ratio: 655 / 617 !important;
+    border-radius: 16px !important;
   }
 
   .contact-chip {
@@ -6385,38 +6429,97 @@ html.walstar-scroll-locked {
 
 .tlv > div {
   position: relative;
+  z-index: 1;
 }
 
 .tlv > div:not(:last-child)::after {
   content: "";
   position: absolute;
-  left: calc(var(--tlv-dot-center, -32px) - 1px);
-  top: 20px;
-  height: calc(100% + var(--tlv-gap, 52px) - 16px);
-  border-left: 2px dotted #257CE6;
+  left: var(--tlv-dot-center, -32px);
+  transform: translateX(-50%);
+  top: 10px;
+  height: calc(100% + var(--tlv-gap, 52px));
+  border-left: 1px dashed #B2B2B2;
   opacity: 1;
   pointer-events: none;
+  z-index: 0;
 }
 
-.tlv > div::before {
-  content: "";
-  position: absolute;
-  left: -40px;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 1px solid #4aa3ff;
-  background: radial-gradient(#3b9eff 4px, var(--sky) 5px);
-}
-
+.tlv > div::before,
 .tlv > div.now::before {
-  background: radial-gradient(var(--orange) 4px, #e6e6e6 5px);
-  border-color: #ddd;
-  width: 22px;
-  height: 22px;
-  left: -43px;
-  top: -1px;
+  display: none !important;
+}
+
+/* Dedicated Centered Concentric Circles Timeline Node */
+.tlv-node {
+  position: absolute;
+  left: var(--tlv-dot-center, -32px);
+  top: 10px;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #EBF4FF;
+  border: 1.5px solid #4AA3FF;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.tlv-node-ring {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tlv-node-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #257CE6;
+  display: block;
+}
+
+/* Center Highlight Circle for Current/Today ("The Walstar Way" Center Node) */
+/* 1920 Specs: Outer 42px (#E96D011F, border 1px #E96D0142), Inner 22px (#FFFFFF), Dot 11px (#E96D01) */
+.tlv-item.now {
+  z-index: 2;
+}
+
+.tlv-item.now .tlv-node,
+.tlv > div.now .tlv-node {
+  width: clamp(34px, 2.1875vw, 42px);
+  height: clamp(34px, 2.1875vw, 42px);
+  background-color: var(--sky, #DDEFFF);
+  background-image: linear-gradient(#E96D011F, #E96D011F);
+  border: 1px solid #E96D0142;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.tlv-item.now .tlv-node-ring,
+.tlv > div.now .tlv-node-ring {
+  width: clamp(18px, 1.1458vw, 22px);
+  height: clamp(18px, 1.1458vw, 22px);
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 1px 4px rgba(233, 109, 1, 0.12);
+}
+
+.tlv-item.now .tlv-node-dot,
+.tlv > div.now .tlv-node-dot {
+  width: clamp(9px, 0.5729vw, 11px);
+  height: clamp(9px, 0.5729vw, 11px);
+  background: #E96D01;
+  border: 1px solid #E96D0142;
+  border-radius: 50%;
 }
 
 .tlv small,
@@ -6503,6 +6606,27 @@ html.walstar-scroll-locked {
   letter-spacing: 0 !important;
   white-space: nowrap !important;
   flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.stats .stat-value.stat-value--active {
+  animation: statPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes statPopIn {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.7;
+  }
+  60% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .stats span,
@@ -6567,8 +6691,17 @@ html.walstar-scroll-locked {
   animation-play-state: paused !important;
 }
 
-.sol-marquee-track:hover {
-  animation-play-state: paused;
+.sol-marquee-track--static {
+  animation: none !important;
+}
+
+.sol-marquee-viewport--interactive {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sol-marquee-viewport--interactive::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes solMarqueeLeft {
@@ -6791,8 +6924,18 @@ html.walstar-scroll-locked {
   align-items: center;
   gap: clamp(24px, 3.5vw, 68px);
   border-bottom: 1px solid rgba(11, 29, 54, 0.12);
-  padding: clamp(24px, 1.875vw, 36px) clamp(6px, 0.8vw, 16px);
+  padding: clamp(24px, 1.875vw, 36px) clamp(24px, 2.083vw, 40px);
   box-sizing: border-box;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.why .row:hover,
+.why .row.is-highlighted {
+  background: #CFE5FC !important;
+  box-shadow: 0 6px 20px rgba(0, 25, 48, 0.05);
+  border-bottom-color: transparent;
 }
 
 .why-icon-wrap {
@@ -7223,26 +7366,35 @@ html.walstar-scroll-locked {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   border-bottom: 1px solid #E96D01 !important;
+  border-bottom-width: 1px !important;
   margin: 0 !important;
   display: flex !important;
   align-items: center !important;
   gap: 10px !important;
   opacity: 1 !important;
+  transform: rotate(0deg) !important;
 }
 
 .team .ex .q b,
 .team .ex .q .team-quote-mark {
-  display: inline-flex;
-  align-items: center;
-  color: #41A3FF;
-  line-height: 1;
-  margin-top: 6px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  color: #41A3FF !important;
+  width: clamp(38px, 3.281vw, 63px) !important;
+  height: clamp(38px, 3.281vw, 63px) !important;
+  line-height: 1 !important;
+  margin-top: 6px !important;
+  opacity: 1 !important;
+  transform: rotate(0deg) !important;
+  box-sizing: border-box !important;
 }
 
 .team .ex .q .team-quote-mark svg {
-  width: clamp(28px, 1.875vw, 36px);
-  height: auto;
-  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: contain !important;
 }
 
 .team .ex .q em,
@@ -7257,6 +7409,36 @@ html.walstar-scroll-locked {
   color: #FFFFFF !important;
   display: block !important;
   margin: 0 !important;
+  white-space: pre-line !important;
+}
+
+@media (min-width: 1920px) {
+  .team .ex .q h5,
+  .team-quote-label {
+    width: 205px !important;
+    height: 55px !important;
+    min-height: 55px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid #E96D01 !important;
+    gap: 10px !important;
+    opacity: 1 !important;
+    transform: rotate(0deg) !important;
+  }
+
+  .team .ex .q b,
+  .team .ex .q .team-quote-mark {
+    width: 63px !important;
+    height: 63px !important;
+    opacity: 1 !important;
+    transform: rotate(0deg) !important;
+  }
+
+  .team .ex .q em,
+  .team-quote-text {
+    font-size: 26px !important;
+    line-height: 34px !important;
+  }
 }
 
 .team .ex .q small,
@@ -7376,25 +7558,57 @@ html.walstar-scroll-locked {
   box-shadow: 0 6px 18px rgba(0, 25, 48, 0.10);
   color: #343434;
   box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+/* Hover reveal on all image cards: executive (.pp), advisory (.av), sales (.g4b .av) */
+.team .pp:hover .chip2,
+.team .av:hover .chip2,
+.team .team-member-card:hover .chip2,
+.team .team-member-card:focus-within .chip2 {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Executive Team cards: dark #161332 background with crisp white role text */
+.team .ex .chip2,
+.team .pp .chip2 {
+  background: #161332 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42) !important;
+}
+
+.team .ex .chip2 .team-member-role,
+.team .pp .chip2 .team-member-role {
+  color: #FFFFFF !important;
 }
 
 .team .team-member-meta {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: clamp(3px, 0.26vw, 6px);
   min-width: 0;
   flex: 1 1 auto;
 }
 
 .team .chip2 b,
+.team .chip2 .team-member-name,
 .team .team-member-name,
 .team .g4b .team-member-name {
   display: block;
   font-family: Poppins, sans-serif !important;
-  color: #41A3FF !important;
-  font-weight: 600 !important;
-  font-size: clamp(14px, 0.9375vw, 18px) !important;
-  line-height: 1.3 !important;
+  color: #2D99FF !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: clamp(14px, 1.25vw, 24px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0 !important;
   margin: 0 !important;
   overflow-wrap: break-word;
 }
@@ -7405,10 +7619,13 @@ html.walstar-scroll-locked {
   font-family: Poppins, sans-serif !important;
   color: #343434 !important;
   font-weight: 400 !important;
-  font-size: clamp(12px, 0.78125vw, 15px) !important;
-  line-height: 1.35 !important;
+  font-style: normal !important;
+  font-size: clamp(12px, 1.042vw, 20px) !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
   margin: 0 !important;
   overflow-wrap: break-word;
+  white-space: pre-line;
 }
 
 .team .chip2 u,
@@ -7431,8 +7648,8 @@ html.walstar-scroll-locked {
 
 .team .team-member-linkedin:hover {
   background: #005f99;
-  transform: translateY(-1px) scale(1.06);
-  box-shadow: 0 4px 10px rgba(10, 123, 191, 0.32);
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(10, 123, 191, 0.36);
 }
 
 .team .team-member-linkedin svg {
@@ -7440,6 +7657,15 @@ html.walstar-scroll-locked {
   height: 52%;
   display: block;
   fill: currentColor;
+}
+
+@media (hover: none) {
+  .team .chip2 {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
 }
 
 .team .g4b .chip2 {
@@ -7888,7 +8114,7 @@ html.walstar-scroll-locked {
   .why .row {
     grid-template-columns: clamp(34px, 4vw, 42px) 1fr;
     gap: 12px clamp(16px, 2vw, 24px);
-    padding: 20px 0;
+    padding: 18px clamp(14px, 2vw, 20px);
   }
   .why .row h4,
   .why-row-title {
@@ -8080,14 +8306,10 @@ html.walstar-scroll-locked {
     padding-left: 32px;
     gap: var(--tlv-gap);
   }
-  .tlv::before {
-    display: none !important;
-  }
-  .tlv > div::before {
-    left: -32px;
-  }
+  .tlv::before,
+  .tlv > div::before,
   .tlv > div.now::before {
-    left: -35px;
+    display: none !important;
   }
   .stats {
     width: 100% !important;
@@ -8147,7 +8369,7 @@ html.walstar-scroll-locked {
   .why .row {
     grid-template-columns: 36px 1fr;
     gap: 8px 12px;
-    padding: 14px 0;
+    padding: 14px 12px;
   }
   .why-icon-wrap,
   .why .row i {
@@ -9534,8 +9756,6 @@ html.walstar-scroll-locked {
 .realistic-detail-tooltip-broader {
   position: absolute;
   bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
   width: max-content;
   max-width: min(760px, calc(100vw - 32px));
   max-height: 480px;
@@ -9546,8 +9766,61 @@ html.walstar-scroll-locked {
   padding: 16px 18px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 50;
-  animation: tooltipFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
+}
+
+.realistic-detail-tooltip-broader.tooltip-align-center {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  animation: tooltipFadeInCenter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.realistic-detail-tooltip-broader.tooltip-align-left {
+  left: 0;
+  right: auto;
+  transform: none;
+  animation: tooltipFadeInLeft 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.realistic-detail-tooltip-broader.tooltip-align-right {
+  left: auto;
+  right: 0;
+  transform: none;
+  animation: tooltipFadeInRight 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tooltipFadeInCenter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes tooltipFadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tooltipFadeInRight {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .realistic-detail-tooltip-broader::before {
@@ -9571,19 +9844,9 @@ html.walstar-scroll-locked {
   border-color: #ffffff transparent transparent transparent;
 }
 
-.realistic-detail-tooltip-broader.tooltip-align-left {
-  left: 0;
-  transform: none;
-}
-
 .realistic-detail-tooltip-broader.tooltip-align-left::after {
   left: 28px;
-  transform: none;
-}
-
-.realistic-detail-tooltip-broader.tooltip-align-right {
-  left: auto;
-  right: 0;
+  right: auto;
   transform: none;
 }
 
@@ -10088,40 +10351,6 @@ html.walstar-scroll-locked {
   text-align: center;
 }
 
-.wwd .head .pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 27px;
-  padding: 0 17px;
-  border-radius: 999px;
-  background: #fff;
-  color: var(--ink);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-family: Poppins, system-ui, sans-serif;
-  font-weight: 500;
-  border: none;
-  box-shadow: none;
-  margin-bottom: 0;
-  width: auto;
-  white-space: nowrap;
-}
-
-.wwd .head .pill::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #0a6fd8;
-  flex-shrink: 0;
-  transform: none;
-  opacity: 1;
-}
-
 .wwd .head h2 {
   font-family: Urbanist, Poppins, system-ui, -apple-system, sans-serif !important;
   font-size: clamp(28px, 2.7vw, 44px) !important;
@@ -10237,10 +10466,10 @@ html.walstar-scroll-locked {
 .wwd .card .ic,
 .wwd-card .ic {
   position: absolute !important;
-  top: clamp(20px, 1.4vw, 26px) !important;
-  right: clamp(20px, 1.4vw, 26px) !important;
-  width: clamp(48px, 3.2vw, 54px) !important;
-  height: clamp(48px, 3.2vw, 54px) !important;
+  top: clamp(20px, 1.8vw, 36px) !important;
+  right: clamp(20px, 1.8vw, 36px) !important;
+  width: clamp(44px, 1.25vw + 32px, 56px) !important;
+  height: clamp(44px, 1.25vw + 32px, 56px) !important;
   border-radius: 50% !important;
   background: #ffffff !important;
   color: #001930 !important;
@@ -10258,17 +10487,18 @@ html.walstar-scroll-locked {
 .wwd .w2 .ic,
 .wwd .card.w2 .ic,
 .wwd-card.w2 .ic {
-  top: clamp(28px, 2vw, 38px) !important;
-  right: clamp(30px, 2.2vw, 44px) !important;
+  top: clamp(26px, 2.2vw, 42px) !important;
+  right: clamp(28px, 2.4vw, 46px) !important;
 }
 
 .wwd .ic svg,
 .wwd .card .ic svg,
-.wwd-card .ic svg {
-  width: clamp(24px, 1.55vw, 27px) !important;
-  height: clamp(24px, 1.55vw, 27px) !important;
-  max-width: clamp(24px, 1.55vw, 27px) !important;
-  max-height: clamp(24px, 1.55vw, 27px) !important;
+.wwd-card .ic svg,
+.capabilities-card-icon svg {
+  width: clamp(23px, 1vw + 13.8px, 33px) !important;
+  height: clamp(23px, 1vw + 13.8px, 33px) !important;
+  max-width: 33px !important;
+  max-height: 33px !important;
   display: block !important;
   flex-shrink: 0 !important;
   color: #001930 !important;
@@ -10278,11 +10508,12 @@ html.walstar-scroll-locked {
 .wwd .ic img,
 .wwd .card .ic img,
 .wwd-card .ic img,
+.capabilities-card-icon img,
 .wwd-ic-img {
-  width: clamp(24px, 1.55vw, 27px) !important;
-  height: clamp(24px, 1.55vw, 27px) !important;
-  max-width: clamp(24px, 1.55vw, 27px) !important;
-  max-height: clamp(24px, 1.55vw, 27px) !important;
+  width: clamp(23px, 1vw + 13.8px, 33px) !important;
+  height: clamp(23px, 1vw + 13.8px, 33px) !important;
+  max-width: 33px !important;
+  max-height: 33px !important;
   object-fit: contain !important;
   display: block !important;
   flex-shrink: 0 !important;
@@ -10299,6 +10530,37 @@ html.walstar-scroll-locked {
   justify-content: center;
   text-align: center;
   margin: auto;
+}
+
+@media (min-width: 1920px) {
+  .wwd .ic,
+  .wwd .card .ic,
+  .wwd-card .ic {
+    top: 36px !important;
+    right: 36px !important;
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .wwd .w2 .ic,
+  .wwd .card.w2 .ic,
+  .wwd-card.w2 .ic {
+    top: 42px !important;
+    right: 46px !important;
+  }
+  .wwd .ic svg,
+  .wwd .card .ic svg,
+  .wwd-card .ic svg,
+  .capabilities-card-icon svg,
+  .wwd .ic img,
+  .wwd .card .ic img,
+  .wwd-card .ic img,
+  .capabilities-card-icon img,
+  .wwd-ic-img {
+    width: 33px !important;
+    height: 33px !important;
+    max-width: 33px !important;
+    max-height: 33px !important;
+  }
 }
 
 .wwd .card h3 {
@@ -10408,7 +10670,7 @@ html.walstar-scroll-locked {
   .why .row {
     grid-template-columns: 34px minmax(220px, 1fr) minmax(260px, 1.35fr) !important;
     gap: 195px !important;
-    padding: 18px 4px !important;
+    padding: 20px clamp(20px, 1.8vw, 32px) !important;
   }
   .why-icon-wrap,
   .why-icon-img,
@@ -10461,6 +10723,12 @@ html.walstar-scroll-locked {
     font-size: clamp(13px, 1.1vw, 16px) !important;
     line-height: 1.25 !important;
   }
+
+  /* Contact Chips at 1440px / Laptop */
+  .contact-chip {
+    font-size: 15.5px !important;
+    padding: 10px 18px !important;
+  }
 }
 
 @media (max-width: 1099px) and (min-width: 768px) {
@@ -10489,6 +10757,30 @@ html.walstar-scroll-locked {
   }
   .wwd .head h2 {
     font-size: 32px !important;
+  }
+  .wwd .ic,
+  .wwd .w2 .ic,
+  .wwd .card .ic,
+  .wwd-card .ic,
+  .wwd-card.w2 .ic {
+    top: 20px !important;
+    right: 20px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .wwd .ic svg,
+  .wwd .card .ic svg,
+  .wwd-card .ic svg,
+  .capabilities-card-icon svg,
+  .wwd .ic img,
+  .wwd .card .ic img,
+  .wwd-card .ic img,
+  .capabilities-card-icon img,
+  .wwd-ic-img {
+    width: 24px !important;
+    height: 24px !important;
+    max-width: 24px !important;
+    max-height: 24px !important;
   }
 
   /* Journey Stats Tablet */
@@ -10547,6 +10839,22 @@ html.walstar-scroll-locked {
   .wwd-card.w2 .ic {
     right: 16px !important;
     top: 16px !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+  .wwd .ic svg,
+  .wwd .card .ic svg,
+  .wwd-card .ic svg,
+  .capabilities-card-icon svg,
+  .wwd .ic img,
+  .wwd .card .ic img,
+  .wwd-card .ic img,
+  .capabilities-card-icon img,
+  .wwd-ic-img {
+    width: 22px !important;
+    height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
   }
 
   /* Journey Stats Mobile (<=767px) */
@@ -11790,38 +12098,6 @@ html.walstar-scroll-locked {
 .svc-capabilities-wwd .head {
   text-align: center !important;
   margin-bottom: clamp(34px, 2.8vw, 48px) !important;
-}
-
-.svc-capabilities-wwd .head .pill {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  height: 27px !important;
-  padding: 0 17px !important;
-  border-radius: 999px !important;
-  background: #ffffff !important;
-  color: #001930 !important;
-  font-size: 11px !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
-  font-family: Poppins, system-ui, sans-serif !important;
-  font-weight: 500 !important;
-  border: none !important;
-  box-shadow: none !important;
-  margin-bottom: 16px !important;
-  width: auto !important;
-  white-space: nowrap !important;
-}
-
-.svc-capabilities-wwd .head .pill::before {
-  content: "" !important;
-  display: inline-block !important;
-  width: 6px !important;
-  height: 6px !important;
-  border-radius: 50% !important;
-  background: #0a6fd8 !important;
-  flex-shrink: 0 !important;
 }
 
 .svc-capabilities-wwd .head h2,

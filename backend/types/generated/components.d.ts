@@ -215,7 +215,7 @@ export interface AboutTeamMember extends Struct.ComponentSchema {
     linkedinUrl: Schema.Attribute.String;
     name: Schema.Attribute.String;
     photo: Schema.Attribute.Media<'images'>;
-    role: Schema.Attribute.String;
+    role: Schema.Attribute.Text;
   };
 }
 

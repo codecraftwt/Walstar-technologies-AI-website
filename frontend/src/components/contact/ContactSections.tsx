@@ -112,7 +112,7 @@ export function ContactInterestBlock({
     <section className="sec who contact-interest" id="contact-interest">
       <div className="wrap contact-interest-grid">
         <div
-          className={imageUrl ? 'ph relative overflow-hidden contact-interest-media' : 'ph contact-interest-media'}
+          className="ph relative overflow-hidden contact-interest-media"
           role={imageUrl ? undefined : 'img'}
           aria-label={imageUrl ? undefined : pillText || 'Contact interest'}
         >

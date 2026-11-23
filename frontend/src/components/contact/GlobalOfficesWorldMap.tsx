@@ -1433,7 +1433,9 @@ export function GlobalOfficesWorldMap({ section }: { section: GlobalOfficesSecti
                                 setActiveOfficeId(loc.id);
                               }}
                               onMouseLeave={() => {
-                                setActiveOfficeId(null);
+                                if (marker.locations.length > 1) {
+                                  setActiveOfficeId(null);
+                                }
                               }}
                             >
                               <div className="broader-office-top">
