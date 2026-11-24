@@ -205,8 +205,8 @@ export async function getLandingData(): Promise<{
     const res = await fetchStrapi<StrapiResponse<Partial<LandingPayload>>>(
       '/api/landing',
       {
-        next: { revalidate: 0 },
-        cache: 'no-store',
+        next: { revalidate: STRAPI_REVALIDATE_SECONDS },
+        signal: AbortSignal.timeout(getStrapiTimeoutMs()),
       }
     );
 
