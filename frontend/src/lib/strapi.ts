@@ -17,8 +17,8 @@ import type {
   StrapiResponse,
 } from '@/types/strapi';
 
-const DEFAULT_PUBLIC_URL = 'https://walstar-technologies-ai-website.onrender.com';
-const DEFAULT_SERVER_URL = 'https://walstar-technologies-ai-website.onrender.com';
+const DEFAULT_PUBLIC_URL = 'https://strapicrm.walstartechnologies.com';
+const DEFAULT_SERVER_URL = 'https://strapicrm.walstartechnologies.com';
 
 export const STRAPI_IMAGE_PLACEHOLDER =
   'https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png';

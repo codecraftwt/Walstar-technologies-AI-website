@@ -31,6 +31,21 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "strapicrm.walstartechnologies.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.walstartechnologies.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "**.walstartechnologies.com",
+        pathname: "/**",
+      },
     ],
   },
   turbopack: {
