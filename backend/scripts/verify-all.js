@@ -1,6 +1,6 @@
 const { createStrapi } = require('@strapi/strapi');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 async function run() {
   console.log('Verifying Render PostgreSQL Database via Strapi Document Service...');
@@ -11,7 +11,20 @@ async function run() {
 
   const pageDoc = app.documents('api::page.page');
   const pages = await pageDoc.findMany({
-    filters: { slug: { $in: ['service-1', 'service-2', 'service-3'] } },
+    filters: {
+      slug: {
+        $in: [
+          'service-1',
+          'service-2',
+          'service-3',
+          'service-4',
+          'ai-solutions-business-automation',
+          'custom-software-development',
+          'digital-marketing-performance-growth',
+          'web-saas-product-development',
+        ],
+      },
+    },
     populate: { sections: { populate: '*' } },
   });
 

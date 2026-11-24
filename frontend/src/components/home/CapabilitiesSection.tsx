@@ -4,6 +4,7 @@ import { getStrapiMediaUrl } from '@/lib/strapi';
 import type { CapabilitiesSection, ServiceItem, ProcessStep } from '@/types/strapi';
 import { DEFAULT_PROCESS_STEPS } from '@/lib/default-landing';
 import { WalstarButtonArrow } from '@/components/common/WalstarButton';
+import { renderHeadingParts } from '@/components/common/SectionPrimitives';
 
 /* ─── Vector SVG Icons Matching Provided HTML ──────────────────────── */
 export function WwdArrowIcon() {
@@ -630,7 +631,7 @@ export function CapabilitiesBlock({
           <div className="head capabilities-header">
             <span className="pill">{pill}</span>
             <h2 id="wwd-title" className="wwd-heading capabilities-title">
-              {prefix} <span className="serif">{serif}</span>
+              {renderHeadingParts(prefix, serif)}
             </h2>
             <p className="wwd-subtitle capabilities-subtitle">{subtitle}</p>
           </div>

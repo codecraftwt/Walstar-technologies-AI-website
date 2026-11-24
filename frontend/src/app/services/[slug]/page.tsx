@@ -16,6 +16,13 @@ const SERVICE_CANONICAL_SLUGS: Record<string, string> = {
   'custom-software': 'custom-software-development',
   'service-3': 'digital-marketing-performance-growth',
   'digital-marketing': 'digital-marketing-performance-growth',
+  'service-4': 'web-saas-product-development',
+  'web-saas': 'web-saas-product-development',
+  'web-saas-product': 'web-saas-product-development',
+  'web-saas-product-development': 'web-saas-product-development',
+  'service-5': 'mobile-app-development',
+  'mobile-app': 'mobile-app-development',
+  'mobile-app-development': 'mobile-app-development',
 };
 
 async function ServiceContent({
@@ -40,7 +47,9 @@ async function ServiceContent({
     (pageData.page.pageType === 'service' ||
       decodedSlug === 'ai-solutions-business-automation' ||
       decodedSlug === 'custom-software-development' ||
-      decodedSlug === 'digital-marketing-performance-growth')
+      decodedSlug === 'digital-marketing-performance-growth' ||
+      decodedSlug === 'web-saas-product-development' ||
+      decodedSlug === 'mobile-app-development')
   ) {
     return (
       <PageSectionsRenderer

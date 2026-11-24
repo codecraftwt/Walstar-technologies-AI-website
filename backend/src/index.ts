@@ -132,8 +132,20 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
         (section) => section.__component === 'sections.svc-capabilities'
       );
 
+    const isLegacyService4Seed =
+      (item.slug === 'service-4' || item.slug === 'web-saas-product-development') &&
+      !existingSections.some(
+        (section) => section.__component === 'sections.svc-capabilities'
+      );
+
+    const isLegacyService5Seed =
+      (item.slug === 'service-5' || item.slug === 'mobile-app-development') &&
+      !existingSections.some(
+        (section) => section.__component === 'sections.svc-capabilities'
+      );
+
     const needsServiceCapabilitiesSync =
-      ((item.slug === 'service-1' || item.slug === 'ai-solutions-business-automation') || (item.slug === 'service-2' || item.slug === 'custom-software-development') || (item.slug === 'service-3' || item.slug === 'digital-marketing-performance-growth')) &&
+      ((item.slug === 'service-1' || item.slug === 'ai-solutions-business-automation') || (item.slug === 'service-2' || item.slug === 'custom-software-development') || (item.slug === 'service-3' || item.slug === 'digital-marketing-performance-growth') || (item.slug === 'service-4' || item.slug === 'web-saas-product-development') || (item.slug === 'service-5' || item.slug === 'mobile-app-development')) &&
       (!existingSections.some((s) => s.__component === 'sections.svc-capabilities') ||
         (() => {
           const existingCap = existingSections.find((s) => s.__component === 'sections.svc-capabilities') as Record<string, unknown> | undefined;
@@ -152,6 +164,8 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
       isLegacyServiceSeed ||
       isLegacyService2Seed ||
       isLegacyService3Seed ||
+      isLegacyService4Seed ||
+      isLegacyService5Seed ||
       needsServiceCapabilitiesSync
     ) {
       await pageDoc.update({
@@ -226,6 +240,36 @@ async function seedCollections(strapi: Core.Strapi): Promise<void> {
       data: INITIAL_NAVBAR as never,
       status: 'published',
     });
+  } else if (existingNavbar) {
+    const navData = existingNavbar as Record<string, unknown>;
+    const navItems = Array.isArray(navData.items)
+      ? (navData.items as Array<Record<string, unknown>>)
+      : [];
+    const servicesItem = navItems.find((it) => it.label === 'Services');
+    const subItems =
+      servicesItem && Array.isArray(servicesItem.subItems)
+        ? (servicesItem.subItems as Array<Record<string, unknown>>)
+        : [];
+    const hasMobileApp = subItems.some(
+      (s) =>
+        s.route === '/services/mobile-app-development' ||
+        s.label === 'Mobile App Development'
+    );
+    const hasWebSaas = subItems.some(
+      (s) =>
+        s.route === '/services/web-saas-product-development' ||
+        s.label === 'Web & SaaS Product Engineering'
+    );
+
+    if (!hasMobileApp || !hasWebSaas) {
+      await navbarDoc.update({
+        documentId: existingNavbar.documentId,
+        data: {
+          items: INITIAL_NAVBAR.items,
+        } as never,
+        status: 'published',
+      });
+    }
   }
 
   const footerDoc = strapi.documents('api::footer.footer');

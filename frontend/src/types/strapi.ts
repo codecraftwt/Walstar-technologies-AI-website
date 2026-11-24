@@ -602,6 +602,7 @@ export interface SvcBenefitsSection {
   headingSerif?: string | null;
   headingSuffix?: string | null;
   benefitItems?: SvcBenefitItem[];
+  benefitCards?: SvcBenefitItem[];
 }
 
 export interface SvcProcessSection {
@@ -612,6 +613,12 @@ export interface SvcProcessSection {
   headingSerif?: string | null;
   headingSuffix?: string | null;
   steps?: SvcProcessStepItem[];
+  ctaCard?: {
+    title?: string;
+    description?: string;
+    ctaLabel?: string;
+    ctaHref?: string;
+  } | null;
 }
 
 export interface SvcApproachSection {
@@ -638,6 +645,8 @@ export interface SvcCtaSection {
   bodyTwo?: string | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaHref?: string | null;
 }
 
 export type PageSection =

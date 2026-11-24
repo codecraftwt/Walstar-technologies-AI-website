@@ -393,8 +393,218 @@ export function SvgTrendingUpIcon({ className = 'icon' }: { className?: string }
   );
 }
 
+/* ─── Web & SaaS Product Development Specific SVG Icons ───────────────── */
+export function SvgMonitorSettingsIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="13" rx="2" />
+      <path d="M9 21h6M12 17v4" />
+      <circle cx="12" cy="10.5" r="2.5" />
+    </svg>
+  );
+}
+
+export function SvgCloudGearIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M7 18a4.5 4.5 0 01-.5-9A6 6 0 0118 9.5 4 4 0 0117 18z" />
+      <circle cx="12" cy="13" r="2" />
+    </svg>
+  );
+}
+
+export function SvgUiLayoutIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18M9 9v11" />
+    </svg>
+  );
+}
+
+export function SvgBrowserWindowIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 9h18M6.5 7h.01M9 7h.01" />
+    </svg>
+  );
+}
+
+export function SvgPhoneIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="7" y="2.5" width="10" height="19" rx="2.2" />
+      <path d="M10.5 18.8h3" />
+    </svg>
+  );
+}
+
+export function SvgRocketIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 4c3-1 5.5-1 6-.5.5.5.5 3-.5 6l-5 5-4-4z" />
+      <path d="M9 11l-4 1 2 2M13 15l-1 4-2-2M7 17c-1 .5-2 2-2 3 1 0 2.5-1 3-2" />
+      <circle cx="15.5" cy="8.5" r="1.2" />
+    </svg>
+  );
+}
+
+export function SvgRefreshIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M20 11a8 8 0 00-14-4M4 4v4h4M4 13a8 8 0 0014 4M20 20v-4h-4" />
+    </svg>
+  );
+}
+
+export function SvgCloudUploadIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M7 18a4.5 4.5 0 01-.5-9A6 6 0 0118 9.5 4 4 0 0117 18" />
+      <path d="M12 17v-6M9.5 13l2.5-2.5 2.5 2.5" />
+    </svg>
+  );
+}
+
+export function SvgLayoutGridIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
+      <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
+    </svg>
+  );
+}
+
+export function SvgShieldLockIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+      <rect x="9.5" y="11" width="5" height="4" rx="1" />
+    </svg>
+  );
+}
+
+export function SvgWrenchIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M15 5a4 4 0 00-4 5L4.5 16.5a2 2 0 003 3L14 13a4 4 0 005-4l-2.5 2.5-2.5-.5-.5-2.5z" />
+    </svg>
+  );
+}
+
+/* ─── Mobile App Development Specific SVG Icons ──────────────────────── */
+export function SvgSmartphoneTabletIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="4" y="4" width="10" height="16" rx="2" />
+      <rect x="14" y="8" width="6" height="12" rx="1.5" />
+    </svg>
+  );
+}
+
+export function SvgAppleIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 7c-1-1.5-3.5-1.5-5 0-2 2-1.5 6 .5 9 1 1.5 2 2 3 2s1.5-.5 2.5-.5S15 18 16 18s2-1.5 3-3.5c-2-1-2.5-4 0-5.5-1.5-2-4-2-5.5-.5-.5.5-1 .5-1.5.5z" />
+      <path d="M12.5 5c0-1.5 1-2.5 2.5-3" />
+    </svg>
+  );
+}
+
+export function SvgSettingsTargetIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </svg>
+  );
+}
+
+export function SvgPaletteIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3a9 9 0 100 18c1.5 0 2-1 1.5-2s0-2 1.5-2h2a3 3 0 003-3c0-5-4-11-8-11z" />
+      <circle cx="8" cy="11" r="1" />
+      <circle cx="12" cy="7.5" r="1" />
+      <circle cx="16" cy="9" r="1" />
+    </svg>
+  );
+}
+
+export function SvgToolsIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 20l9-9M13 11l-2-2 3-4 3 1 1 3-4 3z" />
+      <path d="M20 20L9 9M5 5l4 4" />
+    </svg>
+  );
+}
+
+export function SvgGlobeIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
+    </svg>
+  );
+}
+
+export function SvgGaugeIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 17a8 8 0 1116 0" />
+      <path d="M12 17l4-6" />
+    </svg>
+  );
+}
+
+export function SvgClipboardCheckIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="4" width="14" height="17" rx="2" />
+      <path d="M9 4h6v3H9zM8.5 12.5l2 2 4-4M8.5 17.5h7" />
+    </svg>
+  );
+}
+
+export function SvgResponsiveDevicesIcon({ className = 'icon' }: { className?: string }) {
+  return (
+    <svg className={className} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="14" height="10" rx="1.5" />
+      <path d="M7 19h6M10 15v4" />
+      <rect x="16" y="9" width="5" height="9" rx="1" />
+    </svg>
+  );
+}
+
 export function renderNamedSvgIcon(name?: string | null, index = 0, title?: string | null): React.ReactNode {
   const key = `${name || ''} ${title || ''}`.toLowerCase().trim();
+  if (key.includes('smartphone-tablet') || key.includes('android app') || key.includes('android development')) return <SvgSmartphoneTabletIcon />;
+  if (key.includes('apple') || key.includes('ios app') || key.includes('ios development')) return <SvgAppleIcon />;
+  if (key.includes('settings-target') || key.includes('cross-platform') || key.includes('multi-platform')) return <SvgSettingsTargetIcon />;
+  if (key.includes('palette') || key.includes('mobile ui/ux') || key.includes('ui/ux design for mobile')) return <SvgPaletteIcon />;
+  if (key.includes('tools') || key.includes('app maintenance') || key.includes('maintenance & support')) return <SvgToolsIcon />;
+  if (key.includes('globe') || key.includes('customer engagement') || key.includes('improve customer')) return <SvgGlobeIcon />;
+  if (key.includes('gauge') || key.includes('performance-focused')) return <SvgGaugeIcon />;
+  if (key.includes('clipboard-check') || key.includes('testing and quality')) return <SvgClipboardCheckIcon />;
+  if (key.includes('responsive-devices') || key.includes('supported devices') || key.includes('responsive experiences')) return <SvgResponsiveDevicesIcon />;
+
+  if (key.includes('monitor-settings') || key.includes('web application') || key.includes('smarter operations')) return <SvgMonitorSettingsIcon />;
+  if (key.includes('cloud-gear') || key.includes('workflow ai') || key.includes('saas product')) return <SvgCloudGearIcon />;
+  if (key.includes('ui-layout') || key.includes('product experience') || key.includes('ui/ux design')) return <SvgUiLayoutIcon />;
+  if (key.includes('browser-window') || key.includes('app modernization') || key.includes('saas modernization')) return <SvgBrowserWindowIcon />;
+  if (key.includes('phone') || key.includes('digital experiences') || key.includes('create better')) return <SvgPhoneIcon />;
+  if (key.includes('rocket') || key.includes('turn ideas')) return <SvgRocketIcon />;
+  if (key.includes('refresh') || key.includes('recurring revenue')) return <SvgRefreshIcon />;
+  if (key.includes('cloud-upload') || key.includes('reach customers beyond')) return <SvgCloudUploadIcon />;
+  if (key.includes('layout-grid') || key.includes('responsive and user-friendly')) return <SvgLayoutGridIcon />;
+  if (key.includes('shield-lock') || key.includes('secure authentication')) return <SvgShieldLockIcon />;
+  if (key.includes('wrench') || key.includes('ongoing technical maintenance')) return <SvgWrenchIcon />;
+  if (key.includes('network-nodes') || key.includes('saas mvp') || key.includes('scale with') || key.includes('tailored ai')) return <SvgNetIcon />;
   if (key.includes('search engine') || key === 'search') return <SvgSearchIcon />;
   if (key.includes('ai-search') || key.includes('ai search') || key === 'robot' || key.includes('chatbot') || key.includes('virtual assistant')) return <SvgRobotIcon />;
   if (key.includes('location') || key.includes('local seo') || key === 'location-pin') return <SvgLocationPinIcon />;
@@ -522,6 +732,100 @@ export function SvcIntroBlock({ section }: { section: SvcIntroSection }) {
     serif.includes('Performance Marketing') ||
     prefix.includes('AI Search Visibility') ||
     Boolean(section.pill?.includes('Growth & Visibility'));
+
+  const isMobileApp =
+    serif.includes('Your Business With') ||
+    prefix.includes('Build Powerful Mobile Apps') ||
+    Boolean(section.pill?.toLowerCase().includes('mobile app'));
+
+  if (isMobileApp) {
+    const mobileImage = strapiUrl || '/images/services/mobile-app.png';
+    return (
+      <section className="introduction-section sec intro svc-intro" aria-labelledby="introduction-title">
+        <div className="page-container introduction-section__layout wrap">
+          <div
+            className="introduction-section__image svc-intro-ph ph"
+            role="img"
+            aria-label={section.image?.alternativeText || 'Person holding a smartphone showing app analytics'}
+          >
+            <Image
+              src={mobileImage}
+              alt={section.image?.alternativeText || 'Person holding a smartphone showing app analytics'}
+              fill
+              sizes="(max-width: 900px) 100vw, 45vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="introduction-section__content svc-intro-copy">
+            <span className="section-badge pill">{cleanPill(section.pill) || 'Mobile App Development'}</span>
+            <h2 className="introduction-section__title svc-heading" id="introduction-title">
+              {renderHeadingParts(
+                prefix || 'Build Powerful Mobile Apps That\n Connect ',
+                serif || 'Your Business With\n',
+                suffix || 'Customers'
+              )}
+            </h2>
+            <p className="introduction-section__text lead svc-lead-desc">
+              {section.description
+                ? renderTextWithBreaks(section.description)
+                : 'We design and develop user-friendly, high-performance mobile applications that help businesses improve customer engagement, simplify operations, and grow digitally.'}
+            </p>
+            <WalstarButton variant="orange" href={section.ctaHref || '#contact'} className="button button--primary">
+              {section.ctaLabel || 'Discuss Your App Project ↗'}
+            </WalstarButton>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const isWebSaas =
+    serif.includes('Scalable SaaS Products') ||
+    prefix.includes('Build Powerful Web Experiences') ||
+    Boolean(section.pill?.includes('Web & SaaS'));
+
+  if (isWebSaas) {
+    const wsImage = strapiUrl || '/images/services/web-saas.png';
+    return (
+      <section className="introduction-section sec intro svc-intro" aria-labelledby="introduction-title">
+        <div className="page-container introduction-section__layout wrap">
+          <div
+            className="introduction-section__image svc-intro-ph ph"
+            role="img"
+            aria-label={section.image?.alternativeText || 'Team working with web application dashboards'}
+          >
+            <Image
+              src={wsImage}
+              alt={section.image?.alternativeText || 'Team working with web application dashboards'}
+              fill
+              sizes="(max-width: 900px) 100vw, 45vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="introduction-section__content svc-intro-copy">
+            <span className="section-badge pill">{cleanPill(section.pill) || 'Web & SaaS'}</span>
+            <h2 className="introduction-section__title svc-heading" id="introduction-title">
+              {renderHeadingParts(
+                prefix || 'Build Powerful Web Experiences\n and ',
+                serif || 'Scalable SaaS Products',
+                suffix
+              )}
+            </h2>
+            <p className="introduction-section__text lead svc-lead-desc">
+              {section.description
+                ? renderTextWithBreaks(section.description)
+                : 'From business management systems to workflow automation, we develop scalable software solutions designed to simplify operations and improve productivity.'}
+            </p>
+            <WalstarButton variant="orange" href={section.ctaHref || '#contact'} className="button button--primary">
+              {section.ctaLabel || 'Discuss Your Web Project ↗'}
+            </WalstarButton>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (isDigitalMarketing) {
     const dmImage = strapiUrl || STRAPI_IMAGE_PLACEHOLDER;
@@ -722,6 +1026,88 @@ export function SvcCapabilitiesBlock({ section }: { section: SvcCapabilitiesSect
   const serif = section.headingSerif?.trim() || 'Build';
   const suffix = section.headingSuffix?.trim() || '';
 
+  const isMobileApp =
+    (serif.includes('Your Business') &&
+      (prefix.includes('Mobile App') || prefix.includes('Mobile App Solutions'))) ||
+    incomingItems.some((it) => it.tag?.includes('Android') || it.title.includes('Android App'));
+
+  if (isMobileApp) {
+    return (
+      <section className="capabilities-section" aria-labelledby="capabilities-title">
+        <div className="section-heading">
+          <span className="section-badge pill">{pillText || 'Capabilities'}</span>
+          <h2 className="section-heading__title svc-heading" id="capabilities-title">
+            {renderHeadingParts(
+              prefix || 'Mobile App Solutions Designed\n Around ',
+              serif || 'Your Business',
+              suffix
+            )}
+          </h2>
+          {section.description ? (
+            <p className="capabilities-section__description">
+              {renderTextWithBreaks(section.description)}
+            </p>
+          ) : null}
+        </div>
+        <ul className="capability-card-grid capability-card-grid--three-columns">
+          {incomingItems.map((item, idx) => (
+            <li key={`${item.title}-${item.id ?? idx}`} className="capability-card capability-card--roomy">
+              {item.tag ? <span className="capability-card__tag">{item.tag}</span> : null}
+              <span className="capability-card__icon" aria-hidden="true">
+                {renderNamedSvgIcon(item.icon, idx, item.title)}
+              </span>
+              <h3 className="capability-card__title">{renderTextWithBreaks(item.title)}</h3>
+              {item.description ? (
+                <p className="capability-card__description">{renderTextWithBreaks(item.description)}</p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
+  const isWebSaas =
+    (serif.includes('Your Business') &&
+      (prefix.includes('Web & SaaS') || prefix.includes('Web & SaaS Solutions'))) ||
+    incomingItems.some((it) => it.tag || it.title.includes('Custom Website'));
+
+  if (isWebSaas) {
+    return (
+      <section className="capabilities-section" aria-labelledby="capabilities-title">
+        <div className="section-heading">
+          <span className="section-badge pill">{pillText || 'Capabilities'}</span>
+          <h2 className="section-heading__title svc-heading" id="capabilities-title">
+            {renderHeadingParts(
+              prefix || 'Web & SaaS Solutions\n Designed for ',
+              serif || 'Your Business',
+              suffix
+            )}
+          </h2>
+          {section.description ? (
+            <p className="capabilities-section__description">
+              {renderTextWithBreaks(section.description)}
+            </p>
+          ) : null}
+        </div>
+        <ul className="capability-card-grid">
+          {incomingItems.map((item, idx) => (
+            <li key={`${item.title}-${item.id ?? idx}`} className="capability-card">
+              {item.tag ? <span className="capability-card__tag">{item.tag}</span> : null}
+              <span className="capability-card__icon" aria-hidden="true">
+                {renderNamedSvgIcon(item.icon, idx, item.title)}
+              </span>
+              <h3 className="capability-card__title">{renderTextWithBreaks(item.title)}</h3>
+              {item.description ? (
+                <p className="capability-card__description">{renderTextWithBreaks(item.description)}</p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
   return (
     <section className="wwd svc-capabilities-wwd" aria-label={pillText}>
       <div className="wwd-inner">
@@ -810,7 +1196,7 @@ export function SvcCapabilitiesBlock({ section }: { section: SvcCapabilitiesSect
 
 /* ─── Service Benefits ───────────────────────────────────────────────── */
 export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
-  const items = section.benefitItems ?? [];
+  const items = section.benefitItems ?? section.benefitCards ?? [];
   const rawPill = section.pill || 'Benefits';
   const pillText = cleanPill(rawPill) || 'Benefits';
   const prefix = section.headingPrefix?.trim() || 'How Custom Software';
@@ -820,6 +1206,90 @@ export function SvcBenefitsBlock({ section }: { section: SvcBenefitsSection }) {
     serif.includes('Grow') ||
     prefix.includes('How Digital Marketing Helps') ||
     items.some((it) => it.title.includes('Turn More Visitors') || it.title.includes('Relevant Customers'));
+
+  const isMobileApp =
+    (prefix.includes('Mobile App') && (serif.includes('Development Process') || serif.includes('Benefits') || serif.includes('Process'))) ||
+    items.some((it) => it.title.includes('Improve Customer Engagement') || it.title.includes('Strengthen Your Digital Presence'));
+
+  if (isMobileApp) {
+    return (
+      <section className="benefits-section sec svc-benefits" aria-labelledby="benefits-title">
+        <div className="page-container wrap">
+          <div className="section-heading hd2">
+            <span className="section-badge pill">{pillText || 'Benefits'}</span>
+            <h2 className="section-heading__title svc-heading" id="benefits-title">
+              {renderHeadingParts(
+                prefix || 'Our Mobile App\n',
+                serif || 'Development Process',
+                section.headingSuffix
+              )}
+            </h2>
+          </div>
+          <ul className="benefit-card-list">
+            {items.map((item, idx) => {
+              const isHighlighted = item.isDark || idx === 1; // "Strengthen Your Digital Presence"
+              return (
+                <li
+                  key={`${item.title}-${item.id ?? idx}`}
+                  className={`benefit-card benefit-card--tall${isHighlighted ? ' benefit-card--highlighted' : ''}`}
+                >
+                  <div className="benefit-card__icon-panel">
+                    {renderNamedSvgIcon(item.icon, idx, item.title)}
+                  </div>
+                  <h3 className="benefit-card__title">{renderTextWithBreaks(item.title)}</h3>
+                  {item.description ? (
+                    <p className="benefit-card__description">{renderTextWithBreaks(item.description)}</p>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
+  const isWebSaas =
+    (prefix.includes('Web & SaaS') && serif.includes('Business Grow')) ||
+    items.some((it) => it.title.includes('Create Better') || it.title.includes('Turn Ideas Into'));
+
+  if (isWebSaas) {
+    return (
+      <section className="benefits-section sec svc-benefits" aria-labelledby="benefits-title">
+        <div className="page-container wrap">
+          <div className="section-heading hd2">
+            <span className="section-badge pill">{pillText || 'Benefits'}</span>
+            <h2 className="section-heading__title svc-heading" id="benefits-title">
+              {renderHeadingParts(
+                prefix || 'How Web & SaaS Development\n Helps Your ',
+                serif || 'Business Grow',
+                section.headingSuffix
+              )}
+            </h2>
+          </div>
+          <ul className="benefit-card-list">
+            {items.map((item, idx) => {
+              const isHighlighted = item.isDark || idx === 1; // "Turn Ideas Into Digital Products"
+              return (
+                <li
+                  key={`${item.title}-${item.id ?? idx}`}
+                  className={`benefit-card benefit-card--tall${isHighlighted ? ' benefit-card--highlighted' : ''}`}
+                >
+                  <div className="benefit-card__icon-panel">
+                    {renderNamedSvgIcon(item.icon, idx, item.title)}
+                  </div>
+                  <h3 className="benefit-card__title">{renderTextWithBreaks(item.title)}</h3>
+                  {item.description ? (
+                    <p className="benefit-card__description">{renderTextWithBreaks(item.description)}</p>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+    );
+  }
 
   if (isDigitalMarketing) {
     return (
@@ -956,6 +1426,81 @@ export function SvcProcessBlock({ section }: { section: SvcProcessSection }) {
     (serif.includes('Process') && prefix.includes('Digital Marketing')) ||
     steps.some((s) => s.title.includes('Discovery & Goal') || s.title.includes('Measurement & Analysis'));
 
+  const isMobileApp =
+    (prefix.includes('Mobile App') && serif.includes('Development Process')) ||
+    steps.some((s) => s.title.includes('Discovery &\n Requirement') || s.title.includes('Deployment & App'));
+
+  if (isMobileApp) {
+    return (
+      <section className="process-section" aria-labelledby="process-title">
+        <div className="page-container wrap">
+          <div className="section-heading hd2">
+            <span className="section-badge pill">{pillText || 'Process'}</span>
+            <h2 className="section-heading__title svc-heading" id="process-title">
+              {renderHeadingParts(
+                prefix || 'Our Mobile App\n',
+                serif || 'Development Process',
+                section.headingSuffix
+              )}
+            </h2>
+          </div>
+          <ol className="process-card-grid process-card-grid--four-columns">
+            {steps.map((step, idx) => (
+              <li key={`${step.number}-${step.id ?? idx}`} className="process-card">
+                <span className="process-card__number">{step.number}</span>
+                <h3 className="process-card__title">{renderTextWithBreaks(step.title)}</h3>
+                {step.description ? (
+                  <p className="process-card__description">{renderTextWithBreaks(step.description)}</p>
+                ) : null}
+              </li>
+            ))}
+            <li className="process-card process-card--call-to-action">
+              <h3 className="process-card__title">{renderTextWithBreaks(section.ctaCard?.title || 'Ready to Launch\n Your Mobile App?')}</h3>
+              <p className="process-card__description">{renderTextWithBreaks(section.ctaCard?.description || 'Turn your idea into a powerful\n mobile app built for your\n business goals.')}</p>
+              <WalstarButton variant="orange" href={section.ctaCard?.ctaHref || '#contact'} className="button button--primary">
+                {section.ctaCard?.ctaLabel || 'Have an App Idea? ↗'}
+              </WalstarButton>
+            </li>
+          </ol>
+        </div>
+      </section>
+    );
+  }
+
+  const isWebSaas =
+    (prefix.includes('Web & SaaS') && serif.includes('Development Process')) ||
+    steps.some((s) => s.title.includes('Discovery & Product') || s.title.includes('Strategy & Technical'));
+
+  if (isWebSaas) {
+    return (
+      <section className="process-section" aria-labelledby="process-title">
+        <div className="page-container wrap">
+          <div className="section-heading hd2">
+            <span className="section-badge pill">{pillText || 'Process'}</span>
+            <h2 className="section-heading__title svc-heading" id="process-title">
+              {renderHeadingParts(
+                prefix || 'Our Web & SaaS Product\n',
+                serif || 'Development Process',
+                section.headingSuffix
+              )}
+            </h2>
+          </div>
+          <ol className="process-card-grid">
+            {steps.map((step, idx) => (
+              <li key={`${step.number}-${step.id ?? idx}`} className="process-card">
+                <span className="process-card__number">{step.number}</span>
+                <h3 className="process-card__title">{renderTextWithBreaks(step.title)}</h3>
+                {step.description ? (
+                  <p className="process-card__description">{renderTextWithBreaks(step.description)}</p>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    );
+  }
+
   if (isDigitalMarketing) {
     return (
       <section className="process-section" aria-labelledby="process-title">
@@ -1066,6 +1611,71 @@ export function SvcApproachBlock({ section }: { section: SvcApproachSection }) {
   const isDigitalMarketing =
     (serif.includes('Your Business') && prefix.includes('Digital Growth')) ||
     getItems.some((it) => it.label.includes('Useful Content') || it.label.includes('Continuous Improvement'));
+
+  const isMobileApp =
+    (prefix.includes('Built for Performance') && serif.includes('Usability & Scalability')) ||
+    getItems.some((it) => it.label.includes('Intuitive and user-friendly') || it.label.includes('Responsive experiences across supported'));
+
+  const isWebSaas =
+    isMobileApp ||
+    (prefix.includes('Built for Performance') && serif.includes('Flexibility & Growth')) ||
+    getItems.some((it) => it.label.includes('Responsive and user-friendly') || it.label.includes('Scalable and maintainable'));
+
+  if (isWebSaas) {
+    const midPoint = 4;
+    const col1 = getItems.slice(0, midPoint);
+    const col2 = getItems.slice(midPoint);
+
+    return (
+      <section className="approach-section sec ap" aria-labelledby="approach-title">
+        <div className="page-container wrap">
+          <div className="approach-section__header">
+            <div>
+              <span className="section-badge pill">{pillText || 'Our Approach'}</span>
+              <h2 className="approach-section__title svc-heading" id="approach-title">
+                {renderHeadingParts(
+                  prefix || 'Built for Performance,\n',
+                  serif || 'Flexibility & Growth',
+                  section.headingSuffix
+                )}
+              </h2>
+            </div>
+            <p className="approach-section__introduction">
+              {section.bodyOne ? (
+                renderTextWithBreaks(section.bodyOne)
+              ) : (
+                <>
+                  A successful website or SaaS product needs more than attractive design. It<br className="desktop-line-break" /> requires a strong technical foundation, a smooth user experience, and the<br className="desktop-line-break" /> flexibility to adapt as business needs change.<br className="desktop-line-break" /> At Walstar Technologies, we focus on building digital products with:
+                </>
+              )}
+            </p>
+          </div>
+          <div className="approach-checklist">
+            <ul className="approach-checklist__column">
+              {col1.map((item, idx) => (
+                <li key={`${item.label}-${item.id ?? idx}`} className="approach-checklist-item">
+                  <span className="approach-checklist-item__icon">
+                    {renderNamedSvgIcon(item.icon, idx, item.label)}
+                  </span>
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+            <ul className="approach-checklist__column">
+              {col2.map((item, idx) => (
+                <li key={`${item.label}-${item.id ?? idx}`} className="approach-checklist-item">
+                  <span className="approach-checklist-item__icon">
+                    {renderNamedSvgIcon(item.icon, midPoint + idx, item.label)}
+                  </span>
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (isDigitalMarketing) {
     return (
@@ -1230,6 +1840,74 @@ export function SvcCtaBlock({ section }: { section: SvcCtaSection }) {
   const isDigitalMarketing =
     serif.includes('Business Growth?') ||
     prefix.includes('Turn Your Digital');
+
+  const isMobileApp =
+    (prefix.includes('Have an Idea for a') && serif.includes('Mobile App?')) ||
+    Boolean(section.bodyOne?.includes('mobile experience that helps your business'));
+
+  if (isMobileApp) {
+    return (
+      <section className="final-call-to-action-section svc-rd rd" aria-labelledby="final-call-to-action-title" id="contact">
+        <span className="section-badge pill" style={{ background: 'rgba(255, 255, 255, 0.7)', color: 'var(--color-navy, #001a33)' }}>
+          {pillText || 'Let’s talk'}
+        </span>
+        <h2 className="final-call-to-action-section__title svc-heading" id="final-call-to-action-title">
+          {renderHeadingParts(
+            prefix || 'Have an Idea for a\n',
+            serif || 'Mobile App?',
+            suffix
+          )}
+        </h2>
+        <p className="final-call-to-action-section__text">
+          {section.bodyOne
+            ? renderTextWithBreaks(section.bodyOne)
+            : "Let's turn your idea into a mobile experience that helps your business connect\n with customers, simplify operations, and create new opportunities for growth."}
+        </p>
+        <div className="final-call-to-action-section__actions">
+          <WalstarButton variant="orange" href={section.ctaHref || '#contact'} className="button button--primary">
+            {section.ctaLabel || 'Discuss Your Project ↗'}
+          </WalstarButton>
+          <a className="button button--outline-light" href={section.secondaryCtaHref || '#contact'}>
+            {section.secondaryCtaLabel || 'Contact Our Team ↗'}
+          </a>
+        </div>
+      </section>
+    );
+  }
+
+  const isWebSaas =
+    (prefix.includes('Have an Idea for Your') && serif.includes('Digital Product?')) ||
+    Boolean(section.bodyOne?.includes('launching a SaaS startup'));
+
+  if (isWebSaas) {
+    return (
+      <section className="final-call-to-action-section svc-rd rd" aria-labelledby="final-call-to-action-title" id="contact">
+        <span className="section-badge pill" style={{ background: 'rgba(255, 255, 255, 0.7)', color: 'var(--color-navy, #001a33)' }}>
+          {pillText || 'Let’s talk'}
+        </span>
+        <h2 className="final-call-to-action-section__title svc-heading" id="final-call-to-action-title">
+          {renderHeadingParts(
+            prefix || 'Have an Idea for Your\n Next ',
+            serif || 'Digital Product?',
+            suffix
+          )}
+        </h2>
+        <p className="final-call-to-action-section__text">
+          {section.bodyOne
+            ? renderTextWithBreaks(section.bodyOne)
+            : "Whether you're planning a new website, launching a SaaS startup, or improving an existing web application,\n Walstar Technologies can help turn your idea into a functional digital product.\n Let's discuss your vision, explore the possibilities, and plan the right development approach for your business."}
+        </p>
+        <div className="final-call-to-action-section__actions">
+          <WalstarButton variant="orange" href={section.ctaHref || '#contact'} className="button button--primary">
+            {section.ctaLabel || 'Discuss Your Project ↗'}
+          </WalstarButton>
+          <a className="button button--outline-light" href={section.secondaryCtaHref || '#contact'}>
+            {section.secondaryCtaLabel || 'Contact Our Team ↗'}
+          </a>
+        </div>
+      </section>
+    );
+  }
 
   if (isDigitalMarketing) {
     return (

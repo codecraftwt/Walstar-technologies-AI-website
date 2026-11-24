@@ -1936,6 +1936,479 @@ export const INITIAL_PAGES = [
       },
     ],
   },
+  {
+    title: 'Web & SaaS Product Development',
+    slug: 'web-saas-product-development',
+    isHomepage: false,
+    pageType: 'service' as const,
+    order: 7,
+    summary:
+      'Custom website, web application and SaaS product development from Walstar Technologies.',
+    seo: {
+      metaTitle: 'Web & SaaS Product Development | Walstar Technologies',
+      metaDescription:
+        'Custom website, web application and SaaS product development from Walstar Technologies.',
+    },
+    sections: [
+      {
+        __component: 'sections.hero',
+        variant: 'compact',
+        chip: '● Services',
+        headlinePrefix: 'Web & SaaS\n',
+        headlineSerif: 'Product Development',
+        headlineSuffix: '',
+        description: null,
+      },
+      {
+        __component: 'sections.svc-intro',
+        pill: '● Web & SaaS',
+        headingPrefix: 'Build Powerful Web Experiences\n and ',
+        headingSerif: 'Scalable SaaS Products',
+        headingSuffix: '',
+        description:
+          'From business management systems to workflow automation, we\ndevelop scalable software solutions designed to simplify operations and\nimprove productivity.',
+        image: {
+          url: '/images/services/web-saas.png',
+          alternativeText: 'Team working with web application dashboards',
+        },
+        ctaLabel: 'Discuss Your Web Project ↗',
+        ctaHref: '#contact',
+      },
+      {
+        __component: 'sections.svc-capabilities',
+        pill: '● Capabilities',
+        headingPrefix: 'Web & SaaS Solutions\n Designed for ',
+        headingSerif: 'Your Business',
+        headingSuffix: '',
+        description:
+          'Every digital product has a purpose. Your website needs to communicate your value, your web application\n needs to solve a problem, and your SaaS platform needs to deliver a consistent experience as it grows.\n Our web and SaaS development services focus on building reliable, user-friendly, and scalable digital\n solutions aligned with your business objectives.',
+        capabilityItems: [
+          {
+            tag: 'Custom Websites',
+            icon: 'monitor',
+            title: 'Custom Website\n Development',
+            description:
+              'Build a professional online\n presence with custom-\n designed websites that\n communicate your brand,\n showcase your services, and\n create meaningful experiences\n for visitors.',
+          },
+          {
+            tag: 'Smarter Operations',
+            icon: 'monitor-settings',
+            title: 'Web Application\n Development',
+            description:
+              'Develop powerful web-based\n applications tailored to your\n business requirements,\n including interactive\n dashboards, customer portals,\n management platforms, and\n specialized business tools.',
+          },
+          {
+            tag: 'Workflow AI',
+            icon: 'cloud-gear',
+            title: 'SaaS Product\n Development',
+            description:
+              'Turn your software idea into a\n market-ready SaaS product\n with subscription-based\n access, user management,\n application dashboards, and\n scalable product architecture.',
+          },
+          {
+            tag: 'Tailored AI',
+            icon: 'network-nodes',
+            title: 'SaaS MVP\n Development',
+            description:
+              'Validate your product idea with\n a Minimum Viable Product\n (MVP) that focuses on essential\n features, core functionality, and\n early user feedback before\n expanding into a full-scale\n platform.',
+          },
+          {
+            tag: 'UI/UX Design',
+            icon: 'ui-layout',
+            title: 'UI/UX Design &\n Product Experience',
+            description:
+              'Create intuitive digital\n experiences through user\n research, wireframes,\n interactive prototypes, and\n modern interface design that\n make your products easier to\n use.',
+          },
+          {
+            tag: 'Admin Dashboards',
+            icon: 'api-plug',
+            title: 'API Development\n & Third-Party\n Integrations',
+            description:
+              'Connect your digital products\n with external services, payment\n gateways, communication\n platforms, business\n applications, and other systems\n through suitable APIs and\n integrations.',
+          },
+          {
+            tag: 'Smart Assistance',
+            icon: 'robot',
+            title: 'Generative AI &\n Business Assistants',
+            description:
+              'Explore AI-powered assistants\n that help teams find\n information, summarize\n documents, generate content,\n and work with business\n knowledge more efficiently.',
+          },
+          {
+            tag: 'App Modernization',
+            icon: 'browser-window',
+            title: 'SaaS Modernization &\n Product Enhancement',
+            description:
+              'Improve existing web\n applications and SaaS\n platforms with updated\n interfaces, enhanced\n functionality, better\n performance, and maintainable\n architecture.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-benefits',
+        pill: '● Benefits',
+        headingPrefix: 'How Web & SaaS Development\n Helps Your ',
+        headingSerif: 'Business Grow',
+        benefitItems: [
+          {
+            icon: 'phone',
+            title: 'Create Better\n Digital\n Experiences',
+            description:
+              'Deliver modern, responsive,\n and user-friendly\n experiences that help\n customers interact with\n your business across\n devices.',
+            isDark: false,
+          },
+          {
+            icon: 'rocket',
+            title: 'Turn Ideas Into\n Digital\n Products',
+            description:
+              'Transform your software\n concept into a functional\n product through\n structured planning,\n design, development,\n and testing.',
+            isDark: true,
+          },
+          {
+            icon: 'refresh',
+            title: 'Build Recurring\n Revenue\n Opportunities',
+            description:
+              'Develop subscription-based\n software platforms with\n suitable plans, user access,\n and billing integrations to\n support your business\n model.',
+            isDark: false,
+          },
+          {
+            icon: 'network-nodes',
+            title: 'Scale With\n Your\n Business',
+            description:
+              'Build flexible software\n architecture that can\n accommodate new\n users, features,\n integrations, and\n changing requirements.',
+            isDark: false,
+          },
+          {
+            icon: 'cloud-upload',
+            title: 'Reach Customers\n Beyond Your\n Location',
+            description:
+              'Make your services and\n digital products\n accessible through web-\n based platforms that\n customers can use from\n different locations.',
+            isDark: false,
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-process',
+        pill: '● Process',
+        headingPrefix: 'Our Web & SaaS Product\n',
+        headingSerif: 'Development Process',
+        steps: [
+          {
+            number: '01',
+            title: 'Discovery & Product\n Planning',
+            description:
+              'We understand your business objectives,\n target audience, product idea, functional\n requirements, and expected outcomes to\n define the project scope.',
+          },
+          {
+            number: '02',
+            title: 'Strategy & Technical\n Architecture',
+            description:
+              'We plan the application structure, technology\n stack, database architecture, integrations,\n and development roadmap based on your\n product requirements.',
+          },
+          {
+            number: '03',
+            title: 'UI/UX Design &\n Prototyping',
+            description:
+              'We create wireframes, user journeys, and\n interactive designs to establish a clear and\n intuitive product experience before\n development begins.',
+          },
+          {
+            number: '04',
+            title: 'Development &\n Integration',
+            description:
+              'Our developers build the website, web\n application, or SaaS platform with the\n required features, functionality, and third-\n party integrations.',
+          },
+          {
+            number: '05',
+            title: 'Testing & Quality\n Assurance',
+            description:
+              'We evaluate functionality, usability,\n responsiveness, performance, and security\n considerations to prepare the product for\n launch.',
+          },
+          {
+            number: '06',
+            title: 'Deployment &\n Ongoing Support',
+            description:
+              'We support deployment, monitor the product\n after launch, and help introduce\n improvements, new features, and technical\n enhancements as your requirements evolve.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-approach',
+        pill: '● Our Approach',
+        headingPrefix: 'Built for Performance,\n',
+        headingSerif: 'Flexibility & Growth',
+        bodyOne:
+          'A successful website or SaaS product needs more than attractive design. It\n requires a strong technical foundation, a smooth user experience, and the\n flexibility to adapt as business needs change.\n At Walstar Technologies, we focus on building digital products with:',
+        getBoxItems: [
+          { label: 'Responsive and user-friendly interfaces', icon: 'layout-grid' },
+          { label: 'Scalable and maintainable application architecture', icon: 'network-nodes' },
+          { label: 'Performance-focused development', icon: 'bolt' },
+          { label: 'Secure authentication and access management', icon: 'shield-lock' },
+          { label: 'API and third-party service integrations', icon: 'gear' },
+          { label: 'Flexible product features and functionality', icon: 'gear' },
+          { label: 'Ongoing technical maintenance and improvements', icon: 'wrench' },
+        ],
+      },
+      {
+        __component: 'sections.svc-cta',
+        pill: '● Let’s talk',
+        headingPrefix: 'Have an Idea for Your\n Next ',
+        headingSerif: 'Digital Product?',
+        bodyOne:
+          "Whether you're planning a new website, launching a SaaS startup, or improving an existing web application,\n Walstar Technologies can help turn your idea into a functional digital product.\n Let's discuss your vision, explore the possibilities, and plan the right development approach for your business.",
+        ctaLabel: 'Discuss Your Project ↗',
+        ctaHref: '#contact',
+      },
+      {
+        ...SHARED_CTA_BAND,
+        buttonHref: '/contact',
+      },
+    ],
+  },
+  {
+    title: 'Mobile App Development',
+    slug: 'mobile-app-development',
+    isHomepage: false,
+    pageType: 'service' as const,
+    order: 8,
+    summary:
+      'Android, iOS and cross-platform mobile app development from Walstar Technologies.',
+    seo: {
+      metaTitle: 'Mobile App Development | Walstar Technologies',
+      metaDescription:
+        'Android, iOS and cross-platform mobile app development from Walstar Technologies.',
+    },
+    sections: [
+      {
+        __component: 'sections.hero',
+        variant: 'compact',
+        chip: '● Services',
+        headlinePrefix: 'Mobile App\n',
+        headlineSerif: 'Development',
+        headlineSuffix: '',
+        description: null,
+      },
+      {
+        __component: 'sections.svc-intro',
+        pill: '● Mobile App Development',
+        headingPrefix: 'Build Powerful Mobile Apps That\n Connect ',
+        headingSerif: 'Your Business With\n',
+        headingSuffix: 'Customers',
+        description:
+          'We design and develop user-friendly, high-performance mobile\n applications that help businesses improve customer engagement,\n simplify operations, and grow digitally.',
+        image: {
+          url: '/images/services/mobile-app.png',
+          alternativeText: 'Person holding a smartphone showing app analytics',
+        },
+        ctaLabel: 'Discuss Your App Project ↗',
+        ctaHref: '#contact',
+      },
+      {
+        __component: 'sections.svc-capabilities',
+        pill: '● Capabilities',
+        headingPrefix: 'Mobile App Solutions Designed\n Around ',
+        headingSerif: 'Your Business',
+        headingSuffix: '',
+        description:
+          'Every mobile application serves a different purpose. Whether you want to reach more customers, improve\n internal operations, or launch a new digital product, we develop mobile solutions tailored to your business\n goals and user requirements.',
+        capabilityItems: [
+          {
+            tag: 'Android Development',
+            icon: 'smartphone-tablet',
+            title: 'Android App\n Development',
+            description:
+              'Reach a wider audience with custom Android\n applications designed for performance,\n usability, and compatibility across supported\n Android devices.',
+          },
+          {
+            tag: 'IOS Development',
+            icon: 'apple',
+            title: 'IOS App\n Development',
+            description:
+              'Deliver seamless experiences to Apple users\n with custom iPhone and iPad applications\n designed around your product requirements\n and platform guidelines.',
+          },
+          {
+            tag: 'Multi-Platform Apps',
+            icon: 'settings-target',
+            title: 'Cross-Platform App\n Development',
+            description:
+              'Build Android and iOS apps using Flutter and\n React Native with a shared codebase,\n consistent experiences, and faster\n development across platforms.',
+          },
+          {
+            tag: 'Mobile UI/UX',
+            icon: 'palette',
+            title: 'UI/UX Design For\n Mobile Apps',
+            description:
+              'Create intuitive and engaging mobile\n experiences through user research,\n wireframes, interactive prototypes, and user-\n focused interface design.',
+          },
+          {
+            tag: 'Briefcase-Business',
+            icon: 'users-group',
+            title: 'Business & Enterprise\n Mobile Applications',
+            description:
+              'Simplify business operations with mobile\n applications for employee management, field\n operations, customer communication, service\n management, and internal workflows.',
+          },
+          {
+            tag: 'Mobile Commerce',
+            icon: 'shopping-cart',
+            title: 'ECommerce & MCommerce\n App Development',
+            description:
+              'Make shopping more convenient with mobile\n commerce applications that support product\n browsing, customer accounts, shopping carts,\n payment integrations.',
+          },
+          {
+            tag: 'Progressive Web Apps',
+            icon: 'layout-grid',
+            title: 'Progressive Web App\n (PWA) Development',
+            description:
+              'Create web applications that offer app-like\n experiences through modern browser\n technologies, responsive interfaces, and\n installable functionality where supported.',
+          },
+          {
+            tag: 'App Integration',
+            icon: 'api-plug',
+            title: 'App Integration &\n API Development',
+            description:
+              'Connect mobile applications with existing\n business software, CRM and ERP systems,\n payment gateways, maps, communication\n tools, and other third-party services.',
+          },
+          {
+            tag: 'App Maintenance',
+            icon: 'tools',
+            title: 'App Maintenance\n & Support',
+            description:
+              'Keep your application updated and reliable\n through bug fixes, compatibility updates,\n performance improvements, technical\n support, and feature enhancements.',
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-benefits',
+        pill: '● Benefits',
+        headingPrefix: 'Our Mobile App\n',
+        headingSerif: 'Development Process',
+        benefitItems: [
+          {
+            icon: 'globe',
+            title: 'Improve\n Customer\n Engagement',
+            description:
+              'Give customers a\n convenient way to access\n your products, services, and\n business information\n directly from their mobile\n devices.',
+            isDark: false,
+          },
+          {
+            icon: 'megaphone',
+            title: 'Strengthen\n Your Digital\n Presence',
+            description:
+              'Extend your brand\n experience beyond your\n website and create\n more opportunities to\n connect with\n customers.',
+            isDark: true,
+          },
+          {
+            icon: 'users-group',
+            title: 'Simplify\n Business\n Operations',
+            description:
+              'Support internal teams\n with mobile tools that\n streamline workflows,\n communication, and\n everyday business\n activities.',
+            isDark: false,
+          },
+          {
+            icon: 'cursor-click',
+            title: 'Deliver Better\n User\n Experiences',
+            description:
+              'Make important\n services and features\n easier to access\n through intuitive\n navigation and user-\n friendly interfaces.',
+            isDark: false,
+          },
+          {
+            icon: 'growth-chart',
+            title: 'Support\n Business\n Growth',
+            description:
+              'Build flexible mobile\n applications that can\n evolve with new features,\n integrations, and\n changing customer\n requirements.',
+            isDark: false,
+          },
+        ],
+      },
+      {
+        __component: 'sections.svc-process',
+        pill: '● Process',
+        headingPrefix: 'Our Mobile App\n',
+        headingSerif: 'Development Process',
+        steps: [
+          {
+            number: '01',
+            title: 'Discovery &\n Requirement Analysis',
+            description:
+              'We understand your business objectives,\n target users, application idea, expected\n features, and technical requirements to\n define the project scope.',
+          },
+          {
+            number: '02',
+            title: 'Strategy &\n Technology Selection',
+            description:
+              'We identify the appropriate development\n approach, whether native Android, native\n iOS, or cross-platform, based on your\n requirements, budget, and project goals.',
+          },
+          {
+            number: '03',
+            title: 'UI/UX Design &\n Prototyping',
+            description:
+              'We create wireframes, user journeys, and\n application designs that focus on usability,\n accessibility, and a consistent user\n experience.',
+          },
+          {
+            number: '04',
+            title: 'App Development\n & Integration',
+            description:
+              'Our developers build the application,\n implement its features, and integrate the\n required APIs, databases, payment gateways,\n and third-party services.',
+          },
+          {
+            number: '05',
+            title: 'Testing & Quality\n Assurance',
+            description:
+              'We test application functionality, performance,\n compatibility, usability, and security\n considerations across supported devices and\n operating system versions.',
+          },
+          {
+            number: '06',
+            title: 'Deployment & App\n Store Submission',
+            description:
+              'We prepare the application for release and\n assist with publishing it to the Google Play\n Store and Apple App Store, subject to their\n respective review and approval processes.',
+          },
+          {
+            number: '07',
+            title: 'Maintenance &\n Continuous Improvement',
+            description:
+              'After launch, we provide technical support,\n bug fixes, updates, and feature enhancements\n to help your application evolve over time.',
+          },
+        ],
+        ctaCard: {
+          title: 'Ready to Launch\n Your Mobile App?',
+          description:
+            'Turn your idea into a powerful\n mobile app built for your\n business goals.',
+          ctaLabel: 'Have an App Idea? ↗',
+          ctaHref: '#contact',
+        },
+      },
+      {
+        __component: 'sections.svc-approach',
+        pill: '● Our Approach',
+        headingPrefix: 'Built for Performance,\n',
+        headingSerif: 'Usability & Scalability',
+        bodyOne:
+          'A successful mobile application needs more than attractive screens. It should\n provide a reliable experience, work smoothly across supported devices, and\n adapt as your business grows.\n\nWe select the development technologies and architecture based on the\n application’s functionality, target platforms, and long-term requirements.',
+        getBoxItems: [
+          { label: 'Intuitive and user-friendly interfaces', icon: 'layout-grid' },
+          { label: 'Responsive experiences across supported devices', icon: 'responsive-devices' },
+          { label: 'Performance-focused application development', icon: 'gauge' },
+          { label: 'Secure authentication and data handling', icon: 'shield-lock' },
+          { label: 'API and third-party service integrations', icon: 'api-plug' },
+          { label: 'Scalable application architecture', icon: 'layers' },
+          { label: 'Testing and quality assurance', icon: 'clipboard-check' },
+          { label: 'Ongoing maintenance and technical support', icon: 'wrench' },
+        ],
+      },
+      {
+        __component: 'sections.svc-cta',
+        pill: '● Let’s talk',
+        headingPrefix: 'Have an Idea for a\n',
+        headingSerif: 'Mobile App?',
+        bodyOne:
+          "Let's turn your idea into a mobile experience that helps your business connect\n with customers, simplify operations, and create new opportunities for growth.",
+        ctaLabel: 'Discuss Your Project ↗',
+        ctaHref: '#contact',
+        secondaryCtaLabel: 'Contact Our Team ↗',
+        secondaryCtaHref: '#contact',
+      },
+      {
+        ...SHARED_CTA_BAND,
+        buttonHref: '/contact',
+      },
+    ],
+  },
 ];
 
 export const INITIAL_NAVBAR = {
@@ -1982,6 +2455,12 @@ export const INITIAL_NAVBAR = {
           label: 'Web & SaaS Product Engineering',
           description: 'Fast, secure multi-tenant SaaS platforms',
           route: '/services/web-saas-product-development',
+          openInNewTab: false,
+        },
+        {
+          label: 'Mobile App Development',
+          description: 'Native iOS, Android & cross-platform mobile apps',
+          route: '/services/mobile-app-development',
           openInNewTab: false,
         },
       ],

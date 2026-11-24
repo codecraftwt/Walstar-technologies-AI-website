@@ -1411,8 +1411,6 @@ html.walstar-scroll-locked {
 .sec.offices h2,
 .contact-interest-heading,
 .contact-panel-heading,
-.wwd-heading,
-.capabilities-title,
 .proc-heading,
 .prod-heading,
 .trust-heading,
@@ -1431,6 +1429,18 @@ html.walstar-scroll-locked {
   font-weight: 600 !important;
   letter-spacing: -0.015em !important;
   color: #001930 !important;
+  word-break: break-word;
+}
+
+.wwd-heading,
+.capabilities-title {
+  margin: 12px 0 16px;
+  line-height: 1.18;
+  font-family: Urbanist, Poppins, system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(28px, 2.7vw, 44px) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+  color: #ffffff !important;
   word-break: break-word;
 }
 
@@ -2423,8 +2433,10 @@ html.walstar-scroll-locked {
   color: var(--ink);
 }
 
-.trust h2 .serif {
-  color: #fff;
+.trust h2 .serif,
+.trust-heading .serif,
+.trust .serif {
+  color: #ffffff !important;
 }
 
 .trust-logos {
@@ -10358,7 +10370,7 @@ html.walstar-scroll-locked {
   line-height: 1.18 !important;
   letter-spacing: -0.015em !important;
   margin: 16px 0 16px;
-  color: #fff;
+  color: #ffffff !important;
   text-align: center;
 }
 
@@ -12259,3 +12271,403 @@ html.walstar-scroll-locked {
     grid-column: span 1 !important;
   }
 }
+
+/* ---------- Web & SaaS Product Development Page Additions ---------- */
+.button--outline-light {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+.button--outline-light:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.capabilities-section {
+  margin: 0 10px;
+  padding: 74px 0 84px;
+  border-radius: 44px;
+  background: var(--color-navy, #001a33);
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.capabilities-section .section-badge,
+.capabilities-section .pill {
+  background: #ffffff;
+  color: #2a3146;
+}
+
+.capabilities-section__description {
+  max-width: 740px;
+  margin: 22px auto 0;
+  font-size: 13.5px;
+  line-height: 20px;
+  color: #CAD7E6;
+  font-family: var(--font-body, Poppins, sans-serif);
+  text-align: center;
+}
+
+.capability-card-grid {
+  max-width: var(--container-width, 1215px);
+  margin: 34px auto 0;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.capability-card {
+  position: relative;
+  padding: 28px 29px 30px;
+  min-height: 319px;
+  border-radius: 16px;
+  background: #dcefff;
+  color: var(--color-heading, #0b1d36);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.capability-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.capability-card__tag {
+  display: inline-block;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1b6fc2;
+  font-size: 10.5px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.capability-card__icon {
+  position: absolute;
+  top: 20px;
+  right: 26px;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--color-heading, #0b1d36);
+  flex-shrink: 0;
+}
+
+.capability-card__icon svg,
+.capability-card__icon .icon {
+  width: 22px;
+  height: 22px;
+  stroke: var(--color-heading, #0b1d36);
+}
+
+.capability-card__title {
+  margin-top: 16px;
+  font-family: var(--font-heading, Urbanist, Poppins, sans-serif);
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 25px;
+  color: var(--color-heading, #0b1d36);
+}
+
+.capability-card__description {
+  margin-top: 12px;
+  font-family: var(--font-body, Poppins, sans-serif);
+  font-size: 12.5px;
+  line-height: 20px;
+  color: var(--color-body-text, #5d6478);
+  margin-bottom: 0;
+}
+
+.benefit-card--tall {
+  min-height: 334px;
+}
+
+.process-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 19px;
+  margin-top: 36px;
+  list-style: none;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.process-card {
+  padding: 32px 34px;
+  min-height: 241px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 25, 48, 0.03);
+  box-sizing: border-box;
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.process-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 25, 48, 0.08);
+}
+
+.process-card__number {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--font-accent, "Instrument Serif", Georgia, serif);
+  font-style: italic;
+  font-size: 40px;
+  line-height: 1;
+  color: #e8700a;
+}
+
+.process-card__title {
+  margin-bottom: 10px;
+  font-family: var(--font-heading, Urbanist, Poppins, sans-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--color-heading, #0b1d36);
+}
+
+.process-card__description {
+  font-family: var(--font-body, Poppins, sans-serif);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-body-text, #5d6478);
+  margin: 0;
+}
+
+.approach-section {
+  padding: 80px 0 74px;
+}
+
+.approach-section__header,
+.approach-checklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 21px;
+}
+
+.approach-section__header {
+  align-items: start;
+}
+
+.approach-section__title {
+  margin-top: 12px;
+  font-family: var(--font-heading, Urbanist, Poppins, sans-serif);
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.14;
+  color: var(--color-heading, #0b1d36);
+}
+
+.approach-section__introduction {
+  margin-top: 8px;
+  font-family: var(--font-body, Poppins, sans-serif);
+  font-size: 14.5px;
+  line-height: 22px;
+  color: var(--color-body-text, #5d6478);
+}
+
+.approach-checklist {
+  margin-top: 30px;
+  align-items: start;
+}
+
+.approach-checklist__column {
+  display: grid;
+  gap: 13px;
+  list-style: none;
+  padding: 0;
+}
+
+.approach-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 58px;
+  padding: 0 18px;
+  border-radius: 10px;
+  background: #ffffff;
+  font-family: var(--font-body, Poppins, sans-serif);
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--color-heading, #0b1d36);
+  box-shadow: 0 2px 8px rgba(0, 25, 48, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.approach-checklist-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 25, 48, 0.06);
+}
+
+.approach-checklist-item__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #dcecff;
+  color: var(--color-heading, #0b1d36);
+}
+
+.approach-checklist-item__icon svg,
+.approach-checklist-item__icon .icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-heading, #0b1d36);
+}
+
+.final-call-to-action-section__actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1100px) {
+  .capability-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .process-card-grid,
+  .approach-section__header,
+  .approach-checklist {
+    grid-template-columns: 1fr;
+  }
+  .approach-section__title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 620px) {
+  .capability-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .process-card {
+    padding: 26px;
+  }
+}
+
+/* ---------- Mobile App Development Page Additions ---------- */
+.capability-card-grid--three-columns {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 14px 20px !important;
+}
+
+.capability-card--roomy {
+  padding: 50px 33px 36px !important;
+  min-height: 320px !important;
+}
+
+.capability-card--roomy .capability-card__tag {
+  margin-top: 12px;
+}
+
+.capability-card--roomy .capability-card__icon {
+  top: 50px;
+  right: 36px;
+}
+
+.capability-card--roomy .capability-card__title {
+  margin-top: 19px;
+}
+
+.capability-card--roomy .capability-card__description {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.process-card-grid--four-columns {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.process-card-grid--four-columns .process-card {
+  min-height: 283px !important;
+  padding: 32px 34px !important;
+}
+
+.process-card-grid--four-columns .process-card__description {
+  font-size: 12.5px !important;
+}
+
+.process-card--call-to-action {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  background: var(--color-navy, #001a33) !important;
+  color: #ffffff !important;
+}
+
+.process-card--call-to-action .process-card__title {
+  margin-bottom: 12px !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  color: #ffffff !important;
+}
+
+.process-card--call-to-action .process-card__description {
+  color: #ffffff !important;
+  font-size: 13px !important;
+}
+
+.process-card--call-to-action .button {
+  align-self: flex-start !important;
+  margin-top: 22px !important;
+  padding: 13px 21px !important;
+}
+
+.approach-section__introduction p + p {
+  margin-top: 8px !important;
+}
+
+@media (max-width: 1100px) {
+  .capability-card-grid--three-columns,
+  .process-card-grid--four-columns {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .capability-card-grid--three-columns,
+  .process-card-grid--four-columns {
+    grid-template-columns: 1fr !important;
+  }
+  .capability-card--roomy {
+    padding: 36px 24px 30px !important;
+  }
+  .capability-card--roomy .capability-card__icon {
+    top: 30px !important;
+    right: 24px !important;
+  }
+}
+

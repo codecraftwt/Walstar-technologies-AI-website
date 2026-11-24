@@ -1,6 +1,6 @@
 const { createStrapi } = require('@strapi/strapi');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 async function run() {
   console.log('Initializing Strapi instance for Render DB sync...');
@@ -15,7 +15,14 @@ async function run() {
   // Load INITIAL_PAGES from dist
   const { INITIAL_PAGES } = require('../dist/src/seed/walstar-data');
 
-  for (const slug of ['service-1', 'service-2', 'service-3']) {
+  const targetSlugs = [
+    'ai-solutions-business-automation',
+    'custom-software-development',
+    'digital-marketing-performance-growth',
+    'web-saas-product-development',
+  ];
+
+  for (const slug of targetSlugs) {
     console.log(`\n--- Syncing ${slug} ---`);
     const seed = INITIAL_PAGES.find((p) => p.slug === slug);
     if (!seed) {
@@ -63,7 +70,7 @@ async function run() {
     console.log('No response cache to clear or skipped:', e.message);
   }
 
-  console.log('\nAll 3 service pages successfully updated in Render DB!');
+  console.log('\nAll service pages successfully updated in Render DB!');
   await app.destroy();
   process.exit(0);
 }

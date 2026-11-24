@@ -15,6 +15,13 @@ const SERVICE_CANONICAL_SLUGS: Record<string, string> = {
   'service-3': 'digital-marketing-performance-growth',
   'digital-marketing': 'digital-marketing-performance-growth',
   'digital-marketing-performance-growth': 'digital-marketing-performance-growth',
+  'service-4': 'web-saas-product-development',
+  'web-saas': 'web-saas-product-development',
+  'web-saas-product': 'web-saas-product-development',
+  'web-saas-product-development': 'web-saas-product-development',
+  'service-5': 'mobile-app-development',
+  'mobile-app': 'mobile-app-development',
+  'mobile-app-development': 'mobile-app-development',
 };
 
 export async function ResolvedPageView({
