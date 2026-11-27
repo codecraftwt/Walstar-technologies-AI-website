@@ -106,7 +106,11 @@ export const PAGE_POPULATE = {
         },
       },
       'sections.digital-solutions': {
-        populate: ['items'],
+        populate: {
+          items: {
+            populate: ['icon'],
+          },
+        },
       },
       'sections.testimonials': {
         populate: {

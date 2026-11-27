@@ -294,7 +294,12 @@ export interface DigitalSolutionsSection {
   headingPrefix?: string | null;
   headingSerif?: string | null;
   description?: string | null;
-  items?: Array<{ id?: number; title: string; color?: string | null }>;
+  items?: Array<{
+    id?: number;
+    title: string;
+    color?: string | null;
+    icon?: StrapiMedia | null;
+  }>;
 }
 
 export interface TestimonialsSection {

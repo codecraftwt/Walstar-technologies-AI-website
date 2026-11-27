@@ -13,6 +13,12 @@
     "color": {
       "type": "string",
       "default": "bg-[#DFF1FF]"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     }
   }
 }

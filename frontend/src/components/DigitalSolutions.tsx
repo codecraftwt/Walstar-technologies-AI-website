@@ -1,7 +1,11 @@
 import React from 'react';
 import type { DigitalSolutionsSection } from '@/types/strapi';
 
-const DIGITAL_SOLUTIONS = [
+const DIGITAL_SOLUTIONS: Array<{
+  title: string;
+  color: string;
+  icon?: { url: string; alternativeText?: string | null } | null;
+}> = [
   { title: 'Healthcare', color: 'bg-[#DFF1FF]' },
   { title: 'eCommerce & Retail', color: 'bg-[#DFF1FF]' },
   { title: 'Fashion & Apparel', color: 'bg-[#F8F6EF]' },
@@ -56,22 +60,34 @@ export default function DigitalSolutions({
             className={`flex h-[105px] w-full flex-col items-center justify-start gap-3.5 rounded-[16px] px-3 pt-5 pb-3 text-center transition-transform duration-200 hover:-translate-y-1 sm:h-[115px] lg:h-[125px] lg:gap-4 lg:px-4 lg:pt-6 lg:pb-4 xl:h-[135px] ${item.color || 'bg-[#DFF1FF]'}`}
           >
             <div className="flex items-center justify-center text-[#0077ed]">
-              <svg
-                width="34"
-                height="34"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                <rect x="14" y="14" width="7" height="7" rx="1.5" />
-              </svg>
+              {item.icon?.url ? (
+                <img
+                  src={
+                    item.icon.url.startsWith('http')
+                      ? item.icon.url
+                      : `${process.env.NEXT_PUBLIC_STRAPI_URL || ''}${item.icon.url}`
+                  }
+                  alt={item.icon.alternativeText || item.title}
+                  className="h-[34px] w-[34px] object-contain"
+                />
+              ) : (
+                <svg
+                  width="34"
+                  height="34"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                </svg>
+              )}
             </div>
             <span className="mt-1 text-center font-[Poppins,sans-serif] text-xs font-normal leading-tight tracking-[0] text-[#343434] sm:text-sm lg:text-[14px] xl:text-[15px]">
               {item.title}
