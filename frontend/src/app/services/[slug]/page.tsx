@@ -5,25 +5,11 @@ import { DetailShell } from '@/components/common/DetailShell';
 import { PageLoadingSkeleton } from '@/components/common/PageLoadingSkeleton';
 import { WalstarButton } from '@/components/common/WalstarButton';
 import { PageSectionsRenderer } from '@/components/page-renderer/PageSectionsRenderer';
+import {
+  CANONICAL_SERVICE_PAGE_SLUGS,
+  resolveCanonicalServiceSlug,
+} from '@/lib/cms-routes';
 import { getResolvedPageBySlug, getServiceBySlug, getStrapiMediaUrl } from '@/lib/strapi';
-
-const SERVICE_CANONICAL_SLUGS: Record<string, string> = {
-  'service-1': 'ai-solutions-business-automation',
-  'ai-solutions-automation': 'ai-solutions-business-automation',
-  'ai-solutions-and-automation': 'ai-solutions-business-automation',
-  'ai-solutions': 'ai-solutions-business-automation',
-  'service-2': 'custom-software-development',
-  'custom-software': 'custom-software-development',
-  'service-3': 'digital-marketing-performance-growth',
-  'digital-marketing': 'digital-marketing-performance-growth',
-  'service-4': 'web-saas-product-development',
-  'web-saas': 'web-saas-product-development',
-  'web-saas-product': 'web-saas-product-development',
-  'web-saas-product-development': 'web-saas-product-development',
-  'service-5': 'mobile-app-development',
-  'mobile-app': 'mobile-app-development',
-  'mobile-app-development': 'mobile-app-development',
-};
 
 async function ServiceContent({
   params,
@@ -33,7 +19,7 @@ async function ServiceContent({
   const { slug } = await params;
   const decodedSlug = decodeURIComponent(slug).trim();
 
-  const canonicalSlug = SERVICE_CANONICAL_SLUGS[decodedSlug];
+  const canonicalSlug = resolveCanonicalServiceSlug(decodedSlug);
   if (canonicalSlug && canonicalSlug !== decodedSlug) {
     redirect(`/services/${encodeURIComponent(canonicalSlug)}`);
   }
@@ -44,12 +30,7 @@ async function ServiceContent({
     pageData &&
     pageData.page?.sections &&
     pageData.page.sections.length > 0 &&
-    (pageData.page.pageType === 'service' ||
-      decodedSlug === 'ai-solutions-business-automation' ||
-      decodedSlug === 'custom-software-development' ||
-      decodedSlug === 'digital-marketing-performance-growth' ||
-      decodedSlug === 'web-saas-product-development' ||
-      decodedSlug === 'mobile-app-development')
+    (pageData.page.pageType === 'service' || CANONICAL_SERVICE_PAGE_SLUGS.has(decodedSlug))
   ) {
     return (
       <PageSectionsRenderer
@@ -72,7 +53,7 @@ async function ServiceContent({
   const iconImgUrl = getStrapiMediaUrl(service.iconImage?.url);
 
   return (
-    <DetailShell backHref="/#cap" backLabel="← Back to Capabilities">
+    <DetailShell backHref="/services" backLabel="← Back to Services">
       <article className="overflow-hidden rounded-2xl border border-[#e3e8f2] bg-white shadow-sm">
         <div className="relative h-52 bg-gradient-to-br from-[#1b1b55] via-[#4b2bb5] to-[#0e0f3a]">
           {imageUrl ? (

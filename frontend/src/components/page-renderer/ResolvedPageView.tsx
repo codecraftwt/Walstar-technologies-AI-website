@@ -1,28 +1,12 @@
 import { notFound, redirect } from 'next/navigation';
 import { DetailShell } from '@/components/common/DetailShell';
 import { PageSectionsRenderer } from '@/components/page-renderer/PageSectionsRenderer';
+import { AboutScreen } from '@/screens/about/AboutScreen';
+import { ContactScreen } from '@/screens/contact/ContactScreen';
+import { HomeScreen } from '@/screens/homepage/HomeScreen';
+import { ServicesScreen } from '@/screens/services/ServicesScreen';
+import { resolveCanonicalServiceSlug } from '@/lib/cms-routes';
 import { getResolvedPageBySlug } from '@/lib/strapi';
-
-const SERVICE_CANONICAL_SLUGS: Record<string, string> = {
-  'service-1': 'ai-solutions-business-automation',
-  'ai-solutions-automation': 'ai-solutions-business-automation',
-  'ai-solutions-and-automation': 'ai-solutions-business-automation',
-  'ai-solutions': 'ai-solutions-business-automation',
-  'ai-solutions-business-automation': 'ai-solutions-business-automation',
-  'service-2': 'custom-software-development',
-  'custom-software': 'custom-software-development',
-  'custom-software-development': 'custom-software-development',
-  'service-3': 'digital-marketing-performance-growth',
-  'digital-marketing': 'digital-marketing-performance-growth',
-  'digital-marketing-performance-growth': 'digital-marketing-performance-growth',
-  'service-4': 'web-saas-product-development',
-  'web-saas': 'web-saas-product-development',
-  'web-saas-product': 'web-saas-product-development',
-  'web-saas-product-development': 'web-saas-product-development',
-  'service-5': 'mobile-app-development',
-  'mobile-app': 'mobile-app-development',
-  'mobile-app-development': 'mobile-app-development',
-};
 
 export async function ResolvedPageView({
   params,
@@ -33,8 +17,9 @@ export async function ResolvedPageView({
   const decodedSlug = decodeURIComponent(slug).trim();
 
   // If a service page is requested at root /[slug], redirect cleanly to /services/[slug]
-  if (SERVICE_CANONICAL_SLUGS[decodedSlug]) {
-    redirect(`/services/${encodeURIComponent(SERVICE_CANONICAL_SLUGS[decodedSlug])}`);
+  const canonicalServiceSlug = resolveCanonicalServiceSlug(decodedSlug);
+  if (canonicalServiceSlug) {
+    redirect(`/services/${encodeURIComponent(canonicalServiceSlug)}`);
   }
 
   const { data, source, error } = await getResolvedPageBySlug(decodedSlug);
@@ -54,16 +39,34 @@ export async function ResolvedPageView({
     notFound();
   }
 
-  // If the resolved page is a service page, route to /services/[slug]
-  if (data.page.pageType === 'service') {
+  // If the resolved page is a service detail page, route to /services/[slug]
+  if (data.page.pageType === 'service' && data.page.slug !== 'services') {
     redirect(`/services/${encodeURIComponent(data.page.slug)}`);
+  }
+
+  const currentPath = `/${encodeURIComponent(decodedSlug)}`;
+
+  if (data.page.isHomepage || data.page.slug === 'home') {
+    return <HomeScreen data={data} source={source} />;
+  }
+
+  if (data.page.pageType === 'about' || data.page.slug === 'about' || data.page.slug === 'about-us') {
+    return <AboutScreen data={data} source={source} currentPath={currentPath} />;
+  }
+
+  if (data.page.pageType === 'contact' || data.page.slug === 'contact') {
+    return <ContactScreen data={data} source={source} currentPath={currentPath} />;
+  }
+
+  if (data.page.pageType === 'service' || data.page.slug === 'services') {
+    return <ServicesScreen data={data} source={source} currentPath={currentPath} />;
   }
 
   return (
     <PageSectionsRenderer
       data={data}
       source={source}
-      currentPath={`/${encodeURIComponent(decodedSlug)}`}
+      currentPath={currentPath}
     />
   );
 }

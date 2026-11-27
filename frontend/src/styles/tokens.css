@@ -1,0 +1,88 @@
+/* ==========================================================================
+   WALSTAR GLOBAL DESIGN TOKENS
+   Single source of truth for colors, typography, radii, shadows, and layout.
+   Updating a token here automatically propagates across all screens.
+   ========================================================================== */
+
+:root {
+  /* Brand Palette */
+  --color-navy: #001a33;
+  --color-navy-900: #001930;
+  --color-navy-deep: #0b1033;
+  --color-navy-legacy: #14154a;
+  --color-navy-dark: #0e0f3a;
+  --color-footer-navy: #161332;
+
+  --color-brand-blue: #2F80FF;
+  --color-accent-blue: #41A3FF;
+  --color-button-blue: #2d8ff0;
+  --color-cta-blue: #2d93f5;
+  --color-sky: #DDEFFF;
+  --color-sky-soft: #E8F3FD;
+  --color-light-blue-surface: #dbeaff;
+
+  --color-orange: #E96D01;
+  --color-orange-hover: #d46201;
+  --color-orange-bright: #ee700b;
+  --color-orange-accent: #e8700a;
+
+  /* Neutrals & Typography Colors */
+  --color-heading: #001930;
+  --color-heading-alt: #0b1d36;
+  --color-ink: #12123a;
+  --color-body-text: #5d6478;
+  --color-muted: #5d6280;
+  --color-text-gray: #666666;
+  --color-text-on-dark: #CAD7E6;
+  --color-page-bg: #F3F4F6;
+  --color-page-background: #f3f5f9;
+  --color-white: #ffffff;
+  --color-border: #e3e8f2;
+  --color-card-border: #dfe3ea;
+
+  /* Typography */
+  --font-heading: Urbanist, Poppins, system-ui, -apple-system, sans-serif;
+  --font-body: Poppins, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-accent: Georgia, "Instrument Serif", serif;
+
+  /* Type Scale */
+  --heading-size-section: clamp(28px, 2.7vw, 44px);
+  --heading-line-section: 1.18;
+  --heading-tracking-section: -0.015em;
+  --lead-size-section: clamp(14px, 0.95vw, 16px);
+  --lead-line-section: 1.6;
+
+  /* Layout & Spacing */
+  --page-px: clamp(16px, 1.5625vw, 30px);
+  --container-width: 1215px;
+  --container-wide: 1606px;
+  --section-py: clamp(54px, 4.8vw, 84px);
+
+  /* Radii */
+  --radius-pill: 9999px;
+  --radius-sm: 10px;
+  --radius-card: 16px;
+  --radius-card-lg: 20px;
+  --radius-panel: 28px;
+  --radius-section: 44px;
+
+  /* Elevation & Transitions */
+  --shadow-pill: 0 2px 8px rgba(20, 21, 74, 0.04);
+  --shadow-card: 0 4px 16px rgba(0, 25, 48, 0.04);
+  --shadow-card-hover: 0 12px 28px rgba(0, 25, 48, 0.1);
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Placeholder Asset */
+  --image-placeholder: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 360 300%22%3E%3Cg fill=%22none%22 stroke=%22%23f2f2f2%22 stroke-width=%2215%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22%3E%3Cpath d=%22M60 118L28 112 52 232l36 6%22/%3E%3Cpath d=%22M60 118L222 74l12 56%22/%3E%3Crect x=%2282%22 y=%22118%22 width=%22258%22 height=%22170%22 rx=%226%22/%3E%3C/g%3E%3Ccircle cx=%22150%22 cy=%22106%22 r=%2219%22 fill=%22%23f2f2f2%22/%3E%3Ccircle cx=%22296%22 cy=%22168%22 r=%2219%22 fill=%22%23f2f2f2%22/%3E%3Cpath d=%22M96 268c0-22 6-40 24-76l16-28 36 36 24-34 118 100z%22 fill=%22%23f2f2f2%22/%3E%3C/svg%3E");
+
+  /* Legacy Variable Aliases (mapped to semantic tokens) */
+  --navy: var(--color-navy-legacy);
+  --navy2: var(--color-navy-dark);
+  --blue: var(--color-accent-blue);
+  --sky: var(--color-sky);
+  --orange: var(--color-orange);
+  --ink: var(--color-ink);
+  --mute: var(--color-muted);
+  --line: var(--color-border);
+  --white: var(--color-white);
+}

@@ -673,6 +673,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.products-showcase',
         'sections.trust-banner',
         'sections.case-studies',
+        'sections.digital-solutions',
         'sections.testimonials',
         'sections.before-after',
         'sections.cta-band',
@@ -693,6 +694,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.svc-process',
         'sections.svc-approach',
         'sections.svc-cta',
+        'sections.service-grid',
+        'sections.faq-section',
       ]
     >;
     seo: Schema.Attribute.Component<'shared.seo', false>;

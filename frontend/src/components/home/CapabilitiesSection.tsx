@@ -1,9 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { OverlappingCtaBanner } from '@/components/common/OverlappingCtaBanner';
 import { getStrapiMediaUrl } from '@/lib/strapi';
 import type { CapabilitiesSection, ServiceItem, ProcessStep } from '@/types/strapi';
 import { DEFAULT_PROCESS_STEPS } from '@/lib/default-landing';
-import { WalstarButtonArrow } from '@/components/common/WalstarButton';
+import { WalstarButton, WalstarButtonArrow } from '@/components/common/WalstarButton';
 import { renderHeadingParts } from '@/components/common/SectionPrimitives';
 
 /* ─── Vector SVG Icons Matching Provided HTML ──────────────────────── */
@@ -210,23 +214,15 @@ export const WWD_CARDS: WwdCardItem[] = [
   {
     slug: 'ai-solutions-business-automation',
     isWide: true,
-    colorClass: 'c-lav', // #ECF0FF (50% wide card row 1)
+    colorClass: 'c-lav',
     tag: 'Work smarter',
     iconImage: '/images/capabilities/ai-solutions.png',
     icon: <WwdIcon1 />,
-    title: (
-      <>
-        AI Solutions &amp; Business<br />Automation
-      </>
-    ),
-    description: (
-      <>
-        Build AI-powered applications, intelligent agents, chatbots, and automated
-        <br className="d" /> workflows that reduce repetitive work and improve business efficiency.
-      </>
-    ),
+    title: 'AI Solutions & Business Automation',
+    description:
+      'Build AI-powered applications, intelligent agents, chatbots, and automated workflows that reduce repetitive work and improve business efficiency.',
     moreLabel: 'Explore AI solutions',
-    href: '/service-1',
+    href: '/services/ai-solutions-business-automation',
   },
   {
     slug: 'digital-marketing-performance-growth',
@@ -237,17 +233,11 @@ export const WWD_CARDS: WwdCardItem[] = [
     icon: <WwdIcon2 />,
     title: (
       <>
-        Digital Marketing &amp;<br />Performance Growth
+        Digital Marketing &amp; Performance Growth
       </>
     ),
-    description: (
-      <>
-        Get discovered, attract the right
-        <br className="d" /> visitors, and turn measurable
-        <br className="d" /> campaign performance into
-        <br className="d" /> qualified leads.
-      </>
-    ),
+    description:
+      'Improve AI-search visibility, attract relevant visitors, generate qualified leads, and optimize digital campaigns using measurable performance data.',
     moreLabel: 'Explore digital growth',
     href: '/services/digital-marketing-performance-growth',
   },
@@ -260,17 +250,11 @@ export const WWD_CARDS: WwdCardItem[] = [
     icon: <WwdIcon3 />,
     title: (
       <>
-        Custom Software<br />Development
+        Custom Software Development
       </>
     ),
-    description: (
-      <>
-        Make complex operations feel
-        <br className="d" /> simple with custom ERP, CRM,
-        <br className="d" /> inventory, and connected
-        <br className="d" /> business systems.
-      </>
-    ),
+    description:
+      'Simplify business operations with custom ERP systems, CRM platforms, inventory management, automated workflows, and connected business applications.',
     moreLabel: 'Explore business software',
     href: '/services/custom-software-development',
   },
@@ -283,17 +267,11 @@ export const WWD_CARDS: WwdCardItem[] = [
     icon: <WwdIcon4 />,
     title: (
       <>
-        Web &amp; SaaS Product<br />Development
+        Web &amp; SaaS Product Development
       </>
     ),
-    description: (
-      <>
-        Launch fast, secure websites
-        <br className="d" /> and scalable SaaS products,
-        <br className="d" /> with visibility and performance
-        <br className="d" /> built in from day one.
-      </>
-    ),
+    description:
+      'Fast, secure, search-friendly websites and scalable SaaS platforms, built on modern technology with performance and SEO included from day one.',
     moreLabel: 'Web & SaaS development',
     href: '/services/web-saas-product-development',
   },
@@ -306,17 +284,11 @@ export const WWD_CARDS: WwdCardItem[] = [
     icon: <WwdIcon5 />,
     title: (
       <>
-        Mobile App<br />Development
+        Mobile App Development
       </>
     ),
-    description: (
-      <>
-        Reach customers wherever they
-        <br className="d" /> are with intuitive Android and iOS
-        <br className="d" /> apps, dependable integrations,
-        <br className="d" /> and a scalable foundation.
-      </>
-    ),
+    description:
+      'Create user-friendly Android and iOS applications with scalable backends, intuitive interfaces, and reliable integrations.',
     moreLabel: 'Explore mobile apps',
     href: '/services/mobile-app-development',
   },
@@ -329,17 +301,11 @@ export const WWD_CARDS: WwdCardItem[] = [
     icon: <WwdIcon6 />,
     title: (
       <>
-        ECommerce &amp; Shopify<br />Solutions
+        ECommerce &amp; Shopify Solutions
       </>
     ),
-    description: (
-      <>
-        Create smooth digital shopping
-        <br className="d" /> experiences with B2B portals
-        <br className="d" /> and the payment, shipping, and
-        <br className="d" /> inventory tools you need.
-      </>
-    ),
+    description:
+      'Build online stores, B2B commerce portals, and scalable digital shopping experiences with payment, shipping, and inventory integrations.',
     moreLabel: 'Explore eCommerce',
     href: '/services/ecommerce-shopify-solutions',
   },
@@ -352,108 +318,80 @@ export const WWD_CARDS: WwdCardItem[] = [
     icon: <WwdIcon7 />,
     title: (
       <>
-        Cloud, DevOps &amp;<br />Platform Engineering
+        Cloud, DevOps &amp; Platform Engineering
       </>
     ),
-    description: (
-      <>
-        Ship with confidence using
-        <br className="d" /> secure cloud foundations and
-        <br className="d" /> smarter deployments that keep
-        <br className="d" /> applications fast, stable.
-      </>
-    ),
-    moreLabel: 'Explore cloud solutions',
+    description:
+      'Ship faster and scale with confidence. We design secure cloud architecture and automate deployment so your applications stay fast, stable and cost-efficient.',
+    moreLabel: 'Explore Cloud & DevOps',
     href: '/services/cloud-devops-platform-engineering',
   },
   {
     slug: 'cybersecurity-managed-it',
     isWide: false,
-    colorClass: 'c-pink',
+    colorClass: 'c-mint',
     tag: 'Stay protected',
     iconImage: '/images/capabilities/cybersecurity.png',
     icon: <WwdIcon8 />,
     title: (
       <>
-        Cybersecurity &amp;<br />Managed IT
+        Cybersecurity &amp; Managed IT Services
       </>
     ),
-    description: (
-      <>
-        Protect your systems and keep
-        <br className="d" /> applications healthy, secure,
-        <br className="d" /> and reliable with responsive
-        <br className="d" /> ongoing technical support.
-      </>
-    ),
-    moreLabel: 'Explore security & support',
+    description:
+      'Protect digital systems, maintain application health, resolve technical issues, and keep your business applications secure and reliable.',
+    moreLabel: 'Security & Support',
     href: '/services/cybersecurity-managed-it',
   },
   {
     slug: 'ui-ux-product-design',
     isWide: false,
-    colorClass: 'c-grey',
+    colorClass: 'c-cream',
     tag: 'Design that works',
     iconImage: '/images/capabilities/ui-ux-design.png',
     icon: <WwdIcon9 />,
     title: (
       <>
-        UI/UX &amp; Product<br />Design
+        UI/UX &amp; Product Design
       </>
     ),
-    description: (
-      <>
-        Turn user research and testing
-        <br className="d" /> into clear, on-brand
-        <br className="d" /> experiences designed to earn
-        <br className="d" /> sign-ups, sales.
-      </>
-    ),
-    moreLabel: 'Explore product design',
+    description:
+      'Design that makes people act. We turn research and testing into clear, on-brand interfaces that increase sign-ups, sales and retention.',
+    moreLabel: 'Explore Product Design',
     href: '/services/ui-ux-product-design',
   },
   {
     slug: 'white-label-development-dedicated-teams',
     isWide: false,
-    colorClass: 'c-lav',
+    colorClass: 'c-mint',
     tag: 'Build together',
     iconImage: '/images/capabilities/dedicated-teams.png',
     icon: <WwdIcon10 />,
     title: (
       <>
-        White-Label Development &amp;<br />Dedicated Teams
+        White-Label Development &amp; Dedicated Teams
       </>
     ),
-    description: (
-      <>
-        Extend your team without the hiring burden. Work with us as a confidential
-        <br className="d" /> delivery partner, or add dedicated developers to your own workflow.
-      </>
-    ),
-    moreLabel: 'Explore team partnerships',
-    href: '/contact',
+    description:
+      'Extend your team without the hiring burden. Work with us as a confidential delivery partner, or add dedicated developers to your own workflow.',
+    moreLabel: 'Development Partnerships',
+    href: '/services/white-label-development-dedicated-teams',
   },
   {
     slug: 'amazon-ebc-brand-content',
     isWide: false,
-    colorClass: 'c-peach',
-    tag: 'Make your brand stand out',
+    colorClass: 'c-sky',
+    tag: 'Brand impact',
     iconImage: '/images/capabilities/ecommerce.png',
     icon: <WwdIcon11 />,
     title: (
       <>
-        Amazon EBC &amp;<br />Brand Content
+        Amazon EBC &amp; Brand Content
       </>
     ),
-    description: (
-      <>
-        Enhance your Amazon listings with
-        <br className="d" /> compelling A+ Content, engaging
-        <br className="d" /> Brand Stories, and professional Brand
-        <br className="d" /> Stores that drive conversions.
-      </>
-    ),
-    moreLabel: 'Explore Amazon EBC Services',
+    description:
+      'Enhance Amazon listings with compelling A+ Content, Brand Stories, and professional Brand Stores that build trust and drive conversions.',
+    moreLabel: 'Amazon EBC services',
     href: '/services/amazon-ebc-brand-content',
   },
 ];
@@ -546,11 +484,22 @@ export function CapabilitiesBlock({
   fallbackServices?: ServiceItem[];
 }) {
   const pill = (section.pill || 'Capabilities').replace(/^[●•\s]+/, '');
-  const prefix = section.headingPrefix || 'What we';
-  const serif = section.headingSerif || 'do';
-  const subtitle =
-    section.subtitle ||
-    'End-to-end AI services engineered for performance, data security';
+  const isLegacyHeading =
+    (!section.headingPrefix || section.headingPrefix.trim() === 'What we') &&
+    (!section.headingSerif || section.headingSerif.trim() === 'do');
+  const prefix = isLegacyHeading
+    ? 'Custom Software, AI, Cloud, Security\nand Digital Growth'
+    : section.headingPrefix || 'Custom Software, AI, Cloud, Security\nand Digital Growth';
+  const serif = isLegacyHeading
+    ? 'Under One Roof'
+    : section.headingSerif || 'Under One Roof';
+  const isLegacySubtitle =
+    !section.subtitle ||
+    section.subtitle.trim() ===
+      'End-to-end AI services engineered for performance, data security';
+  const subtitle = isLegacySubtitle
+    ? 'From AI-driven automation to custom enterprise software, we deliver digital solutions that solve real problems, streamline operations, and help businesses scale.'
+    : section.subtitle!;
 
   // Process ("From idea to production") configuration
   const showProcess = section.showProcess !== false;
@@ -581,8 +530,7 @@ export function CapabilitiesBlock({
 
   const hasDbServices = incomingServices && incomingServices.length > 0;
 
-  // We map over all 10 canonical cards to guarantee the balanced 50% 25% 25% / 4-column layout,
-  // overlaying any matching Strapi service content while preserving exact Figma wraps.
+
   const cardsToRender: WwdCardItem[] = WWD_CARDS.map((defaultCard, idx) => {
     const matchingService =
       incomingServices.find(
@@ -607,16 +555,9 @@ export function CapabilitiesBlock({
         ? `/services/${matchingService.slug}`
         : defaultCard.href);
 
-    const formattedTitle = matchingService.title
-      ? formatCardTitle(matchingService.title, defaultCard.slug)
-      : defaultCard.title;
-
     return {
       ...defaultCard,
       tag: matchingService.tag || defaultCard.tag,
-      title: formattedTitle || defaultCard.title,
-      description: matchingService.description || defaultCard.description,
-      moreLabel: matchingService.more || matchingService.moreLabel || defaultCard.moreLabel,
       colorClass: defaultCard.colorClass,
       isWide: typeof matchingService.isWide === 'boolean' ? matchingService.isWide : defaultCard.isWide,
       iconImage: strapiIcon || defaultCard.iconImage,
@@ -624,105 +565,253 @@ export function CapabilitiesBlock({
     };
   });
 
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+
+  const cardBgMap: Record<string, string> = {
+    'c-lav': 'bg-[#ECEEFD]',
+    'c-sky': 'bg-[#DEEEFF]',
+    'c-peach': 'bg-[#FDEEEA]',
+    'c-pink': 'bg-[#FDEEEA]',
+    'c-mint': 'bg-[#ECF5F0]',
+    'c-cream': 'bg-[#F8F5EE]',
+    'c-offwhite': 'bg-[#F8F5EE]',
+    'c-grey': 'bg-[#EBF0F5]',
+  };
+
   return (
     <>
-      <section className="wwd homepage-capabilities-section" id="cap" aria-labelledby="wwd-title">
-        <div className="wwd-inner homepage-capabilities-container">
-          <div className="head capabilities-header">
+      <section
+        className="section-container-90 relative z-[2] mt-[clamp(28px,3vw,48px)] pb-28 md:pb-32 bg-[#001930] rounded-4xl py-15"
+        id="cap"
+        aria-labelledby="wwd-title"
+      >
+        <div className="mx-auto w-full">
+          <div className="text-center">
             <span className="pill">{pill}</span>
-            <h2 id="wwd-title" className="wwd-heading capabilities-title">
-              {renderHeadingParts(prefix, serif)}
+            <h2
+              id="wwd-title"
+              className="section-heading my-4 text-center !text-white"
+            >
+              <span className="whitespace-pre-line">{prefix}</span>{' '}
+              {serif ? (
+                <span className="section-heading-serif">{serif}</span>
+              ) : null}
             </h2>
-            <p className="wwd-subtitle capabilities-subtitle">{subtitle}</p>
+            <p className="mx-auto max-w-[min(760px,92vw)] text-center text-[clamp(13.5px,0.9vw,15px)] leading-[1.6] text-[#dbeaff]">
+              {subtitle}
+            </p>
           </div>
 
-          <div className="grid capabilities-grid">
-            {cardsToRender.map((card, idx) => (
-              <article
-                key={`${card.tag}-${idx}`}
-                className={`wwd-card card capabilities-card ${card.isWide ? 'w2 capabilities-card--wide ' : ''}${card.colorClass}`}
-              >
-                <span className="tag capabilities-card-tag">{card.tag}</span>
-                <span className="ic capabilities-card-icon" aria-hidden="true">
-                  {renderCardIcon(card)}
-                </span>
-                <h3 className="wwd-card-title capabilities-card-title">{card.title}</h3>
-                <p className="wwd-card-desc capabilities-card-desc">{card.description}</p>
-                <Link className="more capabilities-card-more" href={card.href}>
-                  {card.moreLabel} <WwdArrowIcon />
-                </Link>
-              </article>
-            ))}
+          <div className="mx-auto mt-[clamp(32px,2.6vw,44px)] grid w-[94%] grid-cols-1 gap-x-[clamp(16px,1.25vw,22px)] gap-y-[clamp(18px,1.4vw,26px)] sm:grid-cols-2 lg:grid-cols-4">
+            {cardsToRender.map((card, idx) => {
+              const bgClass = cardBgMap[card.colorClass] || 'bg-[#ECEEFD]';
+              return (
+                <article
+                  key={`${card.tag}-${idx}`}
+                  className={`group relative flex min-h-[clamp(235px,16vw,280px)] w-full flex-col rounded-2xl transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_16px_32px_rgba(0,0,0,0.24)] ${
+                    card.isWide
+                      ? 'sm:col-span-2 p-[clamp(28px,2vw,36px)] pb-[clamp(24px,1.7vw,30px)]'
+                      : 'p-[clamp(22px,1.7vw,30px)]'
+                  } ${bgClass}`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-block rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#0A6FD8]">
+                      {card.tag}
+                    </span>
+                    <span
+                      className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#0B1D36] shadow-sm sm:h-10 sm:w-10 [&_img]:h-5 [&_img]:w-5 [&_svg]:h-4 [&_svg]:w-4 sm:[&_svg]:h-5 sm:[&_svg]:w-5"
+                      aria-hidden="true"
+                    >
+                      {renderCardIcon(card)}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 w-full font-[Poppins,system-ui,sans-serif] text-[18px] font-medium leading-[24px] tracking-[-0.21px] text-[#001930] sm:min-h-[52px] sm:text-[21px] sm:leading-[26px]">
+                    {typeof card.title === 'string' ? card.title.replace(/\s+/g, ' ').trim() : card.title}
+                  </h3>
+                  <p className="mt-2 font-[Poppins,system-ui,sans-serif] text-[14px] font-normal leading-[20px] text-[#4b5563] sm:text-[15px] sm:leading-[22px]">
+                    {card.description}
+                  </p>
+                  <Link
+                    className={`mt-auto inline-flex items-center gap-1.5 pt-4 font-[Poppins,system-ui,sans-serif] text-[15px] font-medium leading-[15px] text-[#0b6ad8] transition-colors hover:text-[#005bb5] ${
+                      card.isWide ? 'border-t border-[#0B1D36]/15 pt-[clamp(16px,1.2vw,20px)]' : ''
+                    }`}
+                    href={card.href}
+                  >
+                    {card.moreLabel} <WwdArrowIcon />
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
+      <OverlappingCtaBanner
+        title={section.ctaBannerTitle || "Have a Project in Mind? Let's Build It Together."}
+        description={
+          section.ctaBannerDescription ||
+          "Whether you're planning an AI solution, developing custom business software, modernizing an existing application, or improving your digital growth, Walstar Technologies can help you explore the right approach. Tell us what you want to achieve. We'll discuss your requirements and the next steps."
+        }
+        ctaLabel={section.ctaBannerLabel || 'Discuss Your Project ↗'}
+        ctaHref={section.ctaBannerHref || '/contact'}
+      />
+
       {showProcess && sortedSteps.length > 0 ? (
-        <section className="cap cap-proc-section process-timeline-section" id="process" aria-label="Process">
-          <div className="proc process-timeline-container">
-            <div className="hd process-timeline-header">
-              {processPill ? <span className="pill">{processPill}</span> : null}
-              <h2 className="proc-heading process-timeline-heading">
-                <span className="proc-heading-text">{processHeadingPrefix}</span>{' '}
-                {processHeadingSerif ? (
-                  <span className="proc-heading-accent">{processHeadingSerif}</span>
-                ) : null}
-                <br />
-                <span className="proc-heading-text">{processHeadingSuffix}</span>
-              </h2>
-            </div>
-
-            {stepThree ? (
-              <div className={stepThree.isHighlighted ? 'pc up3 pc-top pc-step-3 process-step-card process-step-card--accent process-step-card--top process-step-card--step-3' : 'pc pc-top pc-step-3 process-step-card process-step-card--top process-step-card--step-3'}>
-                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepThree.title)}</h4>
-                <p className="proc-card-desc process-step-desc">{stepThree.description}</p>
+        <section
+          className="relative z-[1] -mt-[clamp(260px,28vw,480px)] bg-[#DDEFFF] pt-[calc(clamp(260px,28vw,480px)+clamp(52px,4.5vw,84px))] pb-[clamp(68px,5.4vw,100px)]"
+          id="process"
+          aria-label="Process"
+        >
+          <div className="section-container-80 mx-auto w-[min(1606px,83.44vw)]">
+            {/* Top Row: Header + Steps 3 & 4 */}
+            <div className="grid grid-cols-1 items-end gap-6 lg:grid-cols-4">
+              <div className="lg:col-span-2">
+                {processPill ? <span className="pill">{processPill}</span> : null}
+                <h2 className="section-heading mt-3 text-left text-[#0B1D36]">
+                  <span>{processHeadingPrefix}</span>{' '}
+                  {processHeadingSerif ? (
+                    <span className="section-heading-serif">
+                      {processHeadingSerif}
+                    </span>
+                  ) : null}
+                  <br />
+                  <span>{processHeadingSuffix}</span>
+                </h2>
               </div>
-            ) : null}
 
-            {stepFour ? (
-              <div className="pc pc-top pc-step-4 process-step-card process-step-card--top process-step-card--step-4">
-                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepFour.title)}</h4>
-                <p className="proc-card-desc process-step-desc">{stepFour.description}</p>
-              </div>
-            ) : null}
-
-            <div className="tl process-timeline-track" aria-hidden="true">
-              <i className="tl-dot process-timeline-dot" />
-              <i className="tl-dot process-timeline-dot" />
-              <i className="tl-dot process-timeline-dot" />
-              <i className="tl-dot process-timeline-dot" />
-            </div>
-
-            {stepOne ? (
-              <div className="pc pc-bottom pc-step-1 process-step-card process-step-card--bottom process-step-card--step-1">
-                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepOne.title)}</h4>
-                <p className="proc-card-desc process-step-desc">{stepOne.description}</p>
-              </div>
-            ) : null}
-
-            {stepTwo ? (
-              <div className="pc pc-bottom pc-step-2 process-step-card process-step-card--bottom process-step-card--step-2">
-                <h4 className="proc-card-title process-step-title">{renderMultilineTitle(stepTwo.title)}</h4>
-                <p className="proc-card-desc process-step-desc">{stepTwo.description}</p>
-              </div>
-            ) : null}
-
-            <div className="pnote process-footer-note">
-              {processNote ? <p className="pnote-text process-footer-note-text">{processNote}</p> : null}
-              {processVideoLabel ? (
-                <Link className="vid process-video-link" href={processVideoUrl}>
-                  <i className="vid-icon process-video-icon" aria-hidden="true">
-                    <WalstarButtonArrow
-                      className="vid-arrow"
-                      width={22.85}
-                      height={19.06}
-                      viewBox="1.5 2.5 13 11"
-                      strokeWidth={1.5}
-                    />
-                  </i>
-                  <span className="vid-label process-video-label">{processVideoLabel}</span>
-                </Link>
+              {stepThree ? (
+                <div
+                  onMouseEnter={() => setHoveredStep(3)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                  className="relative flex h-[181px] w-full flex-col items-center justify-center gap-2 rounded-none bg-white p-6 text-center text-[#0B1D36] shadow-[0_8px_24px_rgba(11,29,54,0.06)] transition-shadow duration-200 hover:shadow-[0_12px_28px_rgba(11,29,54,0.10)] lg:w-[260px]"
+                >
+                  <h4 className="text-[17px] font-semibold leading-snug">
+                    {renderMultilineTitle(stepThree.title)}
+                  </h4>
+                  <p className="text-[12.5px] leading-relaxed text-[#4b5563]">
+                    {stepThree.description}
+                  </p>
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute -bottom-1.5 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rotate-45 bg-white transition-opacity duration-200 ${
+                      hoveredStep === 3 ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  />
+                </div>
               ) : null}
+
+              {stepFour ? (
+                <div
+                  onMouseEnter={() => setHoveredStep(4)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                  className="relative flex h-[181px] w-full flex-col items-center justify-center gap-2 rounded-none bg-white p-6 text-center text-[#0B1D36] shadow-[0_8px_24px_rgba(11,29,54,0.06)] transition-shadow duration-200 hover:shadow-[0_12px_28px_rgba(11,29,54,0.10)] lg:w-[260px]"
+                >
+                  <h4 className="text-[17px] font-semibold leading-snug">
+                    {renderMultilineTitle(stepFour.title)}
+                  </h4>
+                  <p className="text-[12.5px] leading-relaxed text-[#4b5563]">
+                    {stepFour.description}
+                  </p>
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute -bottom-1.5 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rotate-45 bg-white transition-opacity duration-200 ${
+                      hoveredStep === 4 ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  />
+                </div>
+              ) : null}
+            </div>
+
+            {/* Timeline Track */}
+            <div
+              className="relative my-8 hidden w-full grid-cols-4 gap-6 lg:grid"
+              aria-hidden="true"
+            >
+              <div className="pointer-events-none absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 bg-[#93C5FD]" />
+              {[1, 2, 3, 4].map((dotNum) => (
+                <div key={dotNum} className="relative z-10 flex w-[260px] justify-center">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-white shadow-sm">
+                    <i
+                      className={`h-2 w-2 rounded-full transition-colors duration-200 ${
+                        hoveredStep === dotNum ? 'bg-[#2F80FF]' : 'bg-[#0B1D36]'
+                      }`}
+                    />
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Row: Steps 1 & 2 + Note/Video */}
+            <div className="mt-6 grid grid-cols-1 items-start gap-6 lg:mt-0 lg:grid-cols-4">
+              {stepOne ? (
+                <div
+                  onMouseEnter={() => setHoveredStep(1)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                  className="relative flex h-[181px] w-full flex-col items-center justify-center gap-2 rounded-none bg-white p-6 text-center text-[#0B1D36] shadow-[0_8px_24px_rgba(11,29,54,0.06)] transition-shadow duration-200 hover:shadow-[0_12px_28px_rgba(11,29,54,0.10)] lg:w-[260px]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute -top-1.5 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rotate-45 bg-white transition-opacity duration-200 ${
+                      hoveredStep === 1 ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  />
+                  <h4 className="text-[17px] font-semibold leading-snug">
+                    {renderMultilineTitle(stepOne.title)}
+                  </h4>
+                  <p className="text-[12.5px] leading-relaxed text-[#4b5563]">
+                    {stepOne.description}
+                  </p>
+                </div>
+              ) : null}
+
+              {stepTwo ? (
+                <div
+                  onMouseEnter={() => setHoveredStep(2)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                  className="relative flex h-[181px] w-full flex-col items-center justify-center gap-2 rounded-none bg-white p-6 text-center text-[#0B1D36] shadow-[0_8px_24px_rgba(11,29,54,0.06)] transition-shadow duration-200 hover:shadow-[0_12px_28px_rgba(11,29,54,0.10)] lg:w-[260px]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute -top-1.5 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rotate-45 bg-white transition-opacity duration-200 ${
+                      hoveredStep === 2 ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  />
+                  <h4 className="text-[17px] font-semibold leading-snug">
+                    {renderMultilineTitle(stepTwo.title)}
+                  </h4>
+                  <p className="text-[12.5px] leading-relaxed text-[#4b5563]">
+                    {stepTwo.description}
+                  </p>
+                </div>
+              ) : null}
+
+              <div className="flex flex-col items-start justify-between gap-5 pt-2 lg:col-span-2 lg:pl-6">
+                {processNote ? (
+                  <p className="max-w-xl text-sm leading-relaxed text-[#0B1D36]/80">
+                    {processNote}
+                  </p>
+                ) : null}
+                {processVideoLabel ? (
+                  <Link
+                    href={processVideoUrl}
+                    className="group inline-flex items-center gap-3"
+                  >
+                    <span
+                      className="btn btn-or !inline-flex !h-11 !w-11 !min-w-0 shrink-0 !items-center !justify-center !rounded-full !p-0"
+                      aria-hidden="true"
+                    >
+                      <WalstarButtonArrow
+                        width={20}
+                        height={20}
+                        strokeWidth={1.8}
+                      />
+                    </span>
+                    <span className="text-md font-medium text-[#0B1D36]">
+                      {processVideoLabel}
+                    </span>
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </div>
         </section>

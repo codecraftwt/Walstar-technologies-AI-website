@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_digital_solution_items",
+  "info": {
+    "displayName": "Digital Solution Item",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "default": "bg-[#DFF1FF]"
+    }
+  }
+}

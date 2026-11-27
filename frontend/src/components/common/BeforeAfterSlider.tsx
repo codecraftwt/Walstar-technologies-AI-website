@@ -224,7 +224,7 @@ export function BeforeAfterSlider({ section }: { section: BeforeAfterSection }) 
   const isAfterHidden = position > 90;
 
   return (
-    <section className="ba" aria-label="Before and after comparison">
+    <section className="ba section-container-90 my-10" aria-label="Before and after comparison">
       <div
         ref={stageRef}
         className={isDragging ? 'ba-stage is-dragging' : 'ba-stage'}

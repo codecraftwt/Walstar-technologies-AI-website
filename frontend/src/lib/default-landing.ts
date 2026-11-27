@@ -26,7 +26,7 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
   ],
   navLinks: [
     { label: 'Home', href: '/', hasDropdown: false },
-    { label: 'Services', href: '/services/ai-solutions-business-automation', hasDropdown: true },
+    { label: 'Services', href: '/services', hasDropdown: true },
     { label: 'Industries', href: '/#prod', hasDropdown: false },
     { label: 'Our Work', href: '/#case', hasDropdown: false },
     { label: 'About Us', href: '/about-us', hasDropdown: false },
@@ -58,7 +58,7 @@ export const DEFAULT_SITE_SETTING: SiteSetting = {
     { label: 'Portfolio', href: '/#case', hasDropdown: false },
   ],
   footerSecondaryLinks: [
-    { label: 'Services', href: '/services/ai-solutions-business-automation', hasDropdown: false },
+    { label: 'Services', href: '/services', hasDropdown: false },
     { label: 'Career', href: '/about-us', hasDropdown: false },
     { label: 'Contact', href: '/contact', hasDropdown: false },
     { label: 'Events & Programs', href: '/#prod', hasDropdown: false },
@@ -800,12 +800,12 @@ export const DEFAULT_PAGES: PageItem[] = [
       {
         __component: 'sections.capabilities',
         pill: 'Capabilities',
-        headingPrefix: 'What we',
-        headingSerif: 'do',
+        headingPrefix: 'Custom Software, AI, Cloud, Security\nand Digital Growth',
+        headingSerif: 'Under One Roof',
         subtitle:
-          'End-to-end AI services engineered for performance, data security',
+          'From AI-driven automation to custom enterprise software, we deliver digital solutions that solve real problems, streamline operations, and help businesses scale.',
         ctaLabel: 'View Services ↗',
-        ctaHref: '/services/ai-solutions-business-automation',
+        ctaHref: '/services',
         showAllServices: true,
         showProcess: true,
         processPill: 'What we do',
@@ -857,6 +857,44 @@ export const DEFAULT_PAGES: PageItem[] = [
         headingPrefix: 'Trusted by',
         headingSerif: 'thousands',
         showAllTestimonials: true,
+      },
+      {
+        __component: 'sections.faq-section',
+        badgeText: 'FAQ',
+        heading: 'Common Questions About\nWorking',
+        headingAccent: 'With Walstar',
+        items: [
+          {
+            question: 'What services does Walstar Technologies offer?',
+            answer:
+              'We offer AI development and automation, cloud and DevOps, cybersecurity and IT management, IT and digital transformation, mobile app development, custom ERP and CRM software, eCommerce, web and SaaS development, UI/UX design, and white-label or dedicated development teams.',
+            defaultOpen: true,
+          },
+          {
+            question: 'Who do you work with?',
+            answer:
+              'We work with startups, small and medium-sized businesses, enterprises, and agencies looking for reliable technology and digital solutions.',
+            defaultOpen: false,
+          },
+          {
+            question: 'Can you add AI to our existing website or software?',
+            answer:
+              'Yes. We can integrate AI-powered features, intelligent automation, chatbots, and custom AI solutions into your existing website, applications, and business software.',
+            defaultOpen: false,
+          },
+          {
+            question: 'Can you work as a white-label partner for our agency?',
+            answer:
+              'Yes. We provide white-label development services, allowing agencies to deliver technology solutions to their clients under their own brand.',
+            defaultOpen: false,
+          },
+          {
+            question: 'Do you work across time zones?',
+            answer:
+              'Yes. We collaborate with clients across different countries and time zones, with flexible communication and project coordination.',
+            defaultOpen: false,
+          },
+        ],
       },
       {
         __component: 'sections.before-after',
@@ -1341,6 +1379,53 @@ export const DEFAULT_PAGES: PageItem[] = [
         subheading: 'Walstar Technologies is ready to power your digital growth.',
         buttonLabel: 'Connect With Us ↗',
         buttonHref: '#contact-form',
+      },
+    ],
+  },
+  {
+    documentId: 'seed-page-services',
+    title: 'Our Services',
+    slug: 'services',
+    isHomepage: false,
+    pageType: 'standard',
+    order: 4,
+    summary:
+      'AI, digital marketing, software, web, mobile, ecommerce, cloud, security and design services from Walstar Technologies.',
+    seo: {
+      metaTitle: 'Our Services | Walstar Technologies',
+      metaDescription:
+        'AI, digital marketing, software, web, mobile, ecommerce, cloud, security and design services from Walstar Technologies.',
+    },
+    sections: [
+      {
+        __component: 'sections.hero',
+        variant: 'compact',
+        chip: 'Our Expertise',
+        headlinePrefix: 'Smart Digital Solutions That\nMove',
+        headlineSerif: 'Your Business Forward.',
+        headlineSuffix: '',
+        backgroundImage: {
+          url: '/images/contact-hero-building.jpg',
+          alternativeText: 'Walstar Technologies',
+        },
+      },
+      {
+        __component: 'sections.service-grid',
+        pill: 'Services',
+        headingPrefix: '',
+        headingSerif: 'Solutions',
+        headingSuffix: 'We Deliver',
+        description:
+          'We offer a comprehensive range of digital services designed to meet your evolving business needs. From web and software\ndevelopment to digital marketing, AI-powered solutions, and business automation, our expertise helps streamline operations,\nenhance customer experiences, improve efficiency, and create new opportunities for sustainable business growth.',
+        showAllServices: true,
+      },
+      {
+        ...SHARED_CTA_BAND,
+        pill: 'CTA',
+        heading: 'For Instant Support, Please Contact Us',
+        subheading: 'Have a project in mind?',
+        buttonLabel: 'Connect With Us ↗',
+        buttonHref: '/contact',
       },
     ],
   },
@@ -2597,7 +2682,7 @@ export const DEFAULT_NAVBAR: NavbarData = {
     },
     {
       label: 'Services',
-      route: '/services/ai-solutions-business-automation',
+      route: '/services',
       hasDropdown: true,
       isHighlighted: false,
       openInNewTab: false,
@@ -2711,7 +2796,7 @@ export const DEFAULT_FOOTER: FooterData = {
     {
       title: 'Explore',
       links: [
-        { label: 'Services', route: '/services/ai-solutions-business-automation', openInNewTab: false },
+        { label: 'Services', route: '/services', openInNewTab: false },
         { label: 'Career', route: '/about-us', openInNewTab: false },
         { label: 'Contact', route: '/contact', openInNewTab: false },
         { label: 'Events & Programs', route: '/#prod', openInNewTab: false },

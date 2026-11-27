@@ -65,6 +65,7 @@
         "sections.products-showcase",
         "sections.trust-banner",
         "sections.case-studies",
+        "sections.digital-solutions",
         "sections.testimonials",
         "sections.before-after",
         "sections.cta-band",
@@ -84,7 +85,9 @@
         "sections.svc-benefits",
         "sections.svc-process",
         "sections.svc-approach",
-        "sections.svc-cta"
+        "sections.svc-cta",
+        "sections.service-grid",
+        "sections.faq-section"
       ]
     }
   }

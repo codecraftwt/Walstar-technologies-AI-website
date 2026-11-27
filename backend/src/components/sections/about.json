@@ -54,6 +54,20 @@
       "type": "media",
       "multiple": false,
       "allowedTypes": ["images"]
+    },
+    "ratingStars": {
+      "type": "integer",
+      "default": 5
+    },
+    "ratingLabel": {
+      "type": "string",
+      "default": "Rated 4.7/5 on"
+    },
+    "ratingPlatforms": {
+      "type": "json"
+    },
+    "stats": {
+      "type": "json"
     }
   }
 }

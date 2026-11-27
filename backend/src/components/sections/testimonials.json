@@ -18,6 +18,9 @@
       "type": "string",
       "default": "About Us"
     },
+    "description": {
+      "type": "text"
+    },
     "showAllTestimonials": {
       "type": "boolean",
       "default": true

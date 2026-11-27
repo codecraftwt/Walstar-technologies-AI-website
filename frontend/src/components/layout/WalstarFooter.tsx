@@ -292,7 +292,7 @@ export function WalstarFooter({
                     <>
                       <span className="fbig-line1">
                         {prefix ? `${prefix} ` : ''}
-                        <span className="serif">{serif}</span>
+                        <span className="section-heading-serif">{serif}</span>
                         {thatPart ? ` ${thatPart}` : ''}
                       </span>
                       <span className="fbig-line2">{shipsPart}</span>
@@ -306,7 +306,7 @@ export function WalstarFooter({
                     <>
                       <span className="fbig-line1">
                         {prefix ? `${prefix} ` : ''}
-                        <span className="serif">{serif}</span>
+                        <span className="section-heading-serif">{serif}</span>
                         {l1 ? ` ${l1.trim()}` : ''}
                       </span>
                       <span className="fbig-line2">{rest.join(' ').trim()}</span>
@@ -321,7 +321,7 @@ export function WalstarFooter({
                     <>
                       <span className="fbig-line1">
                         {prefix ? `${prefix} ` : ''}
-                        <span className="serif">{serif}</span>
+                        <span className="section-heading-serif">{serif}</span>
                         {' that'}
                       </span>
                       <span className="fbig-line2">{thatMatch[1]}</span>
@@ -333,7 +333,7 @@ export function WalstarFooter({
                   <>
                     <span className="fbig-line1">
                       {prefix ? `${prefix} ` : ''}
-                      <span className="serif">{serif}</span>
+                      <span className="section-heading-serif">{serif}</span>
                     </span>
                     <span className="fbig-line2">{rawSuffix}</span>
                   </>

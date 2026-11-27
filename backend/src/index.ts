@@ -156,6 +156,14 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
           return existingItems.length !== seedItems.length;
         })());
 
+    const needsHomepageSync =
+      Boolean(item.isHomepage) &&
+      (!existingSections.some((s: any) => s.__component === 'sections.digital-solutions') ||
+        !existingSections.some((s: any) => s.__component === 'sections.faq-section') ||
+        !existingSections.find((s: any) => s.__component === 'sections.testimonials')?.description ||
+        !existingSections.find((s: any) => s.__component === 'sections.capabilities')?.ctaBannerTitle ||
+        !existingSections.find((s: any) => s.__component === 'sections.case-studies')?.ctaBannerTitle);
+
     if (
       existingSections.length === 0 ||
       isUntouchedLegacyAboutSeed ||
@@ -166,7 +174,8 @@ async function seedPages(strapi: Core.Strapi): Promise<void> {
       isLegacyService3Seed ||
       isLegacyService4Seed ||
       isLegacyService5Seed ||
-      needsServiceCapabilitiesSync
+      needsServiceCapabilitiesSync ||
+      needsHomepageSync
     ) {
       await pageDoc.update({
         documentId: existing.documentId,
@@ -261,7 +270,10 @@ async function seedCollections(strapi: Core.Strapi): Promise<void> {
         s.label === 'Web & SaaS Product Engineering'
     );
 
-    if (!hasMobileApp || !hasWebSaas) {
+    const hasServicesOverviewRoute =
+      servicesItem?.route === '/services';
+
+    if (!hasMobileApp || !hasWebSaas || !hasServicesOverviewRoute) {
       await navbarDoc.update({
         documentId: existingNavbar.documentId,
         data: {

@@ -85,6 +85,21 @@
       "type": "component",
       "repeatable": true,
       "component": "home.process-step"
+    },
+    "ctaBannerTitle": {
+      "type": "string",
+      "default": "Have a Project in Mind? Let's Build It Together."
+    },
+    "ctaBannerDescription": {
+      "type": "text"
+    },
+    "ctaBannerLabel": {
+      "type": "string",
+      "default": "Discuss Your Project ↗"
+    },
+    "ctaBannerHref": {
+      "type": "string",
+      "default": "/contact"
     }
   }
 }

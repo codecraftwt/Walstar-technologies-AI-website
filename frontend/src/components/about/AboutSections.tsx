@@ -219,106 +219,114 @@ function formatAboutDescription(desc?: string | null): string | null | undefined
   return desc;
 }
 
+const DEFAULT_ABOUT_STATS = [
+  { value: '08', label: 'Products\nDeveloped' },
+  { value: '10', label: 'Core Service\nCategories' },
+  { value: '02', label: 'ISO Quality\nCertifications' },
+  { value: '12', label: 'Industries\nServed' },
+];
+
 export function AboutBlock({ section }: { section: AboutSection }) {
-  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url) || STRAPI_IMAGE_PLACEHOLDER;
-  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url) || STRAPI_IMAGE_PLACEHOLDER;
-  const highlightIconUrl = getStrapiMediaUrl(section.highlightIcon?.url) || '/images/about/about-highlight-icon.png';
+  const primaryImgUrl = getStrapiMediaUrl(section.primaryImage?.url) || '/images/office-building.jpg';
+  const secondaryImgUrl = getStrapiMediaUrl(section.secondaryImage?.url) || '/images/office-team.jpg';
 
   return (
-    <section className="about" id="about">
-      <div className="wrap grid section">
-        <div className="photos" aria-hidden={!primaryImgUrl && !secondaryImgUrl}>
-          <div className={primaryImgUrl ? 'p1 overflow-hidden' : 'p1 p1--empty overflow-hidden'}>
-            {primaryImgUrl ? (
-              <Image
-                src={primaryImgUrl}
-                alt={section.primaryImage?.alternativeText || 'About Walstar'}
-                fill
-                sizes="(max-width: 900px) 100vw, 40vw"
-                className="object-cover"
-              />
-            ) : null}
+    <section className="w-full bg-[#f5f6f8] py-10" id="about">
+      <div className="section-container-80 grid grid-cols-1 items-center gap-8 lg:grid-cols-[9fr_11fr] lg:gap-12">
+        {/* Left - Image Composition */}
+        <div
+          className="relative flex min-h-[280px] items-center md:min-h-[390px]"
+          aria-hidden={!primaryImgUrl && !secondaryImgUrl}
+        >
+          {/* Building Image */}
+          <div className="relative h-[230px] w-[65%] overflow-hidden rounded-xl md:h-[380px]">
+            <Image
+              src={primaryImgUrl}
+              alt={section.primaryImage?.alternativeText || 'Company office building'}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 65vw, 40vw"
+            />
           </div>
-          <div className={secondaryImgUrl ? 'p2 overflow-hidden' : 'p2 p2--empty overflow-hidden'}>
-            {secondaryImgUrl ? (
-              <Image
-                src={secondaryImgUrl}
-                alt={section.secondaryImage?.alternativeText || 'Walstar team'}
-                fill
-                sizes="(max-width: 900px) 60vw, 25vw"
-                className="object-cover"
-              />
-            ) : null}
+
+          {/* Team Image */}
+          <div className="absolute bottom-0 right-0 z-10 h-[145px] w-[48%] overflow-hidden rounded-xl border-[5px] border-[#f5f6f8] md:h-[215px] md:w-[48%]">
+            <Image
+              src={secondaryImgUrl}
+              alt={section.secondaryImage?.alternativeText || 'Team working in office'}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 48vw, 30vw"
+            />
           </div>
         </div>
-        <div>
-          {section.tag ? <span className="pill about-pill">{cleanPill(section.tag)}</span> : null}
-          <h2 className="about-heading about-intro-heading">
-            <span className="about-heading-row about-heading-row--prefix">
-              <span className="about-heading-text">{section.headingPrefix}</span>
+
+        {/* Right - Company Content */}
+        <div className="flex flex-col gap-3">
+          {/* Label */}
+          {section.tag ? <span className="section-pill">{cleanPill(section.tag)}</span> : null}
+
+          {/* Heading */}
+          <h2 className="section-heading">
+            <span className="block">
+              {section.headingPrefix || 'Technology Expertise.\nBusiness-First Thinking.'}
             </span>
-            <span className="about-heading-row about-heading-row--serif">
-              {section.headingSerif ? (
-                <span className="serif about-heading-serif">{section.headingSerif}</span>
-              ) : null}
+            <span className="block">
+              <span className="section-heading-serif">
+                {section.headingSerif || 'Reliable Delivery.'}
+              </span>
               {section.headingSuffix ? (
-                <span className="about-heading-suffix">{` ${section.headingSuffix}`}</span>
+                <span>{` ${section.headingSuffix}`}</span>
               ) : null}
             </span>
           </h2>
-          {section.description ? (
-            <p className="lead about-lead-desc" style={{ marginTop: 14, color: '#666666' }}>
-              {renderMultilineText(formatAboutDescription(section.description))}
-            </p>
-          ) : null}
-          {section.highlightTitle ? (
-            <div className="mini">
-              <i className="about-mini-icon">
-                {highlightIconUrl ? (
-                  <Image
-                    src={highlightIconUrl}
-                    alt={section.highlightIcon?.alternativeText || section.highlightTitle}
-                    width={26}
-                    height={26}
-                  />
-                ) : (
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="6"
-                      y="6"
-                      width="12"
-                      height="12"
-                      rx="3"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    />
-                    <path
-                      d="M12 9V15M9 12H15M9 3V6M15 3V6M9 18V21M15 18V21M3 9H6M3 15H6M18 9H21M18 15H21"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                )}
-              </i>
-              <div className="mini-content">
-                <h4 className="mini-title">{section.highlightTitle}</h4>
-                <p className="mini-desc">{section.highlightDescription}</p>
-              </div>
+
+          {/* Description */}
+          <p className="section-description mt-1">
+            {section.description
+              ? renderMultilineText(formatAboutDescription(section.description))
+              : 'Walstar Technologies brings together business ideas and digital expertise to deliver innovative solutions. We combine technology, creativity and a result-oriented approach to help businesses grow, modernize and stay competitive in an evolving digital world.'}
+          </p>
+
+          {/* Rating Strip */}
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-white px-3 py-2 shadow-sm">
+            <div className="flex items-center gap-1">
+              <span className="text-xs tracking-wide text-amber-400">
+                ★★★★★
+              </span>
+              <span className="text-[9px] font-medium text-gray-500">
+                Client Satisfaction
+              </span>
             </div>
-          ) : null}
-          {section.ctaLabel ? (
-            <WalstarButton variant="orange" href={section.ctaHref || '/about-us'}>
-              {section.ctaLabel}
-            </WalstarButton>
-          ) : null}
+
+            <div className="flex items-center gap-3 text-[10px] font-semibold text-gray-600">
+              <span>Clutch</span>
+              <span className="text-gray-300">|</span>
+              <span>Google</span>
+              <span className="text-gray-300">|</span>
+              <span>GoodFirms</span>
+            </div>
+          </div>
+
+          {/* Statistics */}
+          <div className="grid grid-cols-4 gap-2 rounded-lg bg-white p-3 shadow-sm md:p-4">
+            {DEFAULT_ABOUT_STATS.map((stat, index) => (
+              <div
+                key={stat.value}
+                className={`flex flex-col items-center text-center ${
+                  index !== 0 ? 'border-l border-gray-100' : ''
+                }`}
+              >
+                <span className="text-xl font-bold tracking-tight text-[#20232a] md:text-2xl">
+                  {stat.value}
+                </span>
+
+                <span className="mt-1 whitespace-pre-line text-[12px] leading-tight text-gray-500 md:text-[14px]">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -244,6 +244,18 @@ export interface AboutWhyReason extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsDigitalSolutionItem extends Struct.ComponentSchema {
+  collectionName: 'components_elements_digital_solution_items';
+  info: {
+    displayName: 'Digital Solution Item';
+    icon: 'apps';
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'bg-[#DFF1FF]'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface FooterFooterColumn extends Struct.ComponentSchema {
   collectionName: 'components_footer_footer_columns';
   info: {
@@ -339,7 +351,12 @@ export interface SectionsAbout extends Struct.ComponentSchema {
     highlightTitle: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Engineering an Intelligent Future'>;
     primaryImage: Schema.Attribute.Media<'images'>;
+    ratingLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Rated 4.7/5 on'>;
+    ratingPlatforms: Schema.Attribute.JSON;
+    ratingStars: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<5>;
     secondaryImage: Schema.Attribute.Media<'images'>;
+    stats: Schema.Attribute.JSON;
     tag: Schema.Attribute.String & Schema.Attribute.DefaultTo<'About us'>;
   };
 }
@@ -383,6 +400,13 @@ export interface SectionsCapabilities extends Struct.ComponentSchema {
         number
       > &
       Schema.Attribute.DefaultTo<36>;
+    ctaBannerDescription: Schema.Attribute.Text;
+    ctaBannerHref: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'/contact'>;
+    ctaBannerLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Discuss Your Project \u2197'>;
+    ctaBannerTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<"Have a Project in Mind? Let's Build It Together.">;
     ctaHref: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/service-1'>;
     ctaLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'View Services \u2197'>;
@@ -509,6 +533,41 @@ export interface SectionsCtaBand extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'Ready to Make Something Awesome?'>;
     pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Get in touch'>;
     subheading: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsDigitalSolutions extends Struct.ComponentSchema {
+  collectionName: 'components_sections_digital_solutions';
+  info: {
+    displayName: 'Digital Solutions';
+    icon: 'grid';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    headingPrefix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Digital Solutions For Different'>;
+    headingSerif: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Business Needs'>;
+    items: Schema.Attribute.Component<'elements.digital-solution-item', true>;
+    tag: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Digital Solutions'>;
+  };
+}
+
+export interface SectionsFaqSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_faq_sections';
+  info: {
+    description: 'Frequently asked questions accordion section';
+    displayName: 'FAQ Section';
+    icon: 'question';
+  };
+  attributes: {
+    badgeText: Schema.Attribute.String & Schema.Attribute.DefaultTo<'FAQ'>;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Common Questions About\nWorking'>;
+    headingAccent: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'With Walstar'>;
+    items: Schema.Attribute.Component<'shared.faq-item', true>;
   };
 }
 
@@ -642,6 +701,26 @@ export interface SectionsRichContent extends Struct.ComponentSchema {
     headingPrefix: Schema.Attribute.String;
     headingSerif: Schema.Attribute.String;
     tag: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsServiceGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_service_grids';
+  info: {
+    displayName: 'Service Grid';
+    icon: 'grid';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    headingPrefix: Schema.Attribute.String;
+    headingSerif: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Solutions'>;
+    headingSuffix: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'We Deliver'>;
+    pill: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Services'>;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
+    showAllServices: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
   };
 }
 
@@ -837,6 +916,7 @@ export interface SectionsTestimonials extends Struct.ComponentSchema {
     icon: 'message';
   };
   attributes: {
+    description: Schema.Attribute.Text;
     headingPrefix: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'What Clients Say'>;
     headingSerif: Schema.Attribute.String &
@@ -1049,6 +1129,19 @@ export interface ServiceProcessStep extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedFaqItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_faq_items';
+  info: {
+    displayName: 'FAQ Item';
+    icon: 'question';
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    defaultOpen: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedInterestOption extends Struct.ComponentSchema {
   collectionName: 'components_shared_interest_options';
   info: {
@@ -1123,6 +1216,7 @@ declare module '@strapi/strapi' {
       'about.team-member': AboutTeamMember;
       'about.ticker-item': AboutTickerItem;
       'about.why-reason': AboutWhyReason;
+      'elements.digital-solution-item': ElementsDigitalSolutionItem;
       'footer.footer-column': FooterFooterColumn;
       'footer.footer-link': FooterFooterLink;
       'home.process-step': HomeProcessStep;
@@ -1135,12 +1229,15 @@ declare module '@strapi/strapi' {
       'sections.contact-interest': SectionsContactInterest;
       'sections.contact-section': SectionsContactSection;
       'sections.cta-band': SectionsCtaBand;
+      'sections.digital-solutions': SectionsDigitalSolutions;
+      'sections.faq-section': SectionsFaqSection;
       'sections.global-offices': SectionsGlobalOffices;
       'sections.hero': SectionsHero;
       'sections.journey-stats': SectionsJourneyStats;
       'sections.partner-strip': SectionsPartnerStrip;
       'sections.products-showcase': SectionsProductsShowcase;
       'sections.rich-content': SectionsRichContent;
+      'sections.service-grid': SectionsServiceGrid;
       'sections.solutions-grid': SectionsSolutionsGrid;
       'sections.svc-approach': SectionsSvcApproach;
       'sections.svc-benefits': SectionsSvcBenefits;
@@ -1160,6 +1257,7 @@ declare module '@strapi/strapi' {
       'service.challenge-item': ServiceChallengeItem;
       'service.get-item': ServiceGetItem;
       'service.process-step': ServiceProcessStep;
+      'shared.faq-item': SharedFaqItem;
       'shared.interest-option': SharedInterestOption;
       'shared.link': SharedLink;
       'shared.partner-logo': SharedPartnerLogo;

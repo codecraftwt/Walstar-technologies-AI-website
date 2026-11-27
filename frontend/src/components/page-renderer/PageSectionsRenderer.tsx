@@ -1,7 +1,8 @@
-import type { CSSProperties } from 'react';
+import { Fragment, type CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { WalstarButton, WalstarButtonArrow } from '@/components/common/WalstarButton';
+import DigitalSolutions from '@/components/DigitalSolutions';
 import {
   AboutBlock,
   GlobalOfficesBlock,
@@ -11,12 +12,12 @@ import {
   VisionMissionBlock,
   WhoWeAreBlock,
   WhyChooseBlock,
-} from '@/components/about/AboutSections';
+} from '@/components/about';
 import { BeforeAfterSlider } from '@/components/common/BeforeAfterSlider';
 import {
   ContactInterestBlock,
   ContactSectionView,
-} from '@/components/contact/ContactSections';
+} from '@/components/contact';
 import {
   SvcIntroBlock,
   SvcChallengesBlock,
@@ -26,10 +27,12 @@ import {
   SvcApproachBlock,
   SvcCtaBlock,
 } from '@/components/services/ServiceSections';
+import { ServiceGrid } from '@/components/services/ServiceGrid';
 import { CapabilitiesBlock } from '@/components/home/CapabilitiesSection';
+import { FaqSection } from '@/components/home/FaqSection';
 
 import { HeroBackgroundVideo } from '@/components/home/HeroBackgroundVideo';
-import { renderHeadingParts, renderMultilineText } from '@/components/common/SectionPrimitives';
+import { cleanPill, renderHeadingParts, renderMultilineText } from '@/components/common/SectionPrimitives';
 import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
 import {
   WalstarCompactHeader,
@@ -59,11 +62,6 @@ import type {
 const DEFAULT_MARQUEE_SECONDS = 24;
 const MIN_MARQUEE_SECONDS = 4;
 const MAX_MARQUEE_SECONDS = 120;
-
-function cleanPillTag(text?: string | null): string {
-  if (!text) return '';
-  return text.replace(/^[●•\s\u25CF\u2022]+/, '').trim();
-}
 
 export function getPartnerLogoFallback(name?: string | null): string | null {
   if (!name) return null;
@@ -159,7 +157,7 @@ function formatHeroDescription(desc?: string | null): string | null | undefined 
   return desc;
 }
 
-function HeroBlock({
+export function HeroBlock({
   section,
   navbar,
   siteSetting,
@@ -193,7 +191,7 @@ function HeroBlock({
   const wrapperClass = includeNavbar
     ? [
         'hero-box',
-        isCompact ? 'hero-box--compact' : '',
+        isCompact ? 'hero-box--compact section-container-90' : '',
         isContactLikePage && isCompact ? 'hero-box--contact' : '',
       ]
         .filter(Boolean)
@@ -203,7 +201,7 @@ function HeroBlock({
   const rawHeroChip =
     section.chip?.trim() ||
     (isServicePage ? 'Services' : isAboutPage ? 'About Walstar Technologies' : isContactPage ? 'Contact Walstar' : null);
-  const heroChip = rawHeroChip ? rawHeroChip.replace(/^[●•\s\u25CF\u2022]+/, '').trim() : null;
+  const heroChip = rawHeroChip ? cleanPill(rawHeroChip) : null;
 
   const heroHeadlinePrefix = section.headlinePrefix
     ? formatHeroHeadingPrefix(section.headlinePrefix)
@@ -227,7 +225,12 @@ function HeroBlock({
           {/* Plain img so Figma multiply/offset styles are not overridden by next/image fill */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={bgImageUrl || STRAPI_IMAGE_PLACEHOLDER}
+            src={
+              bgImageUrl ||
+              (currentPath === '/services'
+                ? '/images/contact-hero-building.jpg'
+                : STRAPI_IMAGE_PLACEHOLDER)
+            }
             alt=""
             className="hero-bg-photo"
           />
@@ -288,7 +291,7 @@ function HeroBlock({
   );
 }
 
-function PartnerStripBlock({ section }: { section: PartnerStripSection }) {
+export function PartnerStripBlock({ section }: { section: PartnerStripSection }) {
   const logos = section.logos ?? [];
   if (logos.length === 0) return null;
 
@@ -431,7 +434,7 @@ function renderServiceFallbackIcon(service: ServiceItem) {
 }
 
 
-function ProductsShowcaseBlock({
+export function ProductsShowcaseBlock({
   section,
   fallbackProducts,
 }: {
@@ -452,9 +455,9 @@ function ProductsShowcaseBlock({
 
   return (
     <section className="prod products-showcase-section" id="prod">
-      <div className="wrap">
+      <div className="wrap section-container-90">
         <div className="head center products-showcase-head">
-          {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
+          {section.tag ? <span className="pill tag">{cleanPill(section.tag)}</span> : null}
           <h2 className="prod-heading">
             {section.headingPrefix}{' '}
             {section.headingSerif ? (
@@ -634,7 +637,7 @@ function TrustMarqueeRow({
   );
 }
 
-function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
+export function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
   const hasDedicatedRows =
     (Boolean(section.topRowLogos && section.topRowLogos.length > 0)) ||
     (Boolean(section.bottomRowLogos && section.bottomRowLogos.length > 0));
@@ -671,7 +674,7 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
 
   return (
     <section className="trust trust-banner-section">
-      {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
+      {section.tag ? <span className="pill tag">{cleanPill(section.tag)}</span> : null}
       <h2 className="trust-heading">
         {renderHeadingParts(
           section.headingPrefix,
@@ -703,7 +706,7 @@ function TrustBannerBlock({ section }: { section: TrustBannerSection }) {
   );
 }
 
-function CaseStudiesBlock({
+export function CaseStudiesBlock({
   section,
   fallbackCaseStudies,
 }: {
@@ -722,19 +725,30 @@ function CaseStudiesBlock({
   );
 
   return (
-    <section className="case case-studies-section" id="case">
-      <div className="wrap center head case-studies-head">
-        {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
-        <h2 className="case-heading">
-          {section.headingPrefix}{' '}
-          {section.headingSerif ? (
-            <span className="serif">{section.headingSerif}</span>
-          ) : null}
+    <div className="relative z-10 my-10">
+      <section
+        className="section-container-90 rounded-[28px] bg-[#e6f2ff] pt-14 pb-20 md:pt-20 md:pb-24"
+        id="case"
+      >
+      <div className="w-full px-6 md:px-10 flex flex-col items-center text-center">
+        {section.tag ? (
+          <span className="pill tag">{cleanPill(section.tag)}</span>
+        ) : null}
+        <h2 className="mt-4 text-3xl font-semibold leading-[1.12] tracking-tight text-[#17191d] md:text-4xl lg:text-[42px]">
+          {section.headingPrefix || 'Real Projects. Measurable'}
+          <br />
+          <span className="font-serif font-normal italic text-[#2699ed]">
+            {section.headingSerif || 'Business Results.'}
+          </span>
         </h2>
-        {section.subtitle ? <p className="case-sub">{section.subtitle}</p> : null}
+        {section.subtitle ? (
+          <p className="mt-3 max-w-xl text-xs leading-relaxed text-gray-500 md:text-sm">
+            {section.subtitle}
+          </p>
+        ) : null}
       </div>
 
-      <div className="wrap cgrid case-studies-grid">
+      <div className="w-full px-6 md:px-10 mt-10 grid grid-cols-1 gap-5 lg:grid-cols-[1.55fr_1fr]">
         {caseStudies.map((cs, idx) => {
           const coverUrl =
             getStrapiMediaUrl(cs.coverImage?.url) ||
@@ -748,15 +762,16 @@ function CaseStudiesBlock({
           const projectTypeLabel = cs.metaThreeLabel || cs.metaTwoLabel || 'PROJECT TYPE';
           const projectTypeValue = cs.metaThreeValue || cs.metaTwoValue || 'B2B Saas, Financial services';
 
-          const formattedTitle = cs.title === 'Jockey Australia Website Revamp'
-            ? 'Jockey Australia.Website Revamp'
-            : cs.title;
+          const formattedTitle =
+            cs.title === 'Jockey Australia Website Revamp'
+              ? 'Jockey Australia.Website Revamp'
+              : cs.title;
 
           return (
             <Link
               key={cs.documentId || cs.slug || idx}
               href={`/case-studies/${encodeURIComponent(cs.slug)}`}
-              className={`cs ${isWideCard ? 'cs-wide' : 'cs-narrow'} ${cs.themeVariant || (isWideCard ? 'a' : 'b')} case-study-card${isWideCard ? ' case-study-card--wide' : ' case-study-card--narrow'}`}
+              className="group relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-2xl p-6 text-white md:min-h-[360px] md:p-8"
             >
               {coverUrl ? (
                 <Image
@@ -764,89 +779,131 @@ function CaseStudiesBlock({
                   alt={cs.coverImage?.alternativeText || cs.title}
                   fill
                   sizes={isWideCard ? '(max-width: 900px) 100vw, 60vw' : '(max-width: 900px) 100vw, 40vw'}
-                  className="z-0 object-cover pointer-events-none"
+                  className="pointer-events-none z-0 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               ) : null}
-              {cs.category ? <span className="cs-pill">{cs.category}</span> : null}
-              <h3 className="cs-title">{formattedTitle}</h3>
+              <div
+                className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/30 to-transparent"
+                aria-hidden="true"
+              />
 
-              {isWideCard ? (
-                <div className="meta case-study-meta-grid">
-                  <div className="meta-item case-study-meta-item">
-                    <svg
-                      className="meta-ic case-study-meta-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      aria-hidden="true"
-                    >
-                      <circle cx="12" cy="7" r="4" />
-                      <path d="M5 21v-2a7 7 0 0 1 14 0v2" strokeLinecap="round" />
-                    </svg>
-                    <span className="meta-text case-study-meta-text">
-                      <span className="meta-label case-study-meta-label">{clientLabel}</span>
-                      <b className="meta-value case-study-meta-value">{clientValue}</b>
-                    </span>
-                  </div>
+              <div className="relative z-10 flex flex-col gap-3">
+                {cs.category ? (
+                  <span className="w-fit rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                    • {cs.category}
+                  </span>
+                ) : null}
+                <h3 className="text-lg font-semibold leading-snug text-white md:text-xl">
+                  {formattedTitle}
+                </h3>
 
-                  <div className="meta-item case-study-meta-item">
-                    <svg
-                      className="meta-ic case-study-meta-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M12 21c-4.2-4.4-7-7.7-7-11.2A7 7 0 0 1 19 9.8c0 3.5-2.8 6.8-7 11.2z"
-                        strokeLinejoin="round"
-                      />
-                      <circle cx="12" cy="10" r="2.5" />
-                    </svg>
-                    <span className="meta-text case-study-meta-text">
-                      <span className="meta-label case-study-meta-label">{regionLabel}</span>
-                      <b className="meta-value case-study-meta-value">{regionValue}</b>
-                    </span>
-                  </div>
+                {isWideCard ? (
+                  <div className="mt-2 grid grid-cols-1 gap-3 border-t border-white/15 pt-3 text-[11px] sm:grid-cols-3">
+                    <div className="flex items-start gap-2">
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-white/80"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        aria-hidden="true"
+                      >
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M5 21v-2a7 7 0 0 1 14 0v2" strokeLinecap="round" />
+                      </svg>
+                      <div className="flex flex-col">
+                        <span className="text-[9px] uppercase tracking-wider text-white/70">
+                          {clientLabel}
+                        </span>
+                        <b className="font-medium text-white">{clientValue}</b>
+                      </div>
+                    </div>
 
-                  <div className="meta-item case-study-meta-item">
-                    <svg
-                      className="meta-ic case-study-meta-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      aria-hidden="true"
-                    >
-                      <circle cx="12" cy="12" r="9" />
-                      <path d="M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18M3 12h18" strokeLinecap="round" />
-                    </svg>
-                    <span className="meta-text case-study-meta-text">
-                      <span className="meta-label case-study-meta-label">{projectTypeLabel}</span>
-                      <b className="meta-value case-study-meta-value">{projectTypeValue}</b>
-                    </span>
+                    <div className="flex items-start gap-2">
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-white/80"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M12 21c-4.2-4.4-7-7.7-7-11.2A7 7 0 0 1 19 9.8c0 3.5-2.8 6.8-7 11.2z"
+                          strokeLinejoin="round"
+                        />
+                        <circle cx="12" cy="10" r="2.5" />
+                      </svg>
+                      <div className="flex flex-col">
+                        <span className="text-[9px] uppercase tracking-wider text-white/70">
+                          {regionLabel}
+                        </span>
+                        <b className="font-medium text-white">{regionValue}</b>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2">
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-white/80"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        aria-hidden="true"
+                      >
+                        <circle cx="12" cy="12" r="9" />
+                        <path
+                          d="M12 3a15 15 0 0 0 0 18M12 3a15 15 0 0 1 0 18M3 12h18"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <div className="flex flex-col">
+                        <span className="text-[9px] uppercase tracking-wider text-white/70">
+                          {projectTypeLabel}
+                        </span>
+                        <b className="font-medium text-white">{projectTypeValue}</b>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
             </Link>
           );
         })}
       </div>
 
       {section.ctaLabel ? (
-        <div className="more case-studies-more-cta">
+        <div className="mt-8 flex justify-center">
           <WalstarButton variant="orange" href={section.ctaHref || '#cta'}>
             {section.ctaLabel}
           </WalstarButton>
         </div>
       ) : null}
     </section>
+
+    <div className="section-container-80 relative z-10 -mt-10 rounded-2xl bg-[#0077ed] text-white shadow-lg md:-mt-12">
+      <div className="flex flex-col items-start justify-between gap-6 px-6 py-7 md:flex-row md:items-center md:px-10 md:py-8">
+        <div className="max-w-2xl">
+          <h3 className="text-xl font-semibold leading-snug text-white md:text-2xl">
+            Let&apos;s Turn Your Idea Into Something Exceptional.
+          </h3>
+          <p className="mt-2 text-xs leading-relaxed text-white/85 md:text-sm">
+            Whether you need an AI-powered solution, custom software, a modern website, or a digital
+            growth strategy, Walstar Technologies can help you plan, build, and scale with confidence.
+          </p>
+        </div>
+        <div className="shrink-0">
+          <WalstarButton variant="orange" href="/contact">
+            Discuss Your Project
+          </WalstarButton>
+        </div>
+      </div>
+    </div>
+    </div>
   );
 }
 
-function TestimonialsBlock({
+export function TestimonialsBlock({
   section,
   fallbackTestimonials,
 }: {
@@ -870,16 +927,16 @@ function TestimonialsBlock({
   );
 }
 
-function BeforeAfterBlock({ section }: { section: BeforeAfterSection }) {
+export function BeforeAfterBlock({ section }: { section: BeforeAfterSection }) {
   return <BeforeAfterSlider section={section} />;
 }
 
 function RichContentBlock({ section }: { section: RichContentSection }) {
   return (
     <section className="rich-sec">
-      <div className="wrap">
+      <div className="wrap section-container-90">
         <div className="rich-box">
-          {section.tag ? <span className="pill tag">{cleanPillTag(section.tag)}</span> : null}
+          {section.tag ? <span className="pill tag">{cleanPill(section.tag)}</span> : null}
           {section.headingPrefix || section.headingSerif ? (
             <h2 className="rich-heading">
               {section.headingPrefix}{' '}
@@ -945,14 +1002,17 @@ function renderDynamicSection(
         />
       );
     case 'sections.trust-banner':
-      return <TrustBannerBlock key={key} section={section} />;
+      // return <TrustBannerBlock key={key} section={section} />;
+      return null;
     case 'sections.case-studies':
       return (
-        <CaseStudiesBlock
-          key={key}
-          section={section}
-          fallbackCaseStudies={data.caseStudies}
-        />
+        <Fragment key={key}>
+          <CaseStudiesBlock
+            section={section}
+            fallbackCaseStudies={data.caseStudies}
+          />
+          <DigitalSolutions />
+        </Fragment>
       );
     case 'sections.testimonials':
       return (
@@ -1006,6 +1066,16 @@ function renderDynamicSection(
       return <SvcApproachBlock key={key} section={section} />;
     case 'sections.svc-cta':
       return <SvcCtaBlock key={key} section={section} />;
+    case 'sections.service-grid':
+      return (
+        <ServiceGrid
+          key={key}
+          section={section}
+          fallbackServices={data.services}
+        />
+      );
+    case 'sections.faq-section':
+      return <FaqSection key={key} section={section} />;
     default:
       return null;
   }
@@ -1024,7 +1094,7 @@ export function PageSectionsRenderer({
     currentPathProp ||
     (data.page.isHomepage || data.page.slug === 'home'
       ? '/'
-      : data.page.pageType === 'service'
+      : data.page.pageType === 'service' && data.page.slug !== 'services'
         ? `/services/${encodeURIComponent(data.page.slug)}`
         : `/${encodeURIComponent(data.page.slug)}`);
   const sections = data.page.sections ?? [];
@@ -1035,6 +1105,8 @@ export function PageSectionsRenderer({
   const middleSections = trailingCta ? sections.slice(0, -1) : sections;
 
   const isContactPage = data.page.pageType === 'contact' || data.page.slug === 'contact';
+  const isHomepage = Boolean(data.page.isHomepage || data.page.slug === 'home');
+  const hasFaqSection = sections.some((section) => section.__component === 'sections.faq-section');
 
   return (
     <div className={isContactPage ? 'walstar-page walstar-page--contact' : 'walstar-page'}>
@@ -1050,15 +1122,26 @@ export function PageSectionsRenderer({
         />
       ) : null}
 
-      {middleSections.map((section, idx) =>
-        renderDynamicSection(
+      {middleSections.map((section, idx) => {
+        const rendered = renderDynamicSection(
           section,
           idx,
           idx === 0 && hasHeroFirst,
           data,
           currentPath
-        )
-      )}
+        );
+
+        if (isHomepage && !hasFaqSection && section.__component === 'sections.testimonials') {
+          return (
+            <Fragment key={`testimonials-with-faq-${idx}`}>
+              {rendered}
+              <FaqSection key={`faq-fallback-${idx}`} />
+            </Fragment>
+          );
+        }
+
+        return rendered;
+      })}
 
       {sections.length === 0 ? (
         <RichContentBlock

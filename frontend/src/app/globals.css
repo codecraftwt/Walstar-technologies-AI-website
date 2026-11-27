@@ -1,13 +1,87 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@500;600;800&family=Poppins:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
 @import "tailwindcss";
+@import "../styles/tokens.css";
 @import "./walstar.css";
+@import "../styles/primitives.css";
+@import "../styles/services.css";
+@import "../styles/homepage.css";
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: #F3F4F6;
-  color: #12123a;
-  font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-page-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+/* Global Section Typography & Pill */
+.section-pill {
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: rgb(10, 20, 47) !important;
+  box-sizing: border-box !important;
+  opacity: 1 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  margin-top: 0px !important;
+  margin-bottom: clamp(12px, 0.9vw, 18px) !important;
+  font-family: Poppins, system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(11.5px, 0.73vw, 13.5px) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  display: inline-flex !important;
+  transform: rotate(0deg) !important;
+  box-shadow: rgba(20, 21, 74, 0.04) 0px 2px 8px !important;
+  white-space: nowrap !important;
+  background: rgb(255, 255, 255) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: rgba(20, 21, 74, 0.08) !important;
+  border-image: none !important;
+  border-radius: 9999px !important;
+  gap: 8px !important;
+  padding: clamp(6px, 0.45vw, 8px) clamp(14px, 0.9vw, 18px) !important;
+}
+
+.section-pill::before {
+  content: "" !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 9999px !important;
+  background: #0077ed !important;
+  flex-shrink: 0 !important;
+}
+
+.section-heading {
+  word-break: break-word;
+  line-height: 1.18 !important;
+  letter-spacing: -0.015em !important;
+  color: rgb(0, 25, 48) !important;
+  font-family: Urbanist, Poppins, system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(28px, 2.7vw, 44px) !important;
+  font-weight: 600 !important;
+}
+
+.section-heading-serif {
+  letter-spacing: 0px;
+  vertical-align: baseline;
+  color: rgb(47, 128, 255) !important;
+  font-family: Georgia, "Instrument Serif", serif !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+.section-description {
+  color: rgb(102, 102, 102) !important;
+  font-family: Poppins, ui-sans-serif, system-ui, sans-serif !important;
+  font-size: clamp(14px, 0.95vw, 16px) !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
 }

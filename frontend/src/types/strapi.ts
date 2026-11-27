@@ -185,6 +185,13 @@ export interface PartnerStripSection {
   logos?: PartnerLogo[];
 }
 
+export interface RatingPlatformItem {
+  id?: number;
+  name: string;
+  logo?: StrapiMedia | null;
+  href?: string | null;
+}
+
 export interface AboutSection {
   __component: 'sections.about';
   id?: number;
@@ -193,6 +200,10 @@ export interface AboutSection {
   headingSerif?: string | null;
   headingSuffix?: string | null;
   description?: string | null;
+  ratingStars?: number | null;
+  ratingLabel?: string | null;
+  ratingPlatforms?: RatingPlatformItem[];
+  stats?: StatCounterItem[];
   highlightTitle?: string | null;
   highlightDescription?: string | null;
   highlightIcon?: StrapiMedia | null;
@@ -224,6 +235,10 @@ export interface CapabilitiesSection {
   processVideoLabel?: string | null;
   processVideoUrl?: string | null;
   processSteps?: ProcessStep[];
+  ctaBannerTitle?: string | null;
+  ctaBannerDescription?: string | null;
+  ctaBannerLabel?: string | null;
+  ctaBannerHref?: string | null;
 }
 
 export interface ProductsShowcaseSection {
@@ -266,6 +281,20 @@ export interface CaseStudiesSection {
   ctaHref?: string | null;
   showAllCaseStudies?: boolean | null;
   caseStudies?: CaseStudyItem[];
+  ctaBannerTitle?: string | null;
+  ctaBannerDescription?: string | null;
+  ctaBannerLabel?: string | null;
+  ctaBannerHref?: string | null;
+}
+
+export interface DigitalSolutionsSection {
+  __component: 'sections.digital-solutions';
+  id?: number;
+  tag?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  description?: string | null;
+  items?: Array<{ id?: number; title: string; color?: string | null }>;
 }
 
 export interface TestimonialsSection {
@@ -274,6 +303,7 @@ export interface TestimonialsSection {
   tag?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
+  description?: string | null;
   showAllTestimonials?: boolean | null;
   testimonials?: TestimonialItem[];
 }
@@ -558,9 +588,17 @@ export interface SvcGetItem {
 }
 
 /* ─── Service page sections ──────────────────────────────────────── */
+export type ServiceLayoutVariant =
+  | 'ai-solutions'
+  | 'custom-software'
+  | 'digital-marketing'
+  | 'web-saas'
+  | 'mobile-app';
+
 export interface SvcIntroSection {
   __component: 'sections.svc-intro';
   id?: number;
+  layoutVariant?: ServiceLayoutVariant | null;
   pill?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
@@ -586,6 +624,7 @@ export interface SvcChallengesSection {
 export interface SvcCapabilitiesSection {
   __component: 'sections.svc-capabilities';
   id?: number;
+  layoutVariant?: ServiceLayoutVariant | null;
   pill?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
@@ -597,6 +636,7 @@ export interface SvcCapabilitiesSection {
 export interface SvcBenefitsSection {
   __component: 'sections.svc-benefits';
   id?: number;
+  layoutVariant?: ServiceLayoutVariant | null;
   pill?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
@@ -608,6 +648,7 @@ export interface SvcBenefitsSection {
 export interface SvcProcessSection {
   __component: 'sections.svc-process';
   id?: number;
+  layoutVariant?: ServiceLayoutVariant | null;
   pill?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
@@ -624,6 +665,7 @@ export interface SvcProcessSection {
 export interface SvcApproachSection {
   __component: 'sections.svc-approach';
   id?: number;
+  layoutVariant?: ServiceLayoutVariant | null;
   pill?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
@@ -637,6 +679,7 @@ export interface SvcApproachSection {
 export interface SvcCtaSection {
   __component: 'sections.svc-cta';
   id?: number;
+  layoutVariant?: ServiceLayoutVariant | null;
   pill?: string | null;
   headingPrefix?: string | null;
   headingSerif?: string | null;
@@ -649,6 +692,34 @@ export interface SvcCtaSection {
   secondaryCtaHref?: string | null;
 }
 
+export interface FaqItemData {
+  id?: number;
+  question: string;
+  answer: string;
+  defaultOpen?: boolean | null;
+}
+
+export interface FaqSectionData {
+  __component: 'sections.faq-section';
+  id?: number;
+  badgeText?: string | null;
+  heading?: string | null;
+  headingAccent?: string | null;
+  items?: FaqItemData[];
+}
+
+export interface ServiceGridSection {
+  __component: 'sections.service-grid';
+  id?: number;
+  pill?: string | null;
+  headingPrefix?: string | null;
+  headingSerif?: string | null;
+  headingSuffix?: string | null;
+  description?: string | null;
+  showAllServices?: boolean | null;
+  services?: ServiceItem[];
+}
+
 export type PageSection =
   | HeroSection
   | PartnerStripSection
@@ -657,6 +728,7 @@ export type PageSection =
   | ProductsShowcaseSection
   | TrustBannerSection
   | CaseStudiesSection
+  | DigitalSolutionsSection
   | TestimonialsSection
   | BeforeAfterSection
   | CtaBandSection
@@ -676,7 +748,9 @@ export type PageSection =
   | SvcBenefitsSection
   | SvcProcessSection
   | SvcApproachSection
-  | SvcCtaSection;
+  | SvcCtaSection
+  | ServiceGridSection
+  | FaqSectionData;
 
 export type PageType = 'homepage' | 'about' | 'contact' | 'service' | 'standard';
 

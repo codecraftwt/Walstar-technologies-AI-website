@@ -12,7 +12,7 @@ export const INITIAL_SITE_SETTING = {
   ],
   navLinks: [
     { label: 'Home', href: '/', hasDropdown: false },
-    { label: 'Services', href: '/services/ai-solutions-business-automation', hasDropdown: true },
+    { label: 'Services', href: '/services', hasDropdown: true },
     { label: 'Industries', href: '/#prod', hasDropdown: false },
     { label: 'Our Work', href: '/#case', hasDropdown: false },
     { label: 'About Us', href: '/about-us', hasDropdown: false },
@@ -42,7 +42,7 @@ export const INITIAL_SITE_SETTING = {
     { label: 'Portfolio', href: '/#case', hasDropdown: false },
   ],
   footerSecondaryLinks: [
-    { label: 'Services', href: '/services/ai-solutions-business-automation', hasDropdown: false },
+    { label: 'Services', href: '/services', hasDropdown: false },
     { label: 'Career', href: '/about-us', hasDropdown: false },
     { label: 'Contact', href: '/contact', hasDropdown: false },
     { label: 'Events & Programs', href: '/#prod', hasDropdown: false },
@@ -643,14 +643,33 @@ export const INITIAL_PAGES = [
       {
         __component: 'sections.about' as const,
         tag: 'About us',
-        headingPrefix: 'The team behind',
-        headingSerif: 'smarter',
-        headingSuffix: 'automation',
+        headingPrefix: 'Technology Expertise.\nBusiness-First Thinking.',
+        headingSerif: 'Reliable Delivery.',
+        headingSuffix: '',
         description:
-          'From intelligent agents to connected business workflows, we design\nand implement practical AI solutions that help businesses save time,\nimprove decisions, and deliver better customer experiences.',
-        highlightTitle: 'Engineering an Intelligent Future',
-        highlightDescription:
-          'We specialize in designing & deploying production AI systems that combine security, cost efficiency and lasting performance.',
+          'Since 2017, Walstar Technologies has helped businesses turn ideas into\ndigital products and technology solutions. From custom software and\nmobile applications to AI-powered automation and digital growth, we\ncombine engineering, design, and strategy to support your business goals.',
+        ratingStars: 5,
+        ratingLabel: 'Rated 5/5 on',
+        ratingPlatforms: [
+          {
+            name: 'Clutch',
+            logo: { url: '/images/about/rating-clutch.svg', alternativeText: 'Clutch' },
+          },
+          {
+            name: 'Google',
+            logo: { url: '/images/about/rating-google.svg', alternativeText: 'Google' },
+          },
+          {
+            name: 'GoodFirms',
+            logo: { url: '/images/about/rating-goodfirms.svg', alternativeText: 'GoodFirms' },
+          },
+        ],
+        stats: [
+          { value: '08', label: 'Products\nDeveloped' },
+          { value: '10', label: 'Core Service\nCategories' },
+          { value: '02', label: 'ISO Quality\nCertifications' },
+          { value: '12', label: 'Industries\nServed' },
+        ],
         primaryImage: {
           url: '/images/about/about-primary.png',
           alternativeText: 'About Walstar Technologies',
@@ -659,22 +678,18 @@ export const INITIAL_PAGES = [
           url: '/images/about/about-secondary.png',
           alternativeText: 'Walstar Team',
         },
-        highlightIcon: {
-          url: '/images/about/about-highlight-icon.png',
-          alternativeText: 'Engineering an Intelligent Future',
-        },
-        ctaLabel: 'More About Us ↗',
+        ctaLabel: null,
         ctaHref: '/about-us',
       },
       {
         __component: 'sections.capabilities' as const,
         pill: 'Capabilities',
-        headingPrefix: 'What we',
-        headingSerif: 'do',
+        headingPrefix: 'Custom Software, AI, Cloud, Security\nand Digital Growth',
+        headingSerif: 'Under One Roof',
         subtitle:
-          'End-to-end AI services engineered for performance, data security',
+          'From AI-driven automation to custom enterprise software, we deliver digital solutions that solve real problems, streamline operations, and help businesses scale.',
         ctaLabel: 'View Services ↗',
-        ctaHref: '/services/ai-solutions-business-automation',
+        ctaHref: '/services',
         showAllServices: true,
         showProcess: true,
         processPill: 'What we do',
@@ -686,6 +701,11 @@ export const INITIAL_PAGES = [
         processVideoLabel: 'Video Presentation',
         processVideoUrl: '#cta',
         processSteps: SHARED_PROCESS_STEPS,
+        ctaBannerTitle: "Have a Project in Mind? Let's Build It Together.",
+        ctaBannerDescription:
+          "Whether you're planning an AI solution, developing custom business software, modernizing an existing application, or improving your digital growth, Walstar Technologies can help you explore the right approach. Tell us what you want to achieve. We'll discuss your requirements and the next steps.",
+        ctaBannerLabel: 'Discuss Your Project ↗',
+        ctaBannerHref: '/contact',
       },
       {
         __component: 'sections.products-showcase' as const,
@@ -717,13 +737,80 @@ export const INITIAL_PAGES = [
         ctaLabel: 'View All Case Studies ↗',
         ctaHref: '#case',
         showAllCaseStudies: true,
+        ctaBannerTitle: "Let's Turn Your Idea Into Something Exceptional.",
+        ctaBannerDescription:
+          'Whether you need an AI-powered solution, custom software, a modern website, or a digital growth strategy, Walstar Technologies can help you plan, build, and scale with confidence.',
+        ctaBannerLabel: 'Discuss Your Project',
+        ctaBannerHref: '/contact',
+      },
+      {
+        __component: 'sections.digital-solutions' as const,
+        tag: 'Digital Solutions',
+        headingPrefix: 'Digital Solutions For Different',
+        headingSerif: 'Business Needs',
+        description:
+          'From healthcare and retail to logistics and SaaS, we build software, AI and digital growth solutions that fit how your industry actually works.',
+        items: [
+          { title: 'Healthcare', color: 'bg-[#DFF1FF]' },
+          { title: 'eCommerce & Retail', color: 'bg-[#DFF1FF]' },
+          { title: 'Fashion & Apparel', color: 'bg-[#F8F6EF]' },
+          { title: 'Education & E-Learning', color: 'bg-[#F8F6EF]' },
+          { title: 'Real Estate', color: 'bg-[#F8F6EF]' },
+          { title: 'Logistics & Transportation', color: 'bg-[#F8F6EF]' },
+          { title: 'Hospitality & Travel', color: 'bg-[#DFF1FF]' },
+          { title: 'SaaS & Technology', color: 'bg-[#F8F6EF]' },
+          { title: 'Manufacturing', color: 'bg-[#F8F6EF]' },
+          { title: 'Finance & Business Services', color: 'bg-[#DFF1FF]' },
+          { title: 'Legal Services', color: 'bg-[#F8F6EF]' },
+          { title: 'Startups & SMEs', color: 'bg-[#DFF1FF]' },
+        ],
       },
       {
         __component: 'sections.testimonials' as const,
         tag: 'Honest clients',
         headingPrefix: 'Trusted by',
         headingSerif: 'thousands',
+        description:
+          'Real feedback from businesses across the USA, UK, Australia and India that trust us with their software, AI and digital growth.',
         showAllTestimonials: true,
+      },
+      {
+        __component: 'sections.faq-section' as const,
+        badgeText: 'FAQ',
+        heading: 'Common Questions About\nWorking',
+        headingAccent: 'With Walstar',
+        items: [
+          {
+            question: 'What services does Walstar Technologies offer?',
+            answer:
+              'We offer AI development and automation, cloud and DevOps, cybersecurity and IT management, IT and digital transformation, mobile app development, custom ERP and CRM software, eCommerce, web and SaaS development, UI/UX design, and white-label or dedicated development teams.',
+            defaultOpen: true,
+          },
+          {
+            question: 'Who do you work with?',
+            answer:
+              'We work with startups, small and medium-sized businesses, enterprises, and agencies looking for reliable technology and digital solutions.',
+            defaultOpen: false,
+          },
+          {
+            question: 'Can you add AI to our existing website or software?',
+            answer:
+              'Yes. We can integrate AI-powered features, intelligent automation, chatbots, and custom AI solutions into your existing website, applications, and business software.',
+            defaultOpen: false,
+          },
+          {
+            question: 'Can you work as a white-label partner for our agency?',
+            answer:
+              'Yes. We provide white-label development services, allowing agencies to deliver technology solutions to their clients under their own brand.',
+            defaultOpen: false,
+          },
+          {
+            question: 'Do you work across time zones?',
+            answer:
+              'Yes. We collaborate with clients across different countries and time zones, with flexible communication and project coordination.',
+            defaultOpen: false,
+          },
+        ],
       },
       SHARED_BEFORE_AFTER,
       SHARED_CTA_BAND,
@@ -1176,6 +1263,50 @@ export const INITIAL_PAGES = [
         subheading: 'Walstar Technologies is ready to power your digital growth.',
         buttonLabel: 'Connect With Us ↗',
         buttonHref: '#contact-form',
+      },
+    ],
+  },
+  {
+    title: 'Our Services',
+    slug: 'services',
+    isHomepage: false,
+    pageType: 'standard' as const,
+    order: 4,
+    summary:
+      'AI, digital marketing, software, web, mobile, ecommerce, cloud, security and design services from Walstar Technologies.',
+    content:
+      'Comprehensive digital services including AI solutions, digital marketing, custom software, web & SaaS, mobile apps, ecommerce, cloud, cybersecurity, UI/UX design, dedicated teams, and Amazon EBC.',
+    seo: {
+      metaTitle: 'Our Services | Walstar Technologies',
+      metaDescription:
+        'AI, digital marketing, software, web, mobile, ecommerce, cloud, security and design services from Walstar Technologies.',
+    },
+    sections: [
+      {
+        __component: 'sections.hero' as const,
+        variant: 'compact' as const,
+        chip: 'Our Expertise',
+        headlinePrefix: 'Smart Digital Solutions That\nMove',
+        headlineSerif: 'Your Business Forward.',
+        headlineSuffix: '',
+      },
+      {
+        __component: 'sections.service-grid' as const,
+        pill: 'Services',
+        headingPrefix: '',
+        headingSerif: 'Solutions',
+        headingSuffix: 'We Deliver',
+        description:
+          'We offer a comprehensive range of digital services designed to meet your evolving business needs. From web and software development to digital marketing, AI-powered solutions, and business automation, our expertise helps streamline operations, enhance customer experiences, improve efficiency, and create new opportunities for sustainable business growth.',
+        showAllServices: true,
+      },
+      {
+        ...SHARED_CTA_BAND,
+        pill: 'CTA',
+        heading: 'For Instant Support, Please Contact Us',
+        subheading: 'Have a project in mind?',
+        buttonLabel: 'Connect With Us ↗',
+        buttonHref: '/contact',
       },
     ],
   },
@@ -2427,7 +2558,7 @@ export const INITIAL_NAVBAR = {
     },
     {
       label: 'Services',
-      route: '/services/ai-solutions-business-automation',
+      route: '/services',
       hasDropdown: true,
       isHighlighted: false,
       openInNewTab: false,
@@ -2534,7 +2665,7 @@ export const INITIAL_FOOTER = {
     {
       title: 'Explore',
       links: [
-        { label: 'Services', route: '/services/ai-solutions-business-automation', openInNewTab: false },
+        { label: 'Services', route: '/services', openInNewTab: false },
         { label: 'Career', route: '/about-us', openInNewTab: false },
         { label: 'Contact', route: '/contact', openInNewTab: false },
         { label: 'Events & Programs', route: '/#prod', openInNewTab: false },

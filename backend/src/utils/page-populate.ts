@@ -61,7 +61,15 @@ export const PAGE_POPULATE = {
         },
       },
       'sections.about': {
-        populate: ['primaryImage', 'secondaryImage', 'highlightIcon'],
+        populate: {
+          primaryImage: true,
+          secondaryImage: true,
+          highlightIcon: true,
+          stats: true,
+          ratingPlatforms: {
+            populate: ['logo'],
+          },
+        },
       },
       'sections.capabilities': {
         populate: {
@@ -100,6 +108,9 @@ export const PAGE_POPULATE = {
             sort: { order: 'asc' },
           },
         },
+      },
+      'sections.digital-solutions': {
+        populate: ['items'],
       },
       'sections.testimonials': {
         populate: {
@@ -169,6 +180,17 @@ export const PAGE_POPULATE = {
         populate: ['getBoxItems'],
       },
       'sections.svc-cta': true,
+      'sections.service-grid': {
+        populate: {
+          services: {
+            populate: ['image', 'iconImage'],
+            sort: { order: 'asc' },
+          },
+        },
+      },
+      'sections.faq-section': {
+        populate: ['items'],
+      },
     },
   },
 } as const;

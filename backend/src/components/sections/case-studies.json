@@ -37,6 +37,21 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::case-study.case-study"
+    },
+    "ctaBannerTitle": {
+      "type": "string",
+      "default": "Let's Turn Your Idea Into Something Exceptional."
+    },
+    "ctaBannerDescription": {
+      "type": "text"
+    },
+    "ctaBannerLabel": {
+      "type": "string",
+      "default": "Discuss Your Project"
+    },
+    "ctaBannerHref": {
+      "type": "string",
+      "default": "/contact"
     }
   }
 }

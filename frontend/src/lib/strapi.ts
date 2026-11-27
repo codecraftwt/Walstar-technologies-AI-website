@@ -17,8 +17,8 @@ import type {
   StrapiResponse,
 } from '@/types/strapi';
 
-const DEFAULT_PUBLIC_URL = 'https://strapicrm.walstartechnologies.com';
-const DEFAULT_SERVER_URL = 'https://strapicrm.walstartechnologies.com';
+const DEFAULT_PUBLIC_URL = 'https://walstar-technologies-ai-website.onrender.com';
+const DEFAULT_SERVER_URL = 'https://walstar-technologies-ai-website.onrender.com';
 
 export const STRAPI_IMAGE_PLACEHOLDER =
   'https://res.cloudinary.com/dwwykeft2/image/upload/v1795168221/placeholder_f03d9a6f2e.png';
@@ -39,29 +39,40 @@ export function getStrapiBaseUrl(): string {
   return getStrapiPublicUrl();
 }
 
-export function getStrapiMediaUrl(url?: string | null): string | null {
+export function getStrapiMediaUrl(url?: unknown): string | null {
   if (!url) return null;
-  if (
-    url.startsWith('http://') ||
-    url.startsWith('https://') ||
-    url.startsWith('data:') ||
-    url.startsWith('blob:')
+  let resolvedUrl: string | null = null;
+  if (typeof url === 'string') {
+    resolvedUrl = url.trim();
+  } else if (
+    typeof url === 'object' &&
+    'url' in url &&
+    typeof (url as { url?: unknown }).url === 'string'
   ) {
-    return url;
+    resolvedUrl = (url as { url: string }).url.trim();
+  }
+  if (!resolvedUrl) return null;
+  if (
+    resolvedUrl.startsWith('http://') ||
+    resolvedUrl.startsWith('https://') ||
+    resolvedUrl.startsWith('data:') ||
+    resolvedUrl.startsWith('blob:')
+  ) {
+    return resolvedUrl;
   }
   if (
-    url.startsWith('/images/') ||
-    url.startsWith('/icons/') ||
-    url.startsWith('/logos/') ||
-    url.startsWith('/favicon')
+    resolvedUrl.startsWith('/images/') ||
+    resolvedUrl.startsWith('/icons/') ||
+    resolvedUrl.startsWith('/logos/') ||
+    resolvedUrl.startsWith('/favicon')
   ) {
-    return url;
+    return resolvedUrl;
   }
   // Local frontend public assets (e.g. /walstar-star.gif, /about.gif) not under Strapi /uploads/
-  if (url.startsWith('/') && !url.startsWith('/uploads/')) {
-    return url;
+  if (resolvedUrl.startsWith('/') && !resolvedUrl.startsWith('/uploads/')) {
+    return resolvedUrl;
   }
-  return `${getStrapiPublicUrl()}${url.startsWith('/') ? '' : '/'}${url}`;
+  return `${getStrapiPublicUrl()}${resolvedUrl.startsWith('/') ? '' : '/'}${resolvedUrl}`;
 }
 
 export function getStrapiTimeoutMs(): number {
@@ -165,6 +176,29 @@ function resolvePageSections(
   return fallbackPage.sections ?? [];
 }
 
+const LEGACY_SERVICES_NAV_ROUTES = new Set([
+  '/services/ai-solutions-business-automation',
+  '/service-1',
+]);
+
+function normalizeNavbarData(navbar: NavbarData): NavbarData {
+  if (!Array.isArray(navbar.items)) return navbar;
+  return {
+    ...navbar,
+    items: navbar.items.map((item) => {
+      const isServicesTab = item.label?.trim().toLowerCase() === 'services';
+      const currentRoute = item.route?.trim() || '';
+      if (isServicesTab && (!currentRoute || LEGACY_SERVICES_NAV_ROUTES.has(currentRoute))) {
+        return {
+          ...item,
+          route: '/services',
+        };
+      }
+      return item;
+    }),
+  };
+}
+
 function normalizeLandingPayload(
   payload: Partial<LandingPayload>,
   fallbackPage: PageItem
@@ -177,7 +211,7 @@ function normalizeLandingPayload(
     : fallbackPage;
 
   return {
-    navbar: payload.navbar ?? payload.page?.navbar ?? DEFAULT_NAVBAR,
+    navbar: normalizeNavbarData(payload.navbar ?? payload.page?.navbar ?? DEFAULT_NAVBAR),
     footer: payload.footer ?? payload.page?.footer ?? DEFAULT_FOOTER,
     siteSetting: mergeSiteSetting(payload.siteSetting),
     page,
@@ -235,7 +269,7 @@ export async function getActiveNavbar(slug?: string): Promise<NavbarData> {
       }
     );
     if (res.data && Array.isArray(res.data.items)) {
-      return res.data;
+      return normalizeNavbarData(res.data);
     }
   } catch {
     // Fall back to default seeded navbar when Strapi is offline
@@ -350,6 +384,17 @@ export async function getResolvedPageBySlug(slug: string): Promise<{
   }
 
   if (fallbackPage) {
+    if (lastError instanceof StrapiHttpError && lastError.status === 404) {
+      const landing = await getLandingData();
+      return {
+        source: landing.source,
+        data: {
+          ...landing.data,
+          page: fallbackPage,
+        },
+      };
+    }
+
     return {
       source: 'fallback',
       data: {

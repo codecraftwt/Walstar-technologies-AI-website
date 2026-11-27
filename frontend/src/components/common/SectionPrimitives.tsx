@@ -19,6 +19,52 @@ export function renderMultilineText(text?: string | null): ReactNode {
   ));
 }
 
+export function renderTextWithBreaks(text?: string | null): ReactNode {
+  if (!text) return null;
+  const regex = /(<br\s*(?:class(?:Name)?=["'](?:d|desktop-line-break)["'])?\s*\/?>|\n)/gi;
+  const parts = text.split(regex);
+  if (parts.length === 1) return text;
+
+  return parts.map((part, index) => {
+    if (!part) return null;
+    const lower = part.toLowerCase();
+    if (
+      lower.includes('class="d"') ||
+      lower.includes("class='d'") ||
+      lower.includes('classname="d"') ||
+      lower.includes("classname='d'") ||
+      lower.includes('desktop-line-break') ||
+      part === '\n'
+    ) {
+      return <br key={index} className="desktop-line-break d" />;
+    }
+    if (lower.startsWith('<br')) {
+      return <br key={index} />;
+    }
+    return <span key={index}>{part}</span>;
+  });
+}
+
+export function WalstarSectionBadge({
+  text,
+  fallback,
+  className = 'pill',
+  style,
+}: {
+  text?: string | null;
+  fallback?: string;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  const label = cleanPill(text) || fallback || '';
+  if (!label) return null;
+  return (
+    <span className={className} style={style}>
+      {label}
+    </span>
+  );
+}
+
 export function renderHeadingParts(
   prefix?: string | null,
   serif?: string | null,
@@ -37,7 +83,7 @@ export function renderHeadingParts(
       {serif ? (
         <>
           {needsSpaceBeforeSerif ? ' ' : null}
-          <span className="serif">{renderMultilineText(serif)}</span>
+          <span className="section-heading-serif">{renderMultilineText(serif)}</span>
         </>
       ) : null}
       {suffix ? (

@@ -16,6 +16,7 @@ interface TestimonialsCarouselProps {
   tag: string;
   headingPrefix: string;
   headingSerif: string;
+  description?: string | null;
   testimonials: TestimonialItem[];
 }
 
@@ -133,6 +134,7 @@ export function TestimonialsCarousel({
   tag,
   headingPrefix,
   headingSerif,
+  description,
   testimonials,
 }: TestimonialsCarouselProps) {
   const count = testimonials.length;
@@ -338,12 +340,16 @@ export function TestimonialsCarousel({
 
   if (count === 1) {
     return (
-      <section className="tm">
-        <div className="head">
-          {tag ? <span className="pill">{cleanPill(tag)}</span> : null}
-          <h2 className="tm-heading">
-            {headingPrefix} <span className="serif">{headingSerif}</span>
+      <section className="bg-transparent py-16 md:py-24 overflow-hidden">
+        <div className="flex flex-col items-center text-center mb-10">
+          {tag ? <span className="section-pill">{cleanPill(tag)}</span> : null}
+          <h2 className="section-heading mt-2">
+            <span className="block">{headingPrefix}</span>
+            <span className="block section-heading-serif">{headingSerif}</span>
           </h2>
+          {description ? (
+            <p className="section-description mt-3 max-w-2xl">{description}</p>
+          ) : null}
         </div>
         <div className="t-single">
           <TestimonialCard item={testimonials[0]} isCenter />
@@ -355,12 +361,16 @@ export function TestimonialsCarousel({
   const activeVirtualIndex = cursor + stepDir;
 
   return (
-    <section className="tm">
-      <div className="head">
-        {tag ? <span className="pill">{cleanPill(tag)}</span> : null}
-        <h2 className="tm-heading">
-          {headingPrefix} <span className="serif">{headingSerif}</span>
+    <section className="bg-transparent py-16 md:py-24 overflow-hidden">
+      <div className="flex flex-col items-center text-center mb-10">
+        {tag ? <span className="section-pill">{cleanPill(tag)}</span> : null}
+        <h2 className="section-heading mt-2">
+          <span className="block">{headingPrefix}</span>
+          <span className="block section-heading-serif">{headingSerif}</span>
         </h2>
+        {description ? (
+          <p className="section-description mt-3 max-w-2xl">{description}</p>
+        ) : null}
       </div>
 
       <div

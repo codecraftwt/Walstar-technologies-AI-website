@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_sections_digital_solutions",
+  "info": {
+    "displayName": "Digital Solutions",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Digital Solutions"
+    },
+    "headingPrefix": {
+      "type": "string",
+      "default": "Digital Solutions For Different"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "Business Needs"
+    },
+    "description": {
+      "type": "text"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.digital-solution-item"
+    }
+  }
+}

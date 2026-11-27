@@ -1,0 +1,195 @@
+/* ==========================================================================
+   WALSTAR GLOBAL UI PRIMITIVES
+   Shared typography, section pills, headings, buttons, containers, and helpers.
+   ========================================================================== */
+
+/* Global Container */
+.page-container {
+  max-width: var(--container-width, 1215px);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* Global Desktop Line Break */
+.d,
+.desktop-line-break {
+  display: inline;
+}
+
+@media (max-width: 900px) {
+  .d,
+  .desktop-line-break {
+    display: none !important;
+  }
+}
+
+/* Generic Vector Icon Sizing */
+.i,
+.icon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Global Section Pill / Badge */
+.pill,
+.tag,
+.section-badge,
+.walstar-pill,
+.contact-interest-pill,
+.contact-info-pill,
+.about-pill,
+.who-pill,
+.team-pill,
+.why-pill,
+.way-pill,
+.sol-pill,
+.vm-pill,
+.offices-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: var(--color-white) !important;
+  border-radius: var(--radius-pill) !important;
+  padding: clamp(6px, 0.45vw, 8px) clamp(14px, 0.9vw, 18px) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(11.5px, 0.73vw, 13.5px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #0A142F !important;
+  margin-top: 0 !important;
+  margin-bottom: clamp(12px, 0.9vw, 18px) !important;
+  box-shadow: var(--shadow-pill) !important;
+  border: 1px solid rgba(20, 21, 74, 0.08) !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  opacity: 1 !important;
+  transform: rotate(0deg) !important;
+}
+
+.pill::before,
+.tag::before,
+.section-badge::before,
+.walstar-pill::before,
+.contact-interest-pill::before,
+.contact-info-pill::before,
+.about-pill::before,
+.who-pill::before,
+.team-pill::before,
+.why-pill::before,
+.way-pill::before,
+.sol-pill::before,
+.vm-pill::before,
+.offices-pill::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: var(--color-brand-blue) !important;
+  opacity: 1 !important;
+  transform: rotate(0deg) !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+/* Global Section Headings & Serif Accents */
+.walstar-heading,
+.svc-heading,
+.section-header-heading,
+.section-heading__title,
+.introduction-section__title,
+.split-heading__title,
+.final-call-to-action-section__title {
+  margin: 12px 0 16px;
+  font-family: var(--font-heading) !important;
+  font-size: var(--heading-size-section) !important;
+  font-weight: 600 !important;
+  line-height: var(--heading-line-section);
+  letter-spacing: var(--heading-tracking-section) !important;
+  color: var(--color-heading) !important;
+  word-break: break-word;
+}
+
+.serif,
+.accent-text,
+.svc-heading .serif,
+.section-header-heading .serif,
+.section-heading__title .serif,
+.introduction-section__title .serif,
+.split-heading__title .serif,
+.final-call-to-action-section__title .serif {
+  font-family: var(--font-accent) !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  color: var(--color-brand-blue) !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: 0;
+  vertical-align: baseline;
+}
+
+.accent-text {
+  font-size: 1.08em !important;
+}
+
+/* Global Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button--primary {
+  background: var(--color-orange-bright);
+  color: var(--color-white) !important;
+}
+
+.button--outline-light {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+.button--outline-light:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-white);
+}

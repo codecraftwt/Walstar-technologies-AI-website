@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_sections_service_grids",
+  "info": {
+    "displayName": "Service Grid",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "pill": {
+      "type": "string",
+      "default": "Services"
+    },
+    "headingPrefix": {
+      "type": "string"
+    },
+    "headingSerif": {
+      "type": "string",
+      "default": "Solutions"
+    },
+    "headingSuffix": {
+      "type": "string",
+      "default": "We Deliver"
+    },
+    "description": {
+      "type": "text"
+    },
+    "showAllServices": {
+      "type": "boolean",
+      "default": true
+    },
+    "services": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service"
+    }
+  }
+}
