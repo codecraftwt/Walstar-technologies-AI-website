@@ -65,10 +65,6 @@ export const PAGE_POPULATE = {
           primaryImage: true,
           secondaryImage: true,
           highlightIcon: true,
-          stats: true,
-          ratingPlatforms: {
-            populate: ['logo'],
-          },
         },
       },
       'sections.capabilities': {
